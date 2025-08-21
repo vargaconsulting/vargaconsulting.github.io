@@ -1,0 +1,100 @@
+site_name: VARGA CONSULTING
+docs_dir: docs
+nav:
+  - Introduction: index.md
+  - IEX2H5: site/iex2h5.md
+  - Radix64: site/radix64.md
+  - TinyCrypto: site/tinycrypto.md
+  - H5CPP header only: site/h5cpp.md
+  - H5CPP compiler: site/h5cpp-compiler.md
+  - Decimal Float: site/decimalfloat.md
+  - IEX Download: site/iexdownload.md
+  - OpenSSL++: site/openssl.md
+  - BIP: site/bip.md
+  - EIP: site/eip712.md
+  - Generics C++: site/generics.md
+  - KMS: site/kms.md
+  - NSS: site/nss.md
+  - Orderbook: site/orderbook.md
+  - UDS: site/uds.md
+  - Web3: site/web3.md
+  - Talks: site/talks.md
+
+theme:
+  name: material
+  custom_dir: docs/overrides
+  highlightjs: true
+  features:
+    #- navigation.instant <- messes up mathjax, keep it disabled!
+    - search.suggest
+    - content.code.copy
+    - content.tooltips    
+  icon:
+  admonition:
+  palette:
+    - scheme: solarized
+      primary: orange
+      toggle:
+        icon: material/lightbulb
+        name: Switch to dark mode
+    - scheme: slate
+      primary: orange
+      toggle:
+        icon: material/lightbulb-outline
+        name: Switch to light mode
+extra:
+  social:
+    - icon: material/whatsapp
+      link: https://wa.me/16475611829
+    - icon: material/email-fast
+      link: mailto:steven@vargaconsulting.ca
+    - icon: material/twitter
+      link: https://x.com/vargaconsulting
+    - icon: material/linkedin
+      link: https://www.linkedin.com/in/steven-varga-04224a19/
+    - icon: material/github 
+      link: https://github.com/vargaconsulting
+    - icon: simple/discord
+      link: https://discord.gg/rZHgg2HpsD
+
+  icons:
+    - material
+    - fontawesome/brands
+    - fontawesome/solid
+    
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - footnotes
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg  
+  - pymdownx.tabbed:
+      alternate_style: true  
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.blocks.caption
+  - pymdownx.caret
+  - pymdownx.mark
+  - pymdownx.tilde  
+  - pymdownx.critic
+  - pymdownx.keys
+    
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+  - https://cdn.jsdelivr.net/npm/asciinema-player@3.0.1/dist/bundle/asciinema-player.js
+  - javascripts/mathjax.js
+
+extra_css:
+  - styles/custom.css
+  - styles/background.css
+  - https://cdn.jsdelivr.net/npm/asciinema-player@3.0.1/dist/bundle/asciinema-player.css
