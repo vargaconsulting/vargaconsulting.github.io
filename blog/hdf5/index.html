@@ -1,0 +1,3266 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Advanced Systems for Trading, Cryptography, and Data Engineering">
+      
+      
+        <meta name="author" content="Steven Varga">
+      
+      
+        <link rel="canonical" href="https://steven-varga.ca/blog/hdf5/">
+      
+      
+        <link rel="prev" href="../finance/">
+      
+      
+        <link rel="next" href="../julia/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>hdf5 - VargaLABS</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../styles/asciinema-player.css">
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+      <link rel="stylesheet" href="../../styles/custom.css">
+    
+      <link rel="stylesheet" href="../../styles/mobile.css">
+    
+      <link rel="stylesheet" href="../../styles/socials.css">
+    
+      <link rel="stylesheet" href="../../styles/background.css">
+    
+      <link rel="stylesheet" href="../../styles/blog.css">
+    
+      <link rel="stylesheet" href="../../styles/asciinema.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-L58Z6SZ3TN"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-L58Z6SZ3TN",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-L58Z6SZ3TN",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="VargaLABS" />
+    <meta property="og:title" content="VargaLABS" />
+    <meta property="og:description" content="Advanced Systems for Trading, Cryptography, and Data Engineering" />
+    <meta property="og:url" content="https://steven-varga.ca/blog/hdf5/" />
+    <meta property="og:image" content="https://steven-varga.ca//assets/social/og-default.png" />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@vargaconsulting" />
+    <meta name="twitter:title" content="VargaLABS" />
+    <meta name="twitter:description" content="Advanced Systems for Trading, Cryptography, and Data Engineering" />
+    <meta name="twitter:image" content="https://steven-varga.ca//assets/social/og-default.png" />
+
+    <!-- SEO -->
+    <link rel="canonical" href="https://steven-varga.ca/blog/hdf5/" />
+    <meta name="description" content="Advanced Systems for Trading, Cryptography, and Data Engineering" />
+    <script type="application/ld+json">
+    {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "VargaLABS",
+    "description": "Advanced Systems for Trading, Cryptography, and Data Engineering",
+    "url": "https://steven-varga.ca/blog/hdf5/",
+    "datePublished": "2010-01-01",
+    "author": {
+        "@type": "Person",
+        "name": "Steven Varga"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "VargaLABS",
+        "logo": {
+        "@type": "ImageObject",
+        "url": "https://steven-varga.ca//assets/logo.png"
+        }
+    },
+    "image": "https://steven-varga.ca//assets/social/og-default.png"
+    }
+    </script>    
+
+<link rel="alternate" type="application/rss+xml" title="VargaLABS RSS Feed" href="../../rss.xml" />
+<link rel="alternate" type="application/feed+json" title="VargaLABS JSON Feed" href="../../feed.json" />
+
+
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="solarized" data-md-color-primary="orange" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#hdf5" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="VargaLABS" class="md-header__button md-logo" aria-label="VargaLABS" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Advanced Systems for Trading, Cryptography, and Data Engineering
+          </span>
+     
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              hdf5
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    <div class="md-social-inline">
+      
+      
+        
+        
+        
+        
+          
+          
+        
+        <a href="https://wa.me/16475611829" target="_blank" rel="noopener" title="wa.me" class="md-header__button md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.23 8.23 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23-1.48 0-2.93-.39-4.19-1.15l-.3-.17-3.12.82.83-3.04-.2-.32a8.2 8.2 0 0 1-1.26-4.38c.01-4.54 3.7-8.24 8.25-8.24M8.53 7.33c-.16 0-.43.06-.66.31-.22.25-.87.86-.87 2.07 0 1.22.89 2.39 1 2.56.14.17 1.76 2.67 4.25 3.73.59.27 1.05.42 1.41.53.59.19 1.13.16 1.56.1.48-.07 1.46-.6 1.67-1.18s.21-1.07.15-1.18c-.07-.1-.23-.16-.48-.27-.25-.14-1.47-.74-1.69-.82-.23-.08-.37-.12-.56.12-.16.25-.64.81-.78.97-.15.17-.29.19-.53.07-.26-.13-1.06-.39-2-1.23-.74-.66-1.23-1.47-1.38-1.72-.12-.24-.01-.39.11-.5.11-.11.27-.29.37-.44.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.11-.56-1.35-.77-1.84-.2-.48-.4-.42-.56-.43-.14 0-.3-.01-.47-.01"/></svg>
+        </a>
+      
+        
+        
+        
+        
+        <a href="mailto:steven@vargaconsulting.ca" target="_blank" rel="noopener" title="" class="md-header__button md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 5.5H9c-1.1 0-2 .9-2 2v9a2 2 0 0 0 2 2h13c1.11 0 2-.89 2-2v-9a2 2 0 0 0-2-2m0 3.67-6.5 3.33L9 9.17V7.5l6.5 3.31L22 7.5zM5 16.5c0 .17.03.33.05.5H1c-.552 0-1-.45-1-1s.448-1 1-1h4zM3 7h2.05c-.02.17-.05.33-.05.5V9H3c-.55 0-1-.45-1-1s.45-1 1-1m-2 5c0-.55.45-1 1-1h3v2H2c-.55 0-1-.45-1-1"/></svg>
+        </a>
+      
+        
+        
+        
+        
+          
+          
+        
+        <a href="https://x.com/vargaconsulting" target="_blank" rel="noopener" title="x.com" class="md-header__button md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.2 4.2 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.52 8.52 0 0 1-5.33 1.84q-.51 0-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23"/></svg>
+        </a>
+      
+        
+        
+        
+        
+          
+          
+        
+        <a href="https://www.linkedin.com/in/steven-varga-04224a19/" target="_blank" rel="noopener" title="www.linkedin.com" class="md-header__button md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93zM6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37z"/></svg>
+        </a>
+      
+        
+        
+        
+        
+          
+          
+        
+        <a href="https://github.com/vargaconsulting" target="_blank" rel="noopener" title="github.com" class="md-header__button md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg>
+        </a>
+      
+
+      
+      <span class="md-header__button md-icon" style="pointer-events: none; opacity: 0.4;">|</span>  
+    </div>
+  
+
+  
+  
+    
+    
+    
+
+    <input class="md-option"
+           data-md-color-media=""
+           data-md-color-scheme="solarized"
+           data-md-color-primary="orange"
+           data-md-color-accent="indigo"
+            aria-label="Switch to dark mode"
+           
+           type="radio" name="__palette" id="__palette_0">
+
+    
+      <label class="md-header__button md-icon"
+             title="Switch to dark mode"
+             for="__palette_1">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon-icon lucide-moon"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+    
+    
+    
+
+    <input class="md-option"
+           data-md-color-media=""
+           data-md-color-scheme="slate"
+           data-md-color-primary="orange"
+           data-md-color-accent="indigo"
+            aria-label="Switch to light mode"
+           
+           type="radio" name="__palette" id="__palette_1">
+
+    
+      <label class="md-header__button md-icon"
+             title="Switch to light mode"
+             for="__palette_0">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun-icon lucide-sun"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+<!-- -->
+
+<!-- -->
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="VargaLABS" class="md-nav__button md-logo" aria-label="VargaLABS" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    VargaLABS
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/talks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Presentations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Projects
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Projects
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/iexdownload/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IEX Download
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/iex-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IEX Pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/iex2h5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IEX2H5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/radix64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Radix64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/tinycrypto/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TinyCrypto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/h5cpp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    H5CPP header only
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/h5cpp-compiler/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    H5CPP compiler
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/decimalfloat-cpp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decimal Float C++
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/decimalfloat-python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decimal Float Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/openssl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenSSL++
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/bip/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BIP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/eip712/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    EIP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/generics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generics C++
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/kms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KMS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/nss/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NSS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/orderbook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Orderbook
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/uds/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UDS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Blog
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Posts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Posts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../2025/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    September 2025
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../2023/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    May 2023
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../2022/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    June 2022
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    April 2021
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../2020/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    December 2020
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../2019/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    December 2019
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../2018/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    May 2018
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../2017/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    March 2017
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../2016/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    December 2016
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../2014/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    October 2014
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Categories
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Categories
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../blockchain/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    blockchain
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../c/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    c++
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../cryptography/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    cryptography
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-engineering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    data-engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../encoding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    encoding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../finance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    finance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    
+      
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    hdf5
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    hdf5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#radix64-encoding-order-preserving-strings-in-64-bits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Radix64 Encoding: Order-Preserving Strings in 64 Bits
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-your-hdf5-dataset-cant-extendand-the-h5cpp-way" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Your HDF5 Dataset Can't Extend—and the H5CPP Way
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optimizing-reads-of-very-wide-compound-hdf5-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimizing Reads of Very-Wide Compound HDF5 Types
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hdf5-write-speeds-matching-underlying-raw-io" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HDF5 Write Speeds: Matching Underlying Raw I/O
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-writing-hdf5-chunks-piece-by-piece-actually-fails" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Writing HDF5 Chunks Piece-by-Piece Actually Fails
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writing-direct-hdf5-chunks-piece-by-piece-with-h5cpp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Writing Direct HDF5 Chunks Piece-by-Piece with H5CPP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extendable-datasets-in-hdf5simplified-with-h5cpp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extendable Datasets in HDF5—Simplified with H5CPP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cross-language-messaging-with-zeromq-c-python-and-fortran" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cross-language Messaging with ZeroMQ: C++, Python, and Fortran
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#automated-pretty-printing-for-stl-like-containers-in-h5cpp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Automated Pretty Printing for STL-like Containers in H5CPP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hdf5-group-overhead-measuring-the-cost-of-a-million-groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HDF5 Group Overhead: Measuring the Cost of a Million Groups
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../julia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    julia
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../market-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    market data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../postmortem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    postmortem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../quant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    quant
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#radix64-encoding-order-preserving-strings-in-64-bits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Radix64 Encoding: Order-Preserving Strings in 64 Bits
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-your-hdf5-dataset-cant-extendand-the-h5cpp-way" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Your HDF5 Dataset Can't Extend—and the H5CPP Way
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optimizing-reads-of-very-wide-compound-hdf5-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimizing Reads of Very-Wide Compound HDF5 Types
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hdf5-write-speeds-matching-underlying-raw-io" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HDF5 Write Speeds: Matching Underlying Raw I/O
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-writing-hdf5-chunks-piece-by-piece-actually-fails" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Writing HDF5 Chunks Piece-by-Piece Actually Fails
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writing-direct-hdf5-chunks-piece-by-piece-with-h5cpp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Writing Direct HDF5 Chunks Piece-by-Piece with H5CPP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extendable-datasets-in-hdf5simplified-with-h5cpp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extendable Datasets in HDF5—Simplified with H5CPP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cross-language-messaging-with-zeromq-c-python-and-fortran" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cross-language Messaging with ZeroMQ: C++, Python, and Fortran
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#automated-pretty-printing-for-stl-like-containers-in-h5cpp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Automated Pretty Printing for STL-like Containers in H5CPP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hdf5-group-overhead-measuring-the-cost-of-a-million-groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HDF5 Group Overhead: Measuring the Cost of a Million Groups
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+  <div class="md-content" data-md-component="content">
+    <div class="md-content__inner">
+      <header class="md-typeset">
+        <h1 id="hdf5">hdf5</h1>
+      </header>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2025-08-23 00:00:00+00:00">August 23, 2025</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../encoding/" class="md-meta__link">encoding</a>, 
+              <a href="./" class="md-meta__link">hdf5</a>, 
+              <a href="../c/" class="md-meta__link">c++</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              5 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="radix64-encoding-order-preserving-strings-in-64-bits"><a class="toclink" href="../radix64-order-preserving-encoding/">Radix64 Encoding: Order-Preserving Strings in 64 Bits</a></h2>
+<details class="example">
+<summary><span class="twemoji example"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 18h-2v-2h2zm0-3h-2c0-3.25 3-3 3-5 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 2.5-3 2.75-3 5m9-3c0 5.18-3.95 9.45-9 9.95v-2.01c3.95-.49 7-3.86 7-7.94s-3.05-7.45-7-7.94V2.05c5.05.5 9 4.77 9 9.95M11 2.05v2.01c-1.46.18-2.8.76-3.91 1.62L5.67 4.26C7.15 3.05 9 2.25 11 2.05M4.06 11H2.05c.2-2 1-3.85 2.21-5.33L5.68 7.1A7.9 7.9 0 0 0 4.06 11M11 19.94v2.01c-2-.2-3.85-.99-5.33-2.21l1.42-1.42c1.11.86 2.45 1.44 3.91 1.62M2.05 13h2.01c.18 1.46.76 2.8 1.62 3.91l-1.42 1.42A10 10 0 0 1 2.05 13"/></svg></span> <strong>Problem: Compact, Order-Preserving Identifiers for Short Symbols</strong></summary>
+<p>In domains like high-frequency trading, structured storage, or financial indexing, identifiers such as stock symbols (e.g., <code>"AAPL"</code>, <code>"GOOG"</code>, <code>"TSLA"</code>) are:</p>
+<ul>
+<li><strong>Short</strong> — typically ≤ 8 characters  </li>
+<li><strong>Drawn from a small alphabet</strong> — ~32 to 40 printable characters  </li>
+<li><strong>Compared lexicographically</strong> — e.g., <code>"ABC" &lt; "XYZ"</code> must hold</li>
+</ul>
+<p>These structural constraints can be <strong>exploited</strong> to encode each symbol into a <strong>compact, fixed-width binary key</strong> while preserving their natural sort order.</p>
+<p>Specifically, such systems often need:</p>
+<ul>
+<li><strong>Lexicographic ordering</strong> — to maintain sorted maps, symbol trees, or search indices  </li>
+<li><strong>Fixed-size keys</strong> — for CPU- and cache-friendly performance  </li>
+<li><strong>Support for variable-length symbols</strong> — without breaking ordering  </li>
+<li><strong>Ability to pack extra metadata</strong> — like 16-bit contract IDs or timestamps</li>
+</ul>
+<p>But typical representations fall short:</p>
+<ul>
+<li><code>std::string</code> / <code>char[]</code> are variable-length and inefficient as keys  </li>
+<li><code>strcmp</code> is slow, branching, and non-SIMD friendly  </li>
+<li>Standard Base64 isn't order-preserving  </li>
+<li>Hashes destroy ordering and increase collision risk</li>
+</ul>
+<p>➤ <strong>Radix64 encoding</strong> solves this by leveraging the symbol structure — short, constrained, ordered strings — to pack lex-order-preserving representations into just <strong>64 bits</strong>.</p>
+</details>
+<details class="example">
+<summary><span class="twemoji example"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M0 72c0-13.2 10.7-24 24-24h48c13.3 0 24 10.7 24 24v104h24c13.3 0 24 10.7 24 24s-10.7 24-24 24H24c-13.3 0-24-10.7-24-24s10.7-24 24-24h24V96H24C10.7 96 0 85.3 0 72m30.4 229.2C41.8 292.6 55.7 288 70 288h4.9c33.7 0 61.1 27.4 61.1 61.1 0 19.6-9.4 37.9-25.2 49.4l-24 17.5H120c13.3 0 24 10.7 24 24s-10.7 24-24 24H29.3C13.1 464 0 450.9 0 434.7c0-9.4 4.5-18.2 12.1-23.7l70.5-51.3c3.4-2.5 5.4-6.4 5.4-10.6 0-7.2-5.9-13.1-13.1-13.1H70c-3.9 0-7.7 1.3-10.8 3.6l-20.8 15.6c-10.6 8-25.6 5.8-33.6-4.8s-5.8-25.6 4.8-33.6zM224 64h256c17.7 0 32 14.3 32 32s-14.3 32-32 32H224c-17.7 0-32-14.3-32-32s14.3-32 32-32m0 160h256c17.7 0 32 14.3 32 32s-14.3 32-32 32H224c-17.7 0-32-14.3-32-32s14.3-32 32-32m0 160h256c17.7 0 32 14.3 32 32s-14.3 32-32 32H224c-17.7 0-32-14.3-32-32s14.3-32 32-32"/></svg></span> <strong>Solution: Order-Preserving Radix64 Encoding</strong></summary>
+<p>Radix64 solves this by:</p>
+<ul>
+<li><strong>Encoding up to 8 characters</strong> as a <strong>48-bit big-endian base-64 integer</strong></li>
+<li><strong>Padding shorter strings</strong> with the lowest code to preserve prefix order</li>
+<li><strong>Optionally combining</strong> a 16-bit integer (e.g., contract ID) in the LSBs</li>
+<li>Making <strong>unsigned integer comparison</strong> exactly match <strong>lexicographic order</strong></li>
+</ul>
+<p>So you can now represent things like:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>&quot;AAPL&quot;    → 48-bit radix64 prefix
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>contract  → 16-bit index
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>key       → 64-bit sortable, compact ID
+</span></code></pre></div>
+<p>Used as keys in:</p>
+<ul>
+<li>Fast symbol lookup tables</li>
+<li>Order books and trading systems</li>
+<li>Encoded identifiers for datasets or HDF5 groups</li>
+<li>Key-value stores, B-trees, or radix trees</li>
+</ul>
+</details>
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.78 3.653a3.936 3.936 0 1 1 5.567 5.567l-3.627 3.627a3.936 3.936 0 0 1-5.88-.353.75.75 0 0 0-1.18.928 5.436 5.436 0 0 0 8.12.486l3.628-3.628a5.436 5.436 0 1 0-7.688-7.688l-3 3a.75.75 0 0 0 1.06 1.061z"/><path d="M7.28 11.153a3.936 3.936 0 0 1 5.88.353.75.75 0 0 0 1.18-.928 5.436 5.436 0 0 0-8.12-.486L2.592 13.72a5.436 5.436 0 1 0 7.688 7.688l3-3a.75.75 0 1 0-1.06-1.06l-3 3a3.936 3.936 0 0 1-5.567-5.568z"/></svg></span> <a href="../site/radix64/">Read the full radix64 guide</a></p>
+    
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2023-05-17 00:00:00+00:00">May 17, 2023</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="./" class="md-meta__link">hdf5</a>, 
+              <a href="../c/" class="md-meta__link">c++</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              6 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="why-your-hdf5-dataset-cant-extendand-the-h5cpp-way"><a class="toclink" href="../h5cpp-dataset-cant-extend/">Why Your HDF5 Dataset Can't Extend—and the H5CPP Way</a></h2>
+<p>Rudresh shared that attempts to extend a dataset were failing with crashes or no effect—despite calling <code>.extend(...)</code> or <code>H5Dextend()</code>. Their code was creating a 2D dataset of variable‑length strings, but had not enabled chunking or specified unlimited max dimensions, leaving them stuck.</p>
+<details class="example">
+<summary><span class="twemoji example"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10.25 2c.19 0 .36.11.44.26l2.22 3.96.09.28-.09.28-2.22 3.96c-.08.15-.25.26-.44.26h-4.5c-.19 0-.36-.11-.44-.26L3.09 6.78 3 6.5l.09-.28 2.22-3.96c.08-.15.25-.26.44-.26zm0 11c.19 0 .36.11.44.26l2.22 3.96.09.28-.09.28-2.22 3.96c-.08.15-.25.26-.44.26h-4.5c-.19 0-.36-.11-.44-.26l-2.22-3.96L3 17.5l.09-.28 2.22-3.96c.08-.15.25-.26.44-.26zm9.25-5.5c.19 0 .36.11.44.26l2.22 3.96.09.28-.09.28-2.22 3.96c-.08.15-.25.26-.44.26H15c-.19 0-.36-.11-.44-.26l-2.22-3.96-.09-.28.09-.28 2.22-3.96c.08-.15.25-.26.44-.26z"/></svg></span> The Insight</summary>
+<p>If you don’t create a dataset with <strong>chunked layout</strong> and <strong>max dimensions set to unlimited (H5S_UNLIMITED)</strong>, HDF5 creates it with <strong>contiguous storage</strong> and a fixed size that cannot be extended later. That's the crux: without chunking and unlimited dims, calling <code>.extend</code> will fail or crash.</p>
+</details>
+<details class="example">
+<summary><span class="twemoji example"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 4h2v6h4V4h2v14H9v-6H5v6H3zm12 0h5v2h-5v4h2a4 4 0 0 1 4 4 4 4 0 0 1-4 4h-2a2 2 0 0 1-2-2v-1h2v1h2a2 2 0 0 0 2-2 2 2 0 0 0-2-2h-2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2"/></svg></span> A Possible H5CPP Solution</summary>
+<p>Here’s how you can cleanly create an extendible dataset and append to it—using H5CPP:</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;h5cpp/all&gt;</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="c1">// Create a new file and an extendible dataset of scalar values</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span><span class="n">h5</span><span class="o">::</span><span class="n">fd_t</span><span class="w"> </span><span class="n">fd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">h5</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="s">&quot;example.h5&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">H5F_ACC_TRUNC</span><span class="p">);</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">  </span><span class="c1">// Create a packet-table (extendible) dataset of scalars</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">  </span><span class="n">h5</span><span class="o">::</span><span class="n">pt_t</span><span class="w"> </span><span class="n">pt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">h5</span><span class="o">::</span><span class="n">create</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="p">(</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">    </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">    </span><span class="s">&quot;stream of scalars&quot;</span><span class="p">,</span><span class="w"> </span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">    </span><span class="n">h5</span><span class="o">::</span><span class="n">max_dims</span><span class="p">{</span><span class="n">H5S_UNLIMITED</span><span class="p">}</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">  </span><span class="p">);</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">  </span><span class="c1">// Append values dynamically</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">})</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">    </span><span class="n">h5</span><span class="o">::</span><span class="n">append</span><span class="p">(</span><span class="n">pt</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">);</span>
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>For a frame‑by‑frame stream (e.g., matrices or images):</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;h5cpp/all&gt;</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;armadillo&gt;</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">  </span><span class="n">h5</span><span class="o">::</span><span class="n">fd_t</span><span class="w"> </span><span class="n">fd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">h5</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="s">&quot;example.h5&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">H5F_ACC_TRUNC</span><span class="p">);</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">  </span><span class="kt">size_t</span><span class="w"> </span><span class="n">nrows</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">ncols</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="n">nframes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">pt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">h5</span><span class="o">::</span><span class="n">create</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">    </span><span class="n">fd</span><span class="p">,</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">    </span><span class="s">&quot;stream of matrices&quot;</span><span class="p">,</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">    </span><span class="n">h5</span><span class="o">::</span><span class="n">max_dims</span><span class="p">{</span><span class="n">H5S_UNLIMITED</span><span class="p">,</span><span class="w"> </span><span class="n">nrows</span><span class="p">,</span><span class="w"> </span><span class="n">ncols</span><span class="p">},</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">    </span><span class="n">h5</span><span class="o">::</span><span class="n">chunk</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">nrows</span><span class="p">,</span><span class="w"> </span><span class="n">ncols</span><span class="p">}</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="w">  </span><span class="p">);</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="w">  </span><span class="n">arma</span><span class="o">::</span><span class="n">mat</span><span class="w"> </span><span class="n">M</span><span class="p">(</span><span class="n">nrows</span><span class="p">,</span><span class="w"> </span><span class="n">ncols</span><span class="p">);</span>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">nframes</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="w">    </span><span class="n">h5</span><span class="o">::</span><span class="n">append</span><span class="p">(</span><span class="n">pt</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="p">);</span>
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="p">}</span>
+</span></code></pre></div>
+</details>
+<details class="example">
+<summary><span class="twemoji example"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3C6.5 3 2 6.6 2 11c0 2.1 1 4.1 2.8 5.5 0 .6-.4 2.2-2.8 4.5 0 0 3.5 0 6.5-2.5 1.1.3 2.3.5 3.5.5 5.5 0 10-3.6 10-8s-4.5-8-10-8m1 12h-2v-2h2zm1.8-5c-.3.4-.7.6-1.1.8-.3.2-.4.3-.5.5-.2.2-.2.4-.2.7h-2c0-.5.1-.8.3-1.1.2-.2.6-.5 1.1-.8.3-.1.5-.3.6-.5s.2-.5.2-.7c0-.3-.1-.5-.3-.7s-.5-.3-.8-.3-.5.1-.7.2q-.3.15-.3.6h-2c.1-.7.4-1.3.9-1.7s1.2-.5 2.1-.5 1.7.2 2.2.6.8 1 .8 1.7q.15.6-.3 1.2"/></svg></span> Why This Works</summary>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>H5CPP Approach</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Extendible storage</td>
+<td><code>h5::max_dims{H5S_UNLIMITED}</code></td>
+</tr>
+<tr>
+<td>Chunked layout setup</td>
+<td>Automatic via <code>h5::chunk{...}</code></td>
+</tr>
+<tr>
+<td>Appending data</td>
+<td>One-liners with <code>h5::append(...)</code></td>
+</tr>
+<tr>
+<td>Clean C++ modern API</td>
+<td>Templates, RAII, zero boilerplate</td>
+</tr>
+</tbody>
+</table>
+</details>
+<details class="example" open="open">
+<summary><span class="twemoji example"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.832 3.367 8.668.108a3.15 3.15 0 0 0-3.856 2.226L.943 16.777a3.15 3.15 0 0 0 2.226 3.856l12.163 3.259a3.15 3.15 0 0 0 3.855-2.226l3.87-14.443a3.15 3.15 0 0 0-2.226-3.856M6.332 2.741a1.574 1.574 0 0 1 1.928-1.113l12.163 3.26a1.574 1.574 0 0 1 1.113 1.927l-3.87 14.444a1.574 1.574 0 0 1-1.928 1.113l-12.163-3.26a1.574 1.574 0 0 1-1.113-1.927zm2.634 2.336a.787.787 0 1 0-.407 1.52l9.122 2.444a.787.787 0 1 0 .407-1.52zM6.985 9.434a.787.787 0 0 1 .963-.557l9.123 2.445a.787.787 0 0 1-.408 1.52l-9.122-2.444a.787.787 0 0 1-.556-.964m-.055 3.244a.787.787 0 0 0-.407 1.52l5.32 1.427a.787.787 0 0 0 .408-1.52z"/></svg></span> TLDR</summary>
+<p>If your HDF5 dataset “can’t extend,” the culprit is almost always that it's not chunked with unlimited dimensions. Fix that creation pattern—chunking is mandatory.
+With <strong>H5CPP</strong>, appending becomes elegant and idiomatic:</p>
+<ul>
+<li><strong>Create</strong>: <code>h5::create</code> with unlimited dims</li>
+<li><strong>Append</strong>: <code>h5::append(...)</code> in plain C++ style</li>
+</ul>
+<p>Let me know if you'd like this turned into a tutorial or compared to the raw HDF5 C++ API equivalent.</p>
+</details>
+    
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2023-04-17 00:00:00+00:00">April 17, 2023</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="./" class="md-meta__link">hdf5</a>, 
+              <a href="../c/" class="md-meta__link">c++</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              6 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="optimizing-reads-of-very-wide-compound-hdf5-types"><a class="toclink" href="../hdf5-wide-compound-optimization/">Optimizing Reads of Very-Wide Compound HDF5 Types</a></h2>
+<h3 id="the-users-problem-matt-apr-2023"><a class="toclink" href="../hdf5-wide-compound-optimization/#the-users-problem-matt-apr-2023">The User’s Problem (Matt, Apr 2023)</a></h3>
+<p>Matt is struggling with reading HDF5 datasets comprised of extremely wide compound types (think up to ~460 fields):</p>
+<ul>
+<li>Data is stored as an <code>Nx1</code> array of compound structs with hundreds of fields, compressed with gzip.</li>
+<li>Reads dominate runtime (90%)—mostly in Python/h5py.</li>
+<li>In practice, they <strong>need all rows, but only a small subset of fields</strong>. Yet, reading a single field one at a time is slow; full-row reads are even slower.</li>
+<li>Splitting each field into its own dataset killed write performance; the current design isn’t cutting it.</li>
+</ul>
+<h3 id="my-take-swap-width-for-depth-with-smart-packing"><a class="toclink" href="../hdf5-wide-compound-optimization/#my-take-swap-width-for-depth-with-smart-packing">My Take: Swap Width for Depth With Smart Packing</a></h3>
+<p>Here’s how I’d rethink the layout from an HDF5/H5CPP standpoint:</p>
+<h4 id="1-chunking-field-grouping"><a class="toclink" href="../hdf5-wide-compound-optimization/#1-chunking-field-grouping">1. <strong>Chunking + Field Grouping</strong></a></h4>
+<p>Pack related fields together into chunked arrays, based on how they’re queried, not just what’s easiest to write.</p>
+<ul>
+<li>Define blocks (chunks) where each contains a subset of fields that you often read together.</li>
+<li>That way, <strong>each read aligns with your real access pattern</strong>, boosting I/O efficiency.</li>
+<li>Yes, some fields may be stored twice in different chunks—but that’s a conscious space-for-speed trade-off.</li>
+</ul>
+<h4 id="2-optimize-based-on-queries"><a class="toclink" href="../hdf5-wide-compound-optimization/#2-optimize-based-on-queries">2. <strong>Optimize Based on Queries</strong></a></h4>
+<p>Design your dataset structure backward—from the query patterns, not upstream modeling considerations. Pre-encode access patterns in your layout.</p>
+<h4 id="summary-table"><a class="toclink" href="../hdf5-wide-compound-optimization/#summary-table">Summary Table</a></h4>
+<table>
+<thead>
+<tr>
+<th>Strategy</th>
+<th>Pros</th>
+<th>Trade-Offs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Wide compound structs</td>
+<td>Simple to write</td>
+<td>Slow for selective reads</td>
+</tr>
+<tr>
+<td>Per-field datasets</td>
+<td>Very selective reads</td>
+<td>Sluggish writes, many datasets</td>
+</tr>
+<tr>
+<td>Chunked field grouping (recommended)</td>
+<td>Fast reads for grouped fields, aligned I/O</td>
+<td>Slight redundancy, more planning</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tldr"><a class="toclink" href="../hdf5-wide-compound-optimization/#tldr">TL;DR</a></h3>
+<p>Reading “all rows but a few fields” from hundreds-wide compound datasets can crush performance, especially in Python.</p>
+<p>The fix? <strong>Restructure your HDF5 layout</strong> to align with real query behavior—use chunked blocks that contain all frequently accessed fields together. H5CPP supports this cleanly with a modern template-based API.</p>
+    
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2023-03-28 00:00:00+00:00">March 28, 2023</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="./" class="md-meta__link">hdf5</a>, 
+              <a href="../c/" class="md-meta__link">c++</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              10 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="hdf5-write-speeds-matching-underlying-raw-io"><a class="toclink" href="../hdf5-write-performance-vs-raw/">HDF5 Write Speeds: Matching Underlying Raw I/O</a></h2>
+<h3 id="the-question-op-concern"><a class="toclink" href="../hdf5-write-performance-vs-raw/#the-question-op-concern">The Question (OP Concern)</a></h3>
+<p>A user observed that writing huge blocks (≥10 GB) with HDF5 was noticeably slower than equivalent raw writes. Understandably—they're comparing structured I/O to unadorned <code>write()</code> calls. The question: is this performance gap unavoidable, or can HDF5 be tuned to catch up?</p>
+<h3 id="what-i-found-steven-varga-mar-28-2023"><a class="toclink" href="../hdf5-write-performance-vs-raw/#what-i-found-steven-varga-mar-28-2023">What I Found (Steven Varga, Mar 28, 2023)</a></h3>
+<p>Here’s what I discovered—and benchmarked—on my Lenovo X1 running a recent Linux setup:</p>
+<ul>
+<li>Running a <strong>cross‑product H5CPP benchmark</strong>, I consistently hit about <strong>70–95%</strong> of the raw file system’s throughput when writing large blocks—clear evidence HDF5 is not inherently slow at scale.</li>
+<li>With <strong>tiny or fragmented writes</strong>, overhead becomes a bigger issue—as Gerd already pointed out, <strong>direct chunk I/O</strong> is the key to performance there. Rebuild your own packer or write path around full chunks.</li>
+<li>Or, if you want simplicity with speed, use <strong>H5CPP’s <code>h5::append()</code></strong>. It streamlines buffered I/O, chunk alignment, and high throughput without manual hackery.</li>
+</ul>
+<p>Here’s a snippet from my test run:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>steven@io:~/projects/h5bench/examples/capi$<span class="w"> </span>make
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>g++<span class="w"> </span>-I/usr/local/include<span class="w"> </span>-I/usr/include<span class="w"> </span>-I../../include<span class="w"> </span>-o<span class="w"> </span>capi-test.o<span class="w">   </span>-std<span class="o">=</span>c++17<span class="w"> </span>-Wno-attributes<span class="w"> </span>-c<span class="w"> </span>capi-test.cpp
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>g++<span class="w"> </span>capi-test.o<span class="w"> </span>-lhdf5<span class="w">  </span>-lz<span class="w"> </span>-ldl<span class="w"> </span>-lm<span class="w"> </span>-o<span class="w"> </span>capi-test
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>taskset<span class="w"> </span>0x1<span class="w"> </span>./capi-test
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="o">[</span>name<span class="w">                                              </span><span class="o">][</span>total<span class="w"> </span>events<span class="o">][</span>Mi<span class="w"> </span>events/s<span class="o">]</span><span class="w"> </span><span class="o">[</span>ms<span class="w"> </span>runtime<span class="w"> </span>/<span class="w"> </span>stddev<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="w">    </span>MiB/s<span class="w"> </span>/<span class="w"> </span>stddev<span class="w"> </span><span class="o">]</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>fixed<span class="w"> </span>length<span class="w"> </span>string<span class="w"> </span>CAPI<span class="w">                                    </span><span class="m">10000</span><span class="w">     </span><span class="m">625</span>.0000<span class="w">         </span><span class="m">0</span>.02<span class="w">     </span><span class="m">0</span>.000<span class="w">   </span><span class="m">24461</span>.70<span class="w">     </span><span class="m">256</span>.9
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>fixed<span class="w"> </span>length<span class="w"> </span>string<span class="w"> </span>CAPI<span class="w">                                   </span><span class="m">100000</span><span class="w">     </span><span class="m">122</span>.7898<span class="w">         </span><span class="m">0</span>.81<span class="w">     </span><span class="m">0</span>.038<span class="w">    </span><span class="m">4917</span>.70<span class="w">     </span><span class="m">213</span>.3
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>fixed<span class="w"> </span>length<span class="w"> </span>string<span class="w"> </span>CAPI<span class="w">                                  </span><span class="m">1000000</span><span class="w">      </span><span class="m">80</span>.4531<span class="w">        </span><span class="m">12</span>.43<span class="w">     </span><span class="m">0</span>.217<span class="w">    </span><span class="m">3218</span>.60<span class="w">      </span><span class="m">56</span>.6
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>fixed<span class="w"> </span>length<span class="w"> </span>string<span class="w"> </span>CAPI<span class="w">                                 </span><span class="m">10000000</span><span class="w">      </span><span class="m">79</span>.7568<span class="w">       </span><span class="m">125</span>.38<span class="w">     </span><span class="m">0</span>.140<span class="w">    </span><span class="m">3189</span>.80<span class="w">       </span><span class="m">3</span>.6
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>rm<span class="w"> </span>capi-test.o
+</span></code></pre></div></p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">argv</span><span class="p">){</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="kt">size_t</span><span class="w"> </span><span class="n">max_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">std</span><span class="o">::</span><span class="n">max_element</span><span class="p">(</span><span class="n">record_size</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">record_size</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span><span class="n">h5</span><span class="o">::</span><span class="n">fd_t</span><span class="w"> </span><span class="n">fd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">h5</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="s">&quot;h5cpp.h5&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">H5F_ACC_TRUNC</span><span class="p">);</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">strings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">h5</span><span class="o">::</span><span class="n">utils</span><span class="o">::</span><span class="n">get_test_data</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="p">(</span><span class="n">max_size</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">fl_string_t</span><span class="p">));</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">[</span><span class="k">sizeof</span><span class="p">(</span><span class="n">fl_string_t</span><span class="p">)]</span><span class="o">&gt;</span><span class="w"> </span><span class="n">data</span><span class="p">(</span><span class="n">strings</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">data</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">            </span><span class="n">strncpy</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">strings</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">fl_string_t</span><span class="p">));</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">  </span><span class="c1">// set the transfer size for each batch</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">transfer_size</span><span class="p">;</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">record_size</span><span class="p">)</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="w">      </span><span class="n">transfer_size</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">fl_string_t</span><span class="p">));</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="w">  </span><span class="c1">//use H5CPP  modify VL type to fixed length</span>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="w">  </span><span class="n">h5</span><span class="o">::</span><span class="n">dt_t</span><span class="o">&lt;</span><span class="n">fl_string_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">dt</span><span class="p">{</span><span class="n">H5Tcreate</span><span class="p">(</span><span class="n">H5T_STRING</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">fl_string_t</span><span class="p">))};</span>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="w">  </span><span class="n">H5Tset_cset</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span><span class="w"> </span><span class="n">H5T_CSET_UTF8</span><span class="p">);</span>
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>
+</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">h5</span><span class="o">::</span><span class="n">ds_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ds</span><span class="p">;</span>
+</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a><span class="w">  </span><span class="c1">// create separate dataset for each batch</span>
+</span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a><span class="w">  </span><span class="k">for</span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">size</span><span class="o">:</span><span class="w"> </span><span class="n">record_size</span><span class="p">)</span><span class="w"> </span><span class="n">ds</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span>
+</span><span id="__span-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a><span class="w">    </span><span class="n">h5</span><span class="o">::</span><span class="n">create</span><span class="o">&lt;</span><span class="n">fl_string_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="n">fmt</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;fixe length string CAPI-{:010d}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">),</span><span class="w"> </span>
+</span><span id="__span-5-23"><a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a><span class="w">    </span><span class="n">chunk_size</span><span class="p">,</span><span class="w"> </span><span class="n">h5</span><span class="o">::</span><span class="n">current_dims</span><span class="p">{</span><span class="n">size</span><span class="p">},</span><span class="w"> </span><span class="n">dt</span><span class="p">));</span>
+</span><span id="__span-5-24"><a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a>
+</span><span id="__span-5-25"><a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a><span class="w">  </span><span class="c1">// EXPERIMENT: arguments, including lambda function may be passed in arbitrary order</span>
+</span><span id="__span-5-26"><a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a><span class="w">  </span><span class="n">bh</span><span class="o">::</span><span class="n">throughput</span><span class="p">(</span>
+</span><span id="__span-5-27"><a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a><span class="w">    </span><span class="n">bh</span><span class="o">::</span><span class="n">name</span><span class="p">{</span><span class="s">&quot;fixed length string CAPI&quot;</span><span class="p">},</span><span class="w"> </span><span class="n">record_size</span><span class="p">,</span><span class="w"> </span><span class="n">warmup</span><span class="p">,</span><span class="w"> </span><span class="n">sample</span><span class="p">,</span>
+</span><span id="__span-5-28"><a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a><span class="w">    </span><span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="kt">size_t</span><span class="w"> </span><span class="n">idx</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">size_</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-29"><a id="__codelineno-5-29" name="__codelineno-5-29" href="#__codelineno-5-29"></a><span class="w">        </span><span class="n">hsize_t</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">size_</span><span class="p">;</span>
+</span><span id="__span-5-30"><a id="__codelineno-5-30" name="__codelineno-5-30" href="#__codelineno-5-30"></a><span class="w">        </span><span class="c1">// memory space</span>
+</span><span id="__span-5-31"><a id="__codelineno-5-31" name="__codelineno-5-31" href="#__codelineno-5-31"></a><span class="w">        </span><span class="n">h5</span><span class="o">::</span><span class="n">sp_t</span><span class="w"> </span><span class="n">mem_space</span><span class="p">{</span><span class="n">H5Screate_simple</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="nb">nullptr</span><span class="w"> </span><span class="p">)};</span>
+</span><span id="__span-5-32"><a id="__codelineno-5-32" name="__codelineno-5-32" href="#__codelineno-5-32"></a><span class="w">        </span><span class="n">H5Sselect_all</span><span class="p">(</span><span class="n">mem_space</span><span class="p">);</span>
+</span><span id="__span-5-33"><a id="__codelineno-5-33" name="__codelineno-5-33" href="#__codelineno-5-33"></a><span class="w">        </span><span class="c1">// file space</span>
+</span><span id="__span-5-34"><a id="__codelineno-5-34" name="__codelineno-5-34" href="#__codelineno-5-34"></a><span class="w">        </span><span class="n">h5</span><span class="o">::</span><span class="n">sp_t</span><span class="w"> </span><span class="n">file_space</span><span class="p">{</span><span class="n">H5Dget_space</span><span class="p">(</span><span class="n">ds</span><span class="p">[</span><span class="n">idx</span><span class="p">])};</span>
+</span><span id="__span-5-35"><a id="__codelineno-5-35" name="__codelineno-5-35" href="#__codelineno-5-35"></a><span class="w">        </span><span class="n">H5Sselect_all</span><span class="p">(</span><span class="n">file_space</span><span class="p">);</span>
+</span><span id="__span-5-36"><a id="__codelineno-5-36" name="__codelineno-5-36" href="#__codelineno-5-36"></a><span class="w">        </span><span class="c1">// IO call</span>
+</span><span id="__span-5-37"><a id="__codelineno-5-37" name="__codelineno-5-37" href="#__codelineno-5-37"></a><span class="w">        </span><span class="n">H5Dwrite</span><span class="p">(</span><span class="w"> </span><span class="n">ds</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span><span class="w"> </span><span class="n">dt</span><span class="p">,</span><span class="w"> </span><span class="n">mem_space</span><span class="p">,</span><span class="w"> </span><span class="n">file_space</span><span class="p">,</span><span class="w"> </span><span class="n">H5P_DEFAULT</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">.</span><span class="n">data</span><span class="p">());</span>
+</span><span id="__span-5-38"><a id="__codelineno-5-38" name="__codelineno-5-38" href="#__codelineno-5-38"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">transfer_size</span><span class="p">[</span><span class="n">idx</span><span class="p">];</span>
+</span><span id="__span-5-39"><a id="__codelineno-5-39" name="__codelineno-5-39" href="#__codelineno-5-39"></a><span class="w">    </span><span class="p">});</span>
+</span><span id="__span-5-40"><a id="__codelineno-5-40" name="__codelineno-5-40" href="#__codelineno-5-40"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>So, large writes are nearly as fast as raw file writes. The performance dip is most pronounced with smaller payloads.</p>
+<h3 id="what-this-means-in-practice"><a class="toclink" href="../hdf5-write-performance-vs-raw/#what-this-means-in-practice">What This Means In Practice</a></h3>
+<table>
+<thead>
+<tr>
+<th>Write Size</th>
+<th>HDF5 Performance</th>
+<th>Takeaway</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Large contiguous</td>
+<td>~70–95% of raw I/O</td>
+<td>HDF5 is performant at scale</td>
+</tr>
+<tr>
+<td>Small fragments</td>
+<td>Lower efficiency</td>
+<td>Use chunk-based buffering</td>
+</tr>
+<tr>
+<td>Need simplicity + speed</td>
+<td>Use <code>h5::append()</code></td>
+<td>Combines clarity and performance</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tldr"><a class="toclink" href="../hdf5-write-performance-vs-raw/#tldr">TL;DR</a></h3>
+<ul>
+<li><strong>HDF5 is fast</strong>—large-block writes approach raw I/O speeds.</li>
+<li><strong>Inefficiency creeps in</strong> with tiny or non-aligned writes.</li>
+<li><strong>Solution?</strong> Direct chunk I/O or use H5CPP’s <code>h5::append()</code> for elegant, high-throughput data streaming.</li>
+</ul>
+    
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2023-03-24 00:00:00+00:00">March 24, 2023</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="./" class="md-meta__link">hdf5</a>, 
+              <a href="../c/" class="md-meta__link">c++</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              6 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="why-writing-hdf5-chunks-piece-by-piece-actually-fails"><a class="toclink" href="../h5cpp-chunk-atomicity/">Why Writing HDF5 Chunks Piece-by-Piece Actually Fails</a></h2>
+<h3 id="the-question-march-20-2023"><a class="toclink" href="../h5cpp-chunk-atomicity/#the-question-march-20-2023">The Question (March 20, 2023)</a></h3>
+<p>The OP wanted to bypass copying and buffering in memory by writing HDF5 chunks in parts—i.e., building them incrementally. They’d heard of using <code>H5Dget_chunk_info</code> plus <code>pwrite()</code> to patch up chunk contents manually, especially in uncompressed scenarios.</p>
+<h3 id="my-response-march-24-2023"><a class="toclink" href="../h5cpp-chunk-atomicity/#my-response-march-24-2023">My Response (March 24, 2023)</a></h3>
+<p>Let me clarify the constraints first: a <strong>chunk is an indivisible IO unit</strong> in HDF5. It is processed as a single atomic job—particularly vital if filters or compression are applied. That’s baked into the library semantics and reflects how most storage and memory subsystems work.</p>
+<p>Here’s how you'd typically handle data in that model:</p>
+<p><strong>Chunk-based pipeline (e.g., with block ciphers):</strong>
+1. <code>pread(fd, data, full_chunk_size, offset)</code>
+2. Repeat until the entire chunk is loaded (must be whole)
+3. Apply filters/pipelines to the chunk
+4. Write or process…</p>
+<p>Given this model, partial chunk writes simply <strong>don’t make sense</strong>—and won’t be accepted by HDF5’s filter chain integrity checks.</p>
+<h3 id="what-you-should-do-instead"><a class="toclink" href="../h5cpp-chunk-atomicity/#what-you-should-do-instead">What You Should Do Instead</a></h3>
+<ul>
+<li><strong>Read the entire chunk</strong>, decode it, process your changes, then <strong>write the full chunk back</strong>. It’s the only correct way.</li>
+<li>If naive, direct chunk operations hit 90%+ of NVMe bandwidth in benchmarks, you're already in a sweet spot—focus on optimizing higher-level logic.</li>
+<li>H5CPP’s <code>h5::packet_table</code> elevates this approach: it abstracts buffer management and chunk alignment, so you can safely accumulate data from multiple sources and efficiently flush complete chunks.</li>
+</ul>
+<h3 id="tldr"><a class="toclink" href="../h5cpp-chunk-atomicity/#tldr">TL;DR</a></h3>
+<table>
+<thead>
+<tr>
+<th>Chunk Behavior</th>
+<th>You Must Do</th>
+<th>H5CPP Helps With</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Filter/compression atomicity</td>
+<td>Always read and write full chunk</td>
+<td><code>h5::packet_table</code> handles pre-buffering and alignment</td>
+</tr>
+<tr>
+<td>Fragment writes</td>
+<td>Not supported</td>
+<td>Use full chunk replacement workflow</td>
+</tr>
+<tr>
+<td>Performance on NVMe</td>
+<td>Good if chunked properly</td>
+<td>Fine-tuned by <code>h5::append()</code> internals</td>
+</tr>
+</tbody>
+</table>
+<p>Let me know if you'd like a code breakdown of <code>h5::packet_table</code> or a deep dive on how to handle chunk durability and concurrency in a streaming pipeline.</p>
+    
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2023-03-20 00:00:00+00:00">March 20, 2023</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="./" class="md-meta__link">hdf5</a>, 
+              <a href="../c/" class="md-meta__link">c++</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              7 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="writing-direct-hdf5-chunks-piece-by-piece-with-h5cpp"><a class="toclink" href="../h5cpp-direct-chunk-append/">Writing Direct HDF5 Chunks Piece-by-Piece with H5CPP</a></h2>
+<h3 id="the-use-case-op-context"><a class="toclink" href="../h5cpp-direct-chunk-append/#the-use-case-op-context">The Use Case (OP Context)</a></h3>
+<p>You’re working in a system that ingests data from multiple queues or streams, and you want to <strong>aggregate and flush them into HDF5 chunks incrementally</strong>. Essentially you need fine control: pack incoming data, apply filters, and write out only full chunks—or directly stream partial ones—without sacrificing alignment or performance.</p>
+<h3 id="my-h5cpp-based-guidance"><a class="toclink" href="../h5cpp-direct-chunk-append/#my-h5cpp-based-guidance">My H5CPP-Based Guidance</a></h3>
+<p>See <code>h5cpp::packet_table</code> on GitHub—it's designed for chunked, appendable writes. It features a chunk-packing mechanism and a filter-chain you can adapt for your needs. I even slipped in an alignment bug (huge respect to Bin Dong at Berkeley for spotting it)—you’ll only run into it if your chunks aren’t properly aligned.  </p>
+<p>You should be able to modify <code>h5::append</code> so that it aggregates data from different queues and flushes when chunks are full. For inspiration, check the repository example that demonstrates how to use lock‑free queues and ZeroMQ with both C++ and Fortran.  </p>
+<h3 id="h5cpp-pattern-at-work"><a class="toclink" href="../h5cpp-direct-chunk-append/#h5cpp-pattern-at-work">H5CPP Pattern at Work</a></h3>
+<p>Here’s the essence of how you can architect this:</p>
+<ol>
+<li><strong>Use a packet table</strong> (extendable dataset) to buffer incoming records.</li>
+<li><strong>Customize <code>h5::append()</code></strong>:</li>
+<li>Buffer data from various queues</li>
+<li>Apply filters or transformations as needed</li>
+<li>Write when a full chunk forms or at flush points</li>
+<li><strong>Ensure chunk alignment</strong> consistently to avoid edge-case bugs.</li>
+<li><strong>Support multi-threaded or multi-logic producers</strong> via lock-free queues or messaging systems like ZeroMQ.</li>
+<li><strong>Check the example repo</strong> for C++ and Fortran operators integrating queues + chunk flush logic.</li>
+</ol>
+<h3 id="why-this-matters"><a class="toclink" href="../h5cpp-direct-chunk-append/#why-this-matters">Why This Matters</a></h3>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>H5CPP Approach</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Incremental append (partial/final chunks)</td>
+<td>Override or wrap <code>h5::append()</code></td>
+</tr>
+<tr>
+<td>Safe aggregation from multiple streams</td>
+<td>Use lock-free queues, ZeroMQ patterns</td>
+</tr>
+<tr>
+<td>High throughput + minimal latency</td>
+<td>Chunk packing with filter chain support</td>
+</tr>
+<tr>
+<td>Alignment-sensitive writes</td>
+<td>Align chunks to avoid subtle bugs</td>
+</tr>
+<tr>
+<td>Cross-language producer support (e.g. Fortran)</td>
+<td>Example-driven integration from H5CPP repo</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tldr"><a class="toclink" href="../h5cpp-direct-chunk-append/#tldr">TL;DR</a></h3>
+<p>To write HDF5 chunks piece-by-piece in a high-performance, multi-source pipeline:</p>
+<ul>
+<li>Start with the <strong>H5CPP packet-table</strong> abstraction.</li>
+<li>Adapt <strong><code>h5::append()</code></strong> to batch and flush chunks from multiple inputs.</li>
+<li>Keep chunk boundaries aligned—watch out for that subtle alignment bug!</li>
+<li>Leverage lock-free queues or messaging for producer side decoupling.</li>
+<li>Check the H5CPP repo examples for inspiration, even in multi-language setups.</li>
+</ul>
+<p>Let me know if you'd like to walk through a C++ code snippet or a multi-threaded producer example using this pattern.</p>
+<p>— <strong>Steven Varga</strong></p>
+    
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2023-03-02 00:00:00+00:00">March 2, 2023</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="./" class="md-meta__link">hdf5</a>, 
+              <a href="../c/" class="md-meta__link">c++</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              6 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="extendable-datasets-in-hdf5simplified-with-h5cpp"><a class="toclink" href="../h5cpp-extendable-datasets/">Extendable Datasets in HDF5—Simplified with H5CPP</a></h2>
+<h3 id="the-ops-context"><a class="toclink" href="../h5cpp-extendable-datasets/#the-ops-context">The OP’s Context</a></h3>
+<p>The user wanted to create an HDF5 dataset that can grow over time—think event streams or log records—and do so with a clean C++ interface. Writing their own solution was on the table, but they were seeking something performant and maintainable.</p>
+<h3 id="h5cpp-to-the-rescue-steven-varga-mar-2-2023"><a class="toclink" href="../h5cpp-extendable-datasets/#h5cpp-to-the-rescue-steven-varga-mar-2-2023">H5CPP to the Rescue (Steven Varga, Mar 2 2023)</a></h3>
+<p>“Probably you want to roll your own, which is a good thing—but in case you're looking for a performant solution:” 
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;h5cpp/core&gt;</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;generated.h&quot;</span><span class="c1">  // your record type mapping</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;h5cpp/io&gt;</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">fd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">h5</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="s">&quot;test.h5&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">H5F_ACC_TRUNC</span><span class="p">);</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="c1">// Create an extendable dataset with your POD struct</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">ds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">h5</span><span class="o">::</span><span class="n">create</span><span class="o">&lt;</span><span class="n">sn</span><span class="o">::</span><span class="n">record_t</span><span class="o">&gt;</span><span class="p">(</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">      </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/path/dataset&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">h5</span><span class="o">::</span><span class="n">max_dims</span><span class="p">{</span><span class="n">H5S_UNLIMITED</span><span class="p">});</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="c1">// Assign vector-of-strings attribute</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="n">ds</span><span class="p">[</span><span class="s">&quot;attribute&quot;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;first&quot;</span><span class="p">,</span><span class="s">&quot;second&quot;</span><span class="p">,</span><span class="s">&quot;...&quot;</span><span class="p">,</span><span class="s">&quot;last&quot;</span><span class="p">};</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="c1">// Convert dataset to packet-table and append records</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">pt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ds</span><span class="p">;</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">      </span><span class="n">h5</span><span class="o">::</span><span class="n">append</span><span class="p">(</span><span class="n">pt</span><span class="p">,</span><span class="w"> </span><span class="n">sn</span><span class="o">::</span><span class="n">record_t</span><span class="p">{</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">        </span><span class="mf">1.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0</span><span class="w"> </span><span class="o">*</span><span class="n">i</span><span class="p">,</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">        </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">14</span><span class="p">,</span><span class="mi">15</span><span class="p">}</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">      </span><span class="p">});</span>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="c1">// Read back the dataset</span>
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">ds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">h5</span><span class="o">::</span><span class="n">open</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/path/dataset&quot;</span><span class="p">);</span>
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">attribute</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">h5</span><span class="o">::</span><span class="n">aread</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;attribute&quot;</span><span class="p">);</span>
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">attribute</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="w">    </span><span class="c1">// Dump data</span>
+</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">rec</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">h5</span><span class="o">::</span><span class="n">read</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">sn</span><span class="o">::</span><span class="n">record_t</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/path/dataset&quot;</span><span class="p">))</span>
+</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="w">      </span><span class="n">std</span><span class="o">::</span><span class="n">cerr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">rec</span><span class="p">.</span><span class="n">A</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="p">;</span>
+</span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cerr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span><span id="__span-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-1-29"><a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a><span class="p">}</span>
+</span></code></pre></div></p>
+<h3 id="why-this-works-so-nicely"><a class="toclink" href="../h5cpp-extendable-datasets/#why-this-works-so-nicely">Why This Works So Nicely</a></h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Benefit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>H5S_UNLIMITED</code> max dims</td>
+<td>Enables true extendible dataset</td>
+</tr>
+<tr>
+<td><code>sn::record_t</code> POD mapping</td>
+<td>Compact and expressive schema definitions</td>
+</tr>
+<tr>
+<td><code>h5::append(...)</code> API</td>
+<td>Simple, zero-boilerplate appends</td>
+</tr>
+<tr>
+<td>Packet-table behind the scenes</td>
+<td>Efficient I/O under the hood</td>
+</tr>
+<tr>
+<td>Vector attribute support</td>
+<td>Seamless metadata attachment and retrieval</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tldr"><a class="toclink" href="../h5cpp-extendable-datasets/#tldr">TL;DR</a></h3>
+<p>Creating appendable, extendable datasets in C++ is no longer boilerplate-heavy. <strong>H5CPP</strong> gives you:</p>
+<ul>
+<li><strong>C++ templates</strong> for structure mapping</li>
+<li><strong>Clean append logic</strong> with <code>h5::append()</code></li>
+<li><strong>Flexible storage</strong> with unlimited dataspace</li>
+<li><strong>Convenient metadata</strong> via attributes</li>
+</ul>
+    
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2022-06-29 00:00:00+00:00">June 29, 2022</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="./" class="md-meta__link">hdf5</a>, 
+              <a href="../c/" class="md-meta__link">c++</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              6 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="cross-language-messaging-with-zeromq-c-python-and-fortran"><a class="toclink" href="../zmq-multi-lang-push-pull/">Cross-language Messaging with ZeroMQ: C++, Python, and Fortran</a></h2>
+<h3 id="setup"><a class="toclink" href="../zmq-multi-lang-push-pull/#setup">🧩 Setup</a></h3>
+<p>We’ll use ZeroMQ’s <strong>PUSH/PULL</strong> pattern to build a minimal, language-agnostic messaging microservice.</p>
+<p>Each sender (written in Python, C++, or Fortran) pushes 64-bit values to a single receiver.</p>
+<h4 id="dependencies"><a class="toclink" href="../zmq-multi-lang-push-pull/#dependencies">📦 Dependencies</a></h4>
+<h5 id="linux-debianubuntu"><a class="toclink" href="../zmq-multi-lang-push-pull/#linux-debianubuntu">Linux (Debian/Ubuntu):</a></h5>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>libzmq3-dev
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="sb">````</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1">#### Python:</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="sb">```</span>bash
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>pyzmq
+</span></code></pre></div>
+<h5 id="fortran-zmq-bindings"><a class="toclink" href="../zmq-multi-lang-push-pull/#fortran-zmq-bindings">Fortran ZMQ bindings:</a></h5>
+<p>Install <a href="https://github.com/richsnyder/fzmq"><code>fzmq</code></a>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/richsnyder/fzmq<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>fzmq
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>mkdir<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>cmake<span class="w"> </span>-DBUILD_DOCS<span class="o">=</span>OFF<span class="w"> </span>../
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>sudo<span class="w"> </span>make<span class="w"> </span>install
+</span></code></pre></div>
+<h3 id="sender-python"><a class="toclink" href="../zmq-multi-lang-push-pull/#sender-python">🛰️ Sender: Python</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="ch">#!/usr/bin/python3</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">zmq</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="n">ctx</span> <span class="o">=</span> <span class="n">zmq</span><span class="o">.</span><span class="n">Context</span><span class="p">()</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="n">sock</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">zmq</span><span class="o">.</span><span class="n">PUSH</span><span class="p">)</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="n">sock</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;tcp://localhost:5555&quot;</span><span class="p">)</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>    <span class="n">sock</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;little&#39;</span><span class="p">))</span>
+</span></code></pre></div>
+<p><strong>Highlights:</strong></p>
+<ul>
+<li>Sends 8-byte integers in little-endian format</li>
+<li>Easy for testing other receivers</li>
+</ul>
+<h3 id="sender-c"><a class="toclink" href="../zmq-multi-lang-push-pull/#sender-c">🛰️ Sender: C++</a></h3>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;zmq.h&gt;</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstdint&gt;</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstring&gt;</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">    </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">zmq_ctx_new</span><span class="p">();</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">    </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">sock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">zmq_socket</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">ZMQ_PUSH</span><span class="p">);</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">    </span><span class="n">zmq_connect</span><span class="p">(</span><span class="n">sock</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;tcp://localhost:5555&quot;</span><span class="p">);</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">x</span><span class="p">)</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="w">        </span><span class="n">zmq_send</span><span class="p">(</span><span class="n">sock</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="w">    </span><span class="n">zmq_close</span><span class="p">(</span><span class="n">sock</span><span class="p">);</span>
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="w">    </span><span class="n">zmq_ctx_term</span><span class="p">(</span><span class="n">ctx</span><span class="p">);</span>
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="p">}</span>
+</span></code></pre></div>
+<p><strong>Highlights:</strong></p>
+<ul>
+<li>Sends raw <code>uint64_t</code> values (8 bytes)</li>
+<li>Matches Python format</li>
+</ul>
+<h3 id="sender-fortran"><a class="toclink" href="../zmq-multi-lang-push-pull/#sender-fortran">🛰️ Sender: Fortran</a></h3>
+<div class="language-fortran highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">program </span><span class="n">send</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">  </span><span class="k">use </span><span class="n">fzmq</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">  </span><span class="k">implicit none</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="k">  type</span><span class="p">(</span><span class="n">zmq_context</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">context</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">  </span><span class="k">type</span><span class="p">(</span><span class="n">zmq_socket</span><span class="p">)</span><span class="w">  </span><span class="kd">::</span><span class="w"> </span><span class="n">sock</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">  </span><span class="kt">integer</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span><span class="w">   </span><span class="kd">::</span><span class="w"> </span><span class="n">x</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">  </span><span class="kt">integer</span><span class="w">           </span><span class="kd">::</span><span class="w"> </span><span class="n">rc</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="w">  </span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">zmq_ctx_new</span><span class="p">()</span>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="w">  </span><span class="n">sock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">zmq_socket</span><span class="p">(</span><span class="n">context</span><span class="p">,</span><span class="w"> </span><span class="n">ZMQ_PUSH</span><span class="p">)</span>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="w">  </span><span class="k">call </span><span class="n">zmq_connect</span><span class="p">(</span><span class="n">sock</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;tcp://localhost:5555&quot;</span><span class="p">)</span>
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="w">  </span><span class="k">do </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">99</span>
+</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a><span class="w">    </span><span class="k">call </span><span class="n">zmq_send</span><span class="p">(</span><span class="n">sock</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a><span class="w">  </span><span class="k">end do</span>
+</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>
+</span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a><span class="k">  call </span><span class="n">zmq_close</span><span class="p">(</span><span class="n">sock</span><span class="p">)</span>
+</span><span id="__span-10-19"><a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a><span class="w">  </span><span class="k">call </span><span class="n">zmq_ctx_term</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+</span><span id="__span-10-20"><a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a><span class="k">end program </span><span class="n">send</span>
+</span></code></pre></div>
+<p><strong>Highlights:</strong></p>
+<ul>
+<li>Uses <code>fzmq</code> bindings</li>
+<li>Sends binary 64-bit integers</li>
+</ul>
+<h3 id="receiver-c"><a class="toclink" href="../zmq-multi-lang-push-pull/#receiver-c">🎯 Receiver: C++</a></h3>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;zmq.h&gt;</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstdint&gt;</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstdio&gt;</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">    </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">zmq_ctx_new</span><span class="p">();</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">    </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">sock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">zmq_socket</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">ZMQ_PULL</span><span class="p">);</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">    </span><span class="n">zmq_bind</span><span class="p">(</span><span class="n">sock</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;tcp://*:5555&quot;</span><span class="p">);</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"> </span><span class="nb">true</span><span class="p">;)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="w">        </span><span class="n">zmq_recv</span><span class="p">(</span><span class="n">sock</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;recv: %lu</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">);</span>
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>
+</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="w">    </span><span class="n">zmq_close</span><span class="p">(</span><span class="n">sock</span><span class="p">);</span>
+</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="w">    </span><span class="n">zmq_ctx_term</span><span class="p">(</span><span class="n">ctx</span><span class="p">);</span>
+</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a><span class="p">}</span>
+</span></code></pre></div>
+<p><strong>Highlights:</strong></p>
+<ul>
+<li>Pulls 64-bit integers from any connected sender</li>
+<li>No language-specific deserialization required</li>
+</ul>
+<h3 id="summary"><a class="toclink" href="../zmq-multi-lang-push-pull/#summary">✅ Summary</a></h3>
+<p>ZeroMQ’s <code>PUSH/PULL</code> pattern makes multi-language IPC a breeze.</p>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Language</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sender</td>
+<td>Python</td>
+<td>Uses <code>pyzmq</code>, clean syntax</td>
+</tr>
+<tr>
+<td>Sender</td>
+<td>C++</td>
+<td>Raw <code>zmq_send</code> of binary integers</td>
+</tr>
+<tr>
+<td>Sender</td>
+<td>Fortran</td>
+<td>Uses <code>fzmq</code> bindings</td>
+</tr>
+<tr>
+<td>Receiver</td>
+<td>C++</td>
+<td>Prints values from all senders</td>
+</tr>
+</tbody>
+</table>
+<p>Run the receiver first, then launch any combination of senders. Messages will stream in regardless of language. No serialization frameworks, no boilerplate.</p>
+    
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2022-04-07 00:00:00+00:00">April 7, 2022</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="./" class="md-meta__link">hdf5</a>, 
+              <a href="../c/" class="md-meta__link">c++</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              8 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="automated-pretty-printing-for-stl-like-containers-in-h5cpp"><a class="toclink" href="../automated-stl-printing/">Automated Pretty Printing for STL-like Containers in H5CPP</a></h2>
+<h3 id="why-not-just-print"><a class="toclink" href="../automated-stl-printing/#why-not-just-print">🛠️ Why not just print?</a></h3>
+<p>Debugging C++ is an art and often demands the setup of tools like <a href="https://valgrind.org/"><code>valgrind</code></a>, <code>cachegrind</code>, or <a href="https://www.sourceware.org/gdb/"><code>gdb</code></a>. These tools are powerful, but sometimes all you need is a quick look at what's inside your container.</p>
+<p>Enter: H5CPP’s feature detection idiom-based pretty-printing system for STL-like containers.</p>
+<p>Inspired by Walter Brown’s <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2015/n4436.pdf">WG21 N4436 paper</a>, we offer a mechanism that allows you to simply:</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">stl_like_object</span><span class="p">;</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="err">````</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">Where</span><span class="w"> </span><span class="err">`</span><span class="n">stl_like_object</span><span class="err">`</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">any</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">that</span><span class="o">:</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="o">*</span><span class="w"> </span><span class="n">provides</span><span class="w"> </span><span class="err">`</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span><span class="err">`</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="err">`</span><span class="p">.</span><span class="n">end</span><span class="p">()</span><span class="err">`</span><span class="w"> </span><span class="p">(</span><span class="n">like</span><span class="w"> </span><span class="n">vectors</span><span class="p">,</span><span class="w"> </span><span class="n">lists</span><span class="p">,</span><span class="w"> </span><span class="n">maps</span><span class="err">…</span><span class="p">)</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="o">*</span><span class="w"> </span><span class="n">offers</span><span class="w"> </span><span class="n">stack</span><span class="o">/</span><span class="n">queue</span><span class="o">-</span><span class="n">like</span><span class="w"> </span><span class="n">interfaces</span><span class="w"> </span><span class="p">(</span><span class="err">`</span><span class="p">.</span><span class="n">top</span><span class="p">()</span><span class="err">`</span><span class="p">,</span><span class="w"> </span><span class="err">`</span><span class="p">.</span><span class="n">pop</span><span class="p">()</span><span class="err">`</span><span class="p">,</span><span class="w"> </span><span class="err">`</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="err">`</span><span class="p">)</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="o">*</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">even</span><span class="w"> </span><span class="n">composite</span><span class="o">/</span><span class="n">ragged</span><span class="w"> </span><span class="n">containers</span><span class="w"> </span><span class="n">like</span><span class="w"> </span><span class="err">`</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span><span class="err">`</span><span class="p">,</span><span class="w"> </span><span class="err">`</span><span class="n">tuple</span><span class="o">&lt;</span><span class="p">...</span><span class="o">&gt;</span><span class="err">`</span><span class="p">,</span><span class="w"> </span><span class="n">etc</span><span class="p">.</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="cp">## 🔍 What it does</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="n">The</span><span class="w"> </span><span class="n">current</span><span class="w"> </span><span class="n">implementation</span><span class="w"> </span><span class="n">supports</span><span class="o">:</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="o">*</span><span class="w"> </span><span class="o">**</span><span class="n">Recursive</span><span class="w"> </span><span class="n">pretty</span><span class="o">-</span><span class="n">printing</span><span class="o">**</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="o">*</span><span class="w"> </span><span class="o">**</span><span class="n">Line</span><span class="w"> </span><span class="n">width</span><span class="w"> </span><span class="n">control</span><span class="o">**</span><span class="w"> </span><span class="p">(</span><span class="n">via</span><span class="w"> </span><span class="err">`</span><span class="n">H5CPP_CONSOLE_WIDTH</span><span class="err">`</span><span class="p">)</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="o">*</span><span class="w"> </span><span class="o">**</span><span class="n">In</span><span class="o">-</span><span class="n">line</span><span class="w"> </span><span class="n">visualization</span><span class="o">**</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">arbitrarily</span><span class="w"> </span><span class="n">nested</span><span class="w"> </span><span class="n">structures</span>
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="n">This</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">eventually</span><span class="w"> </span><span class="n">replace</span><span class="o">/</span><span class="n">enhance</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">H5CPP</span><span class="w"> </span><span class="n">persistence</span><span class="w"> </span><span class="n">layer</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">general</span><span class="w"> </span><span class="n">I</span><span class="o">/</span><span class="n">O</span><span class="w"> </span><span class="n">capabilities</span><span class="p">.</span>
+</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>
+</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="o">---</span>
+</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>
+</span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="cp">## 📦 Example Output</span>
+</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a>
+</span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="n">Here</span><span class="err">&#39;</span><span class="n">s</span><span class="w"> </span><span class="n">what</span><span class="w"> </span><span class="err">`</span><span class="p">.</span><span class="o">/</span><span class="n">pprint</span><span class="o">-</span><span class="n">test</span><span class="err">`</span><span class="w"> </span><span class="n">prints</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="err">`</span><span class="n">stdout</span><span class="err">`</span><span class="o">:</span>
+</span><span id="__span-4-25"><a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a>
+</span><span id="__span-4-26"><a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="err">```</span><span class="n">text</span>
+</span><span id="__span-4-27"><a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a><span class="n">LISTS</span><span class="o">/</span><span class="n">VECTORS</span><span class="o">/</span><span class="n">SETS</span><span class="o">:</span>
+</span><span id="__span-4-28"><a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a><span class="o">---------------------------------------------------------------------</span>
+</span><span id="__span-4-29"><a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a><span class="w">   </span><span class="n">array</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span><span class="mi">7</span><span class="o">&gt;:</span><span class="p">[</span><span class="n">xSs</span><span class="p">,</span><span class="n">wc</span><span class="p">,</span><span class="n">gu</span><span class="p">,</span><span class="n">Ssi</span><span class="p">,</span><span class="n">Sx</span><span class="p">,</span><span class="n">pzb</span><span class="p">,</span><span class="n">OY</span><span class="p">]</span>
+</span><span id="__span-4-30"><a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a><span class="w">            </span><span class="nl">vector</span><span class="p">:[</span><span class="n">CDi</span><span class="p">,</span><span class="n">PUs</span><span class="p">,</span><span class="n">zpf</span><span class="p">,</span><span class="n">Hm</span><span class="p">,</span><span class="n">teO</span><span class="p">,</span><span class="n">XG</span><span class="p">,</span><span class="n">bu</span><span class="p">,</span><span class="n">QZs</span><span class="p">]</span>
+</span><span id="__span-4-31"><a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a><span class="w">             </span><span class="nl">deque</span><span class="p">:[</span><span class="mi">256</span><span class="p">,</span><span class="mi">233</span><span class="p">,</span><span class="mi">23</span><span class="p">,</span><span class="mi">89</span><span class="p">,</span><span class="mi">128</span><span class="p">,</span><span class="mi">268</span><span class="p">,</span><span class="mi">69</span><span class="p">,</span><span class="mi">278</span><span class="p">,</span><span class="mi">130</span><span class="p">]</span>
+</span><span id="__span-4-32"><a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a><span class="w">              </span><span class="nl">list</span><span class="p">:[</span><span class="mi">95</span><span class="p">,</span><span class="mi">284</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">124</span><span class="p">,</span><span class="mi">49</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">108</span><span class="p">,</span><span class="mi">281</span><span class="p">,</span><span class="mi">251</span><span class="p">,</span><span class="mi">57</span><span class="p">,</span><span class="w"> </span><span class="p">...]</span>
+</span><span id="__span-4-33"><a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a><span class="w">      </span><span class="nl">forward_list</span><span class="p">:[</span><span class="mi">147</span><span class="p">,</span><span class="mi">76</span><span class="p">,</span><span class="mi">81</span><span class="p">,</span><span class="mi">193</span><span class="p">,</span><span class="mi">44</span><span class="p">]</span>
+</span><span id="__span-4-34"><a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a><span class="w">               </span><span class="nl">set</span><span class="p">:[</span><span class="n">V</span><span class="p">,</span><span class="n">f</span><span class="p">,</span><span class="n">szy</span><span class="p">,</span><span class="n">v</span><span class="p">]</span>
+</span><span id="__span-4-35"><a id="__codelineno-4-35" name="__codelineno-4-35" href="#__codelineno-4-35"></a><span class="w">     </span><span class="nl">unordered_set</span><span class="p">:[</span><span class="mf">2.59</span><span class="p">,</span><span class="mf">1.86</span><span class="p">,</span><span class="mf">2.93</span><span class="p">,</span><span class="mf">1.78</span><span class="p">,</span><span class="mf">2.43</span><span class="p">,</span><span class="mf">2.04</span><span class="p">,</span><span class="mf">1.69</span><span class="p">]</span>
+</span><span id="__span-4-36"><a id="__codelineno-4-36" name="__codelineno-4-36" href="#__codelineno-4-36"></a><span class="w">          </span><span class="nl">multiset</span><span class="p">:[</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">21</span><span class="p">,</span><span class="mi">23</span><span class="p">,</span><span class="mi">28</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">30</span><span class="p">]</span>
+</span><span id="__span-4-37"><a id="__codelineno-4-37" name="__codelineno-4-37" href="#__codelineno-4-37"></a><span class="nl">unordered_multiset</span><span class="p">:[</span><span class="n">gZ</span><span class="p">,</span><span class="n">rb</span><span class="p">,</span><span class="n">Dt</span><span class="p">,</span><span class="n">Q</span><span class="p">,</span><span class="n">Ark</span><span class="p">,</span><span class="n">dW</span><span class="p">,</span><span class="n">Ez</span><span class="p">,</span><span class="n">wmE</span><span class="p">,</span><span class="n">GwF</span><span class="p">]</span>
+</span></code></pre></div>
+<p>And yes, it continues with:</p>
+<ul>
+<li><strong>Adaptors</strong>: stack, queue, priority_queue</li>
+<li><strong>Associative Containers</strong>: <code>map</code>, <code>multimap</code>, <code>unordered_map</code>, ...</li>
+<li><strong>Ragged Arrays</strong>: like <code>vector&lt;vector&lt;string&gt;&gt;</code></li>
+<li><strong>Tuples and Pairs</strong>: including nested structures</li>
+</ul>
+<p>Here’s a teaser for ragged and tuple structures:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>vector&lt;vector&lt;string&gt;&gt;:[[pkwZZ,lBqsR,cmKt,PDjaS,Zj],[Nr,jj,xe,uC,bixzV],[uBAU,pXCa,fZEH,FIAIO]]
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>pair&lt;int,string&gt;:{4:upgdAdbvIB}
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>tuple&lt;string,int,float,short&gt;:&lt;NHCmzhVVXJ,8,2.01756,7&gt;
+</span></code></pre></div>
+<h3 id="run-it-yourself"><a class="toclink" href="../automated-stl-printing/#run-it-yourself">🧪 Run it yourself</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>g++<span class="w"> </span>-I./include<span class="w"> </span>-o<span class="w"> </span>pprint-test.o<span class="w"> </span>-std<span class="o">=</span>c++17<span class="w"> </span>-DFMT_HEADER_ONLY<span class="w"> </span>-c<span class="w"> </span>pprint-test.cpp
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>g++<span class="w"> </span>pprint-test.o<span class="w"> </span>-lhdf5<span class="w"> </span>-lz<span class="w"> </span>-ldl<span class="w"> </span>-lm<span class="w"> </span>-o<span class="w"> </span>pprint-test
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>./pprint-test
+</span></code></pre></div>
+<blockquote>
+<p>You can set the line width by defining <code>H5CPP_CONSOLE_WIDTH</code> (e.g. <code>-DH5CPP_CONSOLE_WIDTH=10</code>).</p>
+</blockquote>
+<h3 id="code-snippet"><a class="toclink" href="../automated-stl-printing/#code-snippet">📁 Code snippet</a></h3>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;h5cpp/H5Uall.hpp&gt;</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;h5cpp/H5cout.hpp&gt;</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;utils/types.hpp&gt;</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">mock</span><span class="o">::</span><span class="n">data</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;&gt;&gt;::</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+</span></code></pre></div>
+<h3 id="whats-next"><a class="toclink" href="../automated-stl-printing/#whats-next">🔮 What’s Next?</a></h3>
+<p>If you’d like to bring this up to the level of Julia’s pretty print system, get in touch! The data generators that support arbitrary C++ type generation are part of the larger <a href="https://github.com/steven-varga/HDFGroup-mailinglist/tree/master/automated-printing-2022-04-07">h5rnd</a> project — a Prüfer sequence-based HDF5 dataset generator.</p>
+    
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2022-04-07 00:00:00+00:00">April 7, 2022</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="./" class="md-meta__link">hdf5</a>, 
+              <a href="../c/" class="md-meta__link">c++</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              6 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="hdf5-group-overhead-measuring-the-cost-of-a-million-groups"><a class="toclink" href="../hdf5-group-overhead/">HDF5 Group Overhead: Measuring the Cost of a Million Groups</a></h2>
+<h3 id="the-problem"><a class="toclink" href="../hdf5-group-overhead/#the-problem">📦 The Problem</a></h3>
+<p>On [HDF5 forum][1], a user posed a question many developers eventually run into:</p>
+<blockquote>
+<p><em>"We want to serialize an object tree into HDF5, where every object becomes a group. But group overhead seems large. Why is my 5 MB dataset now 120 MB?"</em></p>
+</blockquote>
+<p>That’s a fair question. And we set out to quantify it.</p>
+<h3 id="experimental-setup"><a class="toclink" href="../hdf5-group-overhead/#experimental-setup">⚙️ Experimental Setup</a></h3>
+<p>We generated <strong>1 million unique group names</strong> using <code>h5::utils::get_test_data&lt;std::string&gt;(N)</code>, then created an HDF5 group for each name at the root level of an HDF5 file using H5CPP.</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">N</span><span class="p">;</span><span class="w"> </span><span class="n">n</span><span class="o">++</span><span class="p">)</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="n">h5</span><span class="o">::</span><span class="n">gr_t</span><span class="p">{</span><span class="n">H5Gcreate</span><span class="p">(</span><span class="n">root</span><span class="p">,</span><span class="w"> </span><span class="n">names</span><span class="p">[</span><span class="n">n</span><span class="p">].</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">H5P_DEFAULT</span><span class="p">,</span><span class="w"> </span><span class="n">H5P_DEFAULT</span><span class="p">,</span><span class="w"> </span><span class="n">H5P_DEFAULT</span><span class="p">)};</span>
+</span></code></pre></div>
+<p>We measured:</p>
+<ul>
+<li>Total HDF5 file size on disk</li>
+<li>Total size of the strings used</li>
+<li>Net overhead from metadata alone</li>
+</ul>
+<h3 id="results"><a class="toclink" href="../hdf5-group-overhead/#results">📊 Results</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Total file size      :  79,447,104 bytes (~77MB)
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>Total string payload :   1,749,862 bytes
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>---------------------------------------------
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>Net metadata overhead: ~77MB
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>Average per group    : ~776 bytes
+</span></code></pre></div>
+<p>Yep. <strong>Each group costs roughly 776 bytes</strong>, even when it contains no datasets or attributes.</p>
+<h3 id="visual-summary"><a class="toclink" href="../hdf5-group-overhead/#visual-summary">📈 Visual Summary</a></h3>
+<table>
+<thead>
+<tr>
+<th>Entry Count</th>
+<th>File Size</th>
+<th>Payload Size</th>
+<th>Overhead</th>
+<th>Avg/Group</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1,000,000</td>
+<td>77.94 MB</td>
+<td>1.75 MB</td>
+<td>~76.2 MB</td>
+<td>~776 B</td>
+</tr>
+</tbody>
+</table>
+<h3 id="why-so-expensive"><a class="toclink" href="../hdf5-group-overhead/#why-so-expensive">🧠 Why So Expensive?</a></h3>
+<p>HDF5 groups are not just simple folders—they are implemented using B-trees and heaps. Each group object has:</p>
+<ul>
+<li>A header</li>
+<li>Link messages</li>
+<li>Heap storage for names</li>
+<li>Possibly indexed storage for lookup</li>
+</ul>
+<p>This structure scales well for access, but incurs overhead for each group created.</p>
+<h3 id="can-compression-help"><a class="toclink" href="../hdf5-group-overhead/#can-compression-help">🛠 Can Compression Help?</a></h3>
+<p>No. Compression applies to datasets, not group metadata. Metadata (including group structures) is stored in an uncompressed format by default.</p>
+<h3 id="recommendations"><a class="toclink" href="../hdf5-group-overhead/#recommendations">💡 Recommendations</a></h3>
+<ul>
+<li><strong>Avoid deep or wide group hierarchies with many small entries</strong></li>
+<li>
+<p>If representing an object tree:</p>
+</li>
+<li>
+<p>Consider flat structures with table-like metadata</p>
+</li>
+<li>Store object metadata as compound datasets or attributes</li>
+<li>
+<p>If you're tracking time-series or per-sample metadata:</p>
+</li>
+<li>
+<p>Store as datasets with indexing, not groups</p>
+</li>
+</ul>
+<h3 id="final-thoughts"><a class="toclink" href="../hdf5-group-overhead/#final-thoughts">🔚 Final Thoughts</a></h3>
+<p>HDF5 is flexible—but that flexibility has a price when misapplied. Using groups to represent every atomic item or configuration object results in significant metadata bloat.</p>
+<p>Use them judiciously. Use datasets liberally.</p>
+    
+    
+  </div>
+</article>
+      
+      
+        
+          
+
+
+
+<nav class="md-pagination">
+  <span class="md-pagination__current">1</span> <a class="md-pagination__link" href="page/2/">2</a> <a class="md-pagination__link" href="page/3/">3</a> <a class="md-pagination__link" href="page/4/">4</a>
+</nav>
+        
+      
+    </div>
+  </div>
+
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright custom-footer">
+        <div class="custom-footer-left">
+          Blockchain, cryptographic protocols, HPC, or trading systems in C++, Rust, Julia, Python, R and CUDA
+        </div>
+        <div class="custom-footer-right">
+          © 2017–2025 VargaLABS, Toronto, ON, Canada 🇨🇦
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["search.suggest", "content.code.copy", "content.tooltips"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://cdn.tailwindcss.com"></script>
+      
+        <script src="../../javascripts/tw-config.js"></script>
+      
+        <script src="../../javascripts/asciinema-player.min.js"></script>
+      
+        <script src="https://unpkg.com/alpinejs@3.14.9/dist/cdn.min.js"></script>
+      
+        <script src="https://unpkg.com/@popperjs/core@2"></script>
+      
+        <script src="https://unpkg.com/tippy.js@6"></script>
+      
+    
+  </body>
+</html>

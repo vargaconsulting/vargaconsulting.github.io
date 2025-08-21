@@ -1,0 +1,19 @@
+<!-- Site built using grunt includes! -->
+<section>
+
+<h3>Write one shot  </h3>
+<pre><code class="cpp", data-trim>
+arma::vec V(4);
+h5::write( "arma.h5", "arma vec inside matrix",  V,
+	h5::current_dims{40,50},
+	h5::offset{5,0},
+	h5::stride{4,4}, h5::block{3,3},
+	h5::max_dims{40,H5S_UNLIMITED}
+);
+</code></pre>
+  <p class="fragment" data-code-focus="1">Let's start with a vector </p>
+  <p class="fragment" data-code-focus="3"> and target a 2D space  </p>
+  <p class="fragment" data-code-focus="4-5"> then position it somewhere </p>
+  <p class="fragment" data-code-focus="6"> of course we may want to increase the size some other time </p>
+</section>
+

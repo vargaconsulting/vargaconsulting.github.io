@@ -1,0 +1,26 @@
+<!-- Site built using grunt includes! -->
+
+
+
+<section>
+<h3>Templates:</h3>
+<pre><code class="ebnf", data-trim>
+template <typename T> h5::ds_t create( file, const std::string& dataset_path, dataspace, 
+	[, const h5::lcpl_t& lcpl] [, const h5::dcpl_t& dcpl] [, const h5::dapl_t& dapl]  );
+
+template <typename T> T read( dataset
+	[, const h5::offset_t& offset]  [, const h5::stride_t& stride] [, const h5::count_t& count]
+    [, const h5::dxpl_t& dxpl ] ) const;
+template <typename T> h5::err_t read( dataset, T& ref 
+	[, const h5::offset_t& offset]  [, const h5::stride_t& stride] [, const h5::count_t& count]
+	[, const h5::dxpl_t& dxpl ] ) [noexcept] const;  
+</code></pre>
+  <p class="fragment" data-code-focus="1">to make room: file or dataset</p>
+  <p class="fragment" data-code-focus="2">to </p>
+  <p class="fragment" data-code-focus="4">
+  	<span class="fragment" data-code-focus="4">data sets have may be fixed sized</span> 
+	<span class="fragment" data-code-focus="5">or extended later on<span> </p>
+  <p class="fragment" data-code-focus="6"> there is a way to control details if needed </p>
+  <p class="fragment" data-code-focus="7"> and of course the actual IO operation </p>
+</section>
+

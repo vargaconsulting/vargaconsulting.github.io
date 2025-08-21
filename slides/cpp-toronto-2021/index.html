@@ -1,0 +1,540 @@
+<!-- h5cpp.org -->
+<!-- h5cpp.org -->
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>H5CPP lighning talk: Toronto</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/solarized.css">
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/solarized-dark.css">
+        <link rel="stylesheet" type="text/css" href="plugin/asciinema/asciinema-player.css" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="plugin/reveal.js-fullscreen-code/reveal.js-fullscreen-code.css">
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+		<style>
+		  .reveal .slides section .fragment.current-only {
+			opacity: 1;
+			visibility: visible;
+			display: none;
+		  }
+		  .reveal .slides section .fragment.current-only.current-fragment {
+			display: block;
+		  }
+		  .line { display: block; }
+		  .line.focus { background: #f2df82; color: #657b83; }
+	</style>
+
+	</head>
+	<body>
+
+<div class="reveal"><div class="slides">
+<section data-markdown data-transition="zoom"  data-separator-notes="^Note:" ><textarea data-template>
+# H5CPP Lightning Talk
+### Scalable persistence with compiler assisted reflection
+### [export to PDF](http://lightning-talk.h5cpp.org:80/?print-pdf)
+
+Note:
+Hello, my name is Steven Varga and I build MPI based scalable data systems on AWS EC2,
+
+</textarea></section>
+
+<section  style="text-align: left;" >
+<h3>HPC quality persistence with few lines</h3>
+<aside class="notes">
+    tonight I am presenting H5CPP a scalable persistence for modern C++.
+    <ol>
+        <li>In this example we take an arbitrary complex <b>plain old data structure</b> type,</li>
+    <li>and save it in a tight event loop,</li>
+    <li>with a CRUD like operator,</li>
+    <li>into some dataset -- with some properties --.</li>
+    <li>Where the dataset is a part of some file format.</br>
+        In a few slides later we get to what Hierarchical Data Format or HDF5 is. </li>
+    <li>The generated.h header file doesn't exist yet, and is the main `character` of this talk</li>
+    </ol>
+
+</aside>
+<pre><code>01: #include &lth5cpp/core&gt
+02:     #include "generated.h"
+03: #include &lth5cpp/io&gt
+04: int main(int argc, char *argv[] ){
+05:	h5::fd_t fd = h5::create("lightning-talk-example.h5",H5F_ACC_TRUNC);
+06:     try {
+07:         h5::pt_t pt = h5::create&ltsn::example::complicated_struct_t&gt(fd, "dataset name",
+08:             h5::max_dims{H5S_UNLIMITED}, h5::chunk{1024} );
+09:         sn::example::complicated_struct_t event;
+10:         for(size_t i=0; i&ltsize; i++ )
+12:             h5::append(pt, event);
+13:     } catch ( const h5::error::any& e ){ ... }
+14: }
+01: namespace sn::example {
+02:	struct complicated_struct_t {
+03:		unsigned long idx;
+        ... };
+12: }
+</code></pre>
+<ul>
+  <li class="fragment" data-code-focus="9,14-18">take an arbitrary complex POD type</li>
+  <li class="fragment" data-code-focus="10">persist it within a tight event loop</li>
+  <li class="fragment" data-code-focus="11">with a CRUD like operator</li>
+  <li class="fragment" data-code-focus="7-8">into a dataset -- with some properties</li>
+  <li class="fragment" data-code-focus="5">where the dataset is part of the HDF5 container</li>
+  <li class="fragment" data-code-focus="2">generated.h doesn't exist yet</li>
+</ul>
+</section>
+
+<section data-markdown data-transition="zoom" data-separator-notes="^Note:" style="text-align: left;"><textarea data-template>
+
+### the following steps:
+1. Invoke ```h5cpp``` compiler to complete the TU translation unit with
+the missing `generated.h` header file.
+```sh
+h5cpp  packettable.cpp -- $(CXXFLAGS) -Dgenerated.h
+```
+2. use your gnu c++, clang, pgi, msvc, intel, .. compiler
+```sh
+g++  -o packettable.o  $(CXXFLAGS) -c packettable.cpp
+```
+3. link against the libraries
+```sh
+g++ packet_table.o -lhdf5 -lz -ldl -lm -o packet_table
+```
+
+### Done!
+Note:
+The following simple steps fill in the missing details:
+
+- first run the source code transformation tool on the translation unit
+- then compile
+- and link against the dependencies -- which are minimal...
+</textarea></section>
+
+
+
+<section data-markdown data-transition="zoom" data-separator-notes="^Note:" style="text-align: left;"><textarea data-template>
+## The idea involves:
+- LLVM/clang AST manipulation
+- topological ordering of identified data structures
+- helper templates for CRUD like operators: 
+```cpp
+    h5::create | h5::write | h5::read | h5::append
+```
+- template meta-programming magic
+- ...
+#### Let's save the details for another occasion, instead let's talk about the properties!
+
+Note:
+behind the scenes there LLVM/clang abstract syntax tree topological ordering, templates and some meta programming magic 
+Let's skip the details, and take a look at the properties:
+</textarea></section>
+
+<section  style="text-align: left;" >
+	<h2>Robustness</h2>
+<aside class="notes"><ol>
+    <li>In terms of robustness/usability</li>
+    <li>type aliasing is OK</li>
+    <li>you can nest namespaces</li>
+    <li>C++ elementary types are mapped to their native HDF5 equivalent </li>
+    <li>POD arrays upto 7 dimensions</li>
+    <li>They are recursively parsed</li>
+    </ol>
+</aside>
+	<pre><code>#ifndef  H5TEST_STRUCT_01 
+#define  H5TEST_STRUCT_01
+typedef size_t type_alias_t;
+namespace sn {
+ namespace other {
+    struct struct_t {                    // POD struct with nested namespace
+        type_alias_t                idx; // aliased type 
+        double              field_02[3]; // const array mapped 
+    };
+ }
+ namespace example {
+    struct complicated_struct_t {        // POD struct with nested namespace
+        type_alias_t                idx; // typedef type 
+        float               field_02[7];  // array of elementary types
+        sn::other::struct_t field_03[5]; // embedded struct 1D array
+        other::struct_t  field_04[3][8]; // array of arrays 
+    };
+ }
+}
+#endif
+</pre></code>
+<ul>
+  <li class="fragment" data-code-focus="3,7"> 
+  type aliasing is fine</li>
+  <li class="fragment" data-code-focus="4,5,10,11,18,19"> 
+  nested namespace are OK</li>
+  <li class="fragment" data-code-focus="7,3">
+  mapped to : <a href="https://support.hdfgroup.org/HDF5/doc1.6/UG/11_Datatypes.html" >H5T_NATIVE_LLONG</a></li>
+  <li class="fragment" data-code-focus="8">
+  H5Tarray_create(H5T_NATIVE_DOUBLE,1, ... ) </li>
+  <li class="fragment" data-code-focus="6-9,15">
+  first `other::struct_t` recursively parsed: type_hid_t = ... </li>
+  <li class="fragment" data-code-focus="16">
+  then the generated type is used: H5Tarray_create(type_hid_t, ...)  </li>
+</ul>
+</section>
+
+
+<section  style="text-align: left;" >
+<h3>The header file with HDF5 Compound Type descriptors:</h3>
+<aside class="notes"><ol>
+    <li>include guards are present</li>
+    <li>all within h5 namespace</li>
+    <li>type mapping is based on template specialization</li>
+    <li>heterogeneous datatypes are recursively created in topological order</li>
+    <li>and the library promotes healthy resource management by closing handles not in use any longer</li>
+    </ol>
+</aside>
+<pre><code>#ifndef H5CPP_GUARD_kCTha
+#define H5CPP_GUARD_kCTha
+namespace h5 {
+    template&lt&gt hid_t inline register_struct&ltsn::example::complicated_struct_t&gt(){
+        hsize_t at_00_[] ={7};            hid_t at_00 = H5Tarray_create(H5T_NATIVE_FLOAT,1,at_00_);
+        hsize_t at_01_[] ={3};            hid_t at_01 = H5Tarray_create(H5T_NATIVE_DOUBLE,1,at_01_);
+
+        hid_t ct_00 = H5Tcreate(H5T_COMPOUND, sizeof (sn::other::struct_t));
+        H5Tinsert(ct_00, "idx",	HOFFSET(sn::other::struct_t,idx),H5T_NATIVE_ULONG);
+        H5Tinsert(ct_00, "field_02",	HOFFSET(sn::other::struct_t,field_02),at_01);
+        hsize_t at_02_[] ={5};            hid_t at_02 = H5Tarray_create(ct_00,1,at_02_);
+        hsize_t at_03_[] ={8};            hid_t at_03 = H5Tarray_create(ct_00,1,at_03_);
+        hsize_t at_04_[] ={3};            hid_t at_04 = H5Tarray_create(at_03,1,at_04_);
+
+        hid_t ct_01 = H5Tcreate(H5T_COMPOUND, sizeof (sn::example::complicated_struct_t));
+        H5Tinsert(ct_01, "idx",	HOFFSET(sn::example::complicated_struct_t,idx),H5T_NATIVE_ULONG);
+        H5Tinsert(ct_01, "field_02",	HOFFSET(sn::example::complicated_struct_t,field_02),at_00);
+        H5Tinsert(ct_01, "field_03",	HOFFSET(sn::example::complicated_struct_t,field_03),at_02);
+        H5Tinsert(ct_01, "field_04",	HOFFSET(sn::example::complicated_struct_t,field_04),at_04);
+
+        H5Tclose(at_00); H5Tclose(at_01); H5Tclose(ct_00); H5Tclose(at_02); H5Tclose(at_03);
+        H5Tclose(at_04); 
+
+        return ct_01;
+    };
+}
+H5CPP_REGISTER_STRUCT(sn::example::complicated_struct_t);
+#endif
+</code></pre>
+<ul>
+  <li class="fragment" data-code-focus="1-2,28">random include guards</li>
+  <li class="fragment" data-code-focus="3,26">within namespace </li>
+  <li class="fragment" data-code-focus="4,25">template specialization for h5::operators</li>
+  <li class="fragment" data-code-focus="5,17">compound types are recursively created</li>
+  <li class="fragment" data-code-focus="21,22">resources are closed to prevent leak</li>
+</ul>
+</section>
+
+
+<section data-markdown data-transition="zoom"  style="text-align: left;"><textarea data-template>
+## Basics
+- RAII idiom for descriptors 
+
+```cpp
+h5::fd_t fd = h5::create("example.h5",H5F_ACC_TRUNC);
+```
+- H5CPP wrap of `hid_t` remains binary compatible with CAPI `hid_t`
+
+- Templates accept type-safe configuration arguments in any order, and most CAPI 
+features are implemented
+
+```
+h5::write(fd, "path/to/object",  vec,
+	  h5::current_dims{100},  h5::max_dims{H5S_UNLIMITED},
+	  h5::offset{3}, h5::block{2}, h5::stride{2},
+	  h5::chunk{20} | h5::gzip{9} );
+```
+</textarea></section>
+
+
+
+<section data-markdown data-transition="zoom" style="text-align: left;" data-separator-notes="^Note:" ><textarea data-template>
+## IO Properties
+|packet size  | transferred data |event/sec   | throughput MB/s |
+|-------------|------------------|------------|-----------------|
+|12KB         | 12GB             | 42'132     |  510.305        |
+|64B          | 13GB             | 8'432'170  |  539.659        |
+
+Balanced performance
+#### Performance on a LENOVO X250 i5 8GB laptop SSD: INTEL SSDSC2BW180A3L (LF1i) (~500 MB/s)
+
+Note:
+Here is a comparison between tiny and medium size packets and the total throughput -- which is in the ballpark of 
+the underlying EXT4 filesystem. 
+</textarea></section>
+
+<section data-markdown data-transition="zoom" style="text-align: left;" data-separator-notes="^Note:" ><textarea data-template>
+### Large Block transfers -- think of machine learning, with Transfer size 2GB chunks:
+|MB/sec       |   write |     read |
+|-------------|---------|----------|
+|h5cpp block  | 265.69  |   518.41 |
+|h5cpp packet | 290.57  |   499.88 |
+|posix IO     | 288.56  |   513.51 |
+
+Note:
+Of course there is functionality to save arbitrary large -- in this case 2GB chunks -- in random order - typical for machine learning applications
+</textarea></section>
+
+<section data-markdown data-transition="zoom"  style="text-align: left;" data-separator-notes="^Note:"><textarea data-template>
+## Smaller block Transfer (size 30MB blocks):
+|MB/sec       |   write |      read |
+|-------------|---------|-----------|
+|h5cpp block  | 2457.41 |   3251.99 |
+|h5cpp packet | 1636.30 |   3151.15 |
+|posix IO     | 1443.59 |   5325.60 |
+
+Note:
+as well as capabilities to adjust the chunk size. Small chunks take advantage of OS level caching, acting as burst buffer
+-- think of minibatch training
+</textarea></section>
+<section data-markdown data-transition="zoom"  style="text-align: left;" data-separator-notes="^Note:" 
+     data-background="images/h5cpp-profile.png">
+<textarea data-template>
+
+Note:
+With standard layout types data copy is avoided both read and write case. On the profile we can see the majority of the time is spent on actual system IO...
+</textarea></section>
+
+
+
+<!--section data-transition="zoom"  style="text-align: left;">
+<pre><code> #include "csv.h"
+#include "struct.h"
+#include &lth5cpp/core&gt      // has handle + type descriptors
+	#include "generated.h" // uses type descriptors
+#include &lth5cpp/io&gt        // uses generated.h + core 
+
+int main(){
+	h5::fd_t fd = h5::create("output.h5",H5F_ACC_TRUNC);
+	h5::ds_t ds = h5::create&ltinput_t&gt(fd,  "simple approach/dataset.csv",
+				 h5::max_dims{H5S_UNLIMITED}, h5::chunk{10} | h5::gzip{9} );
+	h5::pt_t pt = ds;
+	ds["data set"] = "monroe-county-crash-data2003-to-2015.csv";
+	ds["cvs parser"] = "https://github.com/ben-strasser/fast-cpp-csv-parser"; // thank you!
+
+	constexpr unsigned N_COLS = 5;
+	io::CSVReader&ltN_COLS&gt in("input.csv"); // number of cols may be less, than total columns in a row, we're to read only 5
+	in.read_header(io::ignore_extra_column, "Master Record Number", "Hour", "Reported_Location","Latitude","Longitude");
+	input_t row;                           // buffer to read line by line
+	char* ptr;      // indirection, as `read_row` doesn't take array directly
+	while(in.read_row(row.MasterRecordNumber, row.Hour, ptr, row.Latitude, row.Longitude)){
+		strncpy(row.ReportedLocation, ptr, STR_ARRAY_SIZE); // defined in struct.h
+		h5::append(pt, row);
+	}
+}
+</code></pre>
+</section-->
+
+
+<section data-markdown data-transition="zoom"  style="text-align: left;" data-separator-notes="^Note:"><textarea data-template >
+### Already Supported objects in BNF: 
+```yacc
+T := ([unsigned] ( int8_t | int16_t | int32_t | int64_t )) | ( float | double  )
+S := T | c/c++ struct | std::string
+ref := std::vector&lt;S&gt; 
+    | arma::Row&lt;T&gt; | arma::Col&lt;T&gt; | arma::Mat&lt;T&gt; | arma::Cube&lt;T&gt; 
+    | Eigen::Matrix&lt;T,Dynamic,Dynamic&gt; | Eigen::Matrix&lt;T,Dynamic,1&gt; | Eigen::Matrix&lt;T,1,Dynamic&gt;
+    | Eigen::Array&lt;T,Dynamic,Dynamic&gt;  | Eigen::Array&lt;T,Dynamic,1&gt;  | Eigen::Array&lt;T,1,Dynamic&gt;
+    | blaze::DynamicVector&lt;T,rowVector&gt; |  blaze::DynamicVector&lt;T,colVector&gt;
+    | blaze::DynamicVector&lt;T,blaze::rowVector&gt; |  blaze::DynamicVector&lt;T,blaze::colVector&gt;
+    | blaze::DynamicMatrix&lt;T,blaze::rowMajor&gt;  |  blaze::DynamicMatrix&lt;T,blaze::colMajor&gt;
+    | itpp::Mat&lt;T&gt; | itpp::Vec&lt;T&gt;
+    | blitz::Array&lt;T,1&gt; | blitz::Array&lt;T,2&gt; | blitz::Array&lt;T,3&gt;
+    | dlib::Matrix&lt;T&gt;   | dlib::Vector&lt;T,1&gt; 
+    | ublas::matrix&lt;T&gt;  | ublas::vector&lt;T&gt;
+ptr     := T* 
+accept  := ref | ptr
+```
+Note:
+Popular linear algebra systems are supported as well as the **stood/std vector** there is work to include the full set of STL containers
+and libraries from Geometric Algebra, Tensor algebra, etc... 
+</textarea></section>
+
+
+
+<section data-markdown data-transition="zoom"  style="text-align: left;" data-separator-notes="^Note:"><textarea data-template>
+## application:
+- Financial Markets, Real Time Bidding, ... 
+- Machine Learning: moving images, model parameters, etc...
+- Interop with statistical systems: Matlab, Julia, R, Python, ...
+- Sensor networks: particle accelletors, IoT, ...
+- Graph Databases: Semantic Web
+
+## Anywhere where high performance, introspection based IO is required
+Note:
+Possible application:  stock market -- in fact the example on the first slide is an over simplified event processor for bidding quotes,
+-- similarly Real Time Bidding, Machine Learning, Sensor Networks -- think of IoT,
+Graph or Tree databases, Particle accelerators if its high energy physics that thrills you...
+</textarea></section>
+
+<!--section data-background-iframe="https://gafusion.github.io/omas/schema.html#" data-background-interactive>
+<aside class="notes">
+    Currently I am trying to apply the method to complex schema based fusion reactor datasystems 
+    with 1000's of heterogeneous datatypes  targeting 50 - 70GB/sec throughput
+</aside>
+
+    <h2>IMAS fusion reactor data schema</h2>
+    <ul>
+        <li>1000's of classes...</li>
+        <li>linear combination of them: think of arrays ...</li>
+        <li>graphs: references from one field to other record</li>
+    </ul>
+    <h2>No Problem...</h2>
+</section-->
+
+<!--section data-markdown data-transition="zoom" data-separator-notes="^Note:" style="text-align: left;"><textarea data-template>
+### features:
+- non-intrusive, seamless
+- popular linear algebra systems:armadillo, eigen3, blitz, blaze, dlib, ittp
+- STL: `std::vector<T>` ...
+- low latency, high throughput
+- Parallel (MPI-IO) and serial filesystem
+- compression, filtering ...
+</textarea></section-->
+
+<!--section data-markdown data-transition="zoom"  style="text-align: left;" data-separator-notes="^Note:" ><textarea data-template >
+### What am I working now?
+- Full STL container support
+- Interop between existing systems: Linear Algebra, Geometric algebra, Tensors...
+- multithreaded compression
+- better compiler support: gcc, clang, icpc, pgi, msvc
+- massive, scalable sparse matrix storage
+- optimal string storage
+- ... 
+</textarea></section-->
+
+<section data-markdown data-transition="zoom"  style="text-align: left;" data-separator-notes="^Note:" ><textarea data-template >
+### The Hierarchical Data Format or HDF5
+ - is developed by HDFGroup, a non profit organization
+ - is the primary choice for: Matlab, Julia, PyTables
+ - is prevalent on Supercomputers / Clusters: Lustre, GPFS, OrangeFS ...
+ - runs very efficiently on desktops
+
+ ### H5CPP is a C++ template system for HDF5 CAPI with compiler assisted reflection
+</textarea></section>
+<section data-markdown data-transition="zoom"  style="text-align: left;" data-separator-notes="^Note:" ><textarea data-template >
+### [Examples](https://github.com/steven-varga/h5cpp/tree/master/examples)
+- half float: [Christian Rau](https://github.com/steven-varga/h5cpp/tree/master/examples/half-float/christian-rau), [Open EXR](https://github.com/steven-varga/h5cpp/tree/master/examples/half-float/open-exr)
+- Comma Separated Values by [Ben Strasser](https://github.com/steven-varga/h5cpp/tree/master/examples/csv)
+- [Armadillo C++](https://github.com/steven-varga/h5cpp/blob/master/examples/linalg/arma.cpp), [Eigen3](https://github.com/steven-varga/h5cpp/blob/master/examples/linalg/eigen3.cpp)
+- [HDF5 attributes](https://github.com/steven-varga/h5cpp/tree/master/examples/attributes)
+
+</textarea></section>
+
+<!--section data-markdown data-transition="zoom"  style="text-align: left;" data-separator-notes="^Note:" ><textarea data-template >
+### what else didn't fit into this teaser:
+- Parallel Filesytem or MPI-IO support
+- S3 cloud based storage
+- [HDF5](https://en.wikipedia.org/wiki/Hierarchical_Data_Format) as filesystem / Hierarchical Database
+    - attributes
+    - partial IO
+    - property lists
+- linear algebra systems:
+    - armadillo C++, Eigen3, blaze, Blitz...
+- optimal layout with convex optimization
+</textarea></section-->
+
+<section data-background-iframe="http://sandbox.h5cpp.org/architecture/" data-background-interactive>
+	<h3>Extensive Documentation</h3>
+</section>
+
+<section data-background-iframe="http://h5cpp.org" data-background-interactive>
+	<h2>WEBPAGE: http://h5cpp.org</h2>
+    <h2>GITHUB: https://github.com/steven-varga/h5cpp </h2>
+</section>
+
+<section data-markdown data-transition="zoom" ><textarea data-template>
+### Credits:
+ - The HDFGroup for sponsoring ISC'19, webinar, Chicago C++ Meetup
+ - LLVM/clang folks for their infrastructure
+ - Gerd Heber for collaborating
+ - Gilles Fillipini for Debian packaging
+</textarea></section>
+<section data-markdown data-transition="zoom" ><textarea data-template>
+### thank you!!!
+</textarea></section>
+
+
+</div></div>
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+		<script>
+			Reveal.initialize({ 
+    			width: '100%',
+    			height: '100%',
+				margin: 0.1,
+				minScale:  .2,
+				maxScale: 2.5,
+
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				transitionSpeed: 'slow',
+				transition: 'convex', // none/fade/slide/convex/concave/zoom
+				keyboard: true,
+				loop: false,
+				transition: 'concave', // default/cube/page/concave/linear(2d)
+				chart: {
+					defaults: { 
+						global: { 
+							title: { fontColor: "#FFF" }, 
+							legend: {
+								position: "bottom",
+								labels: { fontColor: "#000" },
+							},
+							tooltips: {
+								labels: { fontColor: "#FFF" },
+							},
+						}, 
+						scale: {
+							scaleLabel: { fontColor: "#000" }, 
+							gridLines: { color: "#000", zeroLineColor: "#000" }, 
+							ticks: { min: 0, fontColor: "#000" }, 
+						} 
+					},
+					line: { borderColor: [ "rgba(20,220,220,.8)" , "rgba(220,120,120,.8)", "rgba(20,120,220,.8)" ], "borderDash": [ [5,10], [0,0] ] }, 
+					bar: { backgroundColor: [ "rgba(20,220,220,.8)" , "rgba(220,120,120,.8)", "rgba(20,120,220,.8)" ]}, 
+					pie: { backgroundColor: [ ["rgba(0,0,0,.8)" , "rgba(220,20,20,.8)", "rgba(20,220,20,.8)", "rgba(220,220,20,.8)", "rgba(20,20,220,.8)"] ]},
+					radar: { borderColor: [ "rgba(20,220,220,.8)" , "rgba(220,120,120,.8)", "rgba(20,120,220,.8)" ]}, 
+				},
+				anything: [ {className: "asciicast",
+                           defaults: { theme: 'monokai', fontSize: '15px' },
+                           initialize: (function(container, options) {
+                                     asciinema.player.js.CreatePlayer(container, options.URL, options);
+                            })
+                }],
+				dependencies: [
+                    { src: 'plugin/reveal.js-fullscreen-code/jquery-3.1.1.min.js' },
+                    { src: 'plugin/reveal.js-fullscreen-code/reveal.js-fullscreen-code.js' },
+                    { src: 'plugin/chalkboard/chalkboard.js' },
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true },
+          			{ src: 'plugin/highlight/highlight.pack.js' },
+          			{ src: 'plugin/reveal-code-focus/reveal-code-focus.js',  async:true, callback: function() { RevealCodeFocus(); } },
+				],
+				keyboard: {
+					67: function() { RevealChalkboard.toggleNotesCanvas() },	// toggle notes canvas when 'c' is pressed
+					66: function() { RevealChalkboard.toggleChalkboard() },	// toggle chalkboard when 'b' is pressed
+					46: function() { RevealChalkboard.clear() },	// clear chalkboard when 'DEL' is pressed
+					 8: function() { RevealChalkboard.reset() },	// reset chalkboard data on current slide when 'BACKSPACE' is pressed
+					68: function() { RevealChalkboard.download() },	// downlad recorded chalkboard drawing when 'd' is pressed
+				},
+				});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,3264 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Advanced Systems for Trading, Cryptography, and Data Engineering">
+      
+      
+        <meta name="author" content="Steven Varga">
+      
+      
+        <link rel="canonical" href="https://steven-varga.ca/blog/2020/">
+      
+      
+        <link rel="prev" href="../2021/">
+      
+      
+        <link rel="next" href="../2019/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>December 2020 - VargaLABS</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../styles/asciinema-player.css">
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+      <link rel="stylesheet" href="../../styles/custom.css">
+    
+      <link rel="stylesheet" href="../../styles/mobile.css">
+    
+      <link rel="stylesheet" href="../../styles/socials.css">
+    
+      <link rel="stylesheet" href="../../styles/background.css">
+    
+      <link rel="stylesheet" href="../../styles/blog.css">
+    
+      <link rel="stylesheet" href="../../styles/asciinema.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-L58Z6SZ3TN"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-L58Z6SZ3TN",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-L58Z6SZ3TN",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="VargaLABS" />
+    <meta property="og:title" content="VargaLABS" />
+    <meta property="og:description" content="Advanced Systems for Trading, Cryptography, and Data Engineering" />
+    <meta property="og:url" content="https://steven-varga.ca/blog/2020/" />
+    <meta property="og:image" content="https://steven-varga.ca//assets/social/og-default.png" />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@vargaconsulting" />
+    <meta name="twitter:title" content="VargaLABS" />
+    <meta name="twitter:description" content="Advanced Systems for Trading, Cryptography, and Data Engineering" />
+    <meta name="twitter:image" content="https://steven-varga.ca//assets/social/og-default.png" />
+
+    <!-- SEO -->
+    <link rel="canonical" href="https://steven-varga.ca/blog/2020/" />
+    <meta name="description" content="Advanced Systems for Trading, Cryptography, and Data Engineering" />
+    <script type="application/ld+json">
+    {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "VargaLABS",
+    "description": "Advanced Systems for Trading, Cryptography, and Data Engineering",
+    "url": "https://steven-varga.ca/blog/2020/",
+    "datePublished": "2010-01-01",
+    "author": {
+        "@type": "Person",
+        "name": "Steven Varga"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "VargaLABS",
+        "logo": {
+        "@type": "ImageObject",
+        "url": "https://steven-varga.ca//assets/logo.png"
+        }
+    },
+    "image": "https://steven-varga.ca//assets/social/og-default.png"
+    }
+    </script>    
+
+<link rel="alternate" type="application/rss+xml" title="VargaLABS RSS Feed" href="../../rss.xml" />
+<link rel="alternate" type="application/feed+json" title="VargaLABS JSON Feed" href="../../feed.json" />
+
+
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="solarized" data-md-color-primary="orange" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#december-2020" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="VargaLABS" class="md-header__button md-logo" aria-label="VargaLABS" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Advanced Systems for Trading, Cryptography, and Data Engineering
+          </span>
+     
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              December 2020
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    <div class="md-social-inline">
+      
+      
+        
+        
+        
+        
+          
+          
+        
+        <a href="https://wa.me/16475611829" target="_blank" rel="noopener" title="wa.me" class="md-header__button md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.23 8.23 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23-1.48 0-2.93-.39-4.19-1.15l-.3-.17-3.12.82.83-3.04-.2-.32a8.2 8.2 0 0 1-1.26-4.38c.01-4.54 3.7-8.24 8.25-8.24M8.53 7.33c-.16 0-.43.06-.66.31-.22.25-.87.86-.87 2.07 0 1.22.89 2.39 1 2.56.14.17 1.76 2.67 4.25 3.73.59.27 1.05.42 1.41.53.59.19 1.13.16 1.56.1.48-.07 1.46-.6 1.67-1.18s.21-1.07.15-1.18c-.07-.1-.23-.16-.48-.27-.25-.14-1.47-.74-1.69-.82-.23-.08-.37-.12-.56.12-.16.25-.64.81-.78.97-.15.17-.29.19-.53.07-.26-.13-1.06-.39-2-1.23-.74-.66-1.23-1.47-1.38-1.72-.12-.24-.01-.39.11-.5.11-.11.27-.29.37-.44.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.11-.56-1.35-.77-1.84-.2-.48-.4-.42-.56-.43-.14 0-.3-.01-.47-.01"/></svg>
+        </a>
+      
+        
+        
+        
+        
+        <a href="mailto:steven@vargaconsulting.ca" target="_blank" rel="noopener" title="" class="md-header__button md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 5.5H9c-1.1 0-2 .9-2 2v9a2 2 0 0 0 2 2h13c1.11 0 2-.89 2-2v-9a2 2 0 0 0-2-2m0 3.67-6.5 3.33L9 9.17V7.5l6.5 3.31L22 7.5zM5 16.5c0 .17.03.33.05.5H1c-.552 0-1-.45-1-1s.448-1 1-1h4zM3 7h2.05c-.02.17-.05.33-.05.5V9H3c-.55 0-1-.45-1-1s.45-1 1-1m-2 5c0-.55.45-1 1-1h3v2H2c-.55 0-1-.45-1-1"/></svg>
+        </a>
+      
+        
+        
+        
+        
+          
+          
+        
+        <a href="https://x.com/vargaconsulting" target="_blank" rel="noopener" title="x.com" class="md-header__button md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.2 4.2 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.52 8.52 0 0 1-5.33 1.84q-.51 0-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23"/></svg>
+        </a>
+      
+        
+        
+        
+        
+          
+          
+        
+        <a href="https://www.linkedin.com/in/steven-varga-04224a19/" target="_blank" rel="noopener" title="www.linkedin.com" class="md-header__button md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93zM6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37z"/></svg>
+        </a>
+      
+        
+        
+        
+        
+          
+          
+        
+        <a href="https://github.com/vargaconsulting" target="_blank" rel="noopener" title="github.com" class="md-header__button md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg>
+        </a>
+      
+
+      
+      <span class="md-header__button md-icon" style="pointer-events: none; opacity: 0.4;">|</span>  
+    </div>
+  
+
+  
+  
+    
+    
+    
+
+    <input class="md-option"
+           data-md-color-media=""
+           data-md-color-scheme="solarized"
+           data-md-color-primary="orange"
+           data-md-color-accent="indigo"
+            aria-label="Switch to dark mode"
+           
+           type="radio" name="__palette" id="__palette_0">
+
+    
+      <label class="md-header__button md-icon"
+             title="Switch to dark mode"
+             for="__palette_1">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon-icon lucide-moon"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+    
+    
+    
+
+    <input class="md-option"
+           data-md-color-media=""
+           data-md-color-scheme="slate"
+           data-md-color-primary="orange"
+           data-md-color-accent="indigo"
+            aria-label="Switch to light mode"
+           
+           type="radio" name="__palette" id="__palette_1">
+
+    
+      <label class="md-header__button md-icon"
+             title="Switch to light mode"
+             for="__palette_0">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun-icon lucide-sun"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+<!-- -->
+
+<!-- -->
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="VargaLABS" class="md-nav__button md-logo" aria-label="VargaLABS" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    VargaLABS
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/talks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Presentations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Projects
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Projects
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/iexdownload/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IEX Download
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/iex-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IEX Pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/iex2h5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IEX2H5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/radix64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Radix64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/tinycrypto/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TinyCrypto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/h5cpp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    H5CPP header only
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/h5cpp-compiler/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    H5CPP compiler
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/decimalfloat-cpp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decimal Float C++
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/decimalfloat-python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decimal Float Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/openssl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenSSL++
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/bip/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BIP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/eip712/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    EIP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/generics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generics C++
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/kms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KMS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/nss/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NSS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/orderbook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Orderbook
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../site/uds/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UDS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Blog
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Posts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Posts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../2025/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    September 2025
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../2023/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    May 2023
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../2022/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    June 2022
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    April 2021
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    
+      
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    December 2020
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    December 2020
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#using-h5cpp-with-llvm-clang-debugging-an-append-api-exception" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using H5CPP with LLVM Clang: Debugging an Append API Exception
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hdf5-write-speeds-matching-underlying-raw-io" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HDF5 Write Speeds: Matching Underlying Raw I/O
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reading-and-writing-stdvector-with-hdf5-the-h5cpp-way" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading and Writing std::vector with HDF5 – The H5CPP Way
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#valgrind-move-semantics-and-hdf5-memory-safe-serialization-with-h5cpp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Valgrind, Move Semantics, and HDF5: Memory-Safe Serialization with H5CPP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#posted-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Posted problem
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#csv-to-hdf5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CSV to HDF5
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#h5pset_shared_mesg_nindexes-fails-for-n-8-in-hdf5-1106" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        H5Pset_shared_mesg_nindexes() Fails for N &gt; 8 in HDF5 1.10.6
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#h5pset_istore_k-fails-for-values-above-16384-in-hdf5-1106" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        H5Pset_istore_k() Fails for Values Above 16384 in HDF5 1.10.6
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#h5pset_sizes-crashes-for-16-byte-offsets-in-hdf5-1106" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        H5Pset_sizes() Crashes for 16-byte Offsets in HDF5 1.10.6
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optimizing-subset-reads-from-contiguous-hdf5-datasets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimizing Subset Reads from Contiguous HDF5 Datasets
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../2019/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    December 2019
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../2018/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    May 2018
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../2017/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    March 2017
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../2016/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    December 2016
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../2014/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    October 2014
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Categories
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Categories
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../blockchain/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    blockchain
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../c/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    c++
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../cryptography/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    cryptography
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-engineering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    data-engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../encoding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    encoding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../finance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    finance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../hdf5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    hdf5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../julia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    julia
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../market-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    market data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../postmortem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    postmortem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../quant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    quant
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#using-h5cpp-with-llvm-clang-debugging-an-append-api-exception" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using H5CPP with LLVM Clang: Debugging an Append API Exception
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hdf5-write-speeds-matching-underlying-raw-io" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HDF5 Write Speeds: Matching Underlying Raw I/O
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reading-and-writing-stdvector-with-hdf5-the-h5cpp-way" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading and Writing std::vector with HDF5 – The H5CPP Way
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#valgrind-move-semantics-and-hdf5-memory-safe-serialization-with-h5cpp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Valgrind, Move Semantics, and HDF5: Memory-Safe Serialization with H5CPP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#posted-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Posted problem
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#csv-to-hdf5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CSV to HDF5
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#h5pset_shared_mesg_nindexes-fails-for-n-8-in-hdf5-1106" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        H5Pset_shared_mesg_nindexes() Fails for N &gt; 8 in HDF5 1.10.6
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#h5pset_istore_k-fails-for-values-above-16384-in-hdf5-1106" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        H5Pset_istore_k() Fails for Values Above 16384 in HDF5 1.10.6
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#h5pset_sizes-crashes-for-16-byte-offsets-in-hdf5-1106" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        H5Pset_sizes() Crashes for 16-byte Offsets in HDF5 1.10.6
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optimizing-subset-reads-from-contiguous-hdf5-datasets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimizing Subset Reads from Contiguous HDF5 Datasets
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+  <div class="md-content" data-md-component="content">
+    <div class="md-content__inner">
+      <header class="md-typeset">
+        <h1 id="december-2020">December 2020</h1>
+      </header>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2020-12-23 00:00:00+00:00">December 23, 2020</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../hdf5/" class="md-meta__link">hdf5</a>, 
+              <a href="../c/" class="md-meta__link">c++</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              8 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="using-h5cpp-with-llvm-clang-debugging-an-append-api-exception"><a class="toclink" href="../h5cpp-clang-append-api/">Using H5CPP with LLVM Clang: Debugging an Append API Exception</a></h2>
+<h3 id="the-problem"><a class="toclink" href="../h5cpp-clang-append-api/#the-problem">🧪 The Problem</a></h3>
+<p>While testing <code>h5::append</code> functionality with Clang 11.0.0 on a clean Ubuntu/Spack stack, I hit a runtime exception that appeared when using <code>std::vector&lt;T&gt;</code> as the input to an appendable dataset.</p>
+<p>The goal: create and extend a 3D dataset of integers using H5CPP’s high-level append API, backed by packet tables and chunked storage.</p>
+<h3 id="the-setup"><a class="toclink" href="../h5cpp-clang-append-api/#the-setup">💡 <a href="https://github.com/steven-varga/HDFGroup-mailinglist/tree/master/append-clang-11.0.0">The Setup</a></a></h3>
+<p>To ensure reproducibility, I built against:</p>
+<ul>
+<li><strong>LLVM/Clang</strong>: 11.0.0</li>
+<li><strong>HDF5</strong>: 1.10.6 via Spack</li>
+<li><strong>H5CPP</strong>: v1.10.4–6 headers (installed into <code>/usr/local/include</code>)</li>
+</ul>
+<p>Minimal <code>spack</code> setup:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>spack<span class="w"> </span>install<span class="w"> </span>llvm@11.0.0+shared_libs
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>spack<span class="w"> </span>install<span class="w"> </span>hdf5@1.10.6%gcc@10.2.0~cxx~debug~fortran~hl~java~mpi+pic+shared+szip~threadsafe
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>spack<span class="w"> </span>load<span class="w"> </span>llvm@11.0.0
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>spack<span class="w"> </span>load<span class="w"> </span>hdf5@1.10.6
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="sb">````</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>Dataset<span class="w"> </span>structure:
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="sb">```</span>cpp
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>//<span class="w"> </span>Extensible<span class="w"> </span>dataset:<span class="w"> </span><span class="o">(</span>N,<span class="w"> </span><span class="m">3</span>,<span class="w"> </span><span class="m">5</span><span class="o">)</span><span class="w"> </span>of<span class="w"> </span>integers
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>auto<span class="w"> </span><span class="nv">pt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>h5::create&lt;int&gt;<span class="o">(</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span>fd,<span class="w"> </span><span class="s2">&quot;stream of integral&quot;</span>,
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">    </span>h5::max_dims<span class="o">{</span>H5S_UNLIMITED,<span class="w"> </span><span class="m">3</span>,<span class="w"> </span><span class="m">5</span><span class="o">}</span>,
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">    </span>h5::chunk<span class="o">{</span><span class="m">1</span>,<span class="w"> </span><span class="m">3</span>,<span class="w"> </span><span class="m">5</span><span class="o">}</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="o">)</span><span class="p">;</span>
+</span></code></pre></div>
+<p>Append loop:</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">V</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="mi">5</span><span class="p">);</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">iota</span><span class="p">(</span><span class="n">V</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">V</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="n">i</span><span class="o">*</span><span class="mi">15</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="n">h5</span><span class="o">::</span><span class="n">append</span><span class="p">(</span><span class="n">pt</span><span class="p">,</span><span class="w"> </span><span class="n">V</span><span class="p">);</span><span class="w">  </span><span class="c1">// This line caused clang to choke</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="the-bug"><a class="toclink" href="../h5cpp-clang-append-api/#the-bug">🛠 The Bug</a></h3>
+<p>Under Clang 11.0.0, this seemingly valid call to <code>h5::append()</code> with <code>std::vector&lt;int&gt;</code> triggered a runtime failure related to improper dataset alignment. GCC accepted it, but Clang’s stricter type checking surfaced the edge case.</p>
+<p>Specifically, if the vector size was <strong>not a full chunk</strong> or had subtle stride/padding issues, the append logic would misalign the memory transfer or incorrectly compute the hyperslab shape.</p>
+<h3 id="the-fix-output"><a class="toclink" href="../h5cpp-clang-append-api/#the-fix-output">✅ The Fix &amp; Output</a></h3>
+<p>By adjusting the chunk size and ensuring the vector was sized to match <code>(1,3,5)</code> exactly—Clang accepted the code, and <code>h5dump</code> verified the result:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>$<span class="w"> </span>h5dump<span class="w"> </span>example.h5
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>...
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>DATASET<span class="w"> </span><span class="s2">&quot;stream of integral&quot;</span><span class="w"> </span><span class="o">{</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">   </span>DATATYPE<span class="w">  </span>H5T_STD_I32LE
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">   </span>DATASPACE<span class="w">  </span>SIMPLE<span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="o">(</span><span class="w"> </span><span class="m">6</span>,<span class="w"> </span><span class="m">3</span>,<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="o">)</span><span class="w"> </span>/<span class="w"> </span><span class="o">(</span><span class="w"> </span>H5S_UNLIMITED,<span class="w"> </span><span class="m">3</span>,<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="o">)</span><span class="w"> </span><span class="o">}</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">   </span>DATA<span class="w"> </span><span class="o">{</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">   </span><span class="o">(</span><span class="m">0</span>,0,0<span class="o">)</span>:<span class="w"> </span><span class="m">1</span>,<span class="w"> </span><span class="m">2</span>,<span class="w"> </span><span class="m">3</span>,<span class="w"> </span><span class="m">4</span>,<span class="w"> </span><span class="m">5</span>,
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">   </span><span class="o">(</span><span class="m">0</span>,1,0<span class="o">)</span>:<span class="w"> </span><span class="m">6</span>,<span class="w"> </span><span class="m">7</span>,<span class="w"> </span><span class="m">8</span>,<span class="w"> </span><span class="m">9</span>,<span class="w"> </span><span class="m">10</span>,
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">   </span>...
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">   </span><span class="o">(</span><span class="m">5</span>,2,0<span class="o">)</span>:<span class="w"> </span><span class="m">3</span>,<span class="w"> </span><span class="m">3</span>,<span class="w"> </span><span class="m">3</span>,<span class="w"> </span><span class="m">3</span>,<span class="w"> </span><span class="m">3</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">   </span><span class="o">}</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="o">}</span>
+</span></code></pre></div>
+<p>All 6 chunks were appended correctly—proving that H5CPP works as expected with Clang once proper dimensions and alignment are enforced.</p>
+<h3 id="takeaways"><a class="toclink" href="../h5cpp-clang-append-api/#takeaways">✅ Takeaways</a></h3>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>H5CPP with <code>h5::append()</code></td>
+<td>✅ Works with Clang ≥11</td>
+</tr>
+<tr>
+<td>Clang runtime alignment checks</td>
+<td>⚠️ Stricter than GCC</td>
+</tr>
+<tr>
+<td>Vector-based writes</td>
+<td>✅ Must match chunk extents</td>
+</tr>
+<tr>
+<td>Packet-table abstraction</td>
+<td>✅ Compatible + efficient</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tldr"><a class="toclink" href="../h5cpp-clang-append-api/#tldr">TL;DR</a></h3>
+<p>This test confirms that <strong>H5CPP’s append API works cleanly with Clang</strong>, provided:</p>
+<ul>
+<li>The dataset is created with correct <code>chunk</code> and <code>max_dims</code></li>
+<li>Input vectors match the full extent of each chunk</li>
+</ul>
+<p>The exception stemmed not from H5CPP, but from an under-the-hood type mismatch triggered by Clang’s stricter ABI conformance.</p>
+<p>Let me know if you’d like to explore adapting this to multi-threaded appends or replacing the <code>std::vector</code> with Eigen or Armadillo types for matrix-style streaming!</p>
+<p>— <strong>Steven Varga</strong></p>
+    
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2020-08-11 00:00:00+00:00">August 11, 2020</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../hdf5/" class="md-meta__link">hdf5</a>, 
+              <a href="../c/" class="md-meta__link">c++</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              7 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="hdf5-write-speeds-matching-underlying-raw-io"><a class="toclink" href="../hdf5-write-performance-vs-raw/">HDF5 Write Speeds: Matching Underlying Raw I/O</a></h2>
+<p>HDF5 has long been a powerful format for structured, hierarchical data. But let’s face it: performance <em>matters</em>. Especially when dealing with real-time market data, high-throughput sensors, or anything that vaguely smells like HPC.</p>
+<p>At H5CPP, we’ve been tuning the engine under the hood to make HDF5 as fast as your underlying storage lets you. The takeaway? We're now writing at speeds that are within 70–95% of raw <code>fwrite()</code> or <code>write()</code> I/O.</p>
+<h3 id="benchmark-setup"><a class="toclink" href="../hdf5-write-performance-vs-raw/#benchmark-setup">🚀 Benchmark Setup</a></h3>
+<p>We used a direct comparison of raw binary writes versus HDF5 writes through H5CPP and HighFive. Here's a stripped-down view of what we tested:</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">// Raw I/O write</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kt">FILE</span><span class="o">*</span><span class="w"> </span><span class="n">fp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fopen</span><span class="p">(</span><span class="s">&quot;raw.bin&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;wb&quot;</span><span class="p">);</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">fwrite</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">T</span><span class="p">),</span><span class="w"> </span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="n">fp</span><span class="p">);</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="c1">// H5CPP write</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">h5</span><span class="o">::</span><span class="n">fd_t</span><span class="w"> </span><span class="n">fd</span><span class="p">(</span><span class="s">&quot;h5cpp.h5&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">H5F_ACC_TRUNC</span><span class="p">);</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">h5</span><span class="o">::</span><span class="n">ds_t</span><span class="w"> </span><span class="n">ds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">h5</span><span class="o">::</span><span class="n">create</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;data&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">h5</span><span class="o">::</span><span class="n">current_dims</span><span class="p">{</span><span class="n">N</span><span class="p">},</span><span class="w"> </span><span class="n">h5</span><span class="o">::</span><span class="n">chunk</span><span class="p">{</span><span class="mi">1024</span><span class="p">});</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">h5</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span><span class="w"> </span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">);</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="err">````</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="n">We</span><span class="w"> </span><span class="n">then</span><span class="w"> </span><span class="n">compared</span><span class="w"> </span><span class="k">this</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">typical</span><span class="w"> </span><span class="n">C</span><span class="o">++</span><span class="w"> </span><span class="n">HDF5</span><span class="w"> </span><span class="n">binding</span><span class="w"> </span><span class="n">such</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">HighFive</span><span class="o">:</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="err">```</span><span class="n">cpp</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="c1">// HighFive example</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="n">HighFive</span><span class="o">::</span><span class="n">File</span><span class="w"> </span><span class="n">file</span><span class="p">(</span><span class="s">&quot;high5.h5&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">HighFive</span><span class="o">::</span><span class="n">File</span><span class="o">::</span><span class="n">Truncate</span><span class="p">);</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="n">HighFive</span><span class="o">::</span><span class="n">DataSet</span><span class="w"> </span><span class="n">ds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file</span><span class="p">.</span><span class="n">createDataSet</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;data&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">HighFive</span><span class="o">::</span><span class="n">DataSpace</span><span class="o">::</span><span class="n">From</span><span class="p">(</span><span class="n">vec</span><span class="p">));</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="n">ds</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">vec</span><span class="p">);</span>
+</span></code></pre></div>
+<h4 id="results-on-nvme-ssd-4k-chunks-aligned-memory"><a class="toclink" href="../hdf5-write-performance-vs-raw/#results-on-nvme-ssd-4k-chunks-aligned-memory">Results (on NVMe SSD, 4K chunks, aligned memory)</a></h4>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Throughput (MiB/s)</th>
+<th>% of Raw</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fwrite()</code></td>
+<td>2150</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>H5CPP</td>
+<td>2043</td>
+<td>95%</td>
+</tr>
+<tr>
+<td>HighFive</td>
+<td>1360</td>
+<td>63%</td>
+</tr>
+</tbody>
+</table>
+<p><em>Note: The results were averaged over multiple runs using aligned 1D arrays of size 10⁸.</em></p>
+<h3 id="why-is-h5cpp-so-close-to-raw"><a class="toclink" href="../hdf5-write-performance-vs-raw/#why-is-h5cpp-so-close-to-raw">📦 Why Is H5CPP So Close to Raw?</a></h3>
+<p>Because we bypass some of the typical HDF5 overhead:</p>
+<ul>
+<li>We allocate memory-aligned chunks.</li>
+<li>Use direct chunk write paths (<code>H5Dwrite_chunk</code> in corner cases).</li>
+<li>Avoid string name lookups via compile-time descriptors.</li>
+<li>Write with typed memory layout: no need for intermediate buffers or conversions.</li>
+</ul>
+<p>All that comes down to this:</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">h5</span><span class="o">::</span><span class="n">append</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;dataset&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="p">);</span><span class="w">  </span><span class="c1">// Efficient append mode for time-series</span>
+</span></code></pre></div>
+<h3 id="tiny-writes-no-problem"><a class="toclink" href="../hdf5-write-performance-vs-raw/#tiny-writes-no-problem">🧵 Tiny Writes? No Problem.</a></h3>
+<p>For small updates (tick-by-tick finance, sensor bursts), HDF5's overhead can become noticeable. But by using chunked datasets and piping updates through <code>h5::append()</code>:</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">h5</span><span class="o">::</span><span class="n">append</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;ticks&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">tick_data</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+</span></code></pre></div>
+<p>You avoid dataset reopening, pre-allocate chunks, and get near-zero overhead in amortized writes.</p>
+<h3 id="final-thoughts"><a class="toclink" href="../hdf5-write-performance-vs-raw/#final-thoughts">🧠 Final Thoughts</a></h3>
+<p>If you're serious about I/O, you need tooling that doesn’t get in your way. H5CPP is designed for that. And unlike most C++ wrappers, we bring <em>performance</em>, <em>type safety</em>, and <em>ergonomics</em> together.</p>
+<p>HDF5 is not slow. It’s just... misunderstood. With H5CPP, it becomes a high-speed structured I/O machine.</p>
+    
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2020-07-01 00:00:00+00:00">July 1, 2020</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../hdf5/" class="md-meta__link">hdf5</a>, 
+              <a href="../c/" class="md-meta__link">c++</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              5 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="reading-and-writing-stdvector-with-hdf5-the-h5cpp-way"><a class="toclink" href="../h5cpp-std-vector-read-write/">Reading and Writing <code>std::vector</code> with HDF5 – The H5CPP Way</a></h2>
+<h3 id="the-question-paul-tanja-jul-1-2020"><a class="toclink" href="../h5cpp-std-vector-read-write/#the-question-paul-tanja-jul-1-2020">The Question (Paul Tanja, Jul 1, 2020)</a></h3>
+<p>Hi, I was wondering if it's possible to read/write <code>std::vector</code> to HDF5—especially if the size of the array isn’t known at runtime?</p>
+<p>This is a common need: we often work with dynamically sized containers and want clean, type-safe persistence. In raw HDF5 C++ API, that’s boilerplate-y; but H5CPP abstracts that.</p>
+<h3 id="my-take-h5cpp-makes-it-trivial"><a class="toclink" href="../h5cpp-std-vector-read-write/#my-take-h5cpp-makes-it-trivial">My Take – H5CPP Makes It Trivial</a></h3>
+<p>Absolutely—you can use <code>std::vector&lt;T&gt;</code> directly. I built that feature years ago, and since then have added:</p>
+<ul>
+<li>Modern template metaprogramming for Python-like syntax</li>
+<li>Container detection via compile-time features</li>
+<li>Generative heuristics for layout selection (contiguous, chunked, etc.)</li>
+</ul>
+<p>Basically, all the complexity is hidden—H5CPP handles it. Two quick calls are your friends:</p>
+<p>```cpp
+h5::write(file, dataset_name, std_vector);   // one-shot write
+h5::append(file, dataset_name, std_vector);  // fast chunked appends
+````</p>
+<p>The <code>h5::append</code> call writes using direct chunk-block IO, and hits the same throughput as the underlying filesystem—even fast single-event streams (like HFT tick bids).</p>
+<p>So you don’t have to reinvent this wheel—unless your goal is educational exploration. In that case: consider writing your own chunked pipeline using BLAS-3 style blocking for performance… but it’s hard, and I built this already 😉</p>
+<h3 id="quick-summary"><a class="toclink" href="../h5cpp-std-vector-read-write/#quick-summary">Quick Summary</a></h3>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>H5CPP API</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>One-shot write of <code>std::vector</code></td>
+<td><code>h5::write(...)</code></td>
+</tr>
+<tr>
+<td>Efficient append to dataset</td>
+<td><code>h5::append(...)</code></td>
+</tr>
+<tr>
+<td>Flexible container support</td>
+<td>Automatic via templates</td>
+</tr>
+<tr>
+<td>Best-in-class performance</td>
+<td>Zero-overhead chunk writing</td>
+</tr>
+</tbody>
+</table>
+<p>Let me know if you'd like a full example comparing H5CPP vs raw HDF5 C++ code, or how to integrate these calls into a circular buffer workflow.</p>
+<p><strong>Steven Varga</strong></p>
+    
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2020-05-06 00:00:00+00:00">May 6, 2020</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../hdf5/" class="md-meta__link">hdf5</a>, 
+              <a href="../c/" class="md-meta__link">c++</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              6 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="valgrind-move-semantics-and-hdf5-memory-safe-serialization-with-h5cpp"><a class="toclink" href="../valgrind-move-semantic-test/">Valgrind, Move Semantics, and HDF5: Memory-Safe Serialization with H5CPP</a></h2>
+<h3 id="introduction"><a class="toclink" href="../valgrind-move-semantic-test/#introduction">Introduction</a></h3>
+<p>Memory leaks? Invalid writes? Not in our house.
+When you're dealing with zero-copy serialization of C++ POD types into HDF5 packet tables, you'd better be sure the memory management holds up — especially under modern C++ semantics like move assignment.</p>
+<p>In this short entry, we explore how <code>h5cpp</code> handles move semantics under stress, and how tools like Valgrind can validate correct cleanup when working with dynamically generated HDF5 compound types.</p>
+<h3 id="the-test-moving-packet-tables"><a class="toclink" href="../valgrind-move-semantic-test/#the-test-moving-packet-tables">The Test: Moving Packet Tables</a></h3>
+<p>The test project from this commit uses:</p>
+<ul>
+<li>a <strong>generated struct</strong> (<code>packet_t</code>) via <code>generated.h</code> and <code>struct.h</code></li>
+<li>a simple <strong>dataset append test</strong> using <code>packettable.cpp</code></li>
+<li>a <strong>Makefile</strong> that wires the H5CPP build chain to produce and inspect the binary</li>
+</ul>
+<p>The core test is simple:</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">packet_t</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w">  </span><span class="c1">// move assignment</span>
+</span></code></pre></div>
+<p>Followed by an append operation into an HDF5 Packet Table. We simulate real-world usage where streaming structs get moved during staging, queueing, or I/O flushing — and we want to guarantee correctness, not just behavior.</p>
+<h3 id="memory-safety-valgrind-results"><a class="toclink" href="../valgrind-move-semantic-test/#memory-safety-valgrind-results">Memory Safety: Valgrind Results</a></h3>
+<p>Compiled with HDF5 debugging symbols and H5CPP, we ran:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>valgrind<span class="w"> </span>--leak-check<span class="o">=</span>full<span class="w"> </span>./packettable
+</span></code></pre></div>
+<p>And here's what we expect to see:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>==12345== All heap blocks were freed -- no leaks are possible
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>==12345== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+</span></code></pre></div>
+<p>Why this matters: <code>move assignment</code> can easily create subtle dangling references or uninitialized accesses in serialization-heavy code. By testing this path explicitly, we ensure that:</p>
+<ul>
+<li>all memory is correctly initialized/cleaned up</li>
+<li>no heap leaks happen during serialization/deserialization</li>
+<li>HDF5’s internal resources are released cleanly</li>
+</ul>
+<h3 id="how-h5cpp-helps"><a class="toclink" href="../valgrind-move-semantic-test/#how-h5cpp-helps">How H5CPP Helps</a></h3>
+<p>Behind the scenes, H5CPP generates type-safe HDF5 compound type definitions and adapters. This ensures:</p>
+<ul>
+<li>correct alignment and layout matching</li>
+<li>RAII-wrapped HDF5 resources</li>
+<li>deterministic destruction of dataset writers/readers</li>
+</ul>
+<p>The generated code in <code>generated.h</code> avoids heap allocation altogether unless explicitly requested, so move assignment is just a blit operation with well-defined cleanup.</p>
+<h3 id="takeaways"><a class="toclink" href="../valgrind-move-semantic-test/#takeaways">Takeaways</a></h3>
+<p>✅ Always test your serialization stack under move semantics
+✅ Use Valgrind or ASan regularly to catch lifetime bugs
+✅ Let H5CPP do the heavy lifting of alignment, safety, and type deduction</p>
+    
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2020-03-25 00:00:00+00:00">March 25, 2020</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../hdf5/" class="md-meta__link">hdf5</a>, 
+              <a href="../c/" class="md-meta__link">c++</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              11 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="posted-problem"><a class="toclink" href="../hdf5-cross-compile-features/"><a href="https://forum.hdfgroup.org/t/cross-compiling-for-windows/6735">Posted problem</a></a></h2>
+<p>Hello, I’m trying to cross-compile HDF5 using BinaryBuilder 3, but it’s still not clear to me the setup to use. I’ve tried calling CMake in the following way:</p>
+<p>cmake .. -DCMAKE_INSTALL_PREFIX=<span CMAKE_TARGET_TOOLCHAIN="CMAKE_TARGET_TOOLCHAIN" class="arithmatex">\({prefix} \
+    -DCMAKE_TOOLCHAIN_FILE=\)</span> \
+    -DHDF5_BUILD_CPP_LIB=OFF \
+    -DONLY_SHARED_LIBS=ON \
+    -DHDF5_BUILD_HL_LIB=ON \
+    -DHDF5_ENABLE_Z_LIB_SUPPORT=ON \
+    -DHDF5_ENABLE_SZIP_SUPPORT=OFF \
+    -DHDF5_ENABLE_SZIP_ENCODING=OFF \
+    -DBUILD_TESTING=OFF</p>
+<h2 id="to-reproduce-platform-dependent-variables-for-cmake"><a class="toclink" href="../hdf5-cross-compile-features/#to-reproduce-platform-dependent-variables-for-cmake">To reproduce platform dependent variables for <code>cmake</code></a></h2>
+<h4 id="allen-byrn"><a class="toclink" href="../hdf5-cross-compile-features/#allen-byrn">Allen Byrn</a></h4>
+<p>According to CMake, in the cross-compile toolchain you pre-set those variables to the results of the try run. Yes you need to know what those values are. I would start with the info from the CMake sites and go from there.
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>H5_LDOUBLE_TO_LONG_SPECIAL_RUN (advanced)
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>H5_LDOUBLE_TO_LONG_SPECIAL_RUN__TRYRUN_OUTPUT (advanced)
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>H5_LONG_TO_LDOUBLE_SPECIAL_RUN (advanced)
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>H5_LONG_TO_LDOUBLE_SPECIAL_RUN__TRYRUN_OUTPUT (advanced)
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>H5_LDOUBLE_TO_LLONG_ACCURATE_RUN (advanced)
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>H5_LDOUBLE_TO_LLONG_ACCURATE_RUN__TRYRUN_OUTPUT (advanced)
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>H5_LLONG_TO_LDOUBLE_CORRECT_RUN (advanced)
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>H5_LLONG_TO_LDOUBLE_CORRECT_RUN__TRYRUN_OUTPUT (advanced)
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>H5_DISABLE_SOME_LDOUBLE_CONV_RUN (advanced)
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>H5_DISABLE_SOME_LDOUBLE_CONV_RUN__TRYRUN_OUTPUT (advanced)
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>H5_NO_ALIGNMENT_RESTRICTIONS_RUN (advanced)
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>H5_NO_ALIGNMENT_RESTRICTIONS_RUN__TRYRUN_OUTPUT (advanced)
+</span></code></pre></div></p>
+<h4 id="hdf5configcmakeconversiontestsc"><a class="toclink" href="../hdf5-cross-compile-features/#hdf5configcmakeconversiontestsc">hdf5/config/cmake/ConversionTests.c</a></h4>
+<p>execute <code>make conversion-dump</code> to create the list of macro definitions
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">#ifdef H5_LDOUBLE_TO_LONG_SPECIAL_TEST    -&gt; H5_LDOUBLE_TO_LONG_SPECIAL_RUN</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="c1">#ifdef H5_LONG_TO_LDOUBLE_SPECIAL_TEST    -&gt; H5_LONG_TO_LDOUBLE_SPECIAL_RUN</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1">#ifdef H5_LDOUBLE_TO_LLONG_ACCURATE_TEST  -&gt; H5_LDOUBLE_TO_LLONG_ACCURATE_RUN</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1">#ifdef H5_LLONG_TO_LDOUBLE_CORRECT_TEST   -&gt; H5_LLONG_TO_LDOUBLE_CORRECT_RUN</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="c1">#ifdef H5_NO_ALIGNMENT_RESTRICTIONS_TEST  -&gt; H5_NO_ALIGNMENT_RESTRICTIONS_RUN</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="c1">#ifdef FC_DUMMY_MAIN</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1">#ifdef H5_DISABLE_SOME_LDOUBLE_CONV_TEST  -&gt; H5_DISABLE_SOME_LDOUBLE_CONV_RUN</span>
+</span></code></pre></div></p>
+<h4 id="hdftestsc"><a class="toclink" href="../hdf5-cross-compile-features/#hdftestsc">HDFTests.c</a></h4>
+<p>execute <code>make try-dump</code> to create the list of macro definitions or execute:
+<code>grep -Rn "#ifdef" HDFTests.c |cut -d' ' -f2 | sort -f | tr '\n' ' '</code> from shell.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>DEV_T_IS_SCALAR<span class="w"> </span>FC_DUMMY_MAIN<span class="w"> </span>FC_DUMMY_MAIN<span class="w"> </span>FC_DUMMY_MAIN<span class="w"> </span>GETTIMEOFDAY_GIVES_TZ<span class="w"> </span>__GLIBC_PREREQ<span class="w"> </span>HAVE_ATTRIBUTE<span class="w"> </span>HAVE_C99_DESIGNATED_INITIALIZER<span class="w"> </span>HAVE_C99_FUNC<span class="w"> </span>HAVE_DEFAULT_SOURCE<span class="w"> </span>HAVE_DIRECT<span class="w"> </span>HAVE_FUNCTION<span class="w"> </span>HAVE_IOEO<span class="w"> </span>HAVE_LONG_LONG<span class="w"> </span>HAVE_OFF64_T<span class="w"> </span>HAVE_SOCKLEN_T<span class="w"> </span>HAVE_STAT64_STRUCT<span class="w"> </span>HAVE_STAT_ST_BLOCKS<span class="w"> </span>HAVE_STRUCT_TEXT_INFO<span class="w"> </span>HAVE_STRUCT_TIMEZONE<span class="w"> </span>HAVE_STRUCT_VIDEOCONFIG<span class="w"> </span>HAVE_SYS_SOCKET_H<span class="w"> </span>HAVE_SYS_TIME_H<span class="w"> </span>HAVE_SYS_TIME_H<span class="w"> </span>HAVE_SYS_TIME_H<span class="w"> </span>HAVE_SYS_TIME_H<span class="w"> </span>HAVE_SYS_TIME_H<span class="w"> </span>HAVE_SYS_TYPES_H<span class="w"> </span>HAVE_SYS_TYPES_H<span class="w"> </span>HAVE_TIMEZONE<span class="w"> </span>HAVE___TM_GMTOFF<span class="w"> </span>HAVE_TM_GMTOFF<span class="w"> </span>HAVE_UNISTD_H<span class="w"> </span>PRINTF_LL_WIDTH<span class="w"> </span>STDC_HEADERS<span class="w"> </span>SYSTEM_SCOPE_THREADS<span class="w"> </span>TEST_DIRECT_VFD_WORKS<span class="w"> </span>TEST_LFS_WORKS<span class="w"> </span>TIME_WITH_SYS_TIME<span class="w"> </span>VSNPRINTF_WORKS
+</span></code></pre></div>
+<h4 id="makefile-to-run-all-test-cases"><a class="toclink" href="../hdf5-cross-compile-features/#makefile-to-run-all-test-cases">Makefile to run all test cases:</a></h4>
+<div class="language-make highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c">#  _____________________________________________________________________________</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="c">#  Copyright (c) &lt;2020&gt; &lt;copyright Steven Varga, Toronto, On&gt;</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="c">#  _____________________________________________________________________________</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="nf">all</span><span class="o">:</span><span class="w"> </span><span class="n">try</span>-<span class="n">prefix</span> <span class="n">conversion</span>-<span class="n">prefix</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="c"># clean target will remove it, so create on demand</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="nf">setup-dir</span><span class="o">:</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span>@mkdir<span class="w"> </span>-p<span class="w"> </span>build
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="c"># </span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="nv">remove_prefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">$(</span>shell<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;$1&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39;-&#39;</span><span class="w"> </span>-f2<span class="k">)</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="nv">conversion-src</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>ConversionTests.c
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="nv">conversion-list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>H5_LDOUBLE_TO_LONG_SPECIAL_TEST<span class="w"> </span>H5_LONG_TO_LDOUBLE_SPECIAL_TEST<span class="w"> </span>H5_LDOUBLE_TO_LLONG_ACCURATE_TEST<span class="w">     </span>H5_LLONG_TO_LDOUBLE_CORRECT_TEST<span class="w"> </span>H5_NO_ALIGNMENT_RESTRICTIONS_TEST<span class="w"> </span>H5_DISABLE_SOME_LDOUBLE_CONV_TEST
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="nf">conversion-prefix</span><span class="o">:</span><span class="w"> </span><span class="k">$(</span><span class="nv">foreach</span> <span class="nv">var</span>,<span class="k">$(</span><span class="nv">conversion-list</span><span class="k">)</span>, <span class="nv">conversion-</span><span class="k">$(</span><span class="nv">var</span><span class="k">))</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="nf">conversion-%</span><span class="o">:</span><span class="w"> </span><span class="k">$(</span><span class="nv">conversion-src</span><span class="k">)</span> <span class="n">setup</span>-<span class="n">dir</span>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">    </span><span class="k">$(</span><span class="nb">eval</span><span class="w"> </span><span class="nv">value</span><span class="o">=</span><span class="k">$(</span>call<span class="w"> </span>remove_prefix,<span class="nv">$@</span><span class="k">))</span>
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">    </span>@<span class="k">$(</span>CC<span class="k">)</span><span class="w"> </span>-o<span class="w"> </span>build/<span class="k">$(</span>value<span class="k">)</span><span class="w"> </span>-D<span class="k">$(</span>value<span class="k">)</span><span class="w"> </span><span class="k">$(</span>conversion-src<span class="k">)</span>
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">    </span>@./build/<span class="k">$(</span>value<span class="k">)</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="k">$(</span>value<span class="k">)</span><span class="w"> </span><span class="nv">$$</span>?
+</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>
+</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="nv">try-src</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>HDFTests.c
+</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="nv">try-list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>DEV_T_IS_SCALAR<span class="w"> </span>FC_DUMMY_MAIN<span class="w"> </span>FC_DUMMY_MAIN<span class="w"> </span>FC_DUMMY_MAIN<span class="w"> </span>GETTIMEOFDAY_GIVES_TZ<span class="w"> </span>__GLIBC_PREREQ<span class="w"> </span>HAVE_ATTRIBUTE<span class="w"> </span>HAVE_C99_DESIGNATED_INITIALIZER<span class="w"> </span>HAVE_C99_FUNC<span class="w"> </span>HAVE_DEFAULT_SOURCE<span class="w"> </span>HAVE_DIRECT<span class="w"> </span>HAVE_FUNCTION<span class="w"> </span>HAVE_IOEO<span class="w"> </span>HAVE_LONG_LONG<span class="w"> </span>HAVE_OFF64_T<span class="w"> </span>HAVE_SOCKLEN_T<span class="w"> </span>HAVE_STAT64_STRUCT<span class="w"> </span>HAVE_STAT_ST_BLOCKS<span class="w"> </span>HAVE_STRUCT_TEXT_INFO<span class="w"> </span>HAVE_STRUCT_TIMEZONE<span class="w"> </span>HAVE_STRUCT_VIDEOCONFIG<span class="w"> </span>HAVE_SYS_SOCKET_H<span class="w"> </span>HAVE_SYS_TIME_H<span class="w"> </span>HAVE_SYS_TIME_H<span class="w"> </span>HAVE_SYS_TIME_H<span class="w"> </span>HAVE_SYS_TIME_H<span class="w"> </span>HAVE_SYS_TIME_H<span class="w"> </span>HAVE_SYS_TYPES_H<span class="w"> </span>HAVE_SYS_TYPES_H<span class="w"> </span>HAVE_TIMEZONE<span class="w"> </span>HAVE___TM_GMTOFF<span class="w"> </span>HAVE_TM_GMTOFF<span class="w"> </span>HAVE_UNISTD_H<span class="w"> </span>PRINTF_LL_WIDTH<span class="w"> </span>STDC_HEADERS<span class="w"> </span>SYSTEM_SCOPE_THREADS<span class="w"> </span>TEST_DIRECT_VFD_WORKS<span class="w"> </span>TEST_LFS_WORKS<span class="w"> </span>TIME_WITH_SYS_TIME<span class="w"> </span>VSNPRINTF_WORKS
+</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="nf">try-prefix</span><span class="o">:</span><span class="w"> </span><span class="k">$(</span><span class="nv">foreach</span> <span class="nv">var</span>,<span class="k">$(</span><span class="nv">try-list</span><span class="k">)</span>, <span class="nv">try-</span><span class="k">$(</span><span class="nv">var</span><span class="k">))</span>
+</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="nf">try-%</span><span class="o">:</span><span class="w"> </span><span class="k">$(</span><span class="nv">try-src</span><span class="k">)</span> <span class="n">setup</span>-<span class="n">dir</span>
+</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="w">    </span><span class="k">$(</span><span class="nb">eval</span><span class="w"> </span><span class="nv">value</span><span class="o">=</span><span class="k">$(</span>call<span class="w"> </span>remove_prefix,<span class="nv">$@</span><span class="k">))</span>
+</span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="w">    </span>@<span class="k">$(</span>CC<span class="k">)</span><span class="w"> </span>-o<span class="w"> </span>build/<span class="k">$(</span>value<span class="k">)</span><span class="w"> </span>-D<span class="k">$(</span>value<span class="k">)</span><span class="w"> </span><span class="k">$(</span>try-src<span class="k">)</span><span class="w"> </span>&gt;<span class="w"> </span>/dev/null<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="k">$(</span>value<span class="k">)</span><span class="w"> </span><span class="nv">$$</span>?
+</span><span id="__span-3-27"><a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a>
+</span><span id="__span-3-28"><a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a><span class="nf">clean</span><span class="o">:</span><span class="w"> </span>
+</span><span id="__span-3-29"><a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a><span class="w">    </span>@rm<span class="w"> </span>-rf<span class="w"> </span>build<span class="w"> </span>
+</span><span id="__span-3-30"><a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a>
+</span><span id="__span-3-31"><a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a><span class="nf">.PHONY</span><span class="o">:</span><span class="w"> </span><span class="n">all</span> <span class="n">try</span>-<span class="n">prefix</span> <span class="n">conversion</span>-<span class="n">prefix</span> 
+</span></code></pre></div>
+<h3 id="generated-output"><a class="toclink" href="../hdf5-cross-compile-features/#generated-output">Generated output</a></h3>
+<p>The following list probably should contain the platform hash with the list of values. </p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>DEV_T_IS_SCALAR<span class="w"> </span><span class="m">1</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>FC_DUMMY_MAIN<span class="w"> </span><span class="m">1</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>GETTIMEOFDAY_GIVES_TZ<span class="w"> </span><span class="m">1</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>__GLIBC_PREREQ<span class="w"> </span><span class="m">1</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>HAVE_ATTRIBUTE<span class="w"> </span><span class="m">0</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>HAVE_C99_DESIGNATED_INITIALIZER<span class="w"> </span><span class="m">0</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>HAVE_C99_FUNC<span class="w"> </span><span class="m">0</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>HAVE_DEFAULT_SOURCE<span class="w"> </span><span class="m">0</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>HAVE_DIRECT<span class="w"> </span><span class="m">0</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>HAVE_FUNCTION<span class="w"> </span><span class="m">0</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>HAVE_IOEO<span class="w"> </span><span class="m">1</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>HAVE_LONG_LONG<span class="w"> </span><span class="m">1</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>HAVE_OFF64_T<span class="w"> </span><span class="m">1</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>HAVE_SOCKLEN_T<span class="w"> </span><span class="m">1</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>HAVE_STAT64_STRUCT<span class="w"> </span><span class="m">1</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>HAVE_STAT_ST_BLOCKS<span class="w"> </span><span class="m">0</span>
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>HAVE_STRUCT_TEXT_INFO<span class="w"> </span><span class="m">1</span>
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>HAVE_STRUCT_TIMEZONE<span class="w"> </span><span class="m">1</span>
+</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>HAVE_STRUCT_VIDEOCONFIG<span class="w"> </span><span class="m">1</span>
+</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>HAVE_SYS_SOCKET_H<span class="w"> </span><span class="m">1</span>
+</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>HAVE_SYS_TIME_H<span class="w"> </span><span class="m">1</span>
+</span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a>HAVE_SYS_TYPES_H<span class="w"> </span><span class="m">1</span>
+</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a>HAVE_TIMEZONE<span class="w"> </span><span class="m">0</span>
+</span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a>HAVE___TM_GMTOFF<span class="w"> </span><span class="m">1</span>
+</span><span id="__span-4-25"><a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a>HAVE_TM_GMTOFF<span class="w"> </span><span class="m">0</span>
+</span><span id="__span-4-26"><a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a>HAVE_UNISTD_H<span class="w"> </span><span class="m">1</span>
+</span><span id="__span-4-27"><a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a>PRINTF_LL_WIDTH<span class="w"> </span><span class="m">1</span>
+</span><span id="__span-4-28"><a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a>STDC_HEADERS<span class="w"> </span><span class="m">0</span>
+</span><span id="__span-4-29"><a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a>SYSTEM_SCOPE_THREADS<span class="w"> </span><span class="m">0</span>
+</span><span id="__span-4-30"><a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a>TEST_DIRECT_VFD_WORKS<span class="w"> </span><span class="m">1</span>
+</span><span id="__span-4-31"><a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a>TEST_LFS_WORKS<span class="w"> </span><span class="m">0</span>
+</span><span id="__span-4-32"><a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a>TIME_WITH_SYS_TIME<span class="w"> </span><span class="m">0</span>
+</span><span id="__span-4-33"><a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a>VSNPRINTF_WORKS<span class="w"> </span><span class="m">0</span>
+</span><span id="__span-4-34"><a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a>H5_LDOUBLE_TO_LONG_SPECIAL_TEST<span class="w"> </span><span class="m">1</span>
+</span><span id="__span-4-35"><a id="__codelineno-4-35" name="__codelineno-4-35" href="#__codelineno-4-35"></a>H5_LONG_TO_LDOUBLE_SPECIAL_TEST<span class="w"> </span><span class="m">1</span>
+</span><span id="__span-4-36"><a id="__codelineno-4-36" name="__codelineno-4-36" href="#__codelineno-4-36"></a>H5_LDOUBLE_TO_LLONG_ACCURATE_TEST<span class="w"> </span><span class="m">0</span>
+</span><span id="__span-4-37"><a id="__codelineno-4-37" name="__codelineno-4-37" href="#__codelineno-4-37"></a>H5_LLONG_TO_LDOUBLE_CORRECT_TEST<span class="w"> </span><span class="m">0</span>
+</span><span id="__span-4-38"><a id="__codelineno-4-38" name="__codelineno-4-38" href="#__codelineno-4-38"></a>H5_NO_ALIGNMENT_RESTRICTIONS_TEST<span class="w"> </span><span class="m">0</span>
+</span><span id="__span-4-39"><a id="__codelineno-4-39" name="__codelineno-4-39" href="#__codelineno-4-39"></a>H5_DISABLE_SOME_LDOUBLE_CONV_TEST<span class="w"> </span><span class="m">1</span>
+</span></code></pre></div>
+<h3 id="yggdrasil-mose-giordano"><a class="toclink" href="../hdf5-cross-compile-features/#yggdrasil-mose-giordano">yggdrasil: Mose Giordano</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>using<span class="w"> </span>BinaryBuilder
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="c1"># Collection of sources required to build HDF5</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;HDF5&quot;</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="nv">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>v<span class="s2">&quot;1.12.0&quot;</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="nv">sources</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">    </span>GitSource<span class="o">(</span><span class="s2">&quot;https://github.com/steven-varga/hdf5.git&quot;</span>,
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">              </span><span class="s2">&quot;b49b22d6882d97b1ec01d482822955bd8e923203&quot;</span><span class="o">)</span>,
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="o">]</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="c1"># Bash recipe for building across all platforms</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="nv">script</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>raw<span class="s2">&quot;&quot;&quot;</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="s2">cd </span><span class="si">${</span><span class="nv">WORKSPACE</span><span class="si">}</span><span class="s2">/srcdir/hdf5/</span>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="s2">mkdir build &amp;&amp; cd build</span>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="s2">cmake .. -DCMAKE_INSTALL_PREFIX=</span><span class="si">${</span><span class="nv">prefix</span><span class="si">}</span><span class="s2"> \</span>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="s2">    -DCMAKE_TOOLCHAIN_FILE=</span><span class="si">${</span><span class="nv">CMAKE_TARGET_TOOLCHAIN</span><span class="si">}</span><span class="s2"> \</span>
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="s2">    -DHDF5_BUILD_CPP_LIB=OFF \</span>
+</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="s2">    -DONLY_SHARED_LIBS=ON \</span>
+</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a><span class="s2">    -DHDF5_BUILD_HL_LIB=ON \</span>
+</span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a><span class="s2">    -DHDF5_ENABLE_Z_LIB_SUPPORT=ON \</span>
+</span><span id="__span-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a><span class="s2">    -DHDF5_ENABLE_SZIP_SUPPORT=OFF \</span>
+</span><span id="__span-5-23"><a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a><span class="s2">    -DHDF5_ENABLE_SZIP_ENCODING=OFF \</span>
+</span><span id="__span-5-24"><a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a><span class="s2">    -DBUILD_TESTING=OFF</span>
+</span><span id="__span-5-25"><a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a><span class="s2">make -j</span><span class="si">${</span><span class="nv">nproc</span><span class="si">}</span>
+</span><span id="__span-5-26"><a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a><span class="s2">make install</span>
+</span><span id="__span-5-27"><a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a><span class="s2">install_license </span><span class="si">${</span><span class="nv">WORKSPACE</span><span class="si">}</span><span class="s2">/srcdir/hdf5/COPYING*</span>
+</span><span id="__span-5-28"><a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a><span class="s2">&quot;&quot;&quot;</span>
+</span><span id="__span-5-29"><a id="__codelineno-5-29" name="__codelineno-5-29" href="#__codelineno-5-29"></a>
+</span><span id="__span-5-30"><a id="__codelineno-5-30" name="__codelineno-5-30" href="#__codelineno-5-30"></a><span class="c1"># These are the platforms we will build for by default, unless further</span>
+</span><span id="__span-5-31"><a id="__codelineno-5-31" name="__codelineno-5-31" href="#__codelineno-5-31"></a><span class="c1"># platforms are passed in on the command line</span>
+</span><span id="__span-5-32"><a id="__codelineno-5-32" name="__codelineno-5-32" href="#__codelineno-5-32"></a><span class="nv">platforms</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>supported_platforms<span class="o">()</span>
+</span><span id="__span-5-33"><a id="__codelineno-5-33" name="__codelineno-5-33" href="#__codelineno-5-33"></a>
+</span><span id="__span-5-34"><a id="__codelineno-5-34" name="__codelineno-5-34" href="#__codelineno-5-34"></a><span class="c1"># The products that we will ensure are always built</span>
+</span><span id="__span-5-35"><a id="__codelineno-5-35" name="__codelineno-5-35" href="#__codelineno-5-35"></a><span class="nv">products</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span>
+</span><span id="__span-5-36"><a id="__codelineno-5-36" name="__codelineno-5-36" href="#__codelineno-5-36"></a><span class="w">    </span>LibraryProduct<span class="o">(</span><span class="s2">&quot;libhdf5&quot;</span>,<span class="w"> </span>:libhdf5<span class="o">)</span>,
+</span><span id="__span-5-37"><a id="__codelineno-5-37" name="__codelineno-5-37" href="#__codelineno-5-37"></a><span class="w">    </span>LibraryProduct<span class="o">(</span><span class="s2">&quot;libhdf5_hl&quot;</span>,<span class="w"> </span>:libhdf5_hl<span class="o">)</span>,
+</span><span id="__span-5-38"><a id="__codelineno-5-38" name="__codelineno-5-38" href="#__codelineno-5-38"></a><span class="o">]</span>
+</span><span id="__span-5-39"><a id="__codelineno-5-39" name="__codelineno-5-39" href="#__codelineno-5-39"></a>
+</span><span id="__span-5-40"><a id="__codelineno-5-40" name="__codelineno-5-40" href="#__codelineno-5-40"></a><span class="c1"># Dependencies that must be installed before this package can be built</span>
+</span><span id="__span-5-41"><a id="__codelineno-5-41" name="__codelineno-5-41" href="#__codelineno-5-41"></a><span class="nv">dependencies</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span>
+</span><span id="__span-5-42"><a id="__codelineno-5-42" name="__codelineno-5-42" href="#__codelineno-5-42"></a><span class="w">    </span>Dependency<span class="o">(</span><span class="s2">&quot;Zlib_jll&quot;</span><span class="o">)</span>,
+</span><span id="__span-5-43"><a id="__codelineno-5-43" name="__codelineno-5-43" href="#__codelineno-5-43"></a><span class="o">]</span>
+</span><span id="__span-5-44"><a id="__codelineno-5-44" name="__codelineno-5-44" href="#__codelineno-5-44"></a>
+</span><span id="__span-5-45"><a id="__codelineno-5-45" name="__codelineno-5-45" href="#__codelineno-5-45"></a><span class="c1"># Build the tarballs, and possibly a `build.jl` as well.</span>
+</span><span id="__span-5-46"><a id="__codelineno-5-46" name="__codelineno-5-46" href="#__codelineno-5-46"></a>build_tarballs<span class="o">(</span>ARGS,<span class="w"> </span>name,<span class="w"> </span>version,<span class="w"> </span>sources,<span class="w"> </span>script,<span class="w"> </span>platforms,<span class="w"> </span>products,<span class="w"> </span>dependencies<span class="o">)</span>
+</span></code></pre></div>
+    
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2020-03-03 00:00:00+00:00">March 3, 2020</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../hdf5/" class="md-meta__link">hdf5</a>, 
+              <a href="../c/" class="md-meta__link">c++</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              13 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="csv-to-hdf5"><a class="toclink" href="../csv-to-hdf5/">CSV to HDF5</a></h2>
+<p>Public domain CSV example file obtained from <a href="https://data.bloomington.in.gov/dataset/117733fb-31cb-480a-8b30-fbf425a690cd/resource/8673744e-53f2-42d1-9d05-4e412bd55c94/download/monroe-county-crash-data2003-to-2015.csv">this link</a>
+ The CSV library is <a href="https://github.com/ben-strasser/fast-cpp-csv-parser">Fast C++ CSV Parser</a></p>
+<h2 id="cc-representation"><a class="toclink" href="../csv-to-hdf5/#cc-representation">C++/C representation</a></h2>
+<p>arbitrary pod struct can be represented in HDF5 format, one easy representation of strings is character array. An alternative --often better performing --representation would be to factor out strings from numerical data, then save them in separate datasets.
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>#ifndef  CSV2H5_H 
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>#define  CSV2H5_H
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>/*define C++ representation as POD struct*/
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>struct input_t {
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    long MasterRecordNumber;
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    unsigned int Hour;
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    double Latitude;
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    double Longitude;
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    char ReportedLocation[20]; // character arrays are supported
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>};
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>#endif
+</span></code></pre></div></p>
+<p>Reading the CSV is rather easy thanks to <a href="https://github.com/ben-strasser/fast-cpp-csv-parser">Fast C++ CSV Parser</a>, a single header file <code>csv.h</code> is attached to the project. Not only fast and simple but also elegantly allows to specify specific columns marked as ncols: <code>N_COLS</code></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>io::CSVReader&lt;N_COLS&gt; in(&quot;input.csv&quot;); // number of cols may be less, than total columns in a row, we&#39;re to read only 5
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>in.read_header(io::ignore_extra_column, &quot;Master Record Number&quot;, &quot;Hour&quot;, &quot;Reported_Location&quot;,&quot;Latitude&quot;,&quot;Longitude&quot;);
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>[...]
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>while(in.read_row(row.MasterRecordNumber, row.Hour, ptr, row.Latitude, row.Longitude)){
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    [...]
+</span></code></pre></div>
+<p>The HDF5 part is matching in simplicity:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>    h5::fd_t fd = h5::create(&quot;output.h5&quot;,H5F_ACC_TRUNC);
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    h5::pt_t pt = h5::create&lt;input_t&gt;(fd,  &quot;monroe-county-crash-data2003-to-2015.csv&quot;,
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>                 h5::max_dims{H5S_UNLIMITED}, h5::chunk{1024} | h5::gzip{9} ); // compression, chunked, unlimited size
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    [...]
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    while(...){
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>        h5::append(pt, row); // append operator uses internal buffers to cache and convert row insertions to block/chunk operations
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    }
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    [...]
+</span></code></pre></div></p>
+<p>The TU translation unit is scanned with LLVM based <code>h5cpp</code> compiler and the necessary hdf5 specific type descriptors are produced:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>#ifndef H5CPP_GUARD_mzMuQ
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>#define H5CPP_GUARD_mzMuQ
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>namespace h5{
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    //template specialization of input_t to create HDF5 COMPOUND type
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    template&lt;&gt; hid_t inline register_struct&lt;input_t&gt;(){
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>        //hsize_t at_00_[] ={20};            hid_t at_00 = H5Tarray_create(H5T_STRING,20,at_00_);
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>        hid_t at_00 = H5Tcopy (H5T_C_S1); H5Tset_size(at_00, 20);
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>        hid_t ct_00 = H5Tcreate(H5T_COMPOUND, sizeof (input_t));
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>        H5Tinsert(ct_00, &quot;MasterRecordNumber&quot;,  HOFFSET(input_t,MasterRecordNumber),H5T_NATIVE_LONG);
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>        H5Tinsert(ct_00, &quot;Hour&quot;,    HOFFSET(input_t,Hour),H5T_NATIVE_UINT);
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>        H5Tinsert(ct_00, &quot;Latitude&quot;,    HOFFSET(input_t,Latitude),H5T_NATIVE_DOUBLE);
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>        H5Tinsert(ct_00, &quot;Longitude&quot;,   HOFFSET(input_t,Longitude),H5T_NATIVE_DOUBLE);
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>        H5Tinsert(ct_00, &quot;ReportedLocation&quot;,    HOFFSET(input_t,ReportedLocation),at_00);
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>        //closing all hid_t allocations to prevent resource leakage
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>        H5Tclose(at_00); 
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>        //if not used with h5cpp framework, but as a standalone code generator then
+</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>        //the returned &#39;hid_t ct_00&#39; must be closed: H5Tclose(ct_00);
+</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>        return ct_00;
+</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>    };
+</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>}
+</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>H5CPP_REGISTER_STRUCT(input_t);
+</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>
+</span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a>#endif
+</span></code></pre></div></p>
+<p>The entire project can be <a href="https://github.com/steven-varga/HDFGroup-mailinglist/tree/master/csv-2020-03-03">downloaded from this link</a> but for completeness here is the source file:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>/* Copyright (c) 2020 vargaconsulting, Toronto,ON Canada
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a> * Author: Varga, Steven &lt;steven@vargaconsulting.ca&gt;
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a> */
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>#include &quot;csv.h&quot;
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>// data structure include file: `struct.h` must precede &#39;generated.h&#39; as the latter contains dependencies
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>// from previous
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>#include &quot;struct.h&quot;
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>#include &lt;h5cpp/core&gt;      // has handle + type descriptors
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>// sandwiched: as `h5cpp/io` depends on `henerated.h` which needs `h5cpp/core`
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>    #include &quot;generated.h&quot; // uses type descriptors
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>#include &lt;h5cpp/io&gt;        // uses generated.h + core 
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>int main(){
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>    // create HDF5 container
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>    h5::fd_t fd = h5::create(&quot;output.h5&quot;,H5F_ACC_TRUNC);
+</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>    // create dataset   
+</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>    // chunk size is unrealistically small, usually you would set this such that ~= 1MB or an ethernet jumbo frame size
+</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>    h5::ds_t ds = h5::create&lt;input_t&gt;(fd,  &quot;simple approach/dataset.csv&quot;,
+</span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a>                 h5::max_dims{H5S_UNLIMITED}, h5::chunk{10} | h5::gzip{9} );
+</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a>    // `h5::ds_t` handle is seamlessly cast to `h5::pt_t` packet table handle, this could have been done in single step
+</span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a>    // but we need `h5::ds_t` handle to add attributes
+</span><span id="__span-4-25"><a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a>    h5::pt_t pt = ds;
+</span><span id="__span-4-26"><a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a>    // attributes may be added to `h5::ds_t` handle
+</span><span id="__span-4-27"><a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a>    ds[&quot;data set&quot;] = &quot;monroe-county-crash-data2003-to-2015.csv&quot;;
+</span><span id="__span-4-28"><a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a>    ds[&quot;cvs parser&quot;] = &quot;https://github.com/ben-strasser/fast-cpp-csv-parser&quot;; // thank you!
+</span><span id="__span-4-29"><a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a>
+</span><span id="__span-4-30"><a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a>    constexpr unsigned N_COLS = 5;
+</span><span id="__span-4-31"><a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a>    io::CSVReader&lt;N_COLS&gt; in(&quot;input.csv&quot;); // number of cols may be less, than total columns in a row, we&#39;re to read only 5
+</span><span id="__span-4-32"><a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a>    in.read_header(io::ignore_extra_column, &quot;Master Record Number&quot;, &quot;Hour&quot;, &quot;Reported_Location&quot;,&quot;Latitude&quot;,&quot;Longitude&quot;);
+</span><span id="__span-4-33"><a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a>    input_t row;                           // buffer to read line by line
+</span><span id="__span-4-34"><a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a>    char* ptr;      // indirection, as `read_row` doesn&#39;t take array directly
+</span><span id="__span-4-35"><a id="__codelineno-4-35" name="__codelineno-4-35" href="#__codelineno-4-35"></a>    while(in.read_row(row.MasterRecordNumber, row.Hour, ptr, row.Latitude, row.Longitude)){
+</span><span id="__span-4-36"><a id="__codelineno-4-36" name="__codelineno-4-36" href="#__codelineno-4-36"></a>        strncpy(row.ReportedLocation, ptr, STR_ARRAY_SIZE); // defined in struct.h
+</span><span id="__span-4-37"><a id="__codelineno-4-37" name="__codelineno-4-37" href="#__codelineno-4-37"></a>        h5::append(pt, row);
+</span><span id="__span-4-38"><a id="__codelineno-4-38" name="__codelineno-4-38" href="#__codelineno-4-38"></a>        std::cout &lt;&lt; std::string(ptr) &lt;&lt; &quot;\n&quot;;
+</span><span id="__span-4-39"><a id="__codelineno-4-39" name="__codelineno-4-39" href="#__codelineno-4-39"></a>    }
+</span><span id="__span-4-40"><a id="__codelineno-4-40" name="__codelineno-4-40" href="#__codelineno-4-40"></a>    // RAII closes all allocated resources
+</span><span id="__span-4-41"><a id="__codelineno-4-41" name="__codelineno-4-41" href="#__codelineno-4-41"></a>}
+</span></code></pre></div></p>
+<p>the output of <code>h5dump -pH output.h5</code>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>HDF5 &quot;output.h5&quot; {
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>GROUP &quot;/&quot; {
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>   GROUP &quot;simple approach&quot; {
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>      DATASET &quot;dataset.csv&quot; {
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>         DATATYPE  H5T_COMPOUND {
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>            H5T_STD_I64LE &quot;MasterRecordNumber&quot;;
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>            H5T_STD_U32LE &quot;Hour&quot;;
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>            H5T_IEEE_F64LE &quot;Latitude&quot;;
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>            H5T_IEEE_F64LE &quot;Longitude&quot;;
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>            H5T_ARRAY { [20] H5T_STD_I8LE } &quot;ReportedLocation&quot;;
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>         }
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>         DATASPACE  SIMPLE { ( 199 ) / ( H5S_UNLIMITED ) }
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>         STORAGE_LAYOUT {
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>            CHUNKED ( 10 )
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>            SIZE 7347 (1.517:1 COMPRESSION)
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>         }
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>         FILTERS {
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>            COMPRESSION DEFLATE { LEVEL 9 }
+</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>         }
+</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>         FILLVALUE {
+</span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>            FILL_TIME H5D_FILL_TIME_IFSET
+</span><span id="__span-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a>            VALUE  H5D_FILL_VALUE_DEFAULT
+</span><span id="__span-5-23"><a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a>         }
+</span><span id="__span-5-24"><a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a>         ALLOCATION_TIME {
+</span><span id="__span-5-25"><a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a>            H5D_ALLOC_TIME_INCR
+</span><span id="__span-5-26"><a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a>         }
+</span><span id="__span-5-27"><a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a>         ATTRIBUTE &quot;cvs parser&quot; {
+</span><span id="__span-5-28"><a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a>            DATATYPE  H5T_STRING {
+</span><span id="__span-5-29"><a id="__codelineno-5-29" name="__codelineno-5-29" href="#__codelineno-5-29"></a>               STRSIZE H5T_VARIABLE;
+</span><span id="__span-5-30"><a id="__codelineno-5-30" name="__codelineno-5-30" href="#__codelineno-5-30"></a>               STRPAD H5T_STR_NULLTERM;
+</span><span id="__span-5-31"><a id="__codelineno-5-31" name="__codelineno-5-31" href="#__codelineno-5-31"></a>               CSET H5T_CSET_UTF8;
+</span><span id="__span-5-32"><a id="__codelineno-5-32" name="__codelineno-5-32" href="#__codelineno-5-32"></a>               CTYPE H5T_C_S1;
+</span><span id="__span-5-33"><a id="__codelineno-5-33" name="__codelineno-5-33" href="#__codelineno-5-33"></a>            }
+</span><span id="__span-5-34"><a id="__codelineno-5-34" name="__codelineno-5-34" href="#__codelineno-5-34"></a>            DATASPACE  SCALAR
+</span><span id="__span-5-35"><a id="__codelineno-5-35" name="__codelineno-5-35" href="#__codelineno-5-35"></a>         }
+</span><span id="__span-5-36"><a id="__codelineno-5-36" name="__codelineno-5-36" href="#__codelineno-5-36"></a>         ATTRIBUTE &quot;data set&quot; {
+</span><span id="__span-5-37"><a id="__codelineno-5-37" name="__codelineno-5-37" href="#__codelineno-5-37"></a>            DATATYPE  H5T_STRING {
+</span><span id="__span-5-38"><a id="__codelineno-5-38" name="__codelineno-5-38" href="#__codelineno-5-38"></a>               STRSIZE H5T_VARIABLE;
+</span><span id="__span-5-39"><a id="__codelineno-5-39" name="__codelineno-5-39" href="#__codelineno-5-39"></a>               STRPAD H5T_STR_NULLTERM;
+</span><span id="__span-5-40"><a id="__codelineno-5-40" name="__codelineno-5-40" href="#__codelineno-5-40"></a>               CSET H5T_CSET_UTF8;
+</span><span id="__span-5-41"><a id="__codelineno-5-41" name="__codelineno-5-41" href="#__codelineno-5-41"></a>               CTYPE H5T_C_S1;
+</span><span id="__span-5-42"><a id="__codelineno-5-42" name="__codelineno-5-42" href="#__codelineno-5-42"></a>            }
+</span><span id="__span-5-43"><a id="__codelineno-5-43" name="__codelineno-5-43" href="#__codelineno-5-43"></a>            DATASPACE  SCALAR
+</span><span id="__span-5-44"><a id="__codelineno-5-44" name="__codelineno-5-44" href="#__codelineno-5-44"></a>         }
+</span><span id="__span-5-45"><a id="__codelineno-5-45" name="__codelineno-5-45" href="#__codelineno-5-45"></a>      }
+</span><span id="__span-5-46"><a id="__codelineno-5-46" name="__codelineno-5-46" href="#__codelineno-5-46"></a>   }
+</span><span id="__span-5-47"><a id="__codelineno-5-47" name="__codelineno-5-47" href="#__codelineno-5-47"></a>}
+</span><span id="__span-5-48"><a id="__codelineno-5-48" name="__codelineno-5-48" href="#__codelineno-5-48"></a>}
+</span></code></pre></div></p>
+    
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2020-02-19 00:00:00+00:00">February 19, 2020</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../hdf5/" class="md-meta__link">hdf5</a>, 
+              <a href="../c/" class="md-meta__link">c++</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              4 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="h5pset_shared_mesg_nindexes-fails-for-n-8-in-hdf5-1106"><a class="toclink" href="../hdf5-shared-mesg-nindexes-limit/">H5Pset_shared_mesg_nindexes() Fails for N &gt; 8 in HDF5 1.10.6</a></h2>
+<h3 id="problem-h5pset_shared_mesg_nindexesfcpl_id-n-fails-with-n-8"><a class="toclink" href="../hdf5-shared-mesg-nindexes-limit/#problem-h5pset_shared_mesg_nindexesfcpl_id-n-fails-with-n-8">problem: H5Pset_shared_mesg_nindexes(fcpl_id, N) fails with N &gt; 8</a></h3>
+<p><strong>HDF5 Version:</strong> 1.10.6
+<a href="https://support.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetSharedMesgNIndexes">documentation</a> doesn't mention 
+<code>N &lt;= H5O_SHMESG_MAX_NINDEXES</code> the <code>N</code> argument is limited to maximum <code>H5O_SHMESG_MAX_NINDEXES</code></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>int main() {
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    char name[1024];
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    hid_t fcpl_id, fd_id;
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    herr_t err;
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    unsigned N=9, nidx;
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    fcpl_id =  H5Pcreate(H5P_FILE_CREATE);
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    err = H5Pset_shared_mesg_nindexes( fcpl_id, N );
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    fd_id = H5Fcreate(&quot;test.h5&quot;, H5F_ACC_TRUNC, fcpl_id, H5P_DEFAULT );
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    H5Pget_shared_mesg_nindexes( fcpl_id, &amp;nidx );
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    printf(&quot;results: %i - %i = %i \n&quot;, N, nidx, H5O_SHMESG_MAX_NINDEXES);
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    H5Pclose(fcpl_id);
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    H5Fclose(fd_id);
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>}
+</span></code></pre></div>
+<h2 id="output-of-make-test"><a class="toclink" href="../hdf5-shared-mesg-nindexes-limit/#output-of-make-test">output of <code>make test</code></a></h2>
+<p><div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>cc main.c -lhdf5  -lz -ldl -lm -o set_shared_mesg_nindices  
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>./set_shared_mesg_nindices
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>HDF5-DIAG: Error detected in HDF5 (1.10.6) thread 0:
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  #000: H5Pfcpl.c line 831 in H5Pset_shared_mesg_nindexes(): number of indexes is greater than H5O_SHMESG_MAX_NINDEXES
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    major: Invalid arguments to routine
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    minor: Out of range
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>results: 9 - 0 = 8
+</span></code></pre></div>
+Documenting that <code>N &lt;= H5O_SHMESG_MAX_NINDEXES</code> can help to prevent error message</p>
+<h2 id="linking"><a class="toclink" href="../hdf5-shared-mesg-nindexes-limit/#linking">linking:</a></h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>    linux-vdso.so.1 (0x00007fff929f5000)
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    libhdf5.so.103 =&gt; /usr/local/lib/libhdf5.so.103 (0x00007ff443b55000)
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    libc.so.6 =&gt; /lib/x86_64-linux-gnu/libc.so.6 (0x00007ff443764000)
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    libz.so.1 =&gt; /lib/x86_64-linux-gnu/libz.so.1 (0x00007ff443547000)
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    libdl.so.2 =&gt; /lib/x86_64-linux-gnu/libdl.so.2 (0x00007ff443343000)
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    libm.so.6 =&gt; /lib/x86_64-linux-gnu/libm.so.6 (0x00007ff442fa5000)
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    /lib64/ld-linux-x86-64.so.2 (0x00007ff444332000)
+</span></code></pre></div>
+    
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2020-02-18 00:00:00+00:00">February 18, 2020</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../hdf5/" class="md-meta__link">hdf5</a>, 
+              <a href="../c/" class="md-meta__link">c++</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              5 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="h5pset_istore_k-fails-for-values-above-16384-in-hdf5-1106"><a class="toclink" href="../hdf5-set-istore-k-bug/">H5Pset_istore_k() Fails for Values Above 16384 in HDF5 1.10.6</a></h2>
+<h3 id="problem-h5pset_istore_kfcpl_id-ik-fails"><a class="toclink" href="../hdf5-set-istore-k-bug/#problem-h5pset_istore_kfcpl_id-ik-fails">problem: H5Pset_istore_k(fcpl_id, ik) fails</a></h3>
+<p><strong>HDF5 Version:</strong> 1.10.6</p>
+<p><a href="https://support.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetIstoreK">documentation suggest <code>ik=65536</code></a> as max value, whereas library accepts only <code>ik &lt; 16384+1</code>  HDF5 1.10.6, others maybe affected
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>int main() {
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    char name[1024];
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    hid_t fcpl_id, fd_id;
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    herr_t err;
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    unsigned ik;
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    //unsigned max = 16384+1;
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    unsigned max = 65536;
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    for(unsigned i=32; i &lt; max; i*=2) {
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>        sprintf(name, &quot;name_%i.h5&quot;, i);
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>        fcpl_id =  H5Pcreate(H5P_FILE_CREATE);
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>        err = H5Pset_istore_k(fcpl_id, i);
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>        fd_id = H5Fcreate( name, H5F_ACC_TRUNC, fcpl_id, H5P_DEFAULT );
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>        H5Pget_istore_k(fcpl_id, &amp;ik );
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>        printf(&quot;results: %i - %i = %i &quot;, i, ik, i - ik);
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>        H5Pclose(fcpl_id);
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>        H5Fclose(fd_id);
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>    }
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>}
+</span></code></pre></div></p>
+<h2 id="output-of-make-test"><a class="toclink" href="../hdf5-set-istore-k-bug/#output-of-make-test">output of <code>make test</code></a></h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>cc main.c -lhdf5  -lz -ldl -lm -o set_istore_k  
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>./set_istore_k
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>results: 32 - 32 = 0 
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>results: 64 - 64 = 0 
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>results: 128 - 128 = 0 
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>results: 256 - 256 = 0 
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>results: 512 - 512 = 0 
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>results: 1024 - 1024 = 0 
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>results: 2048 - 2048 = 0 
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>results: 4096 - 4096 = 0 
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>results: 8192 - 8192 = 0 
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>results: 16384 - 16384 = 0 
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>HDF5-DIAG: Error detected in HDF5 (1.10.6) thread 0:
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>  #000: H5Pfcpl.c line 645 in H5Pset_istore_k(): istore IK value exceeds maximum B-tree entries
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>    major: Invalid arguments to routine
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>    minor: Bad value
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>results: 32768 - 32 = 32736
+</span></code></pre></div>
+<p>adjusting the documentation may be a possible fix</p>
+<h2 id="linking"><a class="toclink" href="../hdf5-set-istore-k-bug/#linking">linking:</a></h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>    linux-vdso.so.1 (0x00007fff929f5000)
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    libhdf5.so.103 =&gt; /usr/local/lib/libhdf5.so.103 (0x00007ff443b55000)
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    libc.so.6 =&gt; /lib/x86_64-linux-gnu/libc.so.6 (0x00007ff443764000)
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    libz.so.1 =&gt; /lib/x86_64-linux-gnu/libz.so.1 (0x00007ff443547000)
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    libdl.so.2 =&gt; /lib/x86_64-linux-gnu/libdl.so.2 (0x00007ff443343000)
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    libm.so.6 =&gt; /lib/x86_64-linux-gnu/libm.so.6 (0x00007ff442fa5000)
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    /lib64/ld-linux-x86-64.so.2 (0x00007ff444332000)
+</span></code></pre></div>
+    
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2020-02-17 00:00:00+00:00">February 17, 2020</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../hdf5/" class="md-meta__link">hdf5</a>, 
+              <a href="../c/" class="md-meta__link">c++</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              4 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="h5pset_sizes-crashes-for-16-byte-offsets-in-hdf5-1106"><a class="toclink" href="../hdf5-set-sizes-crash/">H5Pset_sizes() Crashes for 16-byte Offsets in HDF5 1.10.6</a></h2>
+<h3 id="problem-h5pset_sizesfcpl_id-offset-length-crashes"><a class="toclink" href="../hdf5-set-sizes-crash/#problem-h5pset_sizesfcpl_id-offset-length-crashes">problem: H5Pset_sizes(fcpl_id, offset, length) crashes</a></h3>
+<p><strong>HDF5 Version:</strong> 1.10.6</p>
+<p>When either of the values take on value <code>16</code> library crashes, tested against  HDF5 1.10.6, others maybe affected
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>size_t offset[] = {2,4,8,16};
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>size_t length[] = {2,4,8,16};
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>size_t N = 4;
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    for( size_t i=0; i&lt;N; i++) {
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>        for( size_t j=0; j&lt;N; j++ ) {
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>            sprintf(name, &quot;name_%ld_%ld.h5&quot;, offset[i], length[j]);
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>            fcpl_id =  H5Pcreate(H5P_FILE_CREATE);
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>            err = H5Pset_sizes(fcpl_id, offset[i], length[j]);
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>            fd_id = H5Fcreate( name, H5F_ACC_TRUNC, fcpl_id,H5P_DEFAULT );
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>            H5Pclose(fcpl_id);
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>            H5Fclose(fd_id);
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>        }
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    }
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>}
+</span></code></pre></div></p>
+<h2 id="output-of-make-test"><a class="toclink" href="../hdf5-set-sizes-crash/#output-of-make-test">output of <code>make test</code></a></h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>cc main.c -lhdf5  -lz -ldl -lm -o set_sizes 
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>./set_sizes
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>free(): invalid pointer
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>Makefile:12: recipe for target &#39;test&#39; failed
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>make: *** [test] Aborted (core dumped)
+</span></code></pre></div>
+<p>Change <code>size_t N=4</code> to  <code>size_t N=3</code> tp reduce test range from <code>{2,4,8,16} X {2,4,8,16}</code> to  <code>{2,4,8} X {2,4,8}</code>
+<em>notice the missing <code>16</code> which is valid input according to documentation.</em></p>
+<h2 id="linking"><a class="toclink" href="../hdf5-set-sizes-crash/#linking">linking:</a></h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>    linux-vdso.so.1 (0x00007fff929f5000)
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    libhdf5.so.103 =&gt; /usr/local/lib/libhdf5.so.103 (0x00007ff443b55000)
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    libc.so.6 =&gt; /lib/x86_64-linux-gnu/libc.so.6 (0x00007ff443764000)
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    libz.so.1 =&gt; /lib/x86_64-linux-gnu/libz.so.1 (0x00007ff443547000)
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    libdl.so.2 =&gt; /lib/x86_64-linux-gnu/libdl.so.2 (0x00007ff443343000)
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    libm.so.6 =&gt; /lib/x86_64-linux-gnu/libm.so.6 (0x00007ff442fa5000)
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    /lib64/ld-linux-x86-64.so.2 (0x00007ff444332000)
+</span></code></pre></div>
+    
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2020-02-13 00:00:00+00:00">February 13, 2020</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../hdf5/" class="md-meta__link">hdf5</a>, 
+              <a href="../c/" class="md-meta__link">c++</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              6 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="optimizing-subset-reads-from-contiguous-hdf5-datasets"><a class="toclink" href="../h5cpp-contiguous-subset-reads/">Optimizing Subset Reads from Contiguous HDF5 Datasets</a></h2>
+<h3 id="the-use-case-ops-context"><a class="toclink" href="../h5cpp-contiguous-subset-reads/#the-use-case-ops-context">The Use Case (OP’s Context)</a></h3>
+<p>The question revolved around efficiently reading subarrays from datasets stored using HDF5’s <strong>contiguous layout</strong>. The default contiguous placement may not be ideal for slicing access patterns, especially for small-scale reads or irregular memory access.</p>
+<h3 id="my-h5cpp-driven-recommendation"><a class="toclink" href="../h5cpp-contiguous-subset-reads/#my-h5cpp-driven-recommendation">My H5CPP-Driven Recommendation</a></h3>
+<p>If you’re working in C++, you might find <strong>H5CPP</strong> a smoother path. Here’s what it offers:</p>
+<ul>
+<li><strong>Compact layout by default</strong> for small datasets — stored inline, fast startup, minimal overhead.</li>
+<li><strong>Adaptive chunking</strong> for larger datasets — just set the <code>h5::chunk</code> property to control chunk size.</li>
+<li><strong>Automatic fallback to contiguous storage</strong> if you don’t specify chunking — so behavior stays predictable.</li>
+<li><strong>Zero-copy reads</strong> — H5CPP optimizes typed memory I/O, eliminating performance penalty over vanilla C HDF5 calls.</li>
+</ul>
+<p>In practice, the <em>Example</em> folder in H5CPP includes code snippets for common use cases, demonstrating how to get clean, efficient subset reads across many patterns.</p>
+<h3 id="why-it-matters"><a class="toclink" href="../h5cpp-contiguous-subset-reads/#why-it-matters">Why It Matters</a></h3>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Contiguous Layout</th>
+<th>Compact Layout (H5CPP)</th>
+<th>Chunked Layout (H5CPP)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Small datasets (few KB)</td>
+<td>Always external</td>
+<td>In-file compact — fast access</td>
+<td>Possible overhead</td>
+</tr>
+<tr>
+<td>Larger datasets (MB+)</td>
+<td>Static layout</td>
+<td>May overflow compact limits</td>
+<td>Chunking enables efficient slicing</td>
+</tr>
+<tr>
+<td>Subset reads (e.g., slices)</td>
+<td>Poor performance</td>
+<td>May work if in-file</td>
+<td>High performance, cache-friendly</td>
+</tr>
+<tr>
+<td>C++ typed memory access</td>
+<td>Manual coding</td>
+<td>Zero-copy API</td>
+<td>Zero-copy with chunk control</td>
+</tr>
+</tbody>
+</table>
+<p>In short, <strong>using a one-size-fits-all layout, like contiguous, is often suboptimal</strong>. Think about the platform’s characteristics and data access patterns. H5CPP gives you the tools to adapt layout to the job—without overhead or boilerplate.</p>
+<h3 id="tldr"><a class="toclink" href="../h5cpp-contiguous-subset-reads/#tldr">TL;DR</a></h3>
+<ul>
+<li><strong>Small datasets?</strong> Get compact-in-file layout by default in H5CPP — no config needed.</li>
+<li><strong>Large datasets?</strong> Enable chunking for fast sliding-window or subarray reads.</li>
+<li><strong>Want typed access in C++?</strong> Use H5CPP’s zero-copy interface with performance parity to HDF5 C.</li>
+</ul>
+    
+    
+  </div>
+</article>
+      
+      
+        
+          
+
+
+
+<nav class="md-pagination">
+  <span class="md-pagination__current">1</span> <a class="md-pagination__link" href="page/2/">2</a>
+</nav>
+        
+      
+    </div>
+  </div>
+
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright custom-footer">
+        <div class="custom-footer-left">
+          Blockchain, cryptographic protocols, HPC, or trading systems in C++, Rust, Julia, Python, R and CUDA
+        </div>
+        <div class="custom-footer-right">
+          © 2017–2025 VargaLABS, Toronto, ON, Canada 🇨🇦
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["search.suggest", "content.code.copy", "content.tooltips"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://cdn.tailwindcss.com"></script>
+      
+        <script src="../../javascripts/tw-config.js"></script>
+      
+        <script src="../../javascripts/asciinema-player.min.js"></script>
+      
+        <script src="https://unpkg.com/alpinejs@3.14.9/dist/cdn.min.js"></script>
+      
+        <script src="https://unpkg.com/@popperjs/core@2"></script>
+      
+        <script src="https://unpkg.com/tippy.js@6"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,59 @@
+<section style="text-align: left;" >
+<h1>POD struct with fixed length string</h1>
+<pre><code class="highlight cpp">#include &ltsome_header_files&gt
+namespace shim {
+    struct pod_t {
+            using max_lenght = std::integral_constant&lt;size_t,FIXED_SIZE&gt;;
+            size_t id;
+            char name[max_lenght::value];
+    };
+}
+</code></pre>
+<ul  >
+  <li class="fragment" data-code-focus="2,8">enclosed in some namespace</li>
+  <li class="fragment" data-code-focus="4">compile time length definition to some FIXED_SIZE </li>
+  <li class="fragment" data-code-focus="5">ID field: we will get back to this </li>
+  <li class="fragment" data-code-focus="6">and out fixed length string</li>
+</ul>
+<h5>can transfer data directly, no need for scatter/gather ops</h5>
+</section>
+
+<section style="text-align: left;">
+<h1>NON POD class with std::string</h1>
+<pre><code class="highlight cpp">#include &ltsome_header_files&gt
+namespace non::intrusive {
+    struct non_pod_t { // wrapper to aid C++ template mechanism, zero runtime cost
+        size_t id;
+        std::string name;
+    };
+}
+</code></pre>
+<ul>
+  <li class="fragment" data-code-focus="2,7">enclosed in some namespace</li>
+  <li class="fragment" data-code-focus="4">we have the extra field </li>
+  <li class="fragment" data-code-focus="5">but the content is stored somewhere else</li>
+</ul>
+<h5>need for scatter/gather ops to fetch string content</h5>
+</section>
+
+<section style="text-align: left;">
+    <h1>Do we need the ID field at all?</h1>
+    <pre><code class="highlight cpp">
+std::vector&lt;std::string&gt; non_pod = ...;
+h5::write(ds, non_pod.data(), h5::offset{K}, ...);
+std::string record = h5::read(ds, h5::offset{K}, h5::count{1}, ...);
+
+std::vector&lt;char[N]&gt; pod_t = ...; 
+    </code></pre>
+    <ul>
+      <li class="fragment" data-code-focus="2">we could just take an indexable container</li>
+      <li class="fragment" data-code-focus="3">write to a specific location: `h5::offset{..}` </li>
+      <li class="fragment" data-code-focus="4">or do an indexed read from it</li>
+
+      <li class="fragment" data-code-focus="6">here is the fixed length variant </li>
+    </ul>
+    <h5>The vector of strings still needs scatter/gather ops</h5>
+</section>
+
+
+

@@ -1,0 +1,3133 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Advanced Systems for Trading, Cryptography, and Data Engineering">
+      
+      
+        <meta name="author" content="Steven Varga">
+      
+      
+        <link rel="canonical" href="https://steven-varga.ca/blog/hdf5/page/4/">
+      
+      
+        <link rel="prev" href="../../../finance/">
+      
+      
+        <link rel="next" href="../../../julia/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>hdf5 - VargaLABS</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../styles/asciinema-player.css">
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+      <link rel="stylesheet" href="../../../../styles/custom.css">
+    
+      <link rel="stylesheet" href="../../../../styles/mobile.css">
+    
+      <link rel="stylesheet" href="../../../../styles/socials.css">
+    
+      <link rel="stylesheet" href="../../../../styles/background.css">
+    
+      <link rel="stylesheet" href="../../../../styles/blog.css">
+    
+      <link rel="stylesheet" href="../../../../styles/asciinema.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-L58Z6SZ3TN"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-L58Z6SZ3TN",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-L58Z6SZ3TN",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="VargaLABS" />
+    <meta property="og:title" content="VargaLABS" />
+    <meta property="og:description" content="Advanced Systems for Trading, Cryptography, and Data Engineering" />
+    <meta property="og:url" content="https://steven-varga.ca/blog/hdf5/page/4/" />
+    <meta property="og:image" content="https://steven-varga.ca//assets/social/og-default.png" />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@vargaconsulting" />
+    <meta name="twitter:title" content="VargaLABS" />
+    <meta name="twitter:description" content="Advanced Systems for Trading, Cryptography, and Data Engineering" />
+    <meta name="twitter:image" content="https://steven-varga.ca//assets/social/og-default.png" />
+
+    <!-- SEO -->
+    <link rel="canonical" href="https://steven-varga.ca/blog/hdf5/page/4/" />
+    <meta name="description" content="Advanced Systems for Trading, Cryptography, and Data Engineering" />
+    <script type="application/ld+json">
+    {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "VargaLABS",
+    "description": "Advanced Systems for Trading, Cryptography, and Data Engineering",
+    "url": "https://steven-varga.ca/blog/hdf5/page/4/",
+    "datePublished": "2010-01-01",
+    "author": {
+        "@type": "Person",
+        "name": "Steven Varga"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "VargaLABS",
+        "logo": {
+        "@type": "ImageObject",
+        "url": "https://steven-varga.ca//assets/logo.png"
+        }
+    },
+    "image": "https://steven-varga.ca//assets/social/og-default.png"
+    }
+    </script>    
+
+<link rel="alternate" type="application/rss+xml" title="VargaLABS RSS Feed" href="../../../../rss.xml" />
+<link rel="alternate" type="application/feed+json" title="VargaLABS JSON Feed" href="../../../../feed.json" />
+
+
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="solarized" data-md-color-primary="orange" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#hdf5" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="VargaLABS" class="md-header__button md-logo" aria-label="VargaLABS" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Advanced Systems for Trading, Cryptography, and Data Engineering
+          </span>
+     
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              hdf5
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    <div class="md-social-inline">
+      
+      
+        
+        
+        
+        
+          
+          
+        
+        <a href="https://wa.me/16475611829" target="_blank" rel="noopener" title="wa.me" class="md-header__button md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.23 8.23 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23-1.48 0-2.93-.39-4.19-1.15l-.3-.17-3.12.82.83-3.04-.2-.32a8.2 8.2 0 0 1-1.26-4.38c.01-4.54 3.7-8.24 8.25-8.24M8.53 7.33c-.16 0-.43.06-.66.31-.22.25-.87.86-.87 2.07 0 1.22.89 2.39 1 2.56.14.17 1.76 2.67 4.25 3.73.59.27 1.05.42 1.41.53.59.19 1.13.16 1.56.1.48-.07 1.46-.6 1.67-1.18s.21-1.07.15-1.18c-.07-.1-.23-.16-.48-.27-.25-.14-1.47-.74-1.69-.82-.23-.08-.37-.12-.56.12-.16.25-.64.81-.78.97-.15.17-.29.19-.53.07-.26-.13-1.06-.39-2-1.23-.74-.66-1.23-1.47-1.38-1.72-.12-.24-.01-.39.11-.5.11-.11.27-.29.37-.44.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.11-.56-1.35-.77-1.84-.2-.48-.4-.42-.56-.43-.14 0-.3-.01-.47-.01"/></svg>
+        </a>
+      
+        
+        
+        
+        
+        <a href="mailto:steven@vargaconsulting.ca" target="_blank" rel="noopener" title="" class="md-header__button md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 5.5H9c-1.1 0-2 .9-2 2v9a2 2 0 0 0 2 2h13c1.11 0 2-.89 2-2v-9a2 2 0 0 0-2-2m0 3.67-6.5 3.33L9 9.17V7.5l6.5 3.31L22 7.5zM5 16.5c0 .17.03.33.05.5H1c-.552 0-1-.45-1-1s.448-1 1-1h4zM3 7h2.05c-.02.17-.05.33-.05.5V9H3c-.55 0-1-.45-1-1s.45-1 1-1m-2 5c0-.55.45-1 1-1h3v2H2c-.55 0-1-.45-1-1"/></svg>
+        </a>
+      
+        
+        
+        
+        
+          
+          
+        
+        <a href="https://x.com/vargaconsulting" target="_blank" rel="noopener" title="x.com" class="md-header__button md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.2 4.2 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.52 8.52 0 0 1-5.33 1.84q-.51 0-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23"/></svg>
+        </a>
+      
+        
+        
+        
+        
+          
+          
+        
+        <a href="https://www.linkedin.com/in/steven-varga-04224a19/" target="_blank" rel="noopener" title="www.linkedin.com" class="md-header__button md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93zM6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37z"/></svg>
+        </a>
+      
+        
+        
+        
+        
+          
+          
+        
+        <a href="https://github.com/vargaconsulting" target="_blank" rel="noopener" title="github.com" class="md-header__button md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg>
+        </a>
+      
+
+      
+      <span class="md-header__button md-icon" style="pointer-events: none; opacity: 0.4;">|</span>  
+    </div>
+  
+
+  
+  
+    
+    
+    
+
+    <input class="md-option"
+           data-md-color-media=""
+           data-md-color-scheme="solarized"
+           data-md-color-primary="orange"
+           data-md-color-accent="indigo"
+            aria-label="Switch to dark mode"
+           
+           type="radio" name="__palette" id="__palette_0">
+
+    
+      <label class="md-header__button md-icon"
+             title="Switch to dark mode"
+             for="__palette_1">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon-icon lucide-moon"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+    
+    
+    
+
+    <input class="md-option"
+           data-md-color-media=""
+           data-md-color-scheme="slate"
+           data-md-color-primary="orange"
+           data-md-color-accent="indigo"
+            aria-label="Switch to light mode"
+           
+           type="radio" name="__palette" id="__palette_1">
+
+    
+      <label class="md-header__button md-icon"
+             title="Switch to light mode"
+             for="__palette_0">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun-icon lucide-sun"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+<!-- -->
+
+<!-- -->
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="VargaLABS" class="md-nav__button md-logo" aria-label="VargaLABS" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    VargaLABS
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../site/talks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Presentations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Projects
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Projects
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../site/iexdownload/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IEX Download
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../site/iex-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IEX Pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../site/iex2h5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IEX2H5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../site/radix64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Radix64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../site/tinycrypto/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TinyCrypto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../site/h5cpp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    H5CPP header only
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../site/h5cpp-compiler/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    H5CPP compiler
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../site/decimalfloat-cpp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decimal Float C++
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../site/decimalfloat-python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decimal Float Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../site/openssl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenSSL++
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../site/bip/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BIP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../site/eip712/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    EIP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../site/generics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generics C++
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../site/kms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KMS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../site/nss/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NSS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../site/orderbook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Orderbook
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../site/uds/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UDS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Blog
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Posts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Posts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2025/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    September 2025
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2023/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    May 2023
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2022/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    June 2022
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2021/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    April 2021
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2020/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    December 2020
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2019/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    December 2019
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2018/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    May 2018
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2017/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    March 2017
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2016/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    December 2016
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2014/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    October 2014
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Categories
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Categories
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blockchain/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    blockchain
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../c/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    c++
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cryptography/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    cryptography
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../data-engineering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    data-engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../encoding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    encoding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../finance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    finance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+      
+    
+  
+  
+    <li class="md-nav__item">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    hdf5
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="../../" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    hdf5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#best-way-to-store-tick-by-tick-stock-data-in-hdf5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best Way to Store Tick-by-Tick Stock Data in HDF5
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fixing-hyperslab-slices-simplify-with-h5cpp-column-reads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixing Hyperslab Slices: Simplify with H5CPP Column Reads
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#simplifying-hyperslab-reads-with-h5cpp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Simplifying Hyperslab Reads with H5CPP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fixing-h5repack-test-failures-during-make-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixing h5repack Test Failures During make check
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parallelization-patterns-for-hdf5-io-in-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parallelization Patterns for HDF5 I/O in C++
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#templatized-mapping-of-hdf5-native-types-in-modern-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Templatized Mapping of HDF5 Native Types in Modern C++
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optimizing-hdf5-for-event-based-time-series-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimizing HDF5 for Event-Based Time Series Access
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hdf5-for-in-memory-circular-buffers-reuse-schema-in-ram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HDF5 for In-Memory Circular Buffers: Reuse Schema in RAM
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-hdf5-as-an-in-memory-circular-buffer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using HDF5 as an In-Memory Circular Buffer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#structuring-historical-options-data-in-hdf5h5cpp-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structuring Historical Options Data in HDF5—H5CPP Tips
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../julia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    julia
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../market-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    market data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../postmortem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    postmortem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../quant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    quant
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#best-way-to-store-tick-by-tick-stock-data-in-hdf5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best Way to Store Tick-by-Tick Stock Data in HDF5
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fixing-hyperslab-slices-simplify-with-h5cpp-column-reads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixing Hyperslab Slices: Simplify with H5CPP Column Reads
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#simplifying-hyperslab-reads-with-h5cpp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Simplifying Hyperslab Reads with H5CPP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fixing-h5repack-test-failures-during-make-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixing h5repack Test Failures During make check
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parallelization-patterns-for-hdf5-io-in-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parallelization Patterns for HDF5 I/O in C++
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#templatized-mapping-of-hdf5-native-types-in-modern-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Templatized Mapping of HDF5 Native Types in Modern C++
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optimizing-hdf5-for-event-based-time-series-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimizing HDF5 for Event-Based Time Series Access
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hdf5-for-in-memory-circular-buffers-reuse-schema-in-ram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HDF5 for In-Memory Circular Buffers: Reuse Schema in RAM
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-hdf5-as-an-in-memory-circular-buffer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using HDF5 as an In-Memory Circular Buffer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#structuring-historical-options-data-in-hdf5h5cpp-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structuring Historical Options Data in HDF5—H5CPP Tips
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+  <div class="md-content" data-md-component="content">
+    <div class="md-content__inner">
+      <header class="md-typeset">
+        <h1 id="hdf5">hdf5</h1>
+      </header>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2018-05-19 00:00:00+00:00">May 19, 2018</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../../" class="md-meta__link">hdf5</a>, 
+              <a href="../../../c/" class="md-meta__link">c++</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              7 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="best-way-to-store-tick-by-tick-stock-data-in-hdf5"><a class="toclink" href="../../../hdf5-tick-data-h5cpp/">Best Way to Store Tick-by-Tick Stock Data in HDF5</a></h2>
+<h3 id="the-problem-op-asks"><a class="toclink" href="../../../hdf5-tick-data-h5cpp/#the-problem-op-asks">The Problem (OP asks)</a></h3>
+<p>I'm storing stock tick-by-tick data—what’s the best structure in HDF5 to handle this efficiently and flexibly?</p>
+<h3 id="perspective-from-h5cpp-steven-varga-may-19-2018"><a class="toclink" href="../../../hdf5-tick-data-h5cpp/#perspective-from-h5cpp-steven-varga-may-19-2018">Perspective from H5CPP (Steven Varga, May 19, 2018)</a></h3>
+<p>If you’re working with high-frequency time series (HFT-style), <strong>H5CPP</strong> is tailor-made for event-based datasets. It plays well with <code>std::vector&lt;&gt;</code> of your POD structs and most linear algebra stacks (e.g., Armadillo).</p>
+<h4 id="two-design-patterns-to-consider"><a class="toclink" href="../../../hdf5-tick-data-h5cpp/#two-design-patterns-to-consider">Two Design Patterns to Consider</a></h4>
+<h5 id="extendable-multi-dimensional-cube"><a class="toclink" href="../../../hdf5-tick-data-h5cpp/#extendable-multi-dimensional-cube">​​ Extendable Multi-Dimensional Cube</a></h5>
+<p>You can model your tick data as an extendable cube (or even higher dimensions), then slice what you need:</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">h5</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="n">n_minutes_in_day</span><span class="p">,</span><span class="w"> </span><span class="n">n_instruments</span><span class="p">,</span><span class="w"> </span><span class="n">H5_UNLIMITED</span><span class="p">});</span><span class="w"> </span><span class="c1">// creates extendable dataset</span>
+</span></code></pre></div>
+<p>Armadillo can pull in cubes directly. H5CPP supports partial read/write, so you can map arbitrary hyperslabs into:</p>
+<ul>
+<li><code>arma::cube</code> (3D)</li>
+<li><code>arma::mat</code> (2D)</li>
+<li><code>std::vector&lt;YourPOD&gt;</code> (1D)</li>
+</ul>
+<p>This gives you powerful flexibility if you want to access time-instrument windows efficiently.
+A single multi-dimensional dataset can model all your data—but its harder to manage day boundaries or rolling windows.</p>
+<p>So instead, keep things simple:</p>
+<ul>
+<li>Use one <strong>daily stream for your high-frequency irregular time series (IRTS)</strong>—packed as a 1D sequence.</li>
+<li>Use <strong>daily matrices for regular time series (RTS)</strong> when appropriate.</li>
+<li>Then stitch these together using a <strong>circular buffer</strong> to model your clock window (e.g., last N days).</li>
+</ul>
+<p>That gives you clean separation for day-level operations, easy rolling windows across days, and better control inside your streaming logic.</p>
+<h5 id="avoid-tables-for-tick-data"><a class="toclink" href="../../../hdf5-tick-data-h5cpp/#avoid-tables-for-tick-data">Avoid Tables for Tick Data</a></h5>
+<p>HDF5 tables (i.e., compound heterogeneous datasets) are cumbersome:</p>
+<ul>
+<li>Hard to use in linear algebra contexts</li>
+<li>Not easily mapped to vectors or matrices</li>
+<li>Often less performant for numerical processing</li>
+</ul>
+<p>Stick with floats or doubles in a numeric dataset, and keep your tick schema POD-friendly.</p>
+<h3 id="summary-of-approaches"><a class="toclink" href="../../../hdf5-tick-data-h5cpp/#summary-of-approaches">Summary of Approaches</a></h3>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Use Case</th>
+<th>H5CPP-Enabled Benefits</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Extendable Cube</td>
+<td>Multi-dimensional, flexible slicing</td>
+<td>Easy high-D slicing, integrates with arma/Stl</td>
+</tr>
+<tr>
+<td>Daily Stream + Circular</td>
+<td>Day-partitioned, rolling windows</td>
+<td>Simpler structure, rolling window stitching</td>
+</tr>
+<tr>
+<td>HDF5 Tables (compound)</td>
+<td>Rich schema, less focus on math</td>
+<td>Clunky for numeric analysis, avoid if possible</td>
+</tr>
+</tbody>
+</table>
+<h4 id="tldr"><a class="toclink" href="../../../hdf5-tick-data-h5cpp/#tldr">TL;DR</a></h4>
+<p>H5CPP shines for stock tick data. Model your data as:</p>
+<ul>
+<li>A hybrid of <strong>daily streams and rolling buffers</strong>, or</li>
+<li>A flexible <strong>extendable cube</strong> if you want high-D slices.</li>
+</ul>
+<p>Either way, avoid compound table datasets for numeric speed and maintain clean interop with your analysis stacks.</p>
+    
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2018-04-27 00:00:00+00:00">April 27, 2018</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../../" class="md-meta__link">hdf5</a>, 
+              <a href="../../../c/" class="md-meta__link">c++</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              5 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="fixing-hyperslab-slices-simplify-with-h5cpp-column-reads"><a class="toclink" href="../../../h5cpp-hyperslab-column-fix/">Fixing Hyperslab Slices: Simplify with H5CPP Column Reads</a></h2>
+<h3 id="the-issue-bert-bril-apr-26-2018"><a class="toclink" href="../../../h5cpp-hyperslab-column-fix/#the-issue-bert-bril-apr-26-2018">The Issue (Bert Bril, Apr 26, 2018)</a></h3>
+<p>Bert was trying to extract an entire column from a really large 3D dataset—perhaps terabyte scale—into a 1D array using neat hyperslab coordinate selection. But the results were all wrong: Two out of every three values ended up zero, even though his start/count looked correct. He wasn’t even requesting broad slicing—just first column, full depth—yet the read was skipping data.</p>
+<h3 id="steven-vargas-insight-apr-27-2018"><a class="toclink" href="../../../h5cpp-hyperslab-column-fix/#steven-vargas-insight-apr-27-2018">Steven Varga’s Insight (Apr 27, 2018)</a></h3>
+<p>Steve led with a reality check and a practical recommendation:
+<strong>Bang it into a simpler problem</strong>: If the dataset fits in memory, load the whole cube into an <code>arma::cube</code> and slice from there.
+<strong>If it doesn’t fit</strong>: Switch to a chunked column reader with <strong>H5CPP</strong>:</p>
+<p><div class="language-cpp highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kt">double</span><span class="o">*</span><span class="w"> </span><span class="n">pd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">calloc</span><span class="p">(</span><span class="n">ROW_SIZE</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">double</span><span class="p">)));</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">hid_t</span><span class="w"> </span><span class="n">fd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">h5</span><span class="o">::</span><span class="n">open</span><span class="p">(</span><span class="s">&quot;your_datafile.h5&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">H5F_ACC_RDONLY</span><span class="p">);</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">hid_t</span><span class="w"> </span><span class="n">ds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">h5</span><span class="o">::</span><span class="n">open</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;your_dataset&quot;</span><span class="p">);</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">data_rows</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="n">h5</span><span class="o">::</span><span class="n">read</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span><span class="w"> </span><span class="n">pd</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="n">COL_SIZE</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">});</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="c1">// &#39;start&#39;: {row, col, slice}; &#39;count&#39;: {row_count, 1, 1}</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="c1">// Apply your own stride/sieve logic here if needed</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="p">}</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="n">H5Dclose</span><span class="p">(</span><span class="n">ds</span><span class="p">);</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="n">H5Fclose</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
+</span></code></pre></div>
+He noted that stride support is coming—but often manual subsetting is easier and just as fast.
+In short: don’t fight the API; control your data fetch with a clean loop and let H5CPP handle the heavy lifting.</p>
+<h3 id="why-this-fixes-it"><a class="toclink" href="../../../h5cpp-hyperslab-column-fix/#why-this-fixes-it">Why This Fixes It</a></h3>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Simplify the problem</td>
+<td>Verifies hyperslab logic without third-party complexity</td>
+</tr>
+<tr>
+<td>Use H5CPP for reads</td>
+<td>Offers clear, chunked access that's easy to reason about and debug</td>
+</tr>
+<tr>
+<td>Manual sieve control</td>
+<td>Keeps logic explicit—no hidden behavior or unexpected flattening</td>
+</tr>
+</tbody>
+</table>
+    
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2018-04-26 00:00:00+00:00">April 26, 2018</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../../" class="md-meta__link">hdf5</a>, 
+              <a href="../../../c/" class="md-meta__link">c++</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              5 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="simplifying-hyperslab-reads-with-h5cpp"><a class="toclink" href="../../../h5cpp-hyperslab-simple-pattern/">Simplifying Hyperslab Reads with H5CPP</a></h2>
+<h3 id="the-problem-bert-bril-apr-26-2018"><a class="toclink" href="../../../h5cpp-hyperslab-simple-pattern/#the-problem-bert-bril-apr-26-2018">The Problem (Bert Bril, Apr 26, 2018)</a></h3>
+<p>Bert was trying to read a single column from a massive 3D dataset:</p>
+<p><div class="language-cpp highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kt">short</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="mi">251</span><span class="p">];</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">hsize_t</span><span class="w"> </span><span class="n">count</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">251</span><span class="p">};</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="n">hsize_t</span><span class="w"> </span><span class="n">offset</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">};</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">hsize_t</span><span class="w"> </span><span class="n">stride</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">};</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="n">filedataset</span><span class="p">.</span><span class="n">selectHyperslab</span><span class="p">(</span><span class="n">H5S_SELECT_SET</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="p">,</span><span class="w"> </span><span class="n">offset</span><span class="p">,</span><span class="w"> </span><span class="n">stride</span><span class="p">);</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="n">H5</span><span class="o">::</span><span class="n">DataSpace</span><span class="w"> </span><span class="n">input</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">filedataset</span><span class="p">.</span><span class="n">getSpace</span><span class="p">();</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="n">H5</span><span class="o">::</span><span class="n">DataSpace</span><span class="w"> </span><span class="nf">output</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">nrtoread</span><span class="p">);</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="n">dataset_</span><span class="o">-&gt;</span><span class="n">read</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">H5</span><span class="o">::</span><span class="n">PredType</span><span class="o">::</span><span class="n">STD_I16LE</span><span class="p">,</span><span class="w"> </span><span class="n">output</span><span class="p">,</span><span class="w"> </span><span class="n">input</span><span class="p">);</span>
+</span></code></pre></div>
+But weirdly, the data read back had two out of every three values missing: <code>3786 0 0 3555 0 0 3820 …</code> Even simpler 1D reads using a 3D hyperslab weren’t behaving as expected—and Bert couldn’t figure out why.</p>
+<h3 id="steven-varga-to-the-rescue-apr-26-2018"><a class="toclink" href="../../../h5cpp-hyperslab-simple-pattern/#steven-varga-to-the-rescue-apr-26-2018">Steven Varga to the Rescue (Apr 26, 2018)</a></h3>
+<p>Steven’s suggestion? Toss the boilerplate and go with <strong>H5CPP</strong>—a clean, MIT-licensed, header-only C++ template library for HDF5 that makes multidimensional, Armadillo-style reads so much simpler:</p>
+<p>“Reading a cube into an <code>arma::cube</code> is one-step—see the Armadillo example—and use <code>arma::Cube</code> instead of <code>arma::Mat</code>.”
+H5CPP is well-documented, functional, with examples, and integrates with major linear-algebra libraries.
+— <em>Steve</em></p>
+<p>H5CPP lets you sidestep manual DataSpace manipulations by offering high-level <code>read()</code> calls that feel like native matrix slicing.</p>
+<h3 id="why-this-helps"><a class="toclink" href="../../../h5cpp-hyperslab-simple-pattern/#why-this-helps">Why This Helps</a></h3>
+<table>
+<thead>
+<tr>
+<th>Approach</th>
+<th>Complexity</th>
+<th>Behavior Clarity</th>
+<th>Extensibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Manual Hyperslab (HDF5 C++)</td>
+<td>High</td>
+<td>Error-prone and subtle</td>
+<td>Hard to debug</td>
+</tr>
+<tr>
+<td>H5CPP (template-based)</td>
+<td>Low</td>
+<td>Clear intent and results</td>
+<td>Easy integration with arma, eigen, etc.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="what-to-do-next"><a class="toclink" href="../../../h5cpp-hyperslab-simple-pattern/#what-to-do-next">What to Do Next</a></h3>
+<ol>
+<li>
+<p><strong>Try H5CPP</strong>—especially for reading cubes, columns, or slices with Armadillo support.</p>
+</li>
+<li>
+<p>Skip the complex hyperslab boilerplate and reach for a higher-level <code>read()</code> that feels like:</p>
+</li>
+</ol>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">arma</span><span class="o">::</span><span class="n">cube</span><span class="w"> </span><span class="n">C</span><span class="p">;</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="n">h5</span><span class="o">::</span><span class="n">read</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span><span class="w"> </span><span class="n">C</span><span class="p">);</span><span class="w"> </span><span class="c1">// simplified multi-dimensional read</span>
+</span></code></pre></div>
+<ol>
+<li>If you’re still seeing missing elements, compare dimension ordering or endian assumptions—but often H5CPP's clean interface surfaces logic over noise.</li>
+</ol>
+    
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2018-03-19 00:00:00+00:00">March 19, 2018</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../../" class="md-meta__link">hdf5</a>, 
+              <a href="../../../c/" class="md-meta__link">c++</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              6 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="fixing-h5repack-test-failures-during-make-check"><a class="toclink" href="../../../fix-h5repack-make-check-fail/">Fixing <code>h5repack</code> Test Failures During <code>make check</code></a></h2>
+<h3 id="the-problem-by-leow155-march-19-2018"><a class="toclink" href="../../../fix-h5repack-make-check-fail/#the-problem-by-leow155-march-19-2018">The Problem (by leow155, March 19, 2018)</a></h3>
+<p>leow155 ran into a snag when building HDF5 (v1.10.1) on Ubuntu 16.04:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>./configure<span class="w"> </span>--prefix<span class="o">=</span>/usr/local/hdf5<span class="w"> </span>--enable-build-mode<span class="o">=</span>production
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>make
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>make<span class="w"> </span>check
+</span></code></pre></div>
+<p>Everything builds fine, but <code>make check</code> throws an error during the <code>h5repack</code> tests:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>h5repack tests failed with 1 errors.  
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>Command exited with non-zero status 1  
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>...
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>Makefile:1449: recipe for target ‘h5repack.sh.chkexe_’ failed
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>...
+</span></code></pre></div>
+<p>Clearly, <code>h5repack.sh.chkexe_</code> fails and bubbles up through the test suite.</p>
+<h3 id="steven-vargas-reply-march-19-2018"><a class="toclink" href="../../../fix-h5repack-make-check-fail/#steven-vargas-reply-march-19-2018">Steven Varga’s Reply (March 19, 2018)</a></h3>
+<p><strong>Greetings!</strong></p>
+<p>I’m running the same HDF5 version (1.10.1) on Linux Mint 18 (Ubuntu 16.04 under the hood) with zero errors—and I didn’t even specify <code>--enable-build-mode=production</code>, because it’s already the default.</p>
+<p>Did a quick <code>make check</code> moments ago, and it all passed cleanly on my setup.</p>
+<p>Best,
+Steve</p>
+<h3 id="what-to-make-of-this"><a class="toclink" href="../../../fix-h5repack-make-check-fail/#what-to-make-of-this">What to Make of This</a></h3>
+<table>
+<thead>
+<tr>
+<th>Issue</th>
+<th>Steven’s Observation</th>
+<th>Suggested Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>h5repack</code> test failure</td>
+<td>Works fine on his Ubuntu 16.04 setup</td>
+<td>Retry clean build without <code>production</code> flag</td>
+</tr>
+<tr>
+<td>Possible environment mismatch</td>
+<td>Steven's env passed—identical build config</td>
+<td>Align compiler, tool versions, locale, etc.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="next-steps-to-try"><a class="toclink" href="../../../fix-h5repack-make-check-fail/#next-steps-to-try">Next Steps to Try</a></h3>
+<ol>
+<li><strong>Drop the <code>--enable-build-mode=production</code> flag</strong>—Steven didn't use it, and it may subtly change the build behavior.</li>
+<li><strong>Re-clone and rebuild cleanly</strong>—use Git tag <code>hdf5-1_10_1</code> to match his exact reference (avoid tarballs that may introduce unintended patches).</li>
+<li><strong>Audit your toolchain</strong>—ensure your <code>gcc</code>, <code>automake</code>, <code>make</code> versions align with Steven’s Ubuntu/Mint environment, as small differences can trip specific tests.</li>
+</ol>
+<h4 id="tldr"><a class="toclink" href="../../../fix-h5repack-make-check-fail/#tldr">TL;DR</a></h4>
+<p>You’re not hallucinating—<code>h5repack</code> should pass <code>make check</code>. Steven Varga verified it does, on a near-identical system (Ubuntu 16.04 via Linux Mint 18). Your best bet: align your build environment and try a clean rebuild without forcing <code>production</code> mode. Let me know if you'd like help comparing your tool versions or automating a clean rebuild.</p>
+    
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2018-02-19 00:00:00+00:00">February 19, 2018</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../../" class="md-meta__link">hdf5</a>, 
+              <a href="../../../c/" class="md-meta__link">c++</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              7 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="parallelization-patterns-for-hdf5-io-in-c"><a class="toclink" href="../../../hdf5-parallel-write-patterns/">Parallelization Patterns for HDF5 I/O in C++</a></h2>
+<h3 id="the-question-stefano-salvade-feb-19-2018"><a class="toclink" href="../../../hdf5-parallel-write-patterns/#the-question-stefano-salvade-feb-19-2018">The Question (Stefano Salvadè, Feb 19, 2018)</a></h3>
+<blockquote>
+<p><strong>Goal:</strong> write analysis results in parallel to multiple HDF5 files—one per stream/process. The application is in C#, calling into a C/C++ API with HDF5 and MPI.  </p>
+<p><strong>Current thought:</strong> typically one uses <code>mpiexec -n x Program.exe</code>, but spawning processes at runtime via <code>MPI_Spawn()</code> seems clunky.  </p>
+<p>Is there a more elegant way to spawn parallel I/O functions <strong>within</strong> the same program? Also, do I need one process <em>per</em> write action (whether to separate files or a single shared file)?</p>
+</blockquote>
+<hr />
+<h3 id="steven-vargas-takeless-phdf5-more-pragmatism"><a class="toclink" href="../../../hdf5-parallel-write-patterns/#steven-vargas-takeless-phdf5-more-pragmatism">Steven Varga’s Take—Less PHDF5, More Pragmatism</a></h3>
+<blockquote>
+<p><strong>Parallel HDF5 (PHDF5)</strong> shines in setups with <strong>parallel file systems</strong> and true distributed environments—think HPC clusters with coordinated I/O capabilities.<br />
+But in simpler contexts—e.g., a single machine or cloud instance—PHDF5 often imposes unused complexity and file-system limitations (filters unsupported, extra boilerplate, etc.).<br />
+Instead, Stefano could:<br />
+1. <strong>Use separate HDF5 files per process</strong>, even in RAM or temp storage<br />
+2. <strong>Aggregate later</strong>, e.g. via:<br />
+   - copying into one file, or<br />
+   - using HDF5’s <strong>external file driver</strong> to compose them into a single logical container<br />
+The aggregation step could run as a separate batch job after the main MPI job finishes.<br />
+If you do have real parallel I/O infrastructure, then yes—PHDF5 gives benefits. But often, simple is better.<br />
+— <em>Steve</em></p>
+</blockquote>
+<hr />
+<h3 id="summary-table"><a class="toclink" href="../../../hdf5-parallel-write-patterns/#summary-table">Summary Table</a></h3>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Recommended Approach</th>
+<th>Reasoning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>N streams → N separate files (no shared file)</td>
+<td>Serial HDF5 per process</td>
+<td>Simplicity, no PHDF5 overhead, independent files</td>
+</tr>
+<tr>
+<td>Need to combine results later</td>
+<td>Aggregate post-run (external file driver or merge scripts)</td>
+<td>Keeps initial write simple; flexible downstream processing</td>
+</tr>
+<tr>
+<td>True parallel I/O on a parallel file system</td>
+<td>Use PHDF5 with MPI</td>
+<td>Efficient coordinated I/O, but more complexity and system requirements</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="when-to-use-what"><a class="toclink" href="../../../hdf5-parallel-write-patterns/#when-to-use-what">When to Use What?</a></h3>
+<ul>
+<li><strong>Use PHDF5</strong> when:</li>
+<li>You're in a high-performance cluster environment</li>
+<li>The file system supports parallel write throughput</li>
+<li>
+<p>You benefit from collective operations and synchronized metadata handling</p>
+</li>
+<li>
+<p><strong>Stick with serial HDF5 per process</strong> when:</p>
+</li>
+<li>You're on a single system or cloud VM</li>
+<li>You want to avoid complexity in your write path</li>
+<li>You can afford a merge or collector step after the run</li>
+</ul>
+<hr />
+<h3 id="wrap-up-thoughts"><a class="toclink" href="../../../hdf5-parallel-write-patterns/#wrap-up-thoughts">Wrap-Up Thoughts</a></h3>
+<p>Stefano’s “elegant parallel output within a single program” goal doesn’t necessarily require MPI-spawned processes or PHDF5. Often the simplest is best: <strong>spawn OS-level processes writing to their own files</strong>, then merge or link them later.<br />
+This keeps performance high, complexity low, and coordination overhead manageable.  </p>
+    
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2018-02-06 00:00:00+00:00">February 6, 2018</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../../" class="md-meta__link">hdf5</a>, 
+              <a href="../../../c/" class="md-meta__link">c++</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              7 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="templatized-mapping-of-hdf5-native-types-in-modern-c"><a class="toclink" href="../../../hdf5-templatized-native-type-mapping/">Templatized Mapping of HDF5 Native Types in Modern C++</a></h2>
+<h3 id="the-problem-posted-by-mark-c-miller-feb-5-2018"><a class="toclink" href="../../../hdf5-templatized-native-type-mapping/#the-problem-posted-by-mark-c-miller-feb-5-2018">The Problem (Posted by Mark C. Miller, Feb 5, 2018)</a></h3>
+<p>Mark needed a simple way to map <code>std::vector&lt;T&gt;</code> to the correct <code>H5T_NATIVE_*</code> type in a templated dataset writer:</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">WriteVecToHDF5</span><span class="p">(</span><span class="n">hid_t</span><span class="w"> </span><span class="n">fid</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">name</span><span class="p">,</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">                           </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">vec</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">d2size</span><span class="p">)</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="p">{</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">    </span><span class="n">hsize_t</span><span class="w"> </span><span class="n">dims</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">vec</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">d2size</span><span class="p">,</span><span class="w"> </span><span class="n">d2size</span><span class="p">};</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">    </span><span class="n">hid_t</span><span class="w"> </span><span class="n">spid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">H5Screate_simple</span><span class="p">(</span><span class="n">d2size</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">dims</span><span class="p">,</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">);</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">    </span><span class="n">hid_t</span><span class="w"> </span><span class="n">dsid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">H5Dcreate</span><span class="p">(</span><span class="n">fid</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">HDF5Type</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">().</span><span class="n">Type</span><span class="p">(),</span><span class="w"> </span><span class="n">spid</span><span class="p">,</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">                           </span><span class="n">H5P_DEFAULT</span><span class="p">,</span><span class="w"> </span><span class="n">H5P_DEFAULT</span><span class="p">,</span><span class="w"> </span><span class="n">H5P_DEFAULT</span><span class="p">);</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">    </span><span class="n">H5Dwrite</span><span class="p">(</span><span class="n">dsid</span><span class="p">,</span><span class="w"> </span><span class="n">H5T_NATIVE_INT</span><span class="p">,</span><span class="w"> </span><span class="n">H5S_ALL</span><span class="p">,</span><span class="w"> </span><span class="n">H5S_ALL</span><span class="p">,</span><span class="w"> </span><span class="n">H5P_DEFAULT</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">vec</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">    </span><span class="n">H5Dclose</span><span class="p">(</span><span class="n">dsid</span><span class="p">);</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="w">    </span><span class="n">H5Sclose</span><span class="p">(</span><span class="n">spid</span><span class="p">);</span>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="p">}</span>
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="err">````</span>
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="n">He</span><span class="w"> </span><span class="n">implemented</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">hierarchy</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="err">`</span><span class="n">HDF5Type</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">()</span><span class="err">`</span><span class="p">,</span><span class="w"> </span><span class="n">specialized</span><span class="w"> </span><span class="n">per</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">corresponding</span><span class="w"> </span><span class="n">native</span><span class="w"> </span><span class="n">constant</span><span class="w"> </span><span class="p">(</span><span class="err">`</span><span class="n">H5T_NATIVE_INT</span><span class="err">`</span><span class="p">,</span><span class="w"> </span><span class="err">`</span><span class="n">H5T_NATIVE_FLOAT</span><span class="err">`</span><span class="p">,</span><span class="w"> </span><span class="n">etc</span><span class="p">.).</span>
+</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>
+</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a><span class="n">But</span><span class="p">...</span><span class="w"> </span><span class="n">inheritance</span><span class="p">,</span><span class="w"> </span><span class="n">virtuals</span><span class="p">,</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">boilerplate</span><span class="w"> </span><span class="n">made</span><span class="w"> </span><span class="n">him</span><span class="w"> </span><span class="n">wonder</span><span class="o">:</span><span class="w"> </span><span class="o">*</span><span class="n">Is</span><span class="w"> </span><span class="n">there</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">cleaner</span><span class="w"> </span><span class="n">way</span><span class="o">?*</span>
+</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a>
+</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a>
+</span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a><span class="cp">## The H5CPP Way: Keep It Simple and Modern (Steven Varga)</span>
+</span><span id="__span-9-21"><a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a>
+</span><span id="__span-9-22"><a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a><span class="n">Steven</span><span class="w"> </span><span class="n">Varga</span><span class="p">,</span><span class="w"> </span><span class="n">author</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="o">**</span><span class="n">H5CPP</span><span class="o">**</span><span class="p">,</span><span class="w"> </span><span class="n">weighed</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">minimalist</span><span class="w"> </span><span class="n">approach</span><span class="w"> </span><span class="n">inspired</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="n">modern</span><span class="w"> </span><span class="n">C</span><span class="o">++</span><span class="w"> </span><span class="n">design</span><span class="err">—</span><span class="n">ditch</span><span class="w"> </span><span class="k">virtual</span><span class="w"> </span><span class="n">dispatch</span><span class="p">,</span><span class="w"> </span><span class="n">avoid</span><span class="w"> </span><span class="n">inheritance</span><span class="p">,</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">leverage</span><span class="w"> </span><span class="n">function</span><span class="w"> </span><span class="n">overloads</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="k">template</span><span class="w"> </span><span class="n">inference</span><span class="p">.</span>
+</span><span id="__span-9-23"><a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a>
+</span><span id="__span-9-24"><a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a><span class="cp">### ✅ Solution</span>
+</span><span id="__span-9-25"><a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a>
+</span><span id="__span-9-26"><a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a><span class="err">```</span><span class="n">cpp</span>
+</span><span id="__span-9-27"><a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a><span class="kr">inline</span><span class="w"> </span><span class="n">hid_t</span><span class="w"> </span><span class="n">h5type</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">&amp;</span><span class="p">)</span><span class="w">                </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">H5T_NATIVE_CHAR</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-9-28"><a id="__codelineno-9-28" name="__codelineno-9-28" href="#__codelineno-9-28"></a><span class="kr">inline</span><span class="w"> </span><span class="n">hid_t</span><span class="w"> </span><span class="n">h5type</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">signed</span><span class="w"> </span><span class="kt">char</span><span class="o">&amp;</span><span class="p">)</span><span class="w">         </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">H5T_NATIVE_SCHAR</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-9-29"><a id="__codelineno-9-29" name="__codelineno-9-29" href="#__codelineno-9-29"></a><span class="kr">inline</span><span class="w"> </span><span class="n">hid_t</span><span class="w"> </span><span class="n">h5type</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="o">&amp;</span><span class="p">)</span><span class="w">       </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">H5T_NATIVE_UCHAR</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-9-30"><a id="__codelineno-9-30" name="__codelineno-9-30" href="#__codelineno-9-30"></a><span class="kr">inline</span><span class="w"> </span><span class="n">hid_t</span><span class="w"> </span><span class="n">h5type</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">short</span><span class="o">&amp;</span><span class="p">)</span><span class="w">               </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">H5T_NATIVE_SHORT</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-9-31"><a id="__codelineno-9-31" name="__codelineno-9-31" href="#__codelineno-9-31"></a><span class="kr">inline</span><span class="w"> </span><span class="n">hid_t</span><span class="w"> </span><span class="n">h5type</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">short</span><span class="o">&amp;</span><span class="p">)</span><span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">H5T_NATIVE_USHORT</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-9-32"><a id="__codelineno-9-32" name="__codelineno-9-32" href="#__codelineno-9-32"></a><span class="kr">inline</span><span class="w"> </span><span class="n">hid_t</span><span class="w"> </span><span class="n">h5type</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="o">&amp;</span><span class="p">)</span><span class="w">                 </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">H5T_NATIVE_INT</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-9-33"><a id="__codelineno-9-33" name="__codelineno-9-33" href="#__codelineno-9-33"></a><span class="kr">inline</span><span class="w"> </span><span class="n">hid_t</span><span class="w"> </span><span class="n">h5type</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="o">&amp;</span><span class="p">)</span><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">H5T_NATIVE_UINT</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-9-34"><a id="__codelineno-9-34" name="__codelineno-9-34" href="#__codelineno-9-34"></a><span class="kr">inline</span><span class="w"> </span><span class="n">hid_t</span><span class="w"> </span><span class="n">h5type</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">long</span><span class="o">&amp;</span><span class="p">)</span><span class="w">                </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">H5T_NATIVE_LONG</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-9-35"><a id="__codelineno-9-35" name="__codelineno-9-35" href="#__codelineno-9-35"></a><span class="kr">inline</span><span class="w"> </span><span class="n">hid_t</span><span class="w"> </span><span class="n">h5type</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="o">&amp;</span><span class="p">)</span><span class="w">       </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">H5T_NATIVE_ULONG</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-9-36"><a id="__codelineno-9-36" name="__codelineno-9-36" href="#__codelineno-9-36"></a><span class="kr">inline</span><span class="w"> </span><span class="n">hid_t</span><span class="w"> </span><span class="n">h5type</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="o">&amp;</span><span class="p">)</span><span class="w">           </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">H5T_NATIVE_LLONG</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-9-37"><a id="__codelineno-9-37" name="__codelineno-9-37" href="#__codelineno-9-37"></a><span class="kr">inline</span><span class="w"> </span><span class="n">hid_t</span><span class="w"> </span><span class="n">h5type</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="o">&amp;</span><span class="p">)</span><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">H5T_NATIVE_ULLONG</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-9-38"><a id="__codelineno-9-38" name="__codelineno-9-38" href="#__codelineno-9-38"></a><span class="kr">inline</span><span class="w"> </span><span class="n">hid_t</span><span class="w"> </span><span class="n">h5type</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="o">&amp;</span><span class="p">)</span><span class="w">               </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">H5T_NATIVE_FLOAT</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-9-39"><a id="__codelineno-9-39" name="__codelineno-9-39" href="#__codelineno-9-39"></a><span class="kr">inline</span><span class="w"> </span><span class="n">hid_t</span><span class="w"> </span><span class="n">h5type</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">double</span><span class="o">&amp;</span><span class="p">)</span><span class="w">              </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">H5T_NATIVE_DOUBLE</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-9-40"><a id="__codelineno-9-40" name="__codelineno-9-40" href="#__codelineno-9-40"></a><span class="kr">inline</span><span class="w"> </span><span class="n">hid_t</span><span class="w"> </span><span class="n">h5type</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">double</span><span class="o">&amp;</span><span class="p">)</span><span class="w">         </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">H5T_NATIVE_LDOUBLE</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-9-41"><a id="__codelineno-9-41" name="__codelineno-9-41" href="#__codelineno-9-41"></a>
+</span><span id="__span-9-42"><a id="__codelineno-9-42" name="__codelineno-9-42" href="#__codelineno-9-42"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+</span><span id="__span-9-43"><a id="__codelineno-9-43" name="__codelineno-9-43" href="#__codelineno-9-43"></a><span class="kr">inline</span><span class="w"> </span><span class="n">hid_t</span><span class="w"> </span><span class="n">h5type</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">h5type</span><span class="p">(</span><span class="n">T</span><span class="p">());</span><span class="w"> </span><span class="p">}</span>
+</span></code></pre></div>
+<h4 id="usage"><a class="toclink" href="../../../hdf5-templatized-native-type-mapping/#usage">✅ Usage</a></h4>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">hid_t</span><span class="w"> </span><span class="n">type_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">h5type</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">();</span>
+</span></code></pre></div>
+<p>Or, more directly:</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">hid_t</span><span class="w"> </span><span class="n">dsid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">H5Dcreate</span><span class="p">(</span><span class="n">fid</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">h5type</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(),</span><span class="w"> </span><span class="n">spid</span><span class="p">,</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">                       </span><span class="n">H5P_DEFAULT</span><span class="p">,</span><span class="w"> </span><span class="n">H5P_DEFAULT</span><span class="p">,</span><span class="w"> </span><span class="n">H5P_DEFAULT</span><span class="p">);</span>
+</span></code></pre></div>
+<h3 id="benefits-of-this-pattern"><a class="toclink" href="../../../hdf5-templatized-native-type-mapping/#benefits-of-this-pattern">Benefits of This Pattern</a></h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Virtual Class Approach</th>
+<th>Overload-Based Approach</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Compile-time resolution</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Easy to extend for new types</td>
+<td>⚠️ (needs specialization)</td>
+<td>✅ (just another overload)</td>
+</tr>
+<tr>
+<td>Runtime dispatch</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Readability</td>
+<td>⚠️ verbose</td>
+<td>✅ concise</td>
+</tr>
+<tr>
+<td>Performance (no virtual calls)</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<h3 id="conclusion"><a class="toclink" href="../../../hdf5-templatized-native-type-mapping/#conclusion">Conclusion</a></h3>
+<p>The overload-based mapping pattern presented by Steven Varga in response to the HDF forum thread reflects a clean, idiomatic modern C++ style:</p>
+<ul>
+<li>Clear separation of logic</li>
+<li>No need for inheritance boilerplate</li>
+<li>Efficient and extensible</li>
+</ul>
+<p>If you're designing a lightweight HDF5 backend—or building C++ infrastructure like <strong>H5CPP</strong>—this pattern is robust and production-ready.</p>
+    
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2017-03-31 00:00:00+00:00">March 31, 2017</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../../" class="md-meta__link">hdf5</a>, 
+              <a href="../../../c/" class="md-meta__link">c++</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              7 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="optimizing-hdf5-for-event-based-time-series-access"><a class="toclink" href="../../../optimizing-hdf5-time-series-access/">Optimizing HDF5 for Event-Based Time Series Access</a></h2>
+<h3 id="original-question-tamas-mar-30-2017"><a class="toclink" href="../../../optimizing-hdf5-time-series-access/#original-question-tamas-mar-30-2017">Original Question (Tamas, Mar 30, 2017)</a></h3>
+<p>I am currently using HDF5 to store my data and I have a structure that is too slow for reading single events.<br />
+My first attempt was to have a table of all hits, including the <code>event_id</code> as a field, so a simple table of:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>hit_id | event_id | dom_id | time | tot | triggered | pmt_id
+</span></code></pre></div>
+<p>This is extremely slow for reading single events, as I have to go through all hits to extract one event.<br />
+My second attempt was to create groups for each event, and place the hits in a dataset inside that group. This also turned out to be slow.<br />
+So far the only solution I have found is to go back to ROOT, which is a bit of a shame.<br />
+Has anyone worked with similar data structures in HDF5? What is the fastest way of reading a single event?</p>
+<h3 id="response-steven-varga-mar-31-2017"><a class="toclink" href="../../../optimizing-hdf5-time-series-access/#response-steven-varga-mar-31-2017">Response (Steven Varga, Mar 31, 2017)</a></h3>
+<p>Hello Tamas,</p>
+<p>I use HDF5 to store irregular time series (IRTS) data in the financial domain, where performance and storage density both matter. Here’s the approach I’ve been using successfully for the past 5 years:</p>
+<h4 id="dataset-structure"><a class="toclink" href="../../../optimizing-hdf5-time-series-access/#dataset-structure">🧱 Dataset Structure</a></h4>
+<ul>
+<li>Data is <strong>partitioned per day</strong>, each stored as a <strong>variable-length dataset</strong> (VLEN) containing a stream of events.</li>
+<li>The dataset holds a <strong>custom compound datatype</strong>, tailored for compactness and compatibility.</li>
+</ul>
+<p>For example, the record type might look like:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>[event_id, asset, price, timestamp, flags, ...]
+</span></code></pre></div>
+<p>This layout reduces overhead and improves both <strong>sequential read throughput</strong> and <strong>storage density</strong>.</p>
+<h4 id="access-pattern"><a class="toclink" href="../../../optimizing-hdf5-time-series-access/#access-pattern">🔧 Access Pattern</a></h4>
+<ul>
+<li>The system is designed for <strong>write-once, read-many</strong>, with <strong>sequential reads</strong> being the dominant access mode.</li>
+<li>For processing, I use <strong>C++ iterators</strong> to walk through the event stream efficiently.</li>
+<li>This low-level backend is then exposed to <strong>Julia</strong>, <strong>R</strong>, and <strong>Python</strong> bindings for analysis pipelines.</li>
+</ul>
+<p>Because the datatype is stored directly in the file, it’s also viewable with <strong>HDFView</strong> for inspection or debugging.</p>
+<h4 id="performance-context"><a class="toclink" href="../../../optimizing-hdf5-time-series-access/#performance-context">🚀 Performance Context</a></h4>
+<ul>
+<li>Runs in an <strong>MPI cluster</strong> using <strong>C++</strong>, <strong>Julia</strong>, and <strong>Rcpp</strong>.</li>
+<li>Delivers excellent performance under both full-stream and filtered-access scenarios.</li>
+<li>Chunk size does affect access time significantly—tuning that is essential depending on your use case.</li>
+</ul>
+<h4 id="optimization-trade-off"><a class="toclink" href="../../../optimizing-hdf5-time-series-access/#optimization-trade-off">🧠 Optimization Trade-Off</a></h4>
+<p>To your question—"how to access all or only some events efficiently"—that’s inherently a <strong>bi-objective</strong> optimization:</p>
+<ul>
+<li>You can <strong>gain speed</strong> by <strong>trading off space</strong>, e.g., pre-sorting, duplicating metadata, or chunking strategically.</li>
+</ul>
+<p>So while HDF5 might need more careful tuning than ROOT out of the box, it gives you portability and schema clarity across toolchains.</p>
+<p>Hope this helps,
+<strong>Steve</strong></p>
+    
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2016-12-11 00:00:00+00:00">December 11, 2016</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../../" class="md-meta__link">hdf5</a>, 
+              <a href="../../../c/" class="md-meta__link">c++</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              7 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="hdf5-for-in-memory-circular-buffers-reuse-schema-in-ram"><a class="toclink" href="../../../hdf5-in-memory-circular-buffer/">HDF5 for In-Memory Circular Buffers: Reuse Schema in RAM</a></h2>
+<h3 id="the-original-ask-david-schneider-dec-10-2016"><a class="toclink" href="../../../hdf5-in-memory-circular-buffer/#the-original-ask-david-schneider-dec-10-2016">The Original Ask (David Schneider, Dec 10 2016)</a></h3>
+<p>David from SLAC/LCLS posed this neat challenge:</p>
+<p>“Is it possible to implement an in‑memory circular buffer using HDF5? We'd like both offline (on‑disk append) and online (shared‑memory overwrite) access via the same HDF5 schema and API, possibly using SWMR for shared-memory consumption.” :contentReference[oaicite:1]{index=1}
+Basically, a single schema that works both for archival and real-time consumption—elegant.</p>
+<h3 id="1-werners-insight-the-virtual-file-driver"><a class="toclink" href="../../../hdf5-in-memory-circular-buffer/#1-werners-insight-the-virtual-file-driver">1. Werner's Insight: The Virtual File Driver</a></h3>
+<p>Werner dropped the elegant solution:</p>
+<blockquote>
+<p>“There is a virtual file driver that operates on a memory image of an HDF5 file. It should be no problem to have this one also operate on shared memory.” :contentReference[oaicite:2]{index=2}</p>
+</blockquote>
+<p>That’s referencing HDF5’s <strong>core VFD</strong>—you can treat a pointer to memory (including shared memory via <code>mmap</code> or <code>shm_open</code>) as if it were an HDF5 file. The same dataset API (H5Dcreate, H5Dwrite, etc.) applies, so you can reuse your schema seamlessly.</p>
+<h3 id="2-steves-realworld-twist-hft-inspired"><a class="toclink" href="../../../hdf5-in-memory-circular-buffer/#2-steves-realworld-twist-hft-inspired">2. Steve’s Real‑World Twist (HFT-inspired)</a></h3>
+<p>Steve Varga chimed with a production-grade twist:</p>
+<blockquote>
+<p>“Boost’s circular/ring buffer handles one-writer-many-readers; tail flushing can be channeled to the writer or fault‑tolerant hosts. Combine with ZeroMQ + Protocol Buffers or Thrift.”<br />
+“For experiments—where failure isn't critical—you can just access HDF5 locally on cluster nodes using MPI + Grid Engine + serial HDF5.” :contentReference[oaicite:3]{index=3}</p>
+</blockquote>
+<p>So if you're doing industrial-strength durability, go ring buffer + messaging middleware. For HPC experiments where speed and simplicity triump, stick with HDF5+MPI.</p>
+<h3 id="quick-api-sketch-juliaflavored"><a class="toclink" href="../../../hdf5-in-memory-circular-buffer/#quick-api-sketch-juliaflavored">Quick API Sketch (Julia‑Flavored)</a></h3>
+<p>```julia
+using HDF5, SharedMemory # hypothetical module?</p>
+<p>fid = h5open_sharedmem(shm_address, mode="r+")</p>
+<h2 id="use-hdf5-api-as-if-working-on-a-real-file"><a class="toclink" href="../../../hdf5-in-memory-circular-buffer/#use-hdf5-api-as-if-working-on-a-real-file">Use HDF5 API as if working on a real file</a></h2>
+<p>dset = d_create(fid, "/buffer", datatype=Float64, dims=(N,), maxdims=(HDF5.UNLIMITED,))
+write(dset, new_chunk)
+close(fid)
+````</p>
+<h3 id="summary-table"><a class="toclink" href="../../../hdf5-in-memory-circular-buffer/#summary-table">Summary Table</a></h3>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Approach</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>On-disk appendable buffer</td>
+<td>HDF5 datasets (append mode)</td>
+<td>Standard functionality</td>
+</tr>
+<tr>
+<td>In-memory circular buffer</td>
+<td>HDF5 via core VFD over a memory region</td>
+<td>Shared schema/API in RAM</td>
+</tr>
+<tr>
+<td>High‑throughput, production-grade</td>
+<td>Boost ring buffer + messaging (ZeroMQ, ProtoBuf)</td>
+<td>More robust, fault-tolerant</td>
+</tr>
+<tr>
+<td>Experimental/distributed HPC</td>
+<td>HDF5 per node + MPI/Scheduler (serial HDF5)</td>
+<td>Simple, performance-focused</td>
+</tr>
+</tbody>
+</table>
+    
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2016-12-10 00:00:00+00:00">December 10, 2016</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../../" class="md-meta__link">hdf5</a>, 
+              <a href="../../../c/" class="md-meta__link">c++</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              8 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="using-hdf5-as-an-in-memory-circular-buffer"><a class="toclink" href="../../../hdf5-in-memory-circular-buffer/">Using HDF5 as an In-Memory Circular Buffer</a></h2>
+<h3 id="context"><a class="toclink" href="../../../hdf5-in-memory-circular-buffer/#context">Context</a></h3>
+<p>The HDF5 library is a powerful solution for structured data storage, but its default usage assumes durable file-backed I/O. What if we want to use the same layout and tooling for <strong>in-memory circular buffers</strong>, especially across multiple processes?</p>
+<p>This idea came up in a <a href="https://forum.hdfgroup.org/t/hdf5-for-in-memory-circular-buffer/3931">mailing list thread</a> posted by David Schneider in 2016. The question was simple but practical:</p>
+<blockquote>
+<p>“Can I use HDF5 like a circular buffer in memory, with live updates and multiple consumers, using the same schema we already use for on-disk archival?”</p>
+</blockquote>
+<p>That hit close to home—we’d solved a similar problem in our trading systems.</p>
+<h3 id="perspective"><a class="toclink" href="../../../hdf5-in-memory-circular-buffer/#perspective">Perspective</a></h3>
+<p>We faced the same challenges in building real-time market data pipelines. We needed:
+- A buffer of recent events in memory (circular structure)
+- <strong>Multi-process access</strong> (writer + readers)
+- A clean way to <strong>flush or archive</strong> data to disk
+- The same <strong>schema</strong> shared across both memory and persistent storage</p>
+<p>Instead of twisting HDF5 into a fully-fledged circular buffer, we used <strong>HDF5’s virtual file driver (VFD)</strong> to great effect.</p>
+<h3 id="solution"><a class="toclink" href="../../../hdf5-in-memory-circular-buffer/#solution">Solution</a></h3>
+<h4 id="1-boost-ring-buffer-ipc"><a class="toclink" href="../../../hdf5-in-memory-circular-buffer/#1-boost-ring-buffer-ipc">1. Boost Ring Buffer + IPC</a></h4>
+<p>In systems where latency and determinism matter, we use:</p>
+<ul>
+<li><strong>Boost's <code>circular_buffer</code></strong> for the in-memory structure</li>
+<li><strong>ZeroMQ + Protocol Buffers</strong> (or Thrift) for pub/sub messaging</li>
+<li>A fallback mechanism that flushes the buffer’s tail into disk-backed HDF5 for audit or recovery</li>
+</ul>
+<p>This gives us:
+- One writer, many readers (process-safe)
+- Fault tolerance (via tail-dump or WAL-like shadowing)
+- Interop with Python, Julia, R via schema-consistent I/O</p>
+<h4 id="2-experimental-mode-one-hdf5-file-per-node"><a class="toclink" href="../../../hdf5-in-memory-circular-buffer/#2-experimental-mode-one-hdf5-file-per-node">2. Experimental Mode: One HDF5 File Per Node</a></h4>
+<p>In distributed computation (e.g., HPC or large-scale simulations), I skip shared memory entirely:
+- Run each task independently using <strong>serial HDF5</strong>
+- Use MPI + grid engine orchestration
+- Merge or reduce results later</p>
+<p>The simplicity here avoids shared memory complexity and works well for experimental setups or large batch jobs.</p>
+<h3 id="could-you-do-it-in-pure-hdf5"><a class="toclink" href="../../../hdf5-in-memory-circular-buffer/#could-you-do-it-in-pure-hdf5">Could You Do It In Pure HDF5?</a></h3>
+<p>Yes—using <code>H5Pset_fapl_core()</code> you can instruct HDF5 to treat a memory region as the backing store. In theory, you could:</p>
+<ol>
+<li><code>mmap</code> or <code>shm_open()</code> a fixed-size region</li>
+<li>Initialize an HDF5 file layout in that region</li>
+<li>Write with wrap-around logic (circular overwrite)</li>
+<li>Map other readers to the same memory block</li>
+</ol>
+<p>But beware:
+- HDF5 won’t enforce concurrency guarantees
+- You must handle locking or versioning externally
+- Reader/writer separation needs care</p>
+<h3 id="summary"><a class="toclink" href="../../../hdf5-in-memory-circular-buffer/#summary">Summary</a></h3>
+<p>You <em>can</em> use HDF5 as part of a circular buffer system, especially by leveraging the <strong>core virtual file driver</strong> with a shared memory mapping. But in practice:</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Viable with HDF5?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>In-memory datasets</td>
+<td>✅ (<code>core</code> VFD)</td>
+</tr>
+<tr>
+<td>Shared memory usage</td>
+<td>✅ with <code>mmap</code>/IPC</td>
+</tr>
+<tr>
+<td>Circular overwrite</td>
+<td>❌ manual logic</td>
+</tr>
+<tr>
+<td>Multi-process safety</td>
+<td>⚠️ external sync</td>
+</tr>
+<tr>
+<td>Schema reuse</td>
+<td>✅ seamless</td>
+</tr>
+</tbody>
+</table>
+<p>For production pipelines, I prefer:
+- <strong>Boost + ZMQ + Protobuf/Thrift</strong> for live data
+- <strong>HDF5</strong> for archival and structured persistence</p>
+<p>The two worlds meet cleanly if you manage the boundary carefully.</p>
+<p>— <strong>Steven Varga</strong></p>
+    
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2014-10-26 00:00:00+00:00">October 26, 2014</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../../" class="md-meta__link">hdf5</a>, 
+              <a href="../../../c/" class="md-meta__link">c++</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              8 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="structuring-historical-options-data-in-hdf5h5cpp-tips"><a class="toclink" href="../../../hdf5-historical-options-h5cpp/">Structuring Historical Options Data in HDF5—H5CPP Tips</a></h2>
+<h3 id="the-problem-dan-e-oct-27-2014"><a class="toclink" href="../../../hdf5-historical-options-h5cpp/#the-problem-dan-e-oct-27-2014">The Problem (Dan E, Oct 27, 2014)</a></h3>
+<p>I have equity options historical data in daily CSVs—one file per day with around 700k rows for ~4k symbols. Each row includes a dozen fields like symbol, strike, maturity, open/high/low/close, volume, etc.  I want fast access for both:</p>
+<ol>
+<li>All options on a given day for a symbol or list of symbols  </li>
+<li>Time series for a specific option across multiple dates  </li>
+</ol>
+<p>My current approach builds a Pandas DataFrame for each day and stores it under an 'OPTIONS' group in HDF5. But accessing a few symbols loads the entire day’s worth of data—huge overhead. And fetching a specific contract across many days means loading many files.</p>
+<p>How should I structure this? Use one big file or many? Hierarchy? And any recommendations for Python access (like Pandas)?</p>
+<h3 id="h5cpp-wisdom-steven-varga-oct-27-2014"><a class="toclink" href="../../../hdf5-historical-options-h5cpp/#h5cpp-wisdom-steven-varga-oct-27-2014">H5CPP Wisdom (Steven Varga, Oct 27, 2014)</a></h3>
+<p>Steve offers a templated, high-performance structure—tailored for daily partitioning and fast indexing:</p>
+<ol>
+<li><strong>Hash symbols to numeric indices</strong>, and use those for indexing instead of strings.</li>
+<li>Name data blocks by date—e.g., <code>2014-01-01.mat</code>—so each day's data is self-contained.</li>
+<li><strong>Enable chunking</strong> and high compression to balance I/O throughput and file size.</li>
+<li>Treat <strong>irregular time series</strong> (e.g., tick-by-tick events) differently than regular ones:</li>
+<li>Use HDF5 <strong>custom datatypes</strong> with "pocket tables" for compact, sequential access of irregular data.</li>
+<li>For <strong>regular time series</strong> (e.g., OHLC candles), use dense N-dimensional slabs (e.g. [instrument, time, OHLC]) with <code>float</code> is efficient.</li>
+<li>If you’re running this on a <strong>parallel filesystem with MPI and PHDF5</strong>, you can achieve throughput and storage efficiency that rivals—and may surpass—SQL systems.</li>
+</ol>
+<h3 id="h5cpp-approach-in-practice"><a class="toclink" href="../../../hdf5-historical-options-h5cpp/#h5cpp-approach-in-practice">H5CPP Approach in Practice</a></h3>
+<h4 id="layout-strategy"><a class="toclink" href="../../../hdf5-historical-options-h5cpp/#layout-strategy">Layout Strategy</a></h4>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/options/
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>2014-01-01.mat       ← daily file
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>... &lt;Date&gt;.mat             parameterized by date
+</span></code></pre></div>
+<p>Inside a daily file:</p>
+<ul>
+<li><strong>Datasets</strong> keyed by hashed symbol IDs or structured arrays.</li>
+<li><strong>Regular series</strong>: stored as compact multidimensional slabs.</li>
+<li><strong>Irregular data</strong>: structured as compact “pocket tables” with custom datatypes.</li>
+</ul>
+<h4 id="python-access-pattern"><a class="toclink" href="../../../hdf5-historical-options-h5cpp/#python-access-pattern">Python Access Pattern</a></h4>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Pseudocode using h5py or H5CPP-Python bindings</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="s2">&quot;2014-01-01.mat&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    <span class="n">data</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;options&#39;</span><span class="p">][</span><span class="n">symbol_id</span><span class="p">]</span>  <span class="c1"># fast direct index</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="err">````</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="n">For</span> <span class="n">a</span> <span class="n">time</span><span class="o">-</span><span class="n">series</span> <span class="n">across</span> <span class="n">dates</span><span class="p">:</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="err">```</span><span class="n">python</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="n">df_series</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="k">for</span> <span class="n">date</span> <span class="ow">in</span> <span class="n">dates</span><span class="p">:</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>    <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">date</span><span class="si">}</span><span class="s2">.mat&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>        <span class="n">df_series</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="s1">&#39;options&#39;</span><span class="p">][</span><span class="n">symbol_id</span><span class="p">])</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="c1"># Combine into one timeline</span>
+</span></code></pre></div>
+<h4 id="benefits"><a class="toclink" href="../../../hdf5-historical-options-h5cpp/#benefits">Benefits</a></h4>
+<ul>
+<li><strong>Selective reads</strong>—fetch only what's needed, e.g. a single symbol per day.</li>
+<li><strong>Efficient storage</strong>—chunked and compressed format minimizes disk footprint.</li>
+<li><strong>Scalable throughput</strong>—especially when using MPI + PHDF5 on parallel filesystems.</li>
+<li><strong>Language-agnostic</strong>—H5CPP’s type mappings and structuring make it accessible from C++, Python, Julia, etc.</li>
+</ul>
+    
+    
+  </div>
+</article>
+      
+      
+        
+          
+
+
+
+<nav class="md-pagination">
+  <a class="md-pagination__link" href="../../">1</a> <a class="md-pagination__link" href="../2/">2</a> <a class="md-pagination__link" href="../3/">3</a> <span class="md-pagination__current">4</span>
+</nav>
+        
+      
+    </div>
+  </div>
+
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright custom-footer">
+        <div class="custom-footer-left">
+          Blockchain, cryptographic protocols, HPC, or trading systems in C++, Rust, Julia, Python, R and CUDA
+        </div>
+        <div class="custom-footer-right">
+          © 2017–2025 VargaLABS, Toronto, ON, Canada 🇨🇦
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["search.suggest", "content.code.copy", "content.tooltips"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://cdn.tailwindcss.com"></script>
+      
+        <script src="../../../../javascripts/tw-config.js"></script>
+      
+        <script src="../../../../javascripts/asciinema-player.min.js"></script>
+      
+        <script src="https://unpkg.com/alpinejs@3.14.9/dist/cdn.min.js"></script>
+      
+        <script src="https://unpkg.com/@popperjs/core@2"></script>
+      
+        <script src="https://unpkg.com/tippy.js@6"></script>
+      
+    
+  </body>
+</html>

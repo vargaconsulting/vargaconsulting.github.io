@@ -1,0 +1,17 @@
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    function waitForAsciinemaPlayer(attempts = 10) {
+      if (typeof AsciinemaPlayer !== "undefined") {
+        AsciinemaPlayer.create('/blog/casts/iex-download-demo.cast', document.getElementById('asciicast-iex-download-demo'), {
+          cols: 148, rows: 39, autoPlay: true,  loop: false, speed: 10.3,  idleTimeLimit: .5, controls: true
+        });
+      } else if (attempts > 0) {
+        setTimeout(() => waitForAsciinemaPlayer(attempts - 1), 200);
+      } else {
+        console.error("AsciinemaPlayer failed to load.");
+      }
+    }
+    waitForAsciinemaPlayer();
+});
+</script>
+

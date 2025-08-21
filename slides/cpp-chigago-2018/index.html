@@ -1,0 +1,279 @@
+<!-- vargaconsulting.ca -->
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>H5CPP</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/solarized.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/solarized-dark.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+		<style>
+		  .reveal .slides section .fragment.current-only {
+			opacity: 1;
+			visibility: visible;
+			display: none;
+		  }
+		  .reveal .slides section .fragment.current-only.current-fragment {
+			display: block;
+		  }
+		  .line { display: block; }
+		  .line.focus { background: #f2df82; color: #657b83; }
+	</style>
+<script>
+	var link = document.createElement( 'link' );
+	link.rel = 'stylesheet';
+	link.type = 'text/css';
+	link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+	document.getElementsByTagName( 'head' )[0].appendChild( link );
+</script>
+	</head>
+	<body>
+<div class="reveal">
+<div class="slides">
+
+<section>
+	<h1>H5CPP</h1>
+	<h5>the first non-intrusive persistence </h5> <h1>for modern C++</h4>
+	<p><small>Created by <a href="http://h5cpp.ca">Steven Varga</a> 
+		in co-operation with <a href="https://github.com/gheber">Gerd Heber</a>, HDFGroup</small></p>
+	<p><small><a href="http://chicago.h5cpp.ca">Online version of this presentation:</a> http://chicago.h5cpp.ca</small></p> 
+</section>
+<section>
+	<h3>The first non-intrusive persistence for modern C++</h3>
+	<section>
+		<ul>
+			<li >Support for Objects:
+				<span >The STL, </span>
+				<span > 7 popular Linear Algebra Systems</span>
+				<span > arbitrarily deep POD struct, arrays, raw pointers...</span>
+			</li>
+				
+			<li >True usability / flexibility trade-off</li>
+			<li >Can start with zero HDF5 knowledge</li>
+			<li >Zero overhead over HDF5 CAPI</li>
+		</ul>
+	</section>
+</section>
+
+<section>
+	<img src="pix/whoishdfgroup.png" height="800" witdth="1200" style="float:right;" >
+</section>
+<section>
+	<img src="pix/hdf5metaphore.png" height="800" witdth="1200" style="float:right;" >
+</section>
+<section>
+	<img src="pix/coreoperations.png" height="800" witdth="1200" style="float:right;" >
+</section>
+<section>
+	<img src="pix/thecapi.png" height="800" witdth="1200" style="float:right;" >
+</section>
+<section>
+	<img src="pix/openwound.png" height="800" witdth="1200" style="float:right;" >
+</section>
+<!--section >
+	<img src="pix/table.png" height="800" witdth="1200" style="float:right;" >
+</section-->
+
+
+
+
+
+<!--section data-background="#eeffcc" data-background-transition="zoom" >
+<h3>What if I don't quite recall the syntax?</h3>
+<pre><code class="cpp", data-trim>
+h5::write( ..., /* is this the right order: */
+	h5::current_dims{40,50}, h5::offset{5,0}, h5::stride{4,4}, h5::block{3,3} );
+...
+h5::write( ..., /* or may be this? */
+	h5::offset{5,0}, h5::block{3,3}, h5::current_dims{40,50}, h5::stride{4,4} );
+...
+</code></pre>
+
+<p class="fragment" data-code-focus="1-2">usually a function signature is strict</p>
+<p class="fragment" data-code-focus="3-7">but what if we want something flexible? </p>
+<p class="fragment"> with compile time piece wise construction the functions only make the necessary calls...</p>
+<p class="fragment"> and named, type safe arguments may be in arbitrary order</p>
+
+
+</section-->
+<section>
+	<h3>templates: create | write | read | append</h3>
+	<section>
+<pre><code class="cpp", data-trim>
+h5::fd_t fd = h5::create("example.h5",H5F_ACC_TRUNC);
+std::vector<sn::example::Record> vec = h5::utils::get_test_data<sn::example::Record>(20);
+h5::write(fd, "path/to/object",  vec,
+    h5::current_dims{100},  h5::max_dims{H5S_UNLIMITED},
+    h5::offset{3}, h5::block{2}, h5::stride{2},
+    h5::chunk{20} | h5::gzip{9} );
+</code></pre>
+
+<p class="fragment" data-code-focus="1">RAII idiom for file,dataset,property descriptors</p>
+<p class="fragment" data-code-focus="2">Fundamental,POD struct or arrays of them</p>
+<p class="fragment" data-code-focus="3">The object is marked with h5::write template call</p>
+<p class="fragment" data-code-focus="4-6">type-safe arguments in any order</p>
+
+</section>
+<section>
+	<h3>how is it done?</h3>
+	<ul>
+		<li class="fragment">template meta-programming for piecewise construction of functions </li>
+		<li class="fragment">file|dataset|property descriptors are binary compatible with CAPI: interop governed by conversion policy </li>
+		<li class="fragment">no virtual tables:
+		Curiously Recurrent Templates - static polymorphism</li>
+	</ul>
+</section>
+
+<section>
+<img src="pix/status.svg" height="600" >
+
+</section>
+</section>
+
+<!--section>
+<img src="pix/nfa.gif" height="200" style="float:left;" >
+	<h3>Compiler</h3>
+	<p class="fragment">POD to HDF5 Data Description Lanaguage</p>
+	<p class="fragment">Flex + Bison vs LLVM + Clang++ Tooling</p>
+	<p class="fragment">AST from source code</p>
+	<p class="fragment">Topological sort</p>
+	<p class="fragment">Emitting source code</p>
+</section-->
+
+<section>
+<img src="pix/nfa.gif" height="200" style="float:left;" >
+	<h3>Compiler</h3>
+	<section>
+		<h3>what does it do</h3>
+		<ul>
+			<li>LLVM7.0.0 based parser generates the AST of the TU Translation Unit</li>
+			<li>objects marked/painted with the operators are identified,</li>
+
+			<li>topological reordering of dependency graph</li>
+			<li>elimination </li>
+			<li>code generation: HDF5 Data Description Language</li>
+			<li>include the generated header file into your TU translation unit</li>
+			<li>second stage: invoke your favourite compiler: intel, gcc, cray, ibm, pg,  ... </li>
+		</ul>
+	</section>
+</section>
+<section>
+	<h3>Goodies</h3>
+		<ul>
+			<li>H5CPP.CA</li>
+			<li>LIVE DEMO: http://h5cpp.ca/cgi/redirect.py</li>
+			<li>ami-38726547</li>
+		</ul>
+</section>
+
+
+
+
+<section>
+<img src="pix/nfa.gif" height="200" style="float:left;" >
+	<h3>The first non-intrusive persistence for modern C++</h3>
+	<section>
+		<ul>
+			<li class="fragment">Support for Objects:
+				<span class="fragment">The STL, </span>
+				<span class="fragment"> 7 popular Linear Algebra Systems</span>
+				<span class="fragment"> arbitrarily deep POD struct, arrays, raw pointers...</span>
+			</li>
+				
+			<li class="fragment">True usability / flexibility trade-off</li>
+			<li class="fragment">Can start with zero HDF5 knowledge</li>
+			<li class="fragment">Zero overhead over HDF5 CAPI</li>
+		</ul>
+	</section>
+</section>
+
+
+<!--
+_include "pages/definition.html"
+
+<section  data-transition="zoom" data-transition-speed="fast" >
+	_include "pages/problem.html"
+	_include "pages/solution.html"
+</section>
+_include "pages/what_it_does.html"
+
+
+<section >
+_include "pages/create.html"
+_include "pages/write_data.html"
+_include "pages/write_oneshot.html"
+_include "pages/pythonish.html"
+_include "pages/descriptors.html"
+</section>
+_include "pages/compiler.html"
+_include "pages/real_life_example.html"
+
+
+			
+1. what is h5cpp: compiler + templates = non-intrusive, platform independent  persistence for C++
+2. features:
+   fast block + sequential data store
+   simple: create,read,write,append
+   unique flexible function signature:    
+   thin and kind: 
+   		CRTP,RAII, HDF5 CAPI integration, compile time expressions, copy elision
+	profiled 	
+
+3. compiler 
+	h5cpp vs. protocol buffers, thrift and alike
+	Data description Language DDL to data structures then serialization + persistence
+	h5cpp: straight from header files, non intrusive, then serialization + persistence
+   
+	LLVM 7 based, clang tooling, scans TU translation unit
+	supported: std::vector<T>  
+	fundamental types, POD struct, array of arbitrary valid combinations of them
+
+
+4. real life example
+	try the link
+-->
+
+</div>
+</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+		<script>
+
+			Reveal.initialize({ 
+				width: "1200",
+				
+				height: "900",
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				transitionSpeed: 'slow',
+				transition: 'convex', // none/fade/slide/convex/concave/zoom
+
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true },
+          			{ src: 'plugin/highlight/highlight.pack.js' },
+          			{ src: 'node_modules/reveal-code-focus/reveal-code-focus.js',  async:true, callback: function() { RevealCodeFocus(); } }
+				]
+			});
+		</script>
+	</body>
+</html>

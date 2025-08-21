@@ -1,0 +1,16 @@
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    function waitForAsciinemaPlayer(attempts = 10) {
+      if (typeof AsciinemaPlayer !== "undefined") {
+        AsciinemaPlayer.create('/blog/casts/iex2h5-issue-93-problem.cast', document.getElementById('asciicast-iex2h5-issue-93-problem'), {
+          cols: 120, rows: 20, autoPlay: true,  loop: true, speed: .2,  idleTimeLimit: 1, controls: true
+        });
+      } else if (attempts > 0) {
+        setTimeout(() => waitForAsciinemaPlayer(attempts - 1), 200);
+      } else {
+        console.error("AsciinemaPlayer failed to load.");
+      }
+    }
+    waitForAsciinemaPlayer();
+});
+</script>

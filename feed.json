@@ -1,0 +1,149 @@
+{
+  "version": "https://jsonfeed.org/version/1.1",
+  "title": "VargaLABS",
+  "home_page_url": "https://steven-varga.ca/blog/",
+  "feed_url": "https://steven-varga.ca/feed.json",
+  "description": "Advanced Systems for Trading, Cryptography, and Data Engineering",
+  "items": [
+    {
+      "id": "https://steven-varga.ca/blog/iex-download-rust/",
+      "url": "https://steven-varga.ca/blog/iex-download-rust/",
+      "title": "IEX-DOWNLOAD: Rust, Tick Data, and 13TB of Fun",
+      "summary": "Meet IEX-DOWNLOAD: a Rust utility that slurps down terabytes of IEX tick data ",
+      "date_published": "2025-09-25T00:00:00"
+    },
+    {
+      "id": "https://steven-varga.ca/blog/iex-timestamp-glitch-wireshark/",
+      "url": "https://steven-varga.ca/blog/iex-timestamp-glitch-wireshark/",
+      "title": "A Week of Market History Vanished \u2014 Here\u2019s What Really Happened",
+      "summary": "A week of IEX ticks mysteriously collapsed into December 31, 1969 \u2014",
+      "date_published": "2025-09-12T00:00:00"
+    },
+    {
+      "id": "https://steven-varga.ca/blog/longest-active-stocks-from-iex-pcap/",
+      "url": "https://steven-varga.ca/blog/longest-active-stocks-from-iex-pcap/",
+      "title": "I Analyzed 6TB of Raw Stock Market Data to Uncover the 30 Most Consistently Traded Stocks \u2014 Here\u2019s What I Found",
+      "summary": "What happens when you throw 6 terabytes of raw stock market tick data into an HDF5-powered firehose and look for the 30 most consistently active stocks? You find out who *really* moves the markets. Here\u2019s the journey.",
+      "date_published": "2025-09-05T00:00:00"
+    },
+    {
+      "id": "https://steven-varga.ca/blog/radix64-order-preserving-encoding/",
+      "url": "https://steven-varga.ca/blog/radix64-order-preserving-encoding/",
+      "title": "Radix64 Encoding: Order-Preserving Strings in 64 Bits",
+      "summary": "This post introduces an order-preserving, fixed-width radix-64 encoding scheme.",
+      "date_published": "2025-08-23T00:00:00"
+    },
+    {
+      "id": "https://steven-varga.ca/blog/from-curve-to-signature-ecdsa-guide/",
+      "url": "https://steven-varga.ca/blog/from-curve-to-signature-ecdsa-guide/",
+      "title": "From Curve to Signature: A Hands-on Guide to ECDSA",
+      "summary": "A hands-on guide for generating elliptic curves and producing Ethereum-style",
+      "date_published": "2025-05-12T00:00:00"
+    },
+    {
+      "id": "https://steven-varga.ca/blog/h5cpp-dataset-cant-extend/",
+      "url": "https://steven-varga.ca/blog/h5cpp-dataset-cant-extend/",
+      "title": "Why Your HDF5 Dataset Can't Extend\u2014and the H5CPP Way",
+      "summary": "If your HDF5 dataset refuses to extend, it's almost certainly because it wasn\u2019t created chunked with unlimited dimensions. Here\u2019s how to fix that\u2014and how H5CPP wraps extendible datasets and appending into a clean, modern C++ API.",
+      "date_published": "2023-05-17T00:00:00"
+    },
+    {
+      "id": "https://steven-varga.ca/blog/hdf5-wide-compound-optimization/",
+      "url": "https://steven-varga.ca/blog/hdf5-wide-compound-optimization/",
+      "title": "Optimizing Reads of Very-Wide Compound HDF5 Types",
+      "summary": "Reading wide compound records with hundreds of fields can bottleneck performance.",
+      "date_published": "2023-04-17T00:00:00"
+    },
+    {
+      "id": "https://steven-varga.ca/blog/hdf5-write-performance-vs-raw/",
+      "url": "https://steven-varga.ca/blog/hdf5-write-performance-vs-raw/",
+      "title": "HDF5 Write Speeds: Matching Underlying Raw I/O",
+      "summary": "HDF5 writes large blocks at roughly 70\u201395% of underlying raw I/O\u2014fast enough for most needs.  ",
+      "date_published": "2023-03-28T00:00:00"
+    },
+    {
+      "id": "https://steven-varga.ca/blog/h5cpp-chunk-atomicity/",
+      "url": "https://steven-varga.ca/blog/h5cpp-chunk-atomicity/",
+      "title": "Why Writing HDF5 Chunks Piece-by-Piece Actually Fails",
+      "summary": "Trying to write HDF5 chunks in fragments? Not going to work. HDF5 treats chunks as atomic units.",
+      "date_published": "2023-03-24T00:00:00"
+    },
+    {
+      "id": "https://steven-varga.ca/blog/h5cpp-direct-chunk-append/",
+      "url": "https://steven-varga.ca/blog/h5cpp-direct-chunk-append/",
+      "title": "Writing Direct HDF5 Chunks Piece-by-Piece with H5CPP",
+      "summary": "Need to emit partial chunks manually\u2014perhaps from multiple queues or threads?",
+      "date_published": "2023-03-20T00:00:00"
+    },
+    {
+      "id": "https://steven-varga.ca/blog/h5cpp-extendable-datasets/",
+      "url": "https://steven-varga.ca/blog/h5cpp-extendable-datasets/",
+      "title": "Extendable Datasets in HDF5\u2014Simplified with H5CPP",
+      "summary": "Building extendable datasets in HDF5 doesn\u2019t need boilerplate. H5CPP gives you a compact,",
+      "date_published": "2023-03-02T00:00:00"
+    },
+    {
+      "id": "https://steven-varga.ca/blog/zmq-multi-lang-push-pull/",
+      "url": "https://steven-varga.ca/blog/zmq-multi-lang-push-pull/",
+      "title": "Cross-language Messaging with ZeroMQ: C++, Python, and Fortran",
+      "summary": "ZeroMQ is a powerful messaging library that makes inter-process communication easy.",
+      "date_published": "2022-06-29T00:00:00"
+    },
+    {
+      "id": "https://steven-varga.ca/blog/hdf5-group-overhead/",
+      "url": "https://steven-varga.ca/blog/hdf5-group-overhead/",
+      "title": "HDF5 Group Overhead: Measuring the Cost of a Million Groups",
+      "summary": "HDF5 group objects come with significant metadata overhead.  ",
+      "date_published": "2022-04-07T00:00:00"
+    },
+    {
+      "id": "https://steven-varga.ca/blog/automated-stl-printing/",
+      "url": "https://steven-varga.ca/blog/automated-stl-printing/",
+      "title": "Automated Pretty Printing for STL-like Containers in H5CPP",
+      "summary": "Debugging with `gdb`, `valgrind`, or custom logging setups can be painful.  ",
+      "date_published": "2022-04-07T00:00:00"
+    },
+    {
+      "id": "https://steven-varga.ca/blog/hdf5-custom-long-double/",
+      "url": "https://steven-varga.ca/blog/hdf5-custom-long-double/",
+      "title": "Custom Floating-Point and Opaque Types in HDF5",
+      "summary": "HDF5 can represent `long double` via native or custom datatypes.  ",
+      "date_published": "2022-03-17T00:00:00"
+    },
+    {
+      "id": "https://steven-varga.ca/blog/hdf5-long-double-support/",
+      "url": "https://steven-varga.ca/blog/hdf5-long-double-support/",
+      "title": "HDF5 and `long double`: Precision Stored, Precision Misread",
+      "summary": "HDF5 fully supports `long double` writes and reads, but `h5dump` misreports values.  ",
+      "date_published": "2022-03-16T00:00:00"
+    },
+    {
+      "id": "https://steven-varga.ca/blog/hdf5-rewrite-attributes/",
+      "url": "https://steven-varga.ca/blog/hdf5-rewrite-attributes/",
+      "title": "Rewriting Attributes in HDF5 with H5CPP",
+      "summary": "While HDF5 doesn\u2019t support extending attributes directly, you can emulate it by reading, rewriting, and replacing.  ",
+      "date_published": "2022-03-15T00:00:00"
+    },
+    {
+      "id": "https://steven-varga.ca/blog/hdf5-single-thread-writer/",
+      "url": "https://steven-varga.ca/blog/hdf5-single-thread-writer/",
+      "title": "Single-Thread Writer: Simplifying Parallel HDF5 I/O",
+      "summary": "Instead of letting many threads contend with HDF5\u2019s global lock,  ",
+      "date_published": "2022-03-14T00:00:00"
+    },
+    {
+      "id": "https://steven-varga.ca/blog/hdf5-fixed-vs-variable-benchmark/",
+      "url": "https://steven-varga.ca/blog/hdf5-fixed-vs-variable-benchmark/",
+      "title": "Fixed-Length vs. Variable-Length Storage in HDF5",
+      "summary": "Fixed-length storage wins for speed and predictability.  ",
+      "date_published": "2021-04-29T00:00:00"
+    },
+    {
+      "id": "https://steven-varga.ca/blog/pod-to-hdf5-compound/",
+      "url": "https://steven-varga.ca/blog/pod-to-hdf5-compound/",
+      "title": "Bridging HPC Structs and HDF5 COMPOUNDs with H5CPP",
+      "summary": "Define your data once as a C++ POD struct.  ",
+      "date_published": "2021-04-18T00:00:00"
+    }
+  ]
+}
