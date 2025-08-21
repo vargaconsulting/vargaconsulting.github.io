@@ -1,0 +1,12 @@
+
+docs/html/
+.vscode/
+.cache/
+
+build/
+.venv
+
+/.nojekyll
+/*.html
+/*.xml
+
