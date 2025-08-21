@@ -36,9 +36,6 @@ As an independent researcher and systems architect, I work hands-on with organiz
 :material-cloud:{.icon} 
 :fontawesome-brands-aws:{title="AWS"}
 
-[Hover me](https://example.com "I'm a tooltip!")
-[Attribute Lists](#){ data-preview }
-
 ## :material-arrow-expand-horizontal:{.icon} From Markets to Math — My Focus Areas
 
 * **Trading Infrastructure**
