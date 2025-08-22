@@ -58,7 +58,8 @@ As an independent researcher and systems architect, I work hands-on with organiz
 * **[H5CPP](site/h5cpp.md)** — A reflection-powered C++17/23 library for working with HDF5 in scientific computing and trading.
 * **[H5CPP Compiler](site/h5cpp-compiler.md)** — LLVM based code transformation tool for compiler assisted reflection.
 * **[OpenSSL C++](site/openssl.md)** — modern approach to cryptography: fast blockchain signatures with a library you trust
-* **[Decimal++](site/decimalfloat.md)** — decimal floating point library for modern C++
+* **[Decimal C++](site/decimalfloat-cpp.md)** — decimal floating point library for modern C++
+* **[Decimal Python](site/decimalfloat-python.md)** — decimal floating point library for Python
 * **[NSS](site/nss.md)** — Linux Name Switching System for identity menagement
 * **[BIP](site/bip.md)** — BIP32, BIP39 and BIP44 wallet management library for C++ 
 * **[EIP712](site/eip712.md)** — Ethereum transaction packing library for modern C++ and template metaprogramming

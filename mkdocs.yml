@@ -7,7 +7,8 @@ nav:
   - TinyCrypto: site/tinycrypto.md
   - H5CPP header only: site/h5cpp.md
   - H5CPP compiler: site/h5cpp-compiler.md
-  - Decimal Float: site/decimalfloat.md
+  - Decimal Float C++: site/decimalfloat-cpp.md
+  - Decimal Float Python: site/decimalfloat-python.md
   - IEX Download: site/iexdownload.md
   - OpenSSL++: site/openssl.md
   - BIP: site/bip.md
@@ -17,8 +18,6 @@ nav:
   - NSS: site/nss.md
   - Orderbook: site/orderbook.md
   - UDS: site/uds.md
-  - Web3: site/web3.md
-  - Talks: site/talks.md
 
 theme:
   name: material
