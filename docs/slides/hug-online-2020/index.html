@@ -1,0 +1,754 @@
+<!-- h5cpp.org -->
+<!-- h5cpp.org -->
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>HUG 2020</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/solarized.css">
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/solarized-dark.css">
+        <link rel="stylesheet" type="text/css" href="plugin/asciinema/asciinema-player.css" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="plugin/reveal.js-fullscreen-code/reveal.js-fullscreen-code.css">
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+		<style>
+		  .reveal .slides section .fragment.current-only {
+			opacity: 1;
+			visibility: visible;
+			display: none;
+		  }
+		  .reveal .slides section .fragment.current-only.current-fragment {
+			display: block;
+		  }
+		  .line { display: block; }
+		  .line.focus { background: #f2df82; color: #657b83; }
+	</style>
+
+	</head>
+	<body>
+
+<div class="reveal"><div class="slides">
+<!-- from root directory: node node_modules/reveal-notes-server -->
+<section data-markdown data-transition="zoom"  data-separator-notes="^Note:" ><textarea data-template>
+# C++ Template based Persistence
+#### with compiler assistance
+Note:
+hello everyone, my name is Steven Varga, I am an independent researcher in computational finance and tonight with Gerd Heber I am 
+presenting H5CPP, a scalable non intrusive persistence for modern C++with HDF5 backend.
+</textarea></section>
+
+<section>
+<section>
+<h1>H5CPP</h1>
+<ul>
+    <li>compiler assisted static reflection</li>
+    <li>CRUD templates</li>
+    <li>Pythonic syntax</li>
+    
+</ul>
+</section>
+<section data-markdown data-transition="zoom"  style="text-align: left;"><textarea data-template>
+## H5CPP Compiler: what does it do?
+- LLVM based parser generates the AST of the TU Translation Unit
+- objects marked/painted with the operators are identified,
+- topological reordering of dependency graph
+- elimination
+- code generation: HDF5 Data Description Language
+- include the generated header file into your TU translation unit
+- second stage: invoke your favourite compiler: intel, gcc, cray, ibm, pg,  ...
+</textarea></section>
+
+<section  style="text-align: left;" >
+	<h2>take a header file with POD struct</h2>
+	<pre><code>
+typedef unsigned long long int MyUInt;
+namespace sn {
+	namespace example {
+		struct Record {
+			MyUInt               field_01;
+			char                 field_02;
+			double            field_03[3];
+			other::Record field_04[4];
+		};
+	}
+}
+</pre></code>
+<ul>
+  <li class="fragment" data-code-focus="2,6"> 
+  typedefs are fine</li>
+  <li class="fragment" data-code-focus="3-4,10-11"> 
+  nested namespace are OK</li>
+  <li class="fragment" data-code-focus="7">
+  mapped to : <a href="https://support.hdfgroup.org/HDF5/doc1.6/UG/11_Datatypes.html" >H5T_NATIVE_CHAR</a> </li>
+  <li class="fragment" data-code-focus="8">
+  H5Tarray_create(H5T_NATIVE_DOUBLE,1, ... ) </li>
+  <li class="fragment" data-code-focus="9">
+  first `other::Record` is parsed: type_hid_t = ... </li>
+  <li class="fragment" data-code-focus="9">
+  then the generated type is used: H5Tarray_create(type_hid_t, ...)  </li>
+</ul>
+</section>
+
+<section  style="text-align: left;" >
+	<h3>write your program</h3>
+<pre><p1>write your cpp program as if `generated.h` were already written </p1>
+<code>#include "some_header_file.h"
+#include &lt;h5cpp/core&gt;
+	#include "generated.h"
+#include &lt;h5cpp/io&gt;
+int main(){
+	std::vector&lt;sn::example::Record&gt; stream =
+		...
+	h5::fd_t fd = h5::create("example.h5",H5F_ACC_TRUNC);
+	h5::pt_t pt = h5::create&lt;sn::example::Record&gt;(
+		fd, "stream of struct",
+		h5::max_dims{H5S_UNLIMITED,7}, h5::chunk{4,7} | h5::gzip{9} );
+	...
+}
+</code></pre>
+<ul>
+  <li class="fragment" data-code-focus="2,4">sandwich the not-yet existing `generated.h` </li>
+  <li class="fragment" data-code-focus="5,13">write the TU translation unit as usual</li>
+  <li class="fragment" data-code-focus="9">
+      using the POD type with one of the  H5CPP CRUD like operators:<br/> &nbsp;
+	  <code>h5::create | h5::write | h5::read | h5::append | h5::acreate | h5::awrite | h5::aread</code>
+      &nbsp; <br/> will trigger the `h5cpp` compiler to generate code
+</ul>
+</section>
+
+
+
+<section data-markdown data-transition="zoom"  style="text-align: left;"><textarea data-template>
+### Invoke ```h5cpp``` compiler on TU translation unit:
+```sh
+h5cpp  packettable.cpp -- $(CXXFLAGS) -I/usr/include/h5cpp-llvm -Dgenerated.h
+```
+POD structures referenced with:
+
+```cpp
+h5::create | h5::write | h5::read | h5::append
+```
+operators are processed in topological order, and the output is...
+</textarea></section>
+
+<section  style="text-align: left;" >
+<h3>A header file with HDF5 Compound Type descriptors:</h3>
+<pre><code>#ifndef H5CPP_GUARD_ErRrk
+#define H5CPP_GUARD_ErRrk
+namespace h5{
+    template<> hid_t inline register_struct<sn::example::Record>(){
+        hsize_t at_00_[] ={7};            hid_t at_00 = H5Tarray_create(H5T_NATIVE_FLOAT,1,at_00_);
+        hsize_t at_01_[] ={3};            hid_t at_01 = H5Tarray_create(H5T_NATIVE_DOUBLE,1,at_01_);
+        hid_t ct_00 = H5Tcreate(H5T_COMPOUND, sizeof (sn::typecheck::Record));
+        H5Tinsert(ct_00, "_char",	HOFFSET(sn::typecheck::Record,_char),H5T_NATIVE_CHAR);
+		...
+		H5Tclose(at_03); H5Tclose(at_04); H5Tclose(at_05); 
+        return ct_02;
+    };
+}
+H5CPP_REGISTER_STRUCT(sn::example::Record);
+#endif
+</code></pre>
+<ul>
+  <li class="fragment" data-code-focus="1-2,15">random include guards</li>
+  <li class="fragment" data-code-focus="3,13">within namespace </li>
+  <li class="fragment" data-code-focus="4,12">template specialization for h5::operators</li>
+  <li class="fragment" data-code-focus="7-8">compound types are recursively created</li>
+  <li class="fragment" data-code-focus="14">calls the template specialization when h5::operator needs it</li>
+</ul>
+</section>
+
+<section data-markdown data-transition="zoom"  style="text-align: left;"><textarea data-template>
+### Invoke your favourite CPP compiler on TU translation unit
+
+```sh
+g++  -o packettable.o  $(CXXFLAGS) -c packettable.cpp
+```
+### link against serial or parallel HDF5
+```sh
+g++ packet_table.o -lhdf5 -lz -ldl -lm -o packet_table
+```
+### Done!
+</textarea></section>
+
+
+
+
+
+<section data-markdown data-transition="zoom"  style="text-align: left;"><textarea data-template>
+### FEATURES
+- Tuned High performance MPI and Serial HDF5;
+- Support for Popular Linear Algebra libraries and the STL
+- CRUD-like operators
+		`h5::create | h5::write | h5::read | h5::append`  `h5::acreate | h5::awrite | h5::aread`
+- RAII - constructor acquires, destructor releases
+- C-API `hid_t` handle conversion, you can always mix HDF5 CAPI and HDF5
+- Error handling via structured exceptions
+- A high performance  packet table (arbitrary types)
+   - High throughput I/O pipeline based on [`H5D_WRITE_CHUNK`](https://portal.hdfgroup.org/display/HDF5/H5D_WRITE_CHUNK)
+- LLVM based static reflection
+- Half float support
+</textarea></section>
+
+
+<section data-markdown data-transition="zoom"  style="text-align: left;"><textarea data-template>
+## STRUCTURED EXCEPTIONS
+- Hierarchy rooted in h5::error::any
+- C-API error stack can be dumped, unrolled, (un-)muted
+- Supports capture to thread-local storage
+
+```cpp
+ 1: // capture errors centrally with the granularity you desire
+ 2: try {
+ 3:     my_deeply_embedded_io_calls();
+ 4: } catch ( const h5::error::io::dataset::create& e ){
+ 5:     // handle file creation error
+ 6: } catch ( const h5::error::io::dataset::write& e ){
+ 7: } catch ( const h5::error::io::file::create& e ){
+ 8: } catch ( const h5::error::io::file::close& e ){
+ 9: } catch ( const h5::any& e ) {
+10:     std::cerr << e.what() << std::endl;
+11: }
+```
+</textarea></section>
+<section data-markdown data-transition="zoom"  style="text-align: left;"><textarea data-template >
+### Supported objects in BNF: 
+```yacc
+T := ([unsigned] ( int8_t | int16_t | int32_t | int64_t )) | ( float | double  )
+S := T | c/c++ struct | std::string
+ref := std::vector&lt;S&gt; 
+    | arma::Row&lt;T&gt; | arma::Col&lt;T&gt; | arma::Mat&lt;T&gt; | arma::Cube&lt;T&gt; 
+    | Eigen::Matrix&lt;T,Dynamic,Dynamic&gt; | Eigen::Matrix&lt;T,Dynamic,1&gt; | Eigen::Matrix&lt;T,1,Dynamic&gt;
+    | Eigen::Array&lt;T,Dynamic,Dynamic&gt;  | Eigen::Array&lt;T,Dynamic,1&gt;  | Eigen::Array&lt;T,1,Dynamic&gt;
+    | blaze::DynamicVector&lt;T,rowVector&gt; |  blaze::DynamicVector&lt;T,colVector&gt;
+    | blaze::DynamicVector&lt;T,blaze::rowVector&gt; |  blaze::DynamicVector&lt;T,blaze::colVector&gt;
+    | blaze::DynamicMatrix&lt;T,blaze::rowMajor&gt;  |  blaze::DynamicMatrix&lt;T,blaze::colMajor&gt;
+    | itpp::Mat&lt;T&gt; | itpp::Vec&lt;T&gt;
+    | blitz::Array&lt;T,1&gt; | blitz::Array&lt;T,2&gt; | blitz::Array&lt;T,3&gt;
+    | dlib::Matrix&lt;T&gt;   | dlib::Vector&lt;T,1&gt; 
+    | ublas::matrix&lt;T&gt;  | ublas::vector&lt;T&gt;
+ptr     := T* 
+accept  := ref | ptr
+```
+</textarea></section>
+
+<section  style="text-align: left;" >
+<h3>Attributes:</h3>
+<p>do the right thing. Here are some examples, and come with an easy to use operator:</p>
+<pre><code>h5::ds_t ds = h5::write(fd,"some dataset with attributes", ... );
+ds["att_01"] = 42 ;
+ds["att_02"] = {1.,3.,4.,5.};
+ds["att_03"] = {'1','3','4','5'};
+ds["att_04"] = {"alpha", "beta","gamma","..."};
+ds["att_05"] = "const char[N]";
+ds["att_06"] = u8"const char[N]áééé";
+ds["att_07"] = std::string( "std::string");
+ds["att_08"] = record; // pod/compound datatype
+ds["att_09"] = vector; // vector of pod/compound type
+ds["att_10"] = matrix; // linear algebra object
+</code></pre>
+<ul>
+  <li class="fragment" data-code-focus="1">obtain a handle by h5::create | h5::open | h5::write </li>
+  <li class="fragment" data-code-focus="2,9-11">rank N objects, even compound types when h5cpp compiler used</li>
+  <li class="fragment" data-code-focus="3-5">arrays of various element types</li>
+  <li class="fragment" data-code-focus="6-8">mapped to rank 0 variable length character types</li>
+</ul>
+</section>
+
+
+<section  style="text-align: left;" >
+	<h3>MPI-IO made easy</h3>
+<pre><p1>H5CPP with parallel HDF5</p1>
+<code>#include &lt;mpi.h&gt;
+#include &lt;h5cpp/all&gt;
+...
+int main(int argc, char** argv) {
+    ...
+    MPI_Init(NULL, NULL);
+    MPI_Comm_size(MPI_COMM_WORLD, &size);
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    ...
+    { .. /* for H5CPP see next slide */.. }
+    ...
+    MPI_Barrier(MPI_COMM_WORLD);
+    MPI_Finalize();
+}
+</code></pre>
+<ul>
+  <li class="fragment" data-code-focus="1-4,14">start your program as usual</li>
+  <li class="fragment" data-code-focus="6-8,12-13">write the MPI boilerplate</li>
+</ul>
+</section>
+
+<section  style="text-align: left;" >
+	<h3>MPI-IO made easy</h3>
+<pre><p1>H5CPP with parallel HDF5</p1>
+<code>{
+std::vector<double> v(nrows);
+auto fd = h5::create("hdf5_container_name.h5", H5F_ACC_TRUNC,
+               h5::fcpl,
+	           h5::mpiio({mpi_comm, mpi_info}) );
+h5::write( fd, "dataset", v,
+	h5::chunk{nrows,1}, h5::current_dims{nrows,size},h5::count{nrows,1}
+	h5::offset{0,rank}, h5::block{1,1}, h5::stride{1,1},
+	h5::collective );
+}
+</code></pre>
+<ul>
+  <li class="fragment" data-code-focus="1,10">use code-block to activate H5CPP RAII</li>
+  <li class="fragment" data-code-focus="2">arbitrary objects works, as long as you can get a pointer to memory</li>
+  <li class="fragment" data-code-focus="5">pass `h5::mpiio` file access property list </li>
+  <li class="fragment" data-code-focus="8">control IO with `rank`</li>
+  <li class="fragment" data-code-focus="9">set `h5::independent` | `h5::collective` </li>
+</ul>
+</section>
+
+
+</section>
+
+<section>
+    <section >
+    <h1>The pattern</h1>
+    <aside class="notes">
+    In this slide we are looking at a general pattern of saving and loading data from a 
+    file system; where the object has some memory layout, we have some operator to signal intent to 
+    save or load the data.
+    </aside>
+    <pre><code class="highlight cpp">#include &ltsome_header_files&gt
+    int main(int argc, char *argv[]) {
+       sn::some_type_t object;
+       h5::write( somewhere, object, ... );
+       ...
+       for( size_t i=0; i&lthuge_number; i+=batch_size)
+          h5::read( somewhere, object, ...);
+    }</code></pre>
+    <ul  >
+      <li class="fragment" data-code-focus="1,2,8">take a program</li>
+      <li class="fragment" data-code-focus="3">with an object, having some memory layout</li>
+      <li class="fragment" data-code-focus="4">and intention to save its state to some device</li>
+      <li class="fragment" data-code-focus="7">or update the object state from an already saved state</li>
+    </ul>
+    </section>
+
+
+        
+        
+    <section>
+    <aside class="notes">
+    The object which internal state we are to save or load to/from disk can be classified using traditional type traits and feature 
+    detection idiom. 
+    Please note that the 'is_contiguous' column on the right side refers to the actual content of the object. To give you an example
+    an stood vector of POD type is stored in a contiguous memory region but having the same container with std::string is not.
+    </aside>
+        <h3>A Closer Look at The Object</h3>
+        <div class='multiCol'>
+            <div class='col'>
+                <h3>can be categorized by</h3>
+                <ul style="font-size: .8em;" >
+                    <li class="fragment">How much space is used in total</li>
+                    <li class="fragment">Content: homogeneous vs heterogeneous</li>
+                    <li class="fragment">Number of dimensions or rank</li>
+                    <li><span class="fragment fade-in">
+                        <span class="fragment">Placement in memory: Contiguous vs</span> <span class="fragment highlight-red">Non-contiguous</span></span> </li>
+                </ul>
+                <h3>Type trait utility?</h3>
+                <ul style="font-size: .8em;" >
+                    <li> <span class="fragment fade-in">
+                        <span class="fragment"> <code>std::is_compound</code> != heterogenious<br/> see: <span> 
+                        <span class="fragment fade-in highlight-red"> int  vs <code>int[N][...]</code></span> </li>
+                    <li><code>std::vector&lt;int&gt;().data()</code> 
+                        points to a contiguous memory, but when <code>T = std::string</code> it doesn't</li>
+                </ul>
+
+            </div>
+            <div class='col'> <img class="fragment"  data-fragment-index="1" src="images/type_map.svg"/> </div>
+        </div>
+        <p>C++ Type trait based approach may not be the best way to go...</p>
+    </section>
+    <section  style="text-align: left;" >
+        <h3>heterogeneous types<small>&nbsp;&nbsp; such as plain old struct, class, union...</small></h3> <h4> require access to field names and may reside in non-contiguous memory. &nbsp;&nbsp; possible layouts:</h4>
+    <div class='multiCol'>
+    <div class='col fragment fade-in-then-semi-out' data-fragment-index="1"><small style="text-align: left;">
+            Table approach, where each row is a heterogeneous datatype leads to fast indexing by rows. <br/> OTOH accessing a single field
+    will lead to I/O bandwidth loss.
+    </small>
+    <h5>Contiguous memory: single block, heterogeneous</h5>
+    <!--span>T[N][...], std::vector&lt;POD_t&gt;, </span-->
+    </div>
+    <div class='col fragment fade-in-then-semi-out' data-fragment-index="1"> <img src="images/rowwise.svg"/></div>
+    <div class='col fragment fade-in-then-semi-out ' data-fragment-index="3"> <img src="images/colwise.svg"/></div>
+    <div class='col fragment fade-in-then-semi-out' data-fragment-index="3"><small style="text-align: right;" >
+    Column layout provides efficient access by fields, with the added implementation complexity of
+    each dataset per columns</small>
+
+    <h5>non-contiguous memory:  separate blocks, each homogeneous </h5>
+    </div>
+    </div>
+    <div class='multiCol'>
+    <pre class='col fragment fade-in-then-semi-out' data-fragment-index="2" ><code class="cpp"> //a vector of pod struct
+    struct coo_t {
+       size_t row;
+       size_t column;
+       double value;
+    };
+    std::vector&lt;coo_t&gt; sparse_matrix;
+    </pre>
+    </code>
+
+
+    <pre class='col fragment fade-in-then-semi-out' data-fragment-index="4" ><code class="cpp"> // each field of the struct is a vector
+    struct csc_t {
+       std::vector&lt;size_t&gt; rowind; // row indices
+       std::vector&lt;size_t&gt; colptr; // start of new columns
+       std::vector&lt;double&gt; values; // nonzero values
+    };
+    csc_t sparse_matrix;
+    </code></pre></div>
+
+    <small><b>NOTE:</b>      <a href='https://en.wikipedia.org/wiki/Sparse_matrix#Coordinate_list_(COO)'>coordinate of points</a> &nbsp;
+        is efficient for incremental construction. Whereas Armadillo C++ <a href='http://arma.sourceforge.net/docs.html#SpMat'>arma::SpMat&lt;T&gt; </a> uses Compressed Sparse Column representation</small>
+
+    </section>
+
+
+
+
+
+    <section data-transition="zoom"  data-separator-notes="^Note:"  style="text-align: left;">
+        <h3><span>We need&nbsp;</span><span class="fragment" data-fragment-index="10">Introspection / Reflection </span>
+            <span class="fragment fade-in" data-fragment-index="1">
+                <small>method to retrieve field names of C++ class types</small></span></h3>
+        <div class="fragment"  data-fragment-index="4" >C++  mailing list and papers categorized as related to reflection  </div>
+        <ul style="font-size: .3em;">
+            <li><a href="http://www.open-std.org/jtc1/SC22/wg21/docs/papers/2019/"> 2019</a> 8 entries</li>
+                <ul>
+                    <li>P1390R0	Suggested Reflection TS NB Resolutions	Matúš Chochlík, Axel Naumann, and David Sankel </li>
+                    <li>P1390R1	Reflection TS NB comment resolutions: summary and rationale	Matúš Chochlík, Axel Naumann, and David Sankel</li>
+                    <li>N4818	Working Draft, C++ Extensions for Reflection	David Sankel</li>
+                    <li>P1733R0	User-friendly and Evolution-friendly Reflection: A Compromise	David Sankel, Daveed Vandevoorde</li>
+                    <li>P1749R0	Access control for reflection	Yehezkel Bernat</li>
+                    <li>P1240R1	Scalable Reflection in C++	Daveed Vandevoorde, Wyatt Childers, Andrew Sutton, Faisal Vali, Daveed Vandevoorde</li>
+                    <li>P1887R0	Typesafe Reflection on attributes	Corentin Jabot</li>
+                </ul>
+            <li><a href="http://www.open-std.org/jtc1/SC22/wg21/docs/papers/2018/"> 2018</a> 13 entries</li>
+                <ul>
+                    <li>P0194R5	Static reflection by Matúš Chochlík, Axel Naumann, David Sankel</li>
+                    <li>P0670R2	Static reflection of functions by Matúš Chochlík, Axel Naumann, David Sankel</li>
+                    <li>P0954R0 What do we want to do with reflection?	Bjarne Stroustrup</li>
+                    <li>P0993R0	Value-based Reflection	Andrew Sutton, Herb Sutter</li>
+                    <li>P0572R2	Static reflection of bit fields	Alex Christensen</li>
+                    <li>P0670R3	Function reflection	 Matúš Chochlík, Axel Naumann, David Sankel</li>
+                    <li>P1240R0	Scalable Reflection in C++	Andrew Sutton, Faisal Vali, Daveed Vandevoorde</li>
+                </ul>
+            <li><a href="http://www.open-std.org/jtc1/SC22/wg21/docs/papers/2017/"> 2017</a> 14 entries</li>
+                <ul>
+                    <li>P0194R3	Static reflection by Matúš Chochlík, Axel Naumann, David Sankel</li>
+                    <li>P0385R2	Static reflection: Rationale, design and evolution by Matúš Chochlík, Axel Naumann, David Sankel</li>
+                    <li>P0578R0	Static Reflection in a Nutshell by 	Matúš Chochlík, Axel Naumann, David Sankel</li>
+                    <li>P0590R0	A design static reflection: Andrew Sutton, Herb Sutter </li>
+                    <li>P0598R0	Reflect Through Values Instead of Types by Daveed Vandevoorde</li>
+                </ul>
+            <li><a href="http://www.open-std.org/jtc1/SC22/wg21/docs/papers/2016/">2016</a> 19 entries</li>
+                <ul>
+                    <li>P0194R0	Static reflection (revision 4)	Matus Chochlik, Axel Naumann</li>
+                    <li>P0255R0	C++ Static Reflection via template pack expansion	Cleiton Santoia Silva, Daniel Auresco </li>
+                    <li>P0256R0	C++ Reflection Light	Cleiton Santoia Silva </li>
+                    <li>P0327R0	Product types access	Vicente J. Botet Escriba </li>
+                    <li>P0341R0	parameter packs outside of templates	Mike Spertus </li>
+                    <li>Static reflection: Rationale, design and evolution	Matúš Chochlík, Alex Naumann</li>
+                </ul>
+        </ul>
+        <div class="fragment rotated"  data-fragment-index="10" >introspection/reflection is non-trivial, not yet available as a language feature<div>
+    </section>
+
+    <section data-transition="zoom"  data-separator-notes="^Note:"  style="text-align: left;">
+        <h3><a href='https://clang.llvm.org/docs/HowToSetupToolingForLLVM.html#:~:text=Clang%20Tooling%20provides%20infrastructure%20to,for%20the%20LLVM%20source%20code.'>LLVM/CLANG lib tooling</a> based static reflection</h3>
+
+        <div class='multiCol'>
+            <div class='col' style='font-size:.6em'><pre><code class="cpp">...
+    StatementMatcher h5templateMatcher = callExpr( allOf(
+       hasDescendant( declRefExpr( to( varDecl().bind("variableDecl")  ) ) ),
+       hasDescendant( declRefExpr( to(
+          functionDecl( allOf(
+            eachOf(
+    		hasName("h5::write"), hasName("h5::create"), hasName("h5::read"),
+                hasName("h5::append"),
+    		hasName("h5::awrite"), hasName("h5::acreate"), hasName("h5::aread")
+    	),
+    ... ));</code></pre>
+            <ul>
+              <li class="fragment" data-code-focus="2-6,10-11">identify the relevant nodes</li>
+              <li class="fragment" data-code-focus="7-9">marked by I/O operators</li>
+              <li class="fragment" >visit the structure in reverse topological order</li>
+              <li class="fragment" >emit the templates describing the class with fields and types</li>
+            </ul></div>
+        <div class='col'> <img src="images/topological.jpg"/></div></div>
+        <div  style='font-size:.3em'  ><b>P0993r0 Value-based Reflection</b>, Andrew Sutton, Herb Sutter:</div>
+        <div class='multiCol'>
+            <div class='col reveal' style='font-size:.4em' ><b>static reflection </b><em >is a programming facility that exposes read-only data about entities in a translation unit compile-time values. Static reflection does not require support for runtime compilation since reflection
+    values can be used with existing generative facilities (i.e., templates) or additional generative facilities
+    (i.e., metaprogramming) to produce new code.</em></div>
+            <div class='col reveal'  style='font-size:.4em'  ><b>dynamic reflection:</b><em>provides information for navigating source-code data structures at
+    runtime. Language supporting dynamic reflection also tend to make additional facilities available for generating and JIT-compiling new code. Dynamic reflection and code generation are not in the scope of this work.</em> </div>
+        </div></section>
+
+    <section data-transition="zoom"  data-separator-notes="^Note:"  style="text-align: left;">
+        <h3>How about &nbsp; <a href='https://en.cppreference.com/w/cpp/container'>Containers</a>? &nbsp; Let's take a look at  
+            <a href='http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2015/n4436.pdf'>N4436</a> C++ Detection Idiom 
+           </h3>
+        <p>It is possible to identify if a container is STL like, provides direct access to its contiguous storage -- as <code class='reveal'>std::vector&lt;T&gt;</code> does, or alternatively iterators for scatter/gather operations</p>
+        <div class='multiCol'>
+        <div class='col'>
+            <ul>
+              <li class="fragment" data-code-focus="2-4,10-14">identify if there is direct access to contiguous memory</li>
+              <li class="fragment" data-code-focus="5-8,15-18,20-21">or iterator for non-contiguous layouts</li>
+            </ul>
+        </div>
+    <div class='col' style='font-size:.6em'><pre><code class="cpp">
+    template &lt;typename T&gt; using value_type_f = typename T::value_type;
+    template &lt;typename T&gt; using data_f = decltype(std::declval &lt;T&gt;().data());
+    template &lt;typename T&gt; using size_f = decltype(std::declval &lt;T&gt;().size());
+    template &lt;typename T&gt; using begin_f = decltype(std::declval &lt;T&gt;().begin());
+    template &lt;typename T&gt; using end_f = decltype(std::declval &lt;T&gt;().end());
+    template &lt;typename T&gt; using cbegin_f = decltype(std::declval &lt;T&gt;().cbegin());
+    template &lt;typename T&gt; using cend_f = decltype(std::declval &lt;T&gt;().cend());
+
+    template &lt;typename T&gt; using value = compat::detected_or &lt;T, value_type_f, T&gt;;
+    template &lt;typename T&gt; using has_value_type = compat::is_detected &lt;value_type_f, T&gt;;
+    template &lt;typename T&gt; using has_data = compat::is_detected &lt;data_f, T&gt;;
+    template &lt;typename T&gt; using has_direct_access = compat::is_detected &lt;data_f, T&gt;;
+    template &lt;typename T&gt; using has_size = compat::is_detected &lt;size_f, T&gt;;
+    template &lt;typename T&gt; using has_begin = compat::is_detected &lt;begin_f, T&gt;;
+    template &lt;typename T&gt; using has_end = compat::is_detected &lt;end_f, T&gt;;
+    template &lt;typename T&gt; using has_cbegin = compat::is_detected &lt;cbegin_f, T&gt;;
+    template &lt;typename T&gt; using has_cend = compat::is_detected &lt;cend_f, T&gt;;
+
+    template &lt;typename T&gt; using has_iterator = std::integral_constant &lt;bool, has_begin &lt;T&gt;::value && has_end &lt;T&gt;::value &gt;;
+    template &lt;typename T&gt; using has_const_iterator = std::integral_constant &lt;bool, has_cbegin &lt;T&gt;::value && has_cend &lt;T&gt;::value &gt;;
+    </code></pre>
+        </div></div>
+         <sub style='font-size:.6em'>credit: WG21 N4436 C++ Detection Idiom by Walter Brown</sub>
+    </section>
+
+
+    <section  style="text-align: left;" >
+        <h3>C++ Linear Algebra Systems calling BLAS/LAPACK <small>&nbsp;&nbsp; specialized containers</small></h3>
+    <div class='multiCol'>
+    <div class='col fragment fade-in' data-fragment-index="3" ><p>
+    are dedicated category, as they all must provide mechanism to pass/receive data to/from some BLAS system call, however the naming varies from system to system.
+    </p><p class='fragment fade-in' data-fragment-index="3">
+    The differences can be mitigated with a combination of
+        <ul>
+            <li class='fragment'>type traits</li>
+            <li class='fragment'>feature detection idiom</li>
+
+        </ul>
+    </p></div>
+        <table class='col  fragment fade-in-then-semi-out' data-fragment-index="1" >
+        	<thead>
+            <tr><th>library</th><th>direct access</th><th>vector size</th></thead>
+            <tbody>
+            <tr><td>arma</td><td>memptr()</td><td>n_elem</td></tr>
+            <tr><td>eigen</td><td>data()</td><td>size()</td></tr>
+            <tr><td>blaze</td><td>data()</td><td>n/a</td></tr>
+            <tr><td>blitz</td><td>data()</td><td>size()</td></tr>
+            <tr><td>itpp</td><td>_data()</td><td>length()</td></tr>
+            <tr><td>ublas</td><td>data().begin()</td><td>n/a</td></tr>
+            <tr><td>dlib</td><td>(0,0)</td><td>size()</td></tr>
+            </tbody>
+        </table>
+    </div>
+    </section>
+
+</section>
+
+<section>
+
+
+
+<section data-markdown data-transition="zoom"  style="text-align: left; "><textarea data-template>
+## Developer branch
+- optimized string handling
+- context sensitive data layout: `COMPACT | CONTIGUOUS | CHUNK`
+- better type maps: 
+- scalars
+- arrays
+- ragged arrays
+- fixed length strings
+- void types
+- easy custom types
+- feature detection base container support
+- comprehensive test coverage with google test
+- better cmake support
+</textarea></section>
+<section data-markdown data-transition="zoom"  style="text-align: left; font-size: .6em; "><textarea data-template>
+## C++ string types to HDF5 type
+
+|C++ type      |         |HDF5 type   |compact | contiguous | chunked |
+|--------------|---------|------------|--------|------------|---------|
+|`std::string`   |scalar    |VL string   |yes|yes|maybe|
+|`std::string[N]`|array    |VL string   |yes|yes|maybe|
+|`std::array<std::string,N>`|array |VL string|yes|yes|maybe|
+|`const char* var[N]`| array|VL string | yes |yes|maybe|
+|`std::vector<std::string>`|hypercube|VL string|yes|yes|yes|
+|string literal|scalar |FL string|yes|yes|maybe|
+|`char[M]`| scalar| FL string| yes | yes |maybe|
+|`char[N][M]` | array | FL string| yes|yes|maybe|
+|`char[N][M][..]` | array | FL string| yes|yes|maybe|
+|`std::initializer_list<std::string>{}` | array | VL string| yes|yes|maybe|
+|`std::initializer_list<char[N]>{}` | array | FL string| yes|yes|maybe|
+
+- FL is null terminated fixed length
+- VL is null terminated variable length
+
+**observe:** `[unsigned | signed] char` are mapped to `H5T_NATIVE_CHAR`
+</textarea></section>
+
+
+<section data-markdown data-transition="zoom" style="text-align: left;" data-separator-notes="^Note:" ><textarea data-template>
+## IO Properties
+|packet size  | transferred data |event/sec   | throughput MB/s |
+|-------------|------------------|------------|-----------------|
+|12KB         | 12GB             | 42'132     |  510.305        |
+|64B          | 13GB             | 8'432'170  |  539.659        |
+
+Balanced performance
+#### Performance on a LENOVO X250 i5 8GB laptop SSD: INTEL SSDSC2BW180A3L (LF1i) (~500 MB/s)
+
+Note:
+Here is a comparison between tiny and medium size packets and the total throughput -- which is in the ballpark of 
+the underlying EXT4 filesystem. 
+</textarea></section>
+
+<section data-markdown data-transition="zoom" style="text-align: left;" data-separator-notes="^Note:" ><textarea data-template>
+### Large Block transfers -- think of machine learning, with Transfer size 2GB chunks:
+|MB/sec       |   write |     read |
+|-------------|---------|----------|
+|h5cpp block  | 265.69  |   518.41 |
+|h5cpp packet | 290.57  |   499.88 |
+|posix IO     | 288.56  |   513.51 |
+
+Note:
+Of course there is functionality to save arbitrary large -- in this case 2GB chunks -- in random order - typical for machine learning applications
+</textarea></section>
+
+<section data-markdown data-transition="zoom"  style="text-align: left;" data-separator-notes="^Note:"><textarea data-template>
+## Smaller block Transfer (size 30MB blocks):
+|MB/sec       |   write |      read |
+|-------------|---------|-----------|
+|h5cpp block  | 2457.41 |   3251.99 |
+|h5cpp packet | 1636.30 |   3151.15 |
+|posix IO     | 1443.59 |   5325.60 |
+
+Note:
+as well as capabilities to adjust the chunk size. Small chunks take advantage of OS level caching, acting as burst buffer
+-- think of minibatch training
+</textarea></section>
+
+<section data-markdown data-transition="zoom"  style="text-align: left;" data-separator-notes="^Note:"><textarea data-template>
+    # Thank You!
+    </textarea></section
+</section-->
+
+
+
+</div></div>
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+		<script>
+			Reveal.initialize({
+                navigationMode: 'grid',
+    			width: '100%',
+    			height: '100%',
+				margin: 0.1,
+				minScale:  .2,
+				maxScale: 2.5,
+
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				transitionSpeed: 'slow',
+				transition: 'convex', // none/fade/slide/convex/concave/zoom
+				keyboard: true,
+				loop: false,
+				transition: 'concave', // default/cube/page/concave/linear(2d)
+                //multiplex: {
+                // Example values. To generate your own, see the socket.io server instructions.
+                //secret: '15880645724491134755', // Obtained from the socket.io server. Gives this (the master) control of the presentation
+                //secret: 'null', // Obtained from the socket.io server. Gives this (the master) control of the presentation
+                //id: '3f89e9f0b75b195f', // Obtained from socket.io server
+                //url: 'https://reveal-js-multiplex-ccjbegmaii.now.sh' // Location of socket.io server
+                //},
+				chart: {
+					defaults: { 
+						global: { 
+							title: { fontColor: "#FFF" }, 
+							legend: {
+								position: "bottom",
+								labels: { fontColor: "#000" },
+							},
+							tooltips: {
+								labels: { fontColor: "#FFF" },
+							},
+						}, 
+						scale: {
+							scaleLabel: { fontColor: "#000" }, 
+							gridLines: { color: "#000", zeroLineColor: "#000" }, 
+							ticks: { min: 0, fontColor: "#000" }, 
+						} 
+					},
+					line: { borderColor: [ "rgba(20,220,220,.8)" , "rgba(220,120,120,.8)", "rgba(20,120,220,.8)" ], "borderDash": [ [5,10], [0,0] ] }, 
+					bar: { backgroundColor: [ "rgba(20,220,220,.8)" , "rgba(220,120,120,.8)", "rgba(20,120,220,.8)" ]}, 
+					pie: { backgroundColor: [ ["rgba(0,0,0,.8)" , "rgba(220,20,20,.8)", "rgba(20,220,20,.8)", "rgba(220,220,20,.8)", "rgba(20,20,220,.8)"] ]},
+					radar: { borderColor: [ "rgba(20,220,220,.8)" , "rgba(220,120,120,.8)", "rgba(20,120,220,.8)" ]}, 
+				},
+				anything: [ {className: "asciicast",
+                           defaults: { theme: 'monokai', fontSize: '15px' },
+                           initialize: (function(container, options) {
+                                     asciinema.player.js.CreatePlayer(container, options.URL, options);
+                            })
+                }],
+				dependencies: [
+                    { src: 'plugin/reveal.js-fullscreen-code/jquery-3.1.1.min.js' },
+                    { src: 'plugin/reveal.js-fullscreen-code/reveal.js-fullscreen-code.js' },
+                    { src: 'plugin/chalkboard/chalkboard.js' },
+
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true },
+          			{ src: 'plugin/highlight/highlight.pack.js' },
+          			{ src: 'plugin/reveal-code-focus/reveal-code-focus.js',  async:true, callback: function() { RevealCodeFocus(); } },
+
+                    //<!-- TO RUN: node plugin/notes-server/ -->
+		           { src: 'plugin/notes-server/client.js', async: true },
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+				],
+                keyboard: {
+                    67: function() { RevealChalkboard.toggleNotesCanvas() },	// toggle notes canvas when 'c' is pressed
+                    66: function() { RevealChalkboard.toggleChalkboard() },	// toggle chalkboard when 'b' is pressed
+                    46: function() { RevealChalkboard.clear() },	// clear chalkboard when 'DEL' is pressed
+                    8: function() { RevealChalkboard.reset() },	// reset chalkboard data on current slide when 'BACKSPACE' is pressed
+                    68: function() { RevealChalkboard.download() },	// downlad recorded chalkboard drawing when 'd' is pressed
+                    192: function() { RevealChalkboard.colorNext() },	// cycle colors forward when 'x' is pressed
+                    49: function() { RevealChalkboard.colorPrev() },	// cycle colors backward when 'y' is pressed
+                },
+				});
+		</script>
+        <script src="socket.io/socket.io.js"></script>
+        <script src="node_modules/reveal-notes-server/client.js"></script>
+	</body>
+</html>

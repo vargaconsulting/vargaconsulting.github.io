@@ -19,6 +19,7 @@ nav:
   - Orderbook: site/orderbook.md
   - UDS: site/uds.md
   - Presentations:
+    - HUG Online 2020: slides/hug-online-2020/index.html
     - C++ Chicago 2018: slides/cpp-chigago-2018/index.html
 
 theme:
