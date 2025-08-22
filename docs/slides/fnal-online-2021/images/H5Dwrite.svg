@@ -1,0 +1,102 @@
+<svg viewBox="0 0 309 124"  xmlns="http://www.w3.org/2000/svg">
+<g  transform="translate(10 80)" font-size="7" font-family="Ubuntu Mono" font-weight="bold">
+<text x="0.00" y="0.00" transform=" rotate(315 0 0)" text-anchor="start">bool</text>
+<text x="11.00" y="0.00" transform=" rotate(315 11 0)" text-anchor="start">unsigned char</text>
+<text x="22.00" y="0.00" transform=" rotate(315 22 0)" text-anchor="start">unsigned short</text>
+<text x="33.00" y="0.00" transform=" rotate(315 33 0)" text-anchor="start">unsigned int</text>
+<text x="44.00" y="0.00" transform=" rotate(315 44 0)" text-anchor="start">unsigned long long</text>
+<text x="56.00" y="0.00" transform=" rotate(315 56 0)" text-anchor="start">char</text>
+<text x="67.00" y="0.00" transform=" rotate(315 67 0)" text-anchor="start">short</text>
+<text x="78.00" y="0.00" transform=" rotate(315 78 0)" text-anchor="start">int</text>
+<text x="89.00" y="0.00" transform=" rotate(315 89 0)" text-anchor="start">long long</text>
+<text x="100.00" y="0.00" transform=" rotate(315 100 0)" text-anchor="start">float</text>
+<text x="112.00" y="0.00" transform=" rotate(315 112 0)" text-anchor="start">double</text>
+<text x="123.00" y="0.00" transform=" rotate(315 123 0)" text-anchor="start">long double</text>
+<text x="134.00" y="0.00" transform=" rotate(315 134 0)" text-anchor="start">h5::test::pod_t</text>
+<text x="145.00" y="0.00" transform=" rotate(315 145 0)" text-anchor="start">byte</text>
+</g>
+<g  transform="translate(166 88)" font-size="7" font-family="Ubuntu Mono" font-weight="bold">
+<text x="0.00" y="2.00" text-anchor="start">scalar test</text>
+<text x="0.00" y="10.00" text-anchor="start">std::vector from initializer list</text>
+<text x="0.00" y="18.00" text-anchor="start">std::vector</text>
+</g>
+<text x="5.00" y="15.00" text-anchor="start">./H5Dwrite</text>
+<g  transform="translate(5 119)" font-size="6" font-family="Arial, Helvetica, sans-serif" font-weight="normal">
+<text x="13.00" y="0.00" text-anchor="start">pass</text>
+<rect x="0.00" y="-8.40" width="10.08" height="7.56" rx="1.50" ry="1.50"  fill="#6B8E23"></rect>
+<text x="80.00" y="0.00" text-anchor="start">fail</text>
+<rect x="67.00" y="-8.40" width="10.08" height="7.56" rx="1.50" ry="1.50"  fill="#FF4500"></rect>
+<text x="147.00" y="0.00" text-anchor="start">skipped</text>
+<rect x="134.00" y="-8.40" width="10.08" height="7.56" rx="1.50" ry="1.50"  fill="#D8D8D8"></rect>
+</g>
+<g  transform="translate(4 84)">
+<a href=""><rect x="0.00" y="0.00" width="10.08" height="7.56" rx="1.50" ry="1.50"  fill="#6B8E23"><title></title></rect>
+</a>
+<a href=""><rect x="11.20" y="0.00" width="10.08" height="7.56" rx="1.50" ry="1.50"  fill="#6B8E23"><title></title></rect>
+</a>
+<a href=""><rect x="22.40" y="0.00" width="10.08" height="7.56" rx="1.50" ry="1.50"  fill="#6B8E23"><title></title></rect>
+</a>
+<a href=""><rect x="33.60" y="0.00" width="10.08" height="7.56" rx="1.50" ry="1.50"  fill="#6B8E23"><title></title></rect>
+</a>
+<a href=""><rect x="44.80" y="0.00" width="10.08" height="7.56" rx="1.50" ry="1.50"  fill="#6B8E23"><title></title></rect>
+</a>
+<a href=""><rect x="56.00" y="0.00" width="10.08" height="7.56" rx="1.50" ry="1.50"  fill="#6B8E23"><title></title></rect>
+</a>
+<a href=""><rect x="67.20" y="0.00" width="10.08" height="7.56" rx="1.50" ry="1.50"  fill="#6B8E23"><title></title></rect>
+</a>
+<a href=""><rect x="78.40" y="0.00" width="10.08" height="7.56" rx="1.50" ry="1.50"  fill="#6B8E23"><title></title></rect>
+</a>
+<a href=""><rect x="89.60" y="0.00" width="10.08" height="7.56" rx="1.50" ry="1.50"  fill="#6B8E23"><title></title></rect>
+</a>
+<a href=""><rect x="100.80" y="0.00" width="10.08" height="7.56" rx="1.50" ry="1.50"  fill="#6B8E23"><title></title></rect>
+</a>
+<a href=""><rect x="112.00" y="0.00" width="10.08" height="7.56" rx="1.50" ry="1.50"  fill="#6B8E23"><title></title></rect>
+</a>
+<a href=""><rect x="123.20" y="0.00" width="10.08" height="7.56" rx="1.50" ry="1.50"  fill="#6B8E23"><title></title></rect>
+</a>
+<a href=""><rect x="134.40" y="0.00" width="10.08" height="7.56" rx="1.50" ry="1.50"  fill="#6B8E23"><title></title></rect>
+</a>
+<a href=""><rect x="0.00" y="8.40" width="10.08" height="7.56" rx="1.50" ry="1.50"  fill="#6B8E23"><title></title></rect>
+</a>
+<a href=""><rect x="11.20" y="8.40" width="10.08" height="7.56" rx="1.50" ry="1.50"  fill="#6B8E23"><title></title></rect>
+</a>
+<a href=""><rect x="22.40" y="8.40" width="10.08" height="7.56" rx="1.50" ry="1.50"  fill="#6B8E23"><title></title></rect>
+</a>
+<a href=""><rect x="33.60" y="8.40" width="10.08" height="7.56" rx="1.50" ry="1.50"  fill="#6B8E23"><title></title></rect>
+</a>
+<a href=""><rect x="44.80" y="8.40" width="10.08" height="7.56" rx="1.50" ry="1.50"  fill="#6B8E23"><title></title></rect>
+</a>
+<a href=""><rect x="56.00" y="8.40" width="10.08" height="7.56" rx="1.50" ry="1.50"  fill="#6B8E23"><title></title></rect>
+</a>
+<a href=""><rect x="67.20" y="8.40" width="10.08" height="7.56" rx="1.50" ry="1.50"  fill="#6B8E23"><title></title></rect>
+</a>
+<a href=""><rect x="78.40" y="8.40" width="10.08" height="7.56" rx="1.50" ry="1.50"  fill="#6B8E23"><title></title></rect>
+</a>
+<a href=""><rect x="89.60" y="8.40" width="10.08" height="7.56" rx="1.50" ry="1.50"  fill="#6B8E23"><title></title></rect>
+</a>
+<a href=""><rect x="100.80" y="8.40" width="10.08" height="7.56" rx="1.50" ry="1.50"  fill="#6B8E23"><title></title></rect>
+</a>
+<a href=""><rect x="112.00" y="8.40" width="10.08" height="7.56" rx="1.50" ry="1.50"  fill="#6B8E23"><title></title></rect>
+</a>
+<a href=""><rect x="123.20" y="8.40" width="10.08" height="7.56" rx="1.50" ry="1.50"  fill="#6B8E23"><title></title></rect>
+</a>
+<a href=""><rect x="134.40" y="8.40" width="10.08" height="7.56" rx="1.50" ry="1.50"  fill="#6B8E23"><title></title></rect>
+</a>
+<a href=""><rect x="0.00" y="8.40" width="10.08" height="7.56" rx="1.50" ry="1.50"  fill="#FF4500"><title></title></rect>
+</a>
+<a href=""><rect x="11.20" y="8.40" width="10.08" height="7.56" rx="1.50" ry="1.50"  fill="#6B8E23"><title></title></rect>
+</a>
+<a href=""><rect x="56.00" y="8.40" width="10.08" height="7.56" rx="1.50" ry="1.50"  fill="#6B8E23"><title></title></rect>
+</a>
+<a href=""><rect x="145.60" y="8.40" width="10.08" height="7.56" rx="1.50" ry="1.50"  fill="#6B8E23"><title></title></rect>
+</a>
+<a href=""><rect x="78.40" y="8.40" width="10.08" height="7.56" rx="1.50" ry="1.50"  fill="#6B8E23"><title></title></rect>
+</a>
+<a href=""><rect x="56.00" y="16.80" width="10.08" height="7.56" rx="1.50" ry="1.50"  fill="#6B8E23"><title></title></rect>
+</a>
+<a href=""><rect x="44.80" y="16.80" width="10.08" height="7.56" rx="1.50" ry="1.50"  fill="#6B8E23"><title></title></rect>
+</a>
+<a href=""><rect x="123.20" y="16.80" width="10.08" height="7.56" rx="1.50" ry="1.50"  fill="#6B8E23"><title></title></rect>
+</a>
+</g>
+</svg>

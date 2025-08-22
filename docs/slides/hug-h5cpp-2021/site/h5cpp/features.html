@@ -1,0 +1,162 @@
+
+<section data-markdown data-transition="zoom"  style="text-align: left;">
+    <textarea data-template>
+## templates <small> in EBNF notation</small>
+```cpp
+[file]      h5::fd_t h5::open( const std::string& path,  H5F_ACC_RDWR | H5F_ACC_RDONLY [, const h5::fapl_t& fapl] );
+[group]     h5::gr_t h5::gopen( const h5::fd_t | h5::gr_t& location, const std::string& path [, const h5::gapl_t& gapl] );
+[dataset]   h5::ds_t h5::open( const h5::fd_t | h5::gr_t& location, const std::string& path [, const h5::dapl_t& dapl] );
+[attribute] h5::at_t h5::aopen(const h5:ds_t | h5::gr_t& node, const std::string& name [, const & acpl] );
+```
+```
+[file]      h5::fd_t h5::create( const std::string& path, H5F_ACC_TRUNC | H5F_ACC_EXCL, [, const h5::fcpl_t& fcpl] [, const h5::fapl_t& fapl]);
+[group]     h5::fd_t h5::gcreate( const h5::fd_t | const h5::gr_t, const std::string& name
+            [, const h5::lcpl_t& lcpl] [, const h5::gcpl_t& gcpl] [, const h5::gapl_t& gapl]);
+[dataset]   template <typename T> h5::ds_t h5::create<T>( 
+    const h5::fd_t | const h5::gr_t& location, const std::string& dataset_path, dataspace, 
+    [, const h5::lcpl_t& lcpl] [, const h5::dcpl_t& dcpl] [, const h5::dapl_t& dapl] );
+[attribute] template <typename T> h5::at_t acreate<T>( const h5::ds_t | const h5::gr_t& | const h5::dt_t& node, const std::string& name
+    [, const h5::current_dims{...} ] [, const h5::acpl_t& acpl]);
+```
+```
+[dataset] template <typename T> T h5::read( const h5::ds_t& ds
+    [, const h5::offset_t& offset]  [, const h5::stride_t& stride] [, const h5::count_t& count]
+    [, const h5::dxpl_t& dxpl ] ) const;
+template <typename T> h5::err_t h5::read( const h5::ds_t& ds, T& ref 
+    [, const [h5::offset_t& offset]  [, const h5::stride_t& stride] [, const h5::count_t& count]
+    [, const h5::dxpl_t& dxpl ] ) const;
+[attribute] template <typename T> T aread( const h5::ds_t& | const h5::gr_t& | const h5::dt_t& node, 
+    const std::string& name [, const h5::acpl_t& acpl]) const;
+template <typename T> T aread( const h5::at_t& attr [, const h5::acpl_t& acpl]) const;
+```
+```
+[dataset] template <typename T> void h5::write( dataset,  const T& ref
+    [,const h5::offset_t& offset] [,const h5::stride_t& stride]  [,const& h5::dxcpl_t& dxpl] );
+template <typename T> void h5::write( dataset, const T* ptr
+    [,const hsize_t* offset] [,const hsize_t* stride] ,const hsize_t* count [, const h5::dxpl_t dxpl ]);
+
+[attribute] template <typename T> void awrite( const h5::ds_t& | const h5::gr_t& | const h5::dt_t& node, 
+    const std::string &name, const T& obj  [, const h5::acpl_t& acpl]);
+template <typename T> void awrite( const h5::at_t& attr, const T* ptr [, const h5::acpl_t& acpl]);
+```
+</textarea></section>
+
+
+<section data-background-iframe="http://sandbox.h5cpp.org/architecture/#file-operations" data-background-interactive>
+    <div class="rotated"  style="text-align: left; font-size:3em;">luckily</div>
+    <div class="rotated"  style="text-align: left; font-size:3em;">there is detailed H5CPP <br/> documentation to help you!!!</div>
+    <div class="rotated"  style="text-align: left; font-size:1em;">alternatively you I solve interesting problems on HDF User Group mailing list</div>
+
+</section>
+
+
+
+
+<section data-markdown data-transition="zoom"  style="text-align: left; font-size:.6em"><textarea data-template>
+    # Heuristics
+    - dataset smaller than `64Kb` is saved in compact layout
+    - dataset not marked as `h5::current_dims{..}` or `h5::max_dims{..}` are contiguous layout
+    - datasets marked with `h5::chunk{..}` or extendable size are chunked layout
+    - ... 
+    ## batteries included: 
+    ### if a settings in context can make it faster, it is enabled
+    </textarea></section>
+<section  data-transition="zoom"  style="text-align: left;">
+    <h3>Ability to add Custom Types</h3>
+<pre><code>struct float16 {
+    short value;
+};
+template <> h5::dt_t&lt;float16&gt; create() {
+    h5::dt_t&lt;float16&gt; tid{H5Tcopy( H5T_NATIVE_FLOAT )};
+    H5Tset_fields(tid, 15, 10, 5, 0, 10);
+    H5Tset_precision(tid, 16);
+    H5Tset_ebias(tid, 15);
+    H5Tset_size(tid,2);
+    return tid;
+};
+</code></pre>
+<ul>
+    <li class="fragment" data-code-focus="1-3">you need the c++ type definition</li>
+    <li class="fragment" data-code-focus="4,11">template specialization</li>
+    <li class="fragment" data-code-focus="5-10">HDF5 type description</li>
+</ul>    
+</section>
+
+<section data-markdown data-transition="zoom"  style="text-align: left; "><textarea data-template>
+## Currently working on:
+- optimized string handling
+- context sensitive data layout: `COMPACT | CONTIGUOUS | CHUNK`
+- better type maps: 
+    - scalars
+    - arrays
+    - ragged arrays
+    - fixed length strings
+    - void types
+    - easy custom types
+    - feature detection base container support
+    - comprehensive test coverage with google test
+    - multi dataset layout (sparse matrices, ... )
+    - better cmake support
+</textarea></section>
+
+<section data-markdown data-transition="zoom" style="text-align: left;" data-separator-notes="^Note:" ><textarea data-template>
+## IO Properties
+|packet size  | transferred data |event/sec   | throughput MB/s |
+|-------------|------------------|------------|-----------------|
+|12KB         | 12GB             | 42'132     |  510.305        |
+|64B          | 13GB             | 8'432'170  |  539.659        |
+
+Balanced performance
+#### Performance on a LENOVO X250 i5 8GB laptop SSD: INTEL SSDSC2BW180A3L (LF1i) (~500 MB/s)
+
+Note:
+Here is a comparison between tiny and medium size packets and the total throughput -- which is in the ballpark of 
+the underlying EXT4 filesystem. 
+</textarea></section>
+
+<section data-markdown data-transition="zoom" style="text-align: left;" data-separator-notes="^Note:" ><textarea data-template>
+### Large Block transfers -- think of machine learning, with Transfer size 2GB chunks:
+|MB/sec       |   write |     read |
+|-------------|---------|----------|
+|h5cpp block  | 265.69  |   518.41 |
+|h5cpp packet | 290.57  |   499.88 |
+|posix IO     | 288.56  |   513.51 |
+
+Note:
+Of course there is functionality to save arbitrary large -- in this case 2GB chunks -- in random order - typical for machine learning applications
+</textarea></section>
+
+<section data-markdown data-transition="zoom"  style="text-align: left;" data-separator-notes="^Note:"><textarea data-template>
+## Smaller block Transfer (size 30MB blocks):
+|MB/sec       |   write |      read |
+|-------------|---------|-----------|
+|h5cpp block  | 2457.41 |   3251.99 |
+|h5cpp packet | 1636.30 |   3151.15 |
+|posix IO     | 1443.59 |   5325.60 |
+
+Note:
+as well as capabilities to adjust the chunk size. Small chunks take advantage of OS level caching, acting as burst buffer
+-- think of minibatch training
+</textarea></section>
+<section data-markdown data-transition="zoom"  style="text-align: left;" data-separator-notes="^Note:"><textarea data-template>
+## Testing against C++17 compilers
+
+```
+steven@honshu:~/projects/h5cpp/tests$ make test-with-compilers
+-------------------------------------------------------------------------------- ----------
+compiler                                                                         error code
+-------------------------------------------------------------------------------- ----------
+Intel(R) oneAPI DPC++ Compiler 2021.1-beta03 (2019.10.0.1121)Target: x86_64-unkn  [  OK  ]
+icpc (ICC) 19.1.0.166 20191121Copyright (C) 1985-2019 Intel Corporation.  All ri  [ FAIL ]
+g++-7 (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0Copyright (C) 2017 Free Software Founda  [  OK  ]
+g++-8 (Ubuntu 8.4.0-1ubuntu1~18.04) 8.4.0Copyright (C) 2018 Free Software Founda  [  OK  ]
+g++-9 (Ubuntu 9-20190428-1ubuntu1~18.04.york0) 9.0.1 20190428 (prerelease) [gcc-  [  OK  ]
+clang version 6.0.0-1ubuntu2 (tags/RELEASE_600/final)Target: x86_64-pc-linux-gnu  [  OK  ]
+clang version 7.1.0-svn353565-1~exp1~20190406090509.61 (branches/release_70)Targ  [  OK  ]
+clang version 8.0.0-3~ubuntu18.04.2 (tags/RELEASE_800/final)Target: x86_64-pc-li  [  OK  ]
+clang version 9.0.0-2~ubuntu18.04.2 (tags/RELEASE_900/final)Target: x86_64-pc-li  [  OK  ]
+clang version 10.0.1-++20200507062652+bab8d1790a3-1~exp1~20200507163249.158 Targ  [  OK  ]
+pgc++ 19.10-0 LLVM 64-bit target on x86-64 Linux -tp haswell PGI Compilers and T  [ FAIL ]
+-------------------------------------------------------------------------------- ----------
+```
+</textarea></section>

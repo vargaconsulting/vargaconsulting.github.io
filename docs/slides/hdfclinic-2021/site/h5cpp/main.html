@@ -1,0 +1,90 @@
+
+
+
+
+<section>
+    <h3>Object Properties</h3>
+    <div class='multiCol'>
+        <div class='col'> <img class="fragment"  src="images/type_map.svg"/> </div>
+        <div class='col'>
+            <ul>
+                <li class="fragment">Placement in memory: Contiguous vs Non contiguous</li>
+                <li class="fragment">Content: homogeneous vs compound</li>
+                <li class="fragment">how much space is used in total</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+
+<section data-markdown data-transition="zoom"  data-separator-notes="^Note:"  style="text-align: left;"><textarea data-template>
+### Compound Datatypes:
+```cpp
+struct foo2 {
+    char c;      /* 1 byte */
+    char pad[7]; /* 7 bytes */
+    char *p;     /* 8 bytes */
+    long x;      /* 8 bytes */
+};
+```
+- fields are adjacent layout: `A0,B0 .. Z0`  `A1,B1 .. Z1` ...
+    - fast access by rows, a block contains all fields
+- by fields in a coulmn: `A0, A1, .. AN`, `B0, B1, ..  BN` ...
+    - fast access by fields
+- hybrid approach: we are two read N blocks and interleave them
+</textarea></section>
+
+<section data-markdown data-transition="zoom"  data-separator-notes="^Note:"  style="text-align: left;"><textarea data-template>
+### Existing related works:
+- static reflection, reificiation (in progress): Andrew Sutton, Faisal Vali, David Vandervoorde
+- linear algebra papers
+- detection idiom [Walter E. Brown N4436](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2015/n4436.pdf)
+</textarea></section>
+
+<section data-markdown data-transition="zoom"  data-separator-notes="^Note:"  style="text-align: left;"><textarea data-template>
+### Logical storage for the object(s) filesytems:
+- some way of addressing an object: B+ trees, extent trees, ... 
+- inode, extents, actual blocks:  small object vs massive one
+- ability to index a space within an object
+</textarea></section>
+
+<section data-markdown data-transition="zoom"  data-separator-notes="^Note:"  style="text-align: left;"><textarea data-template>
+### STL
+- `std::vector<T, ... >`, `std::basic_string<T>` `object.data()`
+- `std::list<T>` non contigous layout, iterators available for scatter/gather
+- trait based solution: but what if you have your own classes, implementing `.data()` or iterators?
+</textarea></section>
+
+
+<section data-markdown data-transition="zoom"  data-separator-notes="^Note:"  style="text-align: left;"><textarea data-template>
+### H5CPP a non-intrusive persistence
+- linear algebra support for popular well performing systems: Armadillo C++, Eigen3, Blitz, Blaze..
+- CRUD operators and their properties
+- MPI-IO made simple
+</textarea></section>
+
+
+
+
+
+<section  style="text-align: left;" >
+<h3>The Basics</h3>
+<aside class="notes">
+</aside>
+<pre><code>01: #include &ltsome_header_files&gt
+02: int main(int argc, char *argv[]) {
+03:     sn::some_type_t object;
+04:     h5::write( somewhere, object, ... );
+05:     ...
+06:     for( size_t i=0; i&lthuge_number; i+=batch_size)
+06:         h5::read( somewhere, object, ...);
+12: }
+</code></pre>
+<ul>
+  <li class="fragment" data-code-focus="1,2,8">take a program</li>
+  <li class="fragment" data-code-focus="3">with an object, having some memory layout</li>
+  <li class="fragment" data-code-focus="4">and intention to save its state to some device</li>
+  <li class="fragment" data-code-focus="7">or update the object state from an already saved state</li>
+</ul>
+</section>
+

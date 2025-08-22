@@ -1,0 +1,298 @@
+<section style="text-align: left;" >
+<h1>Anatomy of Persistence</h1>
+<aside class="notes">
+In this slide we are looking at a general pattern of saving and loading data from a 
+file system; where the object has some memory layout, we have some operator to signal intent to 
+save or load the data.
+</aside>
+<pre><code class="highlight cpp">#include &ltsome_header_files&gt
+int main(int argc, char *argv[]) {
+   sn::some_type_t object;
+   write( somewhere, object, ... );
+   ...
+   for( size_t i=0; i&lthuge_number; i+=batch_size)
+      read( somewhere, object, ...);
+}</code></pre>
+<ul  >
+  <li class="fragment" data-code-focus="1,2,8">take a program</li>
+  <li class="fragment" data-code-focus="3">with an object, having some memory layout</li>
+  <li class="fragment" data-code-focus="4">and intention to save its state to some device</li>
+  <li class="fragment" data-code-focus="7">or retrieve the data</li>
+</ul>
+</section>
+
+<section>
+<aside class="notes">
+The object which internal state we are to save or load to/from disk can be classified using traditional type traits and feature 
+detection idiom. 
+Please note that the 'is_contiguous' column on the right side refers to the actual content of the object. To give you an example
+an stood vector of POD type is stored in a contiguous memory region but having the same container with std::string is not.
+</aside>
+    <h3>Properties of the Object</h3>
+    <div class='multiCol'>
+        <div class='col'>
+            <h3>can be categorized by</h3>
+            <ul style="font-size: .8em;" >
+                <li class="fragment">Content: homogeneous vs heterogeneous</li>
+                <li class="fragment">Placement in memory: Contiguous vs Non contiguous</li>
+                <li class="fragment">How much space is used in total</li>
+                <li class="fragment">Number of dimensions or rank</li>
+            </ul>
+            <h3>Type trait utility?</h3>
+            <ul style="font-size: .8em;" >
+                <li class="fragment">std::is_compound != heterogeneous</li>
+                <li class="fragment"><code>std::vector&lt;int&gt;().data()</code> 
+                    points to a contiguous memory, but when <code>T = std::string</code> it doesn't</li>
+            </ul>
+
+        </div>
+        <div class='col'> <img class="fragment"  data-fragment-index="1" src="images/type_map.svg"/> </div>
+    </div>
+    <p>purely trait based approach requires the type available upfront,  making it less powerful then if we could detect the presence of certain methods</p>
+</section>
+<section  style="text-align: left;" >
+    <h3>heterogeneous types<small>&nbsp;&nbsp; such as plain old struct, class, union...</small></h3> <h4> require access to field names and may reside in non-contiguous memory. &nbsp;&nbsp; possible layouts:</h4>
+<div class='multiCol'>
+<div class='col fragment fade-in-then-semi-out' data-fragment-index="4"><small style="text-align: left;">
+        Table approach, where each row is a heterogeneous datatype leads to fast indexing by rows. <br/> OTOH accessing a single field
+will lead to I/O bandwidth loss.
+</small>
+<h5>Contiguous memory: 1 block heterogeneous</h5>
+</div>
+<div class='col fragment fade-in-then-semi-out' data-fragment-index="4"> <img src="images/rowwise.svg"/></div>
+<div class='col fragment fade-in-then-semi-out ' data-fragment-index="2"> <img src="images/colwise.svg"/></div>
+<div class='col fragment fade-in-then-semi-out' data-fragment-index="2"><small style="text-align: right;" >
+Column layout provides efficient access by fields, with the added implementation complexity of
+each dataset per columns</small>
+
+<h5>non-contiguous memory: 3 separate blocks, each homogeneous </h5>
+</div>
+</div>
+<div class='multiCol'>
+<pre class='col fragment fade-in-then-semi-out' data-fragment-index="3" ><code class="cpp"> //a vector of pod struct
+struct coo_t {
+   size_t row;
+   size_t column;
+   double value;
+};
+std::vector&lt;coo_t&gt; sparse_matrix;
+</code></pre>
+<pre class='col fragment fade-in-then-semi-out' data-fragment-index="1" ><code class="cpp"> // each field of the struct is a vector
+struct csc_t {
+   std::vector&lt;size_t&gt; rowind; // row indices
+   std::vector&lt;size_t&gt; colptr; // start of new columns
+   std::vector&lt;double&gt; values; // nonzero values
+};
+csc_t sparse_matrix;
+</code></pre></div>
+<small><b>NOTE:</b>      <a href='https://en.wikipedia.org/wiki/Sparse_matrix#Coordinate_list_(COO)'>coordinate of points</a> &nbsp;
+    is efficient for incremental construction. Whereas Armadillo C++ <a href='http://arma.sourceforge.net/docs.html#SpMat'>arma::SpMat&lt;T&gt; </a> uses Compressed Sparse Column representation</small>
+</section>
+
+
+<section data-transition="zoom"  data-separator-notes="^Note:"  style="text-align: left;">
+    <h3><span>We need&nbsp;</span><span class="fragment" data-fragment-index="10">Introspection / Reflection </span>
+        <span class="fragment fade-in" data-fragment-index="1">
+            <small>method to retrieve field names of C++ class types</small></span></h3>
+    <div class="fragment"  data-fragment-index="4" >C++  mailing list and papers categorized as related to reflection  </div>
+    <ul style="font-size: .3em;">
+        <li><a href="http://www.open-std.org/jtc1/SC22/wg21/docs/papers/2019/"> 2019</a> 8 entries</li>
+            <ul>
+                <li>P1390R0	Suggested Reflection TS NB Resolutions	Matúš Chochlík, Axel Naumann, and David Sankel </li>
+                <li>P1390R1	Reflection TS NB comment resolutions: summary and rationale	Matúš Chochlík, Axel Naumann, and David Sankel</li>
+                <li>N4818	Working Draft, C++ Extensions for Reflection	David Sankel</li>
+                <li>P1733R0	User-friendly and Evolution-friendly Reflection: A Compromise	David Sankel, Daveed Vandevoorde</li>
+                <li>P1749R0	Access control for reflection	Yehezkel Bernat</li>
+                <li>P1240R1	Scalable Reflection in C++	Daveed Vandevoorde, Wyatt Childers, Andrew Sutton, Faisal Vali, Daveed Vandevoorde</li>
+                <li>P1887R0	Typesafe Reflection on attributes	Corentin Jabot</li>
+            </ul>
+        <li><a href="http://www.open-std.org/jtc1/SC22/wg21/docs/papers/2018/"> 2018</a> 13 entries</li>
+            <ul>
+                <li>P0194R5	Static reflection by Matúš Chochlík, Axel Naumann, David Sankel</li>
+                <li>P0670R2	Static reflection of functions by Matúš Chochlík, Axel Naumann, David Sankel</li>
+                <li>P0954R0 What do we want to do with reflection?	Bjarne Stroustrup</li>
+                <li>P0993R0	Value-based Reflection	Andrew Sutton, Herb Sutter</li>
+                <li>P0572R2	Static reflection of bit fields	Alex Christensen</li>
+                <li>P0670R3	Function reflection	 Matúš Chochlík, Axel Naumann, David Sankel</li>
+                <li>P1240R0	Scalable Reflection in C++	Andrew Sutton, Faisal Vali, Daveed Vandevoorde</li>
+            </ul>
+        <li><a href="http://www.open-std.org/jtc1/SC22/wg21/docs/papers/2017/"> 2017</a> 14 entries</li>
+            <ul>
+                <li>P0194R3	Static reflection by Matúš Chochlík, Axel Naumann, David Sankel</li>
+                <li>P0385R2	Static reflection: Rationale, design and evolution by Matúš Chochlík, Axel Naumann, David Sankel</li>
+                <li>P0578R0	Static Reflection in a Nutshell by 	Matúš Chochlík, Axel Naumann, David Sankel</li>
+                <li>P0590R0	A design static reflection: Andrew Sutton, Herb Sutter </li>
+                <li>P0598R0	Reflect Through Values Instead of Types by Daveed Vandevoorde</li>
+            </ul>
+        <li><a href="http://www.open-std.org/jtc1/SC22/wg21/docs/papers/2016/">2016</a> 19 entries</li>
+            <ul>
+                <li>P0194R0	Static reflection (revision 4)	Matus Chochlik, Axel Naumann</li>
+                <li>P0255R0	C++ Static Reflection via template pack expansion	Cleiton Santoia Silva, Daniel Auresco </li>
+                <li>P0256R0	C++ Reflection Light	Cleiton Santoia Silva </li>
+                <li>P0327R0	Product types access	Vicente J. Botet Escriba </li>
+                <li>P0341R0	parameter packs outside of templates	Mike Spertus </li>
+                <li>Static reflection: Rationale, design and evolution	Matúš Chochlík, Alex Naumann</li>
+            </ul>
+    </ul>
+    <div class="fragment rotated"  data-fragment-index="10" >introspection/reflection is non-trivial, not yet available as a language feature<div>
+</section>
+
+<section data-transition="zoom"  data-separator-notes="^Note:"  style="text-align: left;">
+    <h3><a href='https://clang.llvm.org/docs/HowToSetupToolingForLLVM.html#:~:text=Clang%20Tooling%20provides%20infrastructure%20to,for%20the%20LLVM%20source%20code.'>LLVM/CLANG lib tooling</a> based static reflection</h3>
+
+    <div class='multiCol'>
+        <div class='col' style='font-size:.6em'><pre><code class="cpp">...
+StatementMatcher h5templateMatcher = callExpr( allOf(
+   hasDescendant( declRefExpr( to( varDecl().bind("variableDecl")  ) ) ),
+   hasDescendant( declRefExpr( to(
+      functionDecl( allOf(
+        eachOf(
+		hasName("h5::write"), hasName("h5::create"), hasName("h5::read"),
+            hasName("h5::append"),
+		hasName("h5::awrite"), hasName("h5::acreate"), hasName("h5::aread")
+	),
+... ));</code></pre>
+        <ul>
+          <li class="fragment" data-code-focus="2-6,10-11">identify the relevant nodes</li>
+          <li class="fragment" data-code-focus="7-9">marked by I/O operators</li>
+          <li class="fragment" >visit the structure in reverse topological order</li>
+          <li class="fragment" >emit the templates describing the class with fields and types</li>
+        </ul></div>
+    <div class='col'> <img src="images/topological.jpg"/></div></div>
+    <div  style='font-size:.3em'  ><b>P0993r0 Value-based Reflection</b>, Andrew Sutton, Herb Sutter:</div>
+    <div class='multiCol'>
+        <div class='col reveal' style='font-size:.4em' ><b>static reflection </b><em >is a programming facility that exposes read-only data about entities in a translation unit compile-time values. Static reflection does not require support for runtime compilation since reflection
+values can be used with existing generative facilities (i.e., templates) or additional generative facilities
+(i.e., metaprogramming) to produce new code.</em></div>
+        <div class='col reveal'  style='font-size:.4em'  ><b>dynamic reflection:</b><em>provides information for navigating source-code data structures at
+runtime. Language supporting dynamic reflection also tend to make additional facilities available for generating and JIT-compiling new code. Dynamic reflection and code generation are not in the scope of this work.</em> </div>
+    </div></section>
+
+<section data-transition="zoom"  data-separator-notes="^Note:"  style="text-align: left;">
+    <h3>How about &nbsp; <a href='https://en.cppreference.com/w/cpp/container'>Containers</a>? &nbsp; Let's take a look at  
+        <a href='http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2015/n4436.pdf'>N4436</a> C++ Detection Idiom 
+       </h3>
+    <p>It is possible to identify if a container is STL like, provides direct access to its contiguous storage -- as <code class='reveal'>std::vector&lt;T&gt;</code> does, or alternatively iterators for scatter/gather operations</p>
+    <div class='multiCol'>
+    <div class='col'>
+        <ul>
+          <li class="fragment" data-code-focus="2-4,10-14">identify if there is direct access to contiguous memory</li>
+          <li class="fragment" data-code-focus="5-8,15-18,20-21">or iterator for non-contiguous layouts</li>
+        </ul>
+    </div>
+<div class='col' style='font-size:.6em'><pre><code class="cpp">
+template &lt;typename T&gt; using value_type_f = typename T::value_type;
+template &lt;typename T&gt; using data_f = decltype(std::declval &lt;T&gt;().data());
+template &lt;typename T&gt; using size_f = decltype(std::declval &lt;T&gt;().size());
+template &lt;typename T&gt; using begin_f = decltype(std::declval &lt;T&gt;().begin());
+template &lt;typename T&gt; using end_f = decltype(std::declval &lt;T&gt;().end());
+template &lt;typename T&gt; using cbegin_f = decltype(std::declval &lt;T&gt;().cbegin());
+template &lt;typename T&gt; using cend_f = decltype(std::declval &lt;T&gt;().cend());
+
+template &lt;typename T&gt; using value = compat::detected_or &lt;T, value_type_f, T&gt;;
+template &lt;typename T&gt; using has_value_type = compat::is_detected &lt;value_type_f, T&gt;;
+template &lt;typename T&gt; using has_data = compat::is_detected &lt;data_f, T&gt;;
+template &lt;typename T&gt; using has_direct_access = compat::is_detected &lt;data_f, T&gt;;
+template &lt;typename T&gt; using has_size = compat::is_detected &lt;size_f, T&gt;;
+template &lt;typename T&gt; using has_begin = compat::is_detected &lt;begin_f, T&gt;;
+template &lt;typename T&gt; using has_end = compat::is_detected &lt;end_f, T&gt;;
+template &lt;typename T&gt; using has_cbegin = compat::is_detected &lt;cbegin_f, T&gt;;
+template &lt;typename T&gt; using has_cend = compat::is_detected &lt;cend_f, T&gt;;
+
+template &lt;typename T&gt; using has_iterator = std::integral_constant &lt;bool, has_begin &lt;T&gt;::value && has_end &lt;T&gt;::value &gt;;
+template &lt;typename T&gt; using has_const_iterator = std::integral_constant &lt;bool, has_cbegin &lt;T&gt;::value && has_cend &lt;T&gt;::value &gt;;
+</code></pre>
+    </div></div>
+     <sub style='font-size:.6em'>credit: WG21 N4436 C++ Detection Idiom by Walter Brown</sub>
+</section>
+
+
+<section  style="text-align: left;" >
+    <h3>C++ Linear Algebra Systems calling BLAS/LAPACK <small>&nbsp;&nbsp; specialized containers</small></h3>
+<div class='multiCol'>
+<div class='col fragment fade-in' data-fragment-index="3" ><p>
+are dedicated category, as they all must provide mechanism to pass/receive data to/from some BLAS system call, however the naming varies from system to system.
+</p><p class='fragment fade-in' data-fragment-index="3">
+The differences can be mitigated with a combination of
+    <ul>
+        <li class='fragment'>type traits</li>
+        <li class='fragment'>feature detection idiom</li>
+
+    </ul>
+</p></div>
+    <table class='col  fragment fade-in-then-semi-out' data-fragment-index="1" >
+    	<thead>
+        <tr><th>library</th><th>direct access</th><th>vector size</th></thead>
+        <tbody>
+        <tr><td>arma</td><td>memptr()</td><td>n_elem</td></tr>
+        <tr><td>eigen</td><td>data()</td><td>size()</td></tr>
+        <tr><td>blaze</td><td>data()</td><td>n/a</td></tr>
+        <tr><td>blitz</td><td>data()</td><td>size()</td></tr>
+        <tr><td>itpp</td><td>_data()</td><td>length()</td></tr>
+        <tr><td>ublas</td><td>data().begin()</td><td>n/a</td></tr>
+        <tr><td>dlib</td><td>(0,0)</td><td>size()</td></tr>
+        </tbody>
+    </table>
+</div>
+</section>
+
+<section data-markdown data-transition="zoom"  style="text-align: left; "><textarea data-template>
+    # Actual type mapping from C++ data types to HDF5 types
+    #### The following features not yet available in the current H5CPP v1.10.6 library
+</textarea></section>
+
+
+<section data-markdown 
+    data-transition="zoom" data-background="images/type_map_cpp_to_hdf5.png" data-background-size="70%">
+</section>
+<section data-markdown data-transition="zoom"  style="text-align: left; font-size: .6em; "><textarea data-template>
+    ## C++ string types to HDF5 type
+    
+    |C++ type||HDF5 type|compact|contiguous|chunked|
+    |--------------|---------|------------|--------|------------|---------|
+    |`std::string`   |scalar    |VL string   |yes|yes|maybe|
+    |`std::string[N]`|array    |VL string   |yes|yes|maybe|
+    |`std::array<std::string,N>`|array |VL string|yes|yes|maybe|
+    |`const char* var[N]`| array|VL string | yes |yes|maybe|
+    |`std::vector<std::string>`|hypercube|VL string|yes|yes|yes|
+    |string literal|scalar |FL string|yes|yes|maybe|
+    |`char[M]`| scalar| FL string| yes | yes |maybe|
+    |`char[N][M]` | array | FL string| yes|yes|maybe|
+    |`char[N][M][..]` | array | FL string| yes|yes|maybe|
+    |`std::initializer_list<std::string>{}` | array | VL string| yes|yes|maybe|
+    |`std::initializer_list<char[N]>{}` | array | FL string| yes|yes|maybe|
+    
+    - FL is null terminated fixed length
+    - VL is null terminated variable length
+    - `maybe` you have to define dimensions and chunks ie:</br> `h5::create<char[10]>(h5::fd_t,.., h5::current_dims{..}, h5::chunk{..})`
+    
+    **observe:** `[unsigned | signed] char` are mapped to `H5T_NATIVE_CHAR`
+</textarea></section>
+<section data-markdown data-transition="zoom"  style="text-align: left; "><textarea data-template>
+    ## Developer branch
+    - optimized string handling
+    - context sensitive data layout: `COMPACT | CONTIGUOUS | CHUNK`
+    - better type maps: 
+        - scalars
+        - arrays
+        - ragged arrays
+        - fixed length strings
+        - void types
+        - easy custom types
+        - feature detection base container support
+        - comprehensive test coverage with google test
+        - multi dataset layout (sparse matrices, ... )
+        - better cmake support
+    </textarea></section>
+
+    <section data-markdown data-transition="zoom"  style="text-align: left; "><textarea data-template>
+        ### Thank you! <small>http://meetingcpp-toolfair.h5cpp.org</small> 
+        ##### header only library: <small>https://github.com/steven-varga/h5cpp</small> LLVM based preprocessor:<small>https://github.com/steven-varga/h5cpp-compiler</small>
+        ##### other presentations: <small>http://sandbox.h5cpp.org/presentations</small> Documentation: <small>http://sandbox.h5cpp.org/</small> HDF5 website: <small>https://www.hdfgroup.org</small> 
+        #### 21:45 <small>What is in the Dev Branch - Steven Varga</small>
+    </textarea></section>
+    <section data-markdown data-transition="zoom"  style="text-align: left; "><textarea data-template>
+        ### [Questions?]()
+    </textarea></section>
+
+

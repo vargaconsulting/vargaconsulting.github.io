@@ -1,0 +1,55 @@
+<!-- vargaconsulting.ca -->
+
+
+
+<!--section data-background="#eeffcc" data-background-transition="zoom" >
+<h3>What if I don't quite recall the syntax?</h3>
+<pre><code class="cpp", data-trim>
+h5::write( ..., /* is this the right order: */
+	h5::current_dims{40,50}, h5::offset{5,0}, h5::stride{4,4}, h5::block{3,3} );
+...
+h5::write( ..., /* or may be this? */
+	h5::offset{5,0}, h5::block{3,3}, h5::current_dims{40,50}, h5::stride{4,4} );
+...
+</code></pre>
+
+<p class="fragment" data-code-focus="1-2">usually a function signature is strict</p>
+<p class="fragment" data-code-focus="3-7">but what if we want something flexible? </p>
+<p class="fragment"> with compile time piece wise construction the functions only make the necessary calls...</p>
+<p class="fragment"> and named, type safe arguments may be in arbitrary order</p>
+
+
+</section-->
+<section>
+	<h3>templates: create | write | read | append</h3>
+	<section>
+<pre><code class="cpp", data-trim>
+h5::fd_t fd = h5::create("example.h5",H5F_ACC_TRUNC);
+std::vector<sn::example::Record> vec = h5::utils::get_test_data<sn::example::Record>(20);
+h5::write(fd, "path/to/object",  vec,
+    h5::current_dims{100},  h5::max_dims{H5S_UNLIMITED},
+    h5::offset{3}, h5::block{2}, h5::stride{2},
+    h5::chunk{20} | h5::gzip{9} );
+</code></pre>
+
+<p class="fragment" data-code-focus="1">RAII idiom for file,dataset,property descriptors</p>
+<p class="fragment" data-code-focus="2">Fundamental,POD struct or arrays of them</p>
+<p class="fragment" data-code-focus="3">The object is marked with h5::write template call</p>
+<p class="fragment" data-code-focus="4-6">type-safe arguments in any order</p>
+
+</section>
+<section>
+	<h3>how is it done?</h3>
+	<ul>
+		<li class="fragment">template meta-programming for piecewise construction of functions </li>
+		<li class="fragment">file|dataset|property descriptors are binary compatible with CAPI: interop governed by conversion policy </li>
+		<li class="fragment">no virtual tables:
+		Curiously Recurrent Templates - static polymorphism</li>
+	</ul>
+</section>
+
+<section>
+<img src="pix/status.svg" height="600" >
+
+</section>
+</section>

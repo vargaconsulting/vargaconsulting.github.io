@@ -1,0 +1,78 @@
+
+<section >
+	<h1>Implementation</h1>
+</section>
+<section  style="text-align: left;" >
+	<h3>Pythonic syntax at compile time </h3>
+<pre><code class="cpp">template&ltclass T&gt;
+h5::ds_t h5::create&lt;T&gt;( const h5::fd_t&amp; fd, const std::string&amp; name,
+    h5::current_dims{n,m,...},
+    h5::max_dims{i,k, ..}, // j > n, k > m ... or H5S_UNLIMITED</code></pre>
+<pre><code class="cpp">template&ltclass T&gt;
+h5::ds_t h5::read&lt;T&gt;( const h5::fd_t&amp; fd, const std::string&amp; name,
+    h5::current_dims{n,m,...},
+    h5::max_dims{i,k, ..}, // j > n, k > m ... or H5S_UNLIMITED</code></pre>
+</section>
+<section  data-transition="zoom"  style="text-align: left;">
+    <h3>Ability to add Custom Types</h3>
+<pre><code>struct float16 {
+    short value;
+};
+template <> h5::dt_t&lt;float16&gt; create() {
+    h5::dt_t&lt;float16&gt; tid{H5Tcopy( H5T_NATIVE_FLOAT )};
+    H5Tset_fields(tid, 15, 10, 5, 0, 10);
+    H5Tset_precision(tid, 16);
+    H5Tset_ebias(tid, 15);
+    H5Tset_size(tid,2);
+    return tid;
+};
+</code></pre>
+<ul>
+  <li class="fragment" data-code-focus="1-3">you need the c++ type definition</li>
+  <li class="fragment" data-code-focus="4,11">template specialization</li>
+  <li class="fragment" data-code-focus="5-10">HDF5 type description</li>
+</ul>
+</section>
+
+<section data-background-iframe="http://sandbox.h5cpp.org/architecture/#file-operations" data-background-interactive>
+    <div class="rotated">property lists</div>
+</section>
+<section data-markdown data-transition="zoom"  style="text-align: left; font-size:.6em"><textarea data-template>
+# Heuristics
+- dataset smaller than `64Kb` is saved in compact layout
+- dataset not marked as `h5::current_dims{..}` or `h5::max_dims{..}` are contiguous layout
+- datasets marked with `h5::chunk{..}` or extendable size are chunked layout
+- ... 
+## batteries included: 
+### if a settings in context can make it faster, it is enabled
+</textarea></section>
+
+<section data-markdown data-transition="zoom"  style="text-align: left; font-size:.6em"><textarea data-template>
+## Source Code Structure
+Follows HDF5 CAPI naming conventions with some minor additions to facilitate linear algebra inclusion as well as compile time reflection.
+
+* **H5F**: File-level access routines.
+* **H5G**: Group functions, for creating and operating on groups of objects.
+* **H5T**: DataType functions, for creating and operating on simple and compound datatypes to be used as the elements in data arrays.
+* **H5S**: DataSpace functions, which create and manipulate the dataspace in which the elements of a data array are stored.
+* **H5D**: Dataset functions, which manipulate the data within datasets and determine how the data is to be stored in the file.
+* **H5P**: Property list functions, for manipulating object creation and access properties.
+* **H5A**: Attribute access and manipulating routines.
+* **H5Z**: Compression registration routine.
+* **H5E**: Error handling routines.
+* **H5I**: Identifier routine.
+* **H5M**: Meta descriptors for linear algebra objects
+
+When POD struct are used, the type description  must be sandwiched between the `core` and `io` calls.
+
+* **core**: all routines with the exception of IO calls
+* **io** : only IO routines are included, necessary when type definitions are sandwiched
+* **all**: all header files are included
+
+Miscellaneous routines are:
+
+* **compat.hpp** to mitigate differences between C++11 and c++17
+* **H5capi.hpp** shim between CAPI calls to C++ 
+* **H5config.hpp** definitions to control H5CPP behaviour
+* **H5cout.hpp** IO stream routines for H5CPP objects, **TODO:** work in progress
+</textarea></section>

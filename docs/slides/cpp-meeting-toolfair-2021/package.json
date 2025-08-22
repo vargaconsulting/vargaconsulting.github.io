@@ -1,0 +1,55 @@
+{
+  "name": "presentation.js",
+  "version": "1.0.1",
+  "description": "ISC19 presentation",
+  "homepage": "http://h5cpp.org",
+  "subdomain": "revealjs",
+  "main": "js/reveal.js",
+  "scripts": {
+    "test": "grunt test",
+    "start": "grunt serve",
+    "build": "grunt"
+  },
+  "author": {
+    "name": "steven varga",
+    "email": "steven@vargaconsulting.ca",
+    "web": "http://h5cpp.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/steven-varga/h5cpp"
+  },
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "devDependencies": {
+    "express": "^4.15.2",
+    "grunt": "^1.1.0",
+    "grunt-autoprefixer": "^3.0.4",
+    "grunt-cli": "^1.2.0",
+    "grunt-contrib-clean": "^1.1.0",
+    "grunt-contrib-connect": "^1.0.2",
+    "grunt-contrib-cssmin": "^2.1.0",
+    "grunt-contrib-jshint": "^1.1.0",
+    "grunt-contrib-less": "^2.0.0",
+    "grunt-contrib-qunit": "~1.2.0",
+    "grunt-contrib-uglify": "^2.3.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-includes": "^1.1.0",
+    "grunt-retire": "^1.0.7",
+    "grunt-sass": "^2.0.0",
+    "grunt-zip": "~0.17.1",
+    "mustache": "^2.3.0",
+    "socket.io": "^1.7.3"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "findup-sync": "^4.0.0",
+    "highlight.js": "git+https://github.com/highlightjs/highlight.js.git",
+    "node-sass": "^4.13.1",
+    "node-static": "^0.7.11",
+    "reveal-code-focus": "git+https://github.com/bnjmnt4n/reveal-code-focus.git",
+    "reveal-notes-server": "^0.1.0"
+  }
+}

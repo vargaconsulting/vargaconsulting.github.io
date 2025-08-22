@@ -1,0 +1,34 @@
+<section style="text-align: left;" >
+<h1>Type Mapping between C and HDF5 </h1>
+<pre><code class="highlight cpp">
+  namespace h5 {
+    template &lt;&gt; hid_t inline register_struct&lt;shim::pod_t&gt;(){
+        hid_t at_00 = H5Tcopy(H5T_C_S1);
+        H5Tset_size(at_00, ::shim::pod_t::max_lenght::value);
+
+        hid_t ct_00 = H5Tcreate(H5T_COMPOUND, sizeof (shim::pod_t));
+        H5Tinsert(ct_00, "id",	HOFFSET(shim::pod_t,id), H5T_NATIVE_ULONG);
+        H5Tinsert(ct_00, "name", HOFFSET(shim::pod_t,name), at_00);
+
+        H5Tclose(at_00); 
+        return ct_00;
+    };
+}
+H5CPP_REGISTER_STRUCT(shim::pod_t);
+</code></pre>
+<ul  >
+  <li class="fragment" data-code-focus="2,14">must be within `h5` namespace</li>
+  <li class="fragment" data-code-focus="3,13">is a template specialization </li>
+  <li class="fragment" data-code-focus="4-9">we do our CAPI type definitions</li>
+  <li class="fragment" data-code-focus="11">close not needed descriptors</li>
+  <li class="fragment" data-code-focus="12">returned hid_t descriptor will be closed with RAII</li>
+  <li class="fragment" data-code-focus="15">finally register the custom type with H5CPP</li>
+</ul>
+</section>
+
+
+<section data-markdown data-transition="zoom"  data-separator-notes="^Note:" ><textarea data-template>
+  ## This process is automatic for POD types: see [these slides](http://lightning-talk.h5cpp.org/#/1)
+  ## but for Non PODs you have to do template specialization manually
+  #### this is not a technical limitations, more like focusing on other angles...
+</textarea></section>

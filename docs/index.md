@@ -63,10 +63,9 @@ As an independent researcher and systems architect, I work hands-on with organiz
 * **[NSS](site/nss.md)** — Linux Name Switching System for identity menagement
 * **[BIP](site/bip.md)** — BIP32, BIP39 and BIP44 wallet management library for C++ 
 * **[EIP712](site/eip712.md)** — Ethereum transaction packing library for modern C++ and template metaprogramming
-* **[WEB3](site/web3.md)** — Robust Web3 templates for modern C++ to interact with Ethereum compatible Blockchain nodes 
 * **[KMS](site/kms.md)** —  :fontawesome-brands-aws: based Key Managment System for Echanges
 * **[UDS](site/uds.md)** — Unix Domain Sockets for Mdern C++: fast and moder IPC 
-* **[Mock Exchange](site/orderbook.md)** — High Performance Order Book Simulator
+* **[Order Book](site/orderbook.md)** — High Performance Order Book + Simulator
 * **[Generics++](site/generics.md)** — C++ generics library for reducing clutter
 
 ## What I’m Building Now :material-arrow-down-right-bold:{.icon}
