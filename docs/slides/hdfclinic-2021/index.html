@@ -1,0 +1,357 @@
+<!-- h5cpp.org -->
+<!-- h5cpp.org -->
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>MeetingC++ Tool Fair 2021</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/solarized.css">
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/solarized-dark.css">
+        <link rel="stylesheet" type="text/css" href="plugin/asciinema/asciinema-player.css" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="plugin/reveal.js-fullscreen-code/reveal.js-fullscreen-code.css">
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+		<style>
+		  .reveal .slides section .fragment.current-only {
+			opacity: 1;
+			visibility: visible;
+			display: none;
+		  }
+		  .reveal .slides section .fragment.current-only.current-fragment {
+			display: block;
+		  }
+		  .line { display: block; }
+		  .line.focus { background: #f2df82; color: #657b83; }
+	</style>
+
+	</head>
+	<body>
+
+<div class="reveal"><div class="slides">
+<!-- from root directory: node node_modules/reveal-notes-server -->
+<section data-markdown data-transition="zoom"  data-separator-notes="^Note:" ><textarea data-template>
+#### fixed and variable length strings IO performance 
+#### Examples: [source files on github](https://github.com/steven-varga/HDFGroup-mailinglist/tree/master/non-pod-struct-2021-apr-29)
+##### [h5bench](https://github.com/steven-varga/h5bench) performance measurement templates 
+
+##### Steven Varga, vargaconsulting.ca Toronto, ON, Canada
+</textarea></section>
+
+<section data-markdown data-transition="zoom"  data-separator-notes="^Note:" ><textarea data-template>
+## outline
+1. POD types, standard layout types 
+2. Variable length strings vs fixed length strings
+3. POD example with fixed length strings
+4. referencing string with ID field vs HDF5 index
+5. performance evaluation 
+</textarea></section>
+
+<section style="text-align: left;" >
+<h1>POD struct with fixed length string</h1>
+<pre><code class="highlight cpp">#include &ltsome_header_files&gt
+namespace shim {
+    struct pod_t {
+            using max_lenght = std::integral_constant&lt;size_t,FIXED_SIZE&gt;;
+            size_t id;
+            char name[max_lenght::value];
+    };
+}
+</code></pre>
+<ul  >
+  <li class="fragment" data-code-focus="2,8">enclosed in some namespace</li>
+  <li class="fragment" data-code-focus="4">compile time length definition to some FIXED_SIZE </li>
+  <li class="fragment" data-code-focus="5">ID field: we will get back to this </li>
+  <li class="fragment" data-code-focus="6">and out fixed length string</li>
+</ul>
+<h5>can transfer data directly, no need for scatter/gather ops</h5>
+</section>
+
+<section style="text-align: left;">
+<h1>NON POD class with std::string</h1>
+<pre><code class="highlight cpp">#include &ltsome_header_files&gt
+namespace non::intrusive {
+    struct non_pod_t { // wrapper to aid C++ template mechanism, zero runtime cost
+        size_t id;
+        std::string name;
+    };
+}
+</code></pre>
+<ul>
+  <li class="fragment" data-code-focus="2,7">enclosed in some namespace</li>
+  <li class="fragment" data-code-focus="4">we have the extra field </li>
+  <li class="fragment" data-code-focus="5">but the content is stored somewhere else</li>
+</ul>
+<h5>need for scatter/gather ops to fetch string content</h5>
+</section>
+
+<section style="text-align: left;">
+    <h1>Do we need the ID field at all?</h1>
+    <pre><code class="highlight cpp">
+std::vector&lt;std::string&gt; non_pod = ...;
+h5::write(ds, non_pod.data(), h5::offset{K}, ...);
+std::string record = h5::read(ds, h5::offset{K}, h5::count{1}, ...);
+
+std::vector&lt;char[N]&gt; pod_t = ...; 
+    </code></pre>
+    <ul>
+      <li class="fragment" data-code-focus="2">we could just take an indexable container</li>
+      <li class="fragment" data-code-focus="3">write to a specific location: `h5::offset{..}` </li>
+      <li class="fragment" data-code-focus="4">or do an indexed read from it</li>
+
+      <li class="fragment" data-code-focus="6">here is the fixed length variant </li>
+    </ul>
+    <h5>The vector of strings still needs scatter/gather ops</h5>
+</section>
+
+
+
+
+<section style="text-align: left;" >
+<h1>Type Mapping between C and HDF5 </h1>
+<pre><code class="highlight cpp">
+  namespace h5 {
+    template &lt;&gt; hid_t inline register_struct&lt;shim::pod_t&gt;(){
+        hid_t at_00 = H5Tcopy(H5T_C_S1);
+        H5Tset_size(at_00, ::shim::pod_t::max_lenght::value);
+
+        hid_t ct_00 = H5Tcreate(H5T_COMPOUND, sizeof (shim::pod_t));
+        H5Tinsert(ct_00, "id",	HOFFSET(shim::pod_t,id), H5T_NATIVE_ULONG);
+        H5Tinsert(ct_00, "name", HOFFSET(shim::pod_t,name), at_00);
+
+        H5Tclose(at_00); 
+        return ct_00;
+    };
+}
+H5CPP_REGISTER_STRUCT(shim::pod_t);
+</code></pre>
+<ul  >
+  <li class="fragment" data-code-focus="2,14">must be within `h5` namespace</li>
+  <li class="fragment" data-code-focus="3,13">is a template specialization </li>
+  <li class="fragment" data-code-focus="4-9">we do our CAPI type definitions</li>
+  <li class="fragment" data-code-focus="11">close not needed descriptors</li>
+  <li class="fragment" data-code-focus="12">returned hid_t descriptor will be closed with RAII</li>
+  <li class="fragment" data-code-focus="15">finally register the custom type with H5CPP</li>
+</ul>
+</section>
+
+
+<section data-markdown data-transition="zoom"  data-separator-notes="^Note:" ><textarea data-template>
+  ## This process is automatic for POD types: see [these slides](http://lightning-talk.h5cpp.org/#/1)
+  ## but for Non PODs you have to do template specialization manually
+  #### this is not a technical limitations, more like focusing on other angles...
+</textarea></section>
+
+<section style="text-align: left;" >
+<h3>H5bench for HDF5 CAPI and H5CPP with pythonic syntax </h3>
+<pre><code class="highlight cpp">
+  namespace bh = h5::bench;
+  bh::throughput(
+    bh::name{"test case name..."}, 
+      bh::arg_x{x,y,z,...}, 
+      bh::warmup{m}, bh::sample{n},
+      h5::ds_t | h5::fd_t | ...,
+    [&](size_t idx, size_t size) -&gt; double {
+        for (size_t k = 0; k &lt; size; k++)
+            h5::append(ds, data[k]);
+        return transfer_size[idx];
+    });
+</code></pre>
+<ul  >
+  <li class="fragment" data-code-focus="2">namespace alias to h5::bench </li>
+  <li class="fragment" data-code-focus="3,12">throughput measurement takes arguments in arbitrary order </li>
+  <li class="fragment" data-code-focus="4">nice to have a name</li>
+  <li class="fragment" data-code-focus="5">arguments: {10, 100, 1'000, 10'000, ...} </li>
+  <li class="fragment" data-code-focus="6">burn-in and sample size for robust control</li>
+  <li class="fragment" data-code-focus="7">optional descriptors are reset|flush with each batch execution </li>
+  <li class="fragment" data-code-focus="8-12"> and the lambda function to do the job</li>
+  <li class="fragment" data-code-focus="11">where you return transfered data size in bytes</li>
+</ul>
+</section>
+
+
+<section style="text-align: left;" >
+  <h3>EXAMPLE: CAPI Fixed length string</h3>
+  <pre><code class="highlight cpp">
+  using custom_t = char[42]; // type alias
+
+  std::vector&lt;size_t&gt; transfer_size;
+  for (auto i : record_size)
+      transfer_size.push_back(i * sizeof(custom_t));
+  std::vector&lt;custom_t&gt; data = convert&lt;custom_t&gt;(strings);
+  
+  // modify VL type to fixed length
+  h5::dt_t&lt;custom_t&gt; dt{H5Tcreate(H5T_STRING, sizeof(custom_t))};
+  H5Tset_cset(dt, H5T_CSET_UTF8); 
+  std::vector&lt;h5::ds_t&gt; ds;
+  std::vector&lt;h5::sp_t&gt; file_space;
+
+  std::vector<h5::ds_t> ds;
+  for(auto size: record_size) ds.push_back(
+          h5::create<custom_t>(fd, fmt::format("FLstring CAPI-{:010d}", size), 
+          chunk_size, h5::current_dims{size}, dt));
+
+  // actual measurement
+  bh::throughput(
+      bh::name{"FLstring CAPI"}, record_size, warmup, sample,
+      [&](hsize_t idx, hsize_t size) -&lt; double {
+          // memory space
+          h5::sp_t mem_space{H5Screate_simple(1, &size, nullptr )};
+          H5Sselect_all(mem_space);
+          // file space
+          h5::sp_t file_space{H5Dget_space(ds[idx])};
+          H5Sselect_all(file_space);
+
+          H5Dwrite( ds[idx], dt, mem_space, file_space, H5P_DEFAULT, data.data());
+          return transfer_size[idx];
+      });
+  </code></pre>
+  <ul  >
+    <li class="fragment" data-code-focus="4-7">setup dataset being transfered, and compute the mini-batch size in bytes </li>
+    <li class="fragment" data-code-focus="10-11">create fixed length type descriptor </li>
+    <li class="fragment" data-code-focus="18">pass `h5::dt_t&lt;custom_t&gt; ds` to `h5::create`</li>
+    <li class="fragment" data-code-focus="21-33">actual throughput measurement </li>
+    <li class="fragment" data-code-focus="23,33">is a lambda function, prototype constrols behaviour</li>
+    <li class="fragment" data-code-focus="25,28">protecting all resources with H5CPP RAII is straighforward</li>
+    <li class="fragment" data-code-focus="26,29,31">use HDF5 CAPI calls to measure library performance </li>
+    <li class="fragment" data-code-focus="32">return the amount of data transferred in bytes</li>
+  </ul>
+  </section>
+
+  <section style="text-align: left;" >
+    <h3>parameters: </h3>
+    <pre><code class="highlight cpp">
+      bh::arg_x record_size{10'000, 100'000, 1'000'000};
+      bh::warmup warmup{3};
+      bh::sample sample{10};
+      h5::dcpl_t chunk_size = h5::chunk{4096};
+    </code></pre>
+    <ul  >
+      <li class="fragment" data-code-focus="2">control experiment size </li>
+      <li class="fragment" data-code-focus="3">set `warmup` to zero for single write</li>
+      <li class="fragment" data-code-focus="4">number of measured executions</li>
+      <li class="fragment" data-code-focus="5">do all your `dcpl, dapl, ...` in one location </li>
+    </ul>
+    </section>
+
+    <section style="text-align: left;" >
+      <h3>results </h3>
+      <pre><code class="highlight cpp">
+        [name                                              ][total events][Mi events/s] [ms runtime / stddev] [    MiB/s / stddev ]
+        FLstring h5::append&lt;pod_t&gt;                                  10000      42.0521         0.24     0.027    1359.60     161.3
+        FLstring h5::append&lt;pod_t&gt;                                 100000      47.7487         2.09     0.024    1527.30      17.5
+        FLstring h5::append&lt;pod_t&gt;                                1000000      47.2072        21.18     0.041    1510.30       2.9
+        VLstring h5::append&lt;std::vector&lt;std::string&gt;&gt;               10000       5.9641         1.68     0.423      94.70      23.0
+        VLstring h5::append&lt;std::vector&lt;std::string&gt;&gt;              100000       6.1827        16.17     0.377      92.30       2.1
+        VLstring h5::append&lt;std::vector&lt;std::string&gt;&gt;             1000000       6.1993       161.31     4.139      92.60       2.2
+        VLstring h5::write&lt;std::vector&lt;const char*&gt;&gt;                10000       0.0971       103.03     7.445       1.20       0.6
+        VLstring h5::write&lt;std::vector&lt;const char*&gt;&gt;               100000       0.0935      1068.98      -nan       1.10       0.5
+        VLstring h5::write&lt;std::vector&lt;const char*&gt;&gt;              1000000       0.0852     11735.32      -nan       0.90       0.8
+        VLstring std::vector&lt;std::string&gt;                           10000       0.0440       227.41      -nan       0.00       0.0
+        VLstring std::vector&lt;std::string&gt;                          100000       0.0705      1419.31      -nan       0.60       0.4
+        VLstring std::vector&lt;std::string&gt;                         1000000       0.0786     12729.59      -nan       0.80       0.5
+        FLstring CAPI                                               10000     826.4463         0.01     0.000   15633.60     218.4
+        FLstring CAPI                                              100000     225.4791         0.44     0.015    4508.00     143.5
+        FLstring CAPI                                             1000000     163.4227         6.12     0.019    3267.70      10.3
+        VLstring CAPI                                               10000       0.0779       128.35      -nan       0.80       0.5
+        VLstring CAPI                                              100000       0.0763      1311.10      -nan       0.70       0.5
+        VLstring CAPI                                             1000000       0.0765     13071.64      -nan       0.70       0.6
+        C++ IOstream                                                10000       1.0186         9.82     0.153      14.80       0.0
+        C++ IOstream                                               100000       1.0089        99.12     1.311      14.80       0.0
+        C++ IOstream                                              1000000       0.9586      1043.17      -nan      13.70       0.6        
+      </code></pre>
+      <ul>
+        <li class="fragment" data-code-focus="2">only subset is printed here, can be recorded to HDF5 </li>
+        <li class="fragment" data-code-focus="21-23">C++ IO stream as baseline </li>
+        <li class="fragment" data-code-focus="15-17,3-5">fixed length string and POD with string does rather well</li>
+        <li class="fragment" data-code-focus="6-8">when are appending, not overwriting; performance is still good</li>
+        <li class="fragment" data-code-focus="9-14,18-20">VL string updates are significantly behind in all implementations</li>
+      </ul>
+      </section>
+
+<section data-markdown data-transition="zoom"  data-separator-notes="^Note:" ><textarea data-template>
+    ## related projects:
+    - [H5CPP](https://github.com/steven-varga/h5cpp) templates for HDF5 supporting major linear algebra systems and the STL
+    - [H5CPP-compiler](https://github.com/steven-varga/h5cpp-compiler) an LLVM based reflection tool for compiler assisted reflection
+    - [H5BENCH](https://github.com/steven-varga/h5bench) becnchmarking templates for HDF5 CAPI and H5CPP
+    - [H5RND](https://github.com/steven-varga/h5rnd) a prufer sequence based random data generator
+    - [plots](https://github.com/steven-varga/plots) C++ plots with pythonic syntax
+
+    ## Thank you!!!
+</textarea></section>
+</div></div>
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+		<script>
+			Reveal.initialize({
+                navigationMode: 'grid',
+    			width: '100%',
+    			height: '100%',
+				margin: 0.1,
+				minScale:  .2,
+				maxScale: 2.5,
+
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				transitionSpeed: 'slow',
+				transition: 'convex', // none/fade/slide/convex/concave/zoom
+				keyboard: true,
+				loop: false,
+				transition: 'concave', // default/cube/page/concave/linear(2d)
+				math: {
+					mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
+					config: 'TeX-AMS_HTML-full',
+					// pass other options into `MathJax.Hub.Config()`
+					TeX: { Macros: { RR: "{\\bf R}" } }
+				},
+				anything: [ {className: "asciicast",
+                           defaults: { theme: 'monokai', fontSize: '15px' },
+                           initialize: (function(container, options) {
+								asciinema.player.js.CreatePlayer(container, options.URL, options);
+                            })
+                }],
+				dependencies: [
+					//RevealMath,
+                    { src: 'plugin/reveal.js-fullscreen-code/jquery-3.1.1.min.js' },
+                    { src: 'plugin/reveal.js-fullscreen-code/reveal.js-fullscreen-code.js' },
+                    { src: 'plugin/chalkboard/chalkboard.js' },
+
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					//{ src: 'plugin/notes/notes.js', async: true },
+          			{ src: 'plugin/highlight/highlight.pack.js' },
+          			{ src: 'plugin/reveal-code-focus/reveal-code-focus.js',  async:true, callback: function() { RevealCodeFocus(); } },
+
+                    //<!-- TO RUN: node plugin/notes-server/ -->
+		           //{ src: 'plugin/notes-server/client.js', async: true },
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+				],
+				keyboard: {
+                    67: function() { RevealChalkboard.toggleNotesCanvas() },	// toggle notes canvas when 'c' is pressed
+                    66: function() { RevealChalkboard.toggleChalkboard() },	// toggle chalkboard when 'b' is pressed
+                    46: function() { RevealChalkboard.clear() },	// clear chalkboard when 'DEL' is pressed
+                    8: function() { RevealChalkboard.reset() },	// reset chalkboard data on current slide when 'BACKSPACE' is pressed
+                    68: function() { RevealChalkboard.download() },	// downlad recorded chalkboard drawing when 'd' is pressed
+                    192: function() { RevealChalkboard.colorNext() },	// cycle colors forward when 'x' is pressed
+                    49: function() { RevealChalkboard.colorPrev() },	// cycle colors backward when 'y' is pressed
+                }
+				});
+		</script>
+        <!--script src="socket.io/socket.io.js"></script>
+        <script src="node_modules/reveal-notes-server/client.js"></script-->
+	</body>
+</html>

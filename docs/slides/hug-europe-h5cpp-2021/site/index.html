@@ -1,0 +1,115 @@
+<!-- h5cpp.org -->
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>European HUG 2021</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/solarized.css">
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/solarized-dark.css">
+        <link rel="stylesheet" type="text/css" href="plugin/asciinema/asciinema-player.css" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="plugin/reveal.js-fullscreen-code/reveal.js-fullscreen-code.css">
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+		<style>
+		  .reveal .slides section .fragment.current-only {
+			opacity: 1;
+			visibility: visible;
+			display: none;
+		  }
+		  .reveal .slides section .fragment.current-only.current-fragment {
+			display: block;
+		  }
+		  .line { display: block; }
+		  .line.focus { background: #f2df82; color: #657b83; }
+	</style>
+
+	</head>
+	<body>
+
+<div class="reveal"><div class="slides">
+include "main.html"
+</div></div>
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+		<script>
+			Reveal.initialize({
+                navigationMode: 'grid',
+    			width: '100%',
+    			height: '100%',
+				margin: 0.1,
+				minScale:  .2,
+				maxScale: 2.5,
+
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				transitionSpeed: 'slow',
+				transition: 'convex', // none/fade/slide/convex/concave/zoom
+				keyboard: true,
+				loop: false,
+				transition: 'concave', // default/cube/page/concave/linear(2d)
+                //multiplex: {
+                // Example values. To generate your own, see the socket.io server instructions.
+                //secret: '15880645724491134755', // Obtained from the socket.io server. Gives this (the master) control of the presentation
+                //secret: 'null', // Obtained from the socket.io server. Gives this (the master) control of the presentation
+                //id: '3f89e9f0b75b195f', // Obtained from socket.io server
+                //url: 'https://reveal-js-multiplex-ccjbegmaii.now.sh' // Location of socket.io server
+                //},
+				math: {
+					mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
+					config: 'TeX-AMS_HTML-full',
+					// pass other options into `MathJax.Hub.Config()`
+					TeX: { Macros: { RR: "{\\bf R}" } }
+				},
+
+				dependencies: [
+					//RevealMath,
+                    //{ src: 'plugin/reveal.js-fullscreen-code/jquery-3.1.1.min.js' },
+                    //{ src: 'plugin/reveal.js-fullscreen-code/reveal.js-fullscreen-code.js' },
+                    { src: 'plugin/chalkboard/chalkboard.js' },
+
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+          			{ src: 'plugin/highlight/highlight.pack.js' },
+          			{ src: 'plugin/reveal-code-focus/reveal-code-focus.js',  async:true, callback: function() { RevealCodeFocus(); } },
+
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/elapsed-time-bar/elapsed-time-bar.js'},
+				],
+				keyboard: {
+                     67: function() { RevealChalkboard.toggleNotesCanvas() },	// toggle notes canvas when 'c' is pressed
+                     66: function() { RevealChalkboard.toggleChalkboard() },	// toggle chalkboard when 'b' is pressed
+                     46: function() { RevealChalkboard.clear() },	// clear chalkboard when 'DEL' is pressed
+                      8: function() { RevealChalkboard.reset() },	// reset chalkboard data on current slide when 'BACKSPACE' is pressed
+                     68: function() { RevealChalkboard.download() },	// downlad recorded chalkboard drawing when 'd' is pressed
+                    192: function() { RevealChalkboard.colorNext() },	// cycle colors forward when 'x' is pressed
+                     49: function() { RevealChalkboard.colorPrev() },	// cycle colors backward when 'y' is pressed
+					 13: function() { ElapsedTimeBar.isPaused ? ElapsedTimeBar.resume() : ElapsedTimeBar.pause(); }, // enter - pause
+					 82: function() { ElapsedTimeBar.reset();}, // r - reset
+				},
+				//keyboard: true,
+				allottedTime: 15 * 60 * 1000, // five minutes
+				progressBarHeight: 10,
+				barColor: '#AA2233',
+				pausedBarColor: '#C778DD',
+				hash: true,
+				controlsBackArrows: 'faded',
+				progress: true,
+				});
+		</script>
+	</body>
+</html>

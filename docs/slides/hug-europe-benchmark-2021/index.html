@@ -1,0 +1,190 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>EHUG 2021</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/blood.css">
+		<link rel="stylesheet" href="plugin/chalkboard/style.css">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/atom-one-dark.css">
+		<!--style>
+			.highlight-line {
+				background-color: rgb(94, 22, 22);
+			}
+		</style-->
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section data-markdown data-transition="zoom"  data-separator-notes="^Note:" ><textarea data-template>
+					## [benchmark](https://mpi-ehug2021.h5cpp.org)
+					## Lightning Talk
+					##### European HUG 2021 
+					##### https://github.com/steven-varga/benchmark
+					
+					* Steven Varga, independent researcher 
+					</textarea></section>				
+<section>
+	<h5> idiomatic HDF5 CAPI throughput measurement with C++
+	</h5>
+	<pre><code data-line-numbers="3,37|1,5-22|24-36|26,36|35|24,25,26,35,36|27-34,19|19-22|16-17,1,34"> <script type="text/template">using fl_string_t = char[40]; [...]
+
+int main(int argc, const char **argv){
+
+	h5::fd_t fd = h5::create("some hdf5 file.h5", H5F_ACC_TRUNC);
+	auto strings = h5::utils::get_test_data<std::string>(max_size, 10, sizeof(fl_string_t));
+	
+	std::vector<char[sizeof(fl_string_t)]> data(strings.size());
+	for (size_t i = 0; i < data.size(); i++)
+		strncpy(data[i], strings[i].data(), sizeof(fl_string_t));
+	
+	std::vector<size_t> transfer_size;
+	for (auto i : record_size)
+		transfer_size.push_back(i * sizeof(fl_string_t));
+
+	h5::dt_t<fl_string_t> dt{H5Tcreate(H5T_STRING, sizeof(fl_string_t))};
+	H5Tset_cset(dt, H5T_CSET_UTF8);
+
+	std::vector<h5::ds_t> ds;
+	for(auto size: record_size) ds.push_back(
+		h5::create<fl_string_t>(fd, fmt::format("HDF5 dataset name-{:010d}", size), 
+			chunk_size, h5::current_dims{size}, dt));
+
+	bh::throughput(
+		bh::name{"unique test case name"}, record_size, warmup, sample,
+		[&](hsize_t idx, hsize_t size) -> double {
+			// memory space
+			h5::sp_t mem_space{H5Screate_simple(1, &size, nullptr )};
+			H5Sselect_all(mem_space);
+			// file space
+			h5::sp_t file_space{H5Dget_space(ds[idx])};
+			H5Sselect_all(file_space);
+			// IO call
+			H5Dwrite( ds[idx], dt, mem_space, file_space, H5P_DEFAULT, data.data());
+			return transfer_size[idx];
+	});
+}
+</script></code></pre></section>
+<section>
+<h5>compiling and running benchmark</h5>
+<pre><code data-line-numbers="3,4|5|7|10-14"> <script type="text/template">
+steven@io:~/projects/h5bench/examples/capi$ make
+g++ -I/usr/local/include -I/usr/include -I../../include -o capi-test.o   \
+	-std=c++17 -Wno-attributes -c capi-test.cpp
+g++ capi-test.o -lhdf5  -lz -ldl -lm -o capi-test
+
+taskset 0x1 ./capi-test
+
+
+[name              ][total events][Mi events/s] [ms runtime / stddev] [    MiB/s / stddev ]
+fixed length string       10000      625.0000         0.02     0.000   24461.70     256.9
+fixed length string      100000      122.7898         0.81     0.038    4917.70     213.3
+fixed length string     1000000       80.4531        12.43     0.217    3218.60      56.6
+fixed length string    10000000       79.7568       125.38     0.140    3189.80       3.6
+</script></code></pre></section>
+
+
+
+<section>
+	<h3>knobs and levers: tweaking benchmark behaviour</h3>
+	<pre><code data-line-numbers="4,13|5,13|6,13"> <script type="text/template">
+namespace bh = h5::bench;
+
+bh::arg_x record_size{10'000, 100'000, 1'000'000, 10'000'000};
+bh::warmup warmup{3};
+bh::sample sample{10};
+h5::dcpl_t chunk_size = h5::chunk{4096};
+using fl_string_t = char[40];
+
+int main(int argc, const char **argv){
+	[...]
+	bh::throughput(
+		bh::name{"fixed length string CAPI"}, record_size, warmup, sample,
+		[&](hsize_t idx, hsize_t size) -> double {
+			[...]
+			return transferred_data_size;
+	});
+}
+</script></code></pre></section>
+
+<section data-markdown>
+<textarea data-template>
+## Features
+- IO throughput measurement 
+- micro benchmarking: running time of a function
+- ability to benchmark both C and C++ code snippet
+- significant reduction of boilerplate
+- intuitive syntax
+---
+# thank you!
+</textarea>
+</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<!--script src="plugin/chalkboard/paper-core.min.js"></script-->
+		<script src="plugin/chalkboard/plugin.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				markdown: {smartypants: true},
+				keyboard: { 13: () => {// pause/resume time when Enter is pressed
+					ElapsedTimeBar.isPaused ? ElapsedTimeBar.resume() : ElapsedTimeBar.pause();
+				},	82: () => {// reset timer when 'r' is pressed
+					ElapsedTimeBar.reset();
+				}},
+				//keyboard: true,
+				allottedTime: 5 * 60 * 1000, // five minutes
+				progressBarHeight: 10,
+				barColor: '#AA2233',
+				pausedBarColor: '#C778DD',
+				hash: true,
+				controlsBackArrows: 'faded',
+				progress: true,
+				disableLayout: false,
+				touch: false,
+				center: false,
+				width: 1280,
+				height: 1024,
+				//autoSlide: 5000,
+				//loop: true,
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealChalkboard ],
+				chalkboard: {
+        boardmarkerWidth: 3,
+        chalkWidth: 2,
+        chalkEffect: .1,
+        storage: "benchmark.json",
+        src: "benchmark.json",
+        readOnly: false,
+        messageType: 'broadcast',
+        toggleChalkboardButton: true,
+        toggleNotesButton: true,
+        colorButtons: true,
+        boardHandle: true,
+        transition: 800,
+        theme: "whiteboard",
+        background: [ 'rgba(127,127,127,.0)' , path + 'img/whiteboard.png' ],
+        grid: { color: 'rgb(50,50,10,0.1)', distance: 20, width: 1},
+        eraser: { src: path + 'img/sponge.png', radius: 20},
+		rememberColor: true,
+				},
+		dependencies: [
+			{ src: 'plugin/elapsed-time-bar/elapsed-time-bar.js'}
+  		],			
+		});
+		</script>
+	</body>
+</html>

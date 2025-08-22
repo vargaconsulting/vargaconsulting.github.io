@@ -1,0 +1,325 @@
+
+<section data-markdown data-transition="zoom"  style="text-align: left;"><textarea data-template>
+## H5CPP is a introspection based persistence solution for Modern C++
+- MPI and Serial HDF5
+- Support for Popular Linear Algebra libraries and increasing support for STL
+- CRUD-like operators
+        `h5::create | h5::write | h5::read | h5::append`  `h5::acreate | h5::awrite | h5::aread`
+- RAII - constructor acquires, destructor releases
+- C-API `hid_t` handle conversion, you can always mix HDF5 CAPI and HDF5
+- Error handling via structured exceptions
+- A high performance  packet table (arbitrary types)
+    - High throughput I/O pipeline based on [`H5D_WRITE_CHUNK`](https://portal.hdfgroup.org/display/HDF5/H5D_WRITE_CHUNK)
+- LLVM based static reflection
+- Half float support
+- HDF5 references support
+</textarea></section>
+
+<section data-markdown   style="text-align: left;"><textarea data-template>
+## HPC quality persistence only in few lines
+- HDF5 scalable data format from laptops to supercomputers
+- with LLVM based compiler assisted reflection for arbitrary complex POD struct types
+- C++ meta-programming for Pythonic syntax
+- easy to use layered error control mechanism  
+
+```cpp
+ 01:#include <h5cpp/core>
+ 02:  #include "generated.h"  // <- produced by h5cpp-compiler LLVM based tool
+ 03:#include <h5cpp/io>
+ 04:int main() {
+ 05: h5::fd_t fd = h5::create("some-file.h5",H5F_ACC_TRUNC); // cross platform: julia, R, Matlab, python, 
+ 06: try {
+ 07:   h5::pt_t pt = h5::create<sn::example::complicated_struct_t>(fd, "stream", 
+ 08:   &nbsp;&nbsp;&nbsp;&nbsp;h5::max_dims{H5S_UNLIMITED}, h5::chunk{1024} );
+ 09:   sn::example::complicated_struct_t event;
+ 10:   for(size_t i=0; i<size; i++ )
+ 11:   &nbsp;&nbsp;&nbsp;&nbsp;event.fetch = i,
+ 12:   &nbsp;&nbsp;&nbsp;&nbsp;h5::append(pt, event); // <-- ACTUAL IO
+ 13:   } catch ( const h5::error::any& e ){ ... }
+ 14:}
+```
+</textarea></section>
+<section  style="text-align: left;" >
+<h3>With easy to use Pythonic syntax:</h3>
+
+<small>The following function call provides similar, easy to use syntactic sugar we find in Python: arguments 
+may be specified in arbitrary order...
+The actual functionality is provided by `libhdf5` H5CPP simplifies the otherwise complex HDF5 C library usage </small>
+
+<pre><code>
+h5::ds_t h5::create<T>( const h5::fd_t& fd, const std::string& dataset_name,
+    h5::current_dims{n,m,...},
+    h5::max_dims{i,k, ..}, // j > n, k > m ... or H5S_UNLIMITED
+    h5::chunk{1,4,5} | h5::deflate{4} | h5::compact | h5::dont_filter_partial_chunks
+        | h5::fill_value<my_struct>{STR} | h5::fill_time_never | h5::alloc_time_early 
+        | h5::fletcher32 | h5::shuffle | h5::nbit,
+    h5::chunk_cache{...} | h5::all_coll_metadata_ops{...} | ... 
+);
+</code></pre>
+<ul>
+  <li class="fragment" data-code-focus="3">array length computed at compile time </li>
+  <li class="fragment" data-code-focus="5-7">optional, daisy chained flags for fine tuning</li>
+  <li class="fragment" data-code-focus="8">additional properties to tweak knobs and levers</li>
+  <li class="fragment" data-code-focus="3,8">argument may be in arbitrary order</li>
+
+</ul>
+<h4>Learn what you need now, but have ample of room to refine/perfect later...</h4>
+</section>
+
+
+<section  style="text-align: left;" >
+	<h3>An EXAMPLE for event recording pipeline</h3>
+<pre><code>#include &lt;h5cpp/core&gt;
+    #include "generated.h"
+#include &lt;h5cpp/io&gt;
+int main(){
+    h5::fd_t fd = h5::create("some-file.h5",H5F_ACC_TRUNC);
+    ...
+    try {
+        h5::pt_t pt = h5::create&ltsn::example::complicated_struct_t&gt(fd,
+            "/internal/path/to/dataset", h5::max_dims{H5S_UNLIMITED}, h5::chunk{1024} );
+        sn::example::complicated_struct_t event;
+        for(size_t i=0; i&ltsize; i++ )
+            h5::append(pt, event);
+    } catch ( const h5::error::any& e ){ ... }
+}
+</code></pre>
+<ul>
+  <li class="fragment" data-code-focus="12">we are to record a sequence of events</li>
+  <li class="fragment" data-code-focus="10">with some complicated layout</li>
+  <li class="fragment" data-code-focus="5">into an HDF5 container</li>
+  <li class="fragment" data-code-focus="8-9">and dataset within </li>
+  <li class="fragment" >with good IO properties</li>
+  <li class="fragment" data-code-focus="7,13">making sure things don't go wild...</li>
+
+</ul>
+</section>
+
+
+
+
+<section data-markdown data-transition="zoom"  style="text-align: left;"><textarea data-template>
+# What is behind the scenes?
+</textarea></section>
+
+<section  style="text-align: left;" >
+	<h3>The actual introspection</h3>
+<pre>
+<code>#include &lt;h5cpp/core&gt;
+  #include "generated.h"
+#include &lt;h5cpp/io&gt;
+int main(){
+    h5::fd_t fd = h5::create("lightning-talk-example.h5",H5F_ACC_TRUNC);
+    h5::pt_t pt = h5::create<sn::example::complicated_struct_t>(fd, "stream",
+        h5::max_dims{H5S_UNLIMITED}, h5::chunk{1024} );
+    ...
+    try {
+        h5::pt_t pt = h5::create&ltsn::example::complicated_struct_t&gt(fd,
+            "/inernal/path/to/dataset", h5::max_dims{H5S_UNLIMITED}, h5::chunk{1024} );
+        sn::example::complicated_struct_t event;
+        for(size_t i=0; i&ltsize; i++ )
+            h5::append(pt, event);
+    } catch ( const h5::error::any& e ){ ... }
+}
+</code></pre>
+<ul>
+    <li class="fragment" data-code-focus="2,14">notice the included 'generated.h'</li>
+    <li class="fragment">as the name suggest: <b>generated.h</b> doesn't exist yet...</li>
+</ul>
+</section>
+
+
+<!--section data-transition="zoom"  data-separator-notes="^Note:"  style="text-align: left;">
+    <h3><span>We need&nbsp;</span><span class="fragment" data-fragment-index="10">Introspection / Reflection </span>
+        <span class="fragment fade-in" data-fragment-index="1">
+            <small>method to retrieve field names of C++ class types</small></span></h3>
+    <div class="fragment"  data-fragment-index="4" >C++  mailing list and papers categorized as related to reflection  </div>
+    <ul style="font-size: .3em;">
+        <li><a href="http://www.open-std.org/jtc1/SC22/wg21/docs/papers/2019/"> 2019</a> 8 entries</li>
+            <ul>
+                <li>P1390R0	Suggested Reflection TS NB Resolutions	Matúš Chochlík, Axel Naumann, and David Sankel </li>
+                <li>P1390R1	Reflection TS NB comment resolutions: summary and rationale	Matúš Chochlík, Axel Naumann, and David Sankel</li>
+                <li>N4818	Working Draft, C++ Extensions for Reflection	David Sankel</li>
+                <li>P1733R0	User-friendly and Evolution-friendly Reflection: A Compromise	David Sankel, Daveed Vandevoorde</li>
+                <li>P1749R0	Access control for reflection	Yehezkel Bernat</li>
+                <li>P1240R1	Scalable Reflection in C++	Daveed Vandevoorde, Wyatt Childers, Andrew Sutton, Faisal Vali, Daveed Vandevoorde</li>
+                <li>P1887R0	Typesafe Reflection on attributes	Corentin Jabot</li>
+            </ul>
+        <li><a href="http://www.open-std.org/jtc1/SC22/wg21/docs/papers/2018/"> 2018</a> 13 entries</li>
+            <ul>
+                <li>P0194R5	Static reflection by Matúš Chochlík, Axel Naumann, David Sankel</li>
+                <li>P0670R2	Static reflection of functions by Matúš Chochlík, Axel Naumann, David Sankel</li>
+                <li>P0954R0 What do we want to do with reflection?	Bjarne Stroustrup</li>
+                <li>P0993R0	Value-based Reflection	Andrew Sutton, Herb Sutter</li>
+                <li>P0572R2	Static reflection of bit fields	Alex Christensen</li>
+                <li>P0670R3	Function reflection	 Matúš Chochlík, Axel Naumann, David Sankel</li>
+                <li>P1240R0	Scalable Reflection in C++	Andrew Sutton, Faisal Vali, Daveed Vandevoorde</li>
+            </ul>
+        <li><a href="http://www.open-std.org/jtc1/SC22/wg21/docs/papers/2017/"> 2017</a> 14 entries</li>
+            <ul>
+                <li>P0194R3	Static reflection by Matúš Chochlík, Axel Naumann, David Sankel</li>
+                <li>P0385R2	Static reflection: Rationale, design and evolution by Matúš Chochlík, Axel Naumann, David Sankel</li>
+                <li>P0578R0	Static Reflection in a Nutshell by 	Matúš Chochlík, Axel Naumann, David Sankel</li>
+                <li>P0590R0	A design static reflection: Andrew Sutton, Herb Sutter </li>
+                <li>P0598R0	Reflect Through Values Instead of Types by Daveed Vandevoorde</li>
+            </ul>
+        <li><a href="http://www.open-std.org/jtc1/SC22/wg21/docs/papers/2016/">2016</a> 19 entries</li>
+            <ul>
+                <li>P0194R0	Static reflection (revision 4)	Matus Chochlik, Axel Naumann</li>
+                <li>P0255R0	C++ Static Reflection via template pack expansion	Cleiton Santoia Silva, Daniel Auresco </li>
+                <li>P0256R0	C++ Reflection Light	Cleiton Santoia Silva </li>
+                <li>P0327R0	Product types access	Vicente J. Botet Escriba </li>
+                <li>P0341R0	parameter packs outside of templates	Mike Spertus </li>
+                <li>Static reflection: Rationale, design and evolution	Matúš Chochlík, Alex Naumann</li>
+            </ul>
+    </ul>
+    <div class="fragment rotated"  data-fragment-index="10" >introspection/reflection is non-trivial, not yet available as a language feature<div>
+</section-->
+<section data-markdown data-transition="zoom"  style="text-align: left;"><textarea data-template>
+## PHASE I
+### Invoke ```h5cpp``` compiler on TU translation unit:
+```sh
+h5cpp  packettable.cpp -- $(CXXFLAGS) -I/usr/include/h5cpp-llvm -Dgenerated.h
+```
+any variable of POD structure referenced with:
+
+```cpp
+h5::create | h5::write | h5::read | h5::append
+h5::acreate | h5::awrite | h5::aread
+```
+operators are processed in topological order, and the output is...
+</textarea></section>
+
+<section  style="text-align: left;" >
+<h3>A header file with HDF5 Compound Type descriptors:</h3>
+<pre><code>#ifndef H5CPP_GUARD_ErRrk
+#define H5CPP_GUARD_ErRrk
+namespace h5{
+    template<> hid_t inline register_struct<sn::example::Record>(){
+        hsize_t at_00_[] ={7};            hid_t at_00 = H5Tarray_create(H5T_NATIVE_FLOAT,1,at_00_);
+        hsize_t at_01_[] ={3};            hid_t at_01 = H5Tarray_create(H5T_NATIVE_DOUBLE,1,at_01_);
+        hid_t ct_00 = H5Tcreate(H5T_COMPOUND, sizeof (sn::typecheck::Record));
+        H5Tinsert(ct_00, "_char",	HOFFSET(sn::typecheck::Record,_char),H5T_NATIVE_CHAR);
+		...
+		H5Tclose(at_03); H5Tclose(at_04); H5Tclose(at_05); 
+        return ct_02;
+    };
+}
+H5CPP_REGISTER_STRUCT(sn::example::Record);
+#endif
+</code></pre>
+<ul>
+  <li class="fragment" data-code-focus="1-2,15">random include guards</li>
+  <li class="fragment" data-code-focus="3,13">within namespace </li>
+  <li class="fragment" data-code-focus="4,12">template specialization for h5::operators</li>
+  <li class="fragment" data-code-focus="7-8">HDF5 compound types are recursively created</li>
+  <li class="fragment" data-code-focus="14">calls the template specialization when h5::operator needs it</li>
+</ul>
+</section>
+
+<section data-markdown data-transition="zoom"  style="text-align: left;"><textarea data-template>
+## PHASE II.
+### Invoke your favourite CPP compiler on TU translation unit
+
+```sh
+g++  -o packettable.o  $(CXXFLAGS) -c packettable.cpp
+```
+### link against serial or parallel HDF5
+```sh
+g++ packet_table.o -lhdf5 -lz -ldl -lm -o packet_table
+```
+## Done!
+</textarea></section>
+<section data-markdown data-transition="zoom">
+   # How far does it go in terms of complexity? 
+</section>
+<section  style="text-align: left;" >
+<h3>Fairly complex POD struct</h3>
+<pre><code>namespace typecheck {
+    struct struct_t { /*the types with direct mapping to HDF5*/
+        char  _char; unsigned char _uchar; short _short; unsigned short _ushort; int _int; unsigned int _uint;
+        long _long; unsigned long _ulong; long long int _llong; unsigned long long _ullong;
+        float _float; double _double; long double _ldouble;
+        bool _bool;
+        // wide characters are not supported in HDF5
+        // wchar_t _wchar; char16_t _wchar16; char32_t _wchar32;
+    };
+}
+namespace other {
+    struct struct_t {                    // POD struct with nested namespace
+        type_alias_t                idx; // typedef type 
+        double              field_02[3]; // const array mapped 
+        typecheck::struct_t field_03[4]; //
+    };
+}
+namespace example {
+    struct complicated_struct_t {        // POD struct with nested namespace
+        type_alias_t                idx; // typedef type 
+        float                 array[7];  // array of elementary types
+        sn::other::struct_t field_04[5]; // embedded struct 1D array
+        other::struct_t  field_05[3][8]; // array of arrays 
+    };
+}
+</code></pre></section>
+<section data-markdown data-transition="zoom"  style="text-align: left;"><textarea data-template>
+    # <small>Another popular EXAMPLE:</small> [CSV to HDF5](https://github.com/steven-varga/h5cpp/tree/master/examples/csv)
+    ## follow this link to [H5CPP examples](https://github.com/steven-varga/h5cpp/tree/master/examples), and [HDF5 USERgroup: SOLVED!](https://github.com/steven-varga/HDFGroup-mailinglist)
+    </textarea></section>
+<section  style="text-align: left;" >
+    <h3>Comma Separated Values to HDF5</h3>
+    <pre><code>#include "csv.h"
+#include "struct.h"
+#include &lt;h5cpp/core&gt;      // has handle + type descriptors
+    #include "generated.h" // uses type descriptors
+#include &lt;h5cpp/io&gt;        // uses generated.h + core 
+
+int main(){
+    h5::fd_t fd = h5::create("output.h5",H5F_ACC_TRUNC);
+    h5::ds_t ds = h5::create&lt;input_t&gt;(fd,  "simple approach/dataset.csv",
+                    h5::max_dims{H5S_UNLIMITED}, h5::chunk{10} | h5::gzip{9} );
+    h5::pt_t pt = ds;
+    ds["data set"] = "monroe-county-crash-data2003-to-2015.csv";
+    ds["cvs parser"] = "https://github.com/ben-strasser/fast-cpp-csv-parser";
+
+    constexpr unsigned N_COLS = 5;
+    io::CSVReader&lt;N_COLS&gt; in("input.csv"); // number of cols may be less, than total columns in a row, we're to read only 5
+    in.read_header(io::ignore_extra_column, "Master Record Number", "Hour", "Reported_Location","Latitude","Longitude");
+    input_t row;                           // buffer to read line by line
+    char* ptr;      // indirection, as `read_row` doesn't take array directly
+    while(in.read_row(row.MasterRecordNumber, row.Hour, ptr, row.Latitude, row.Longitude)){
+        strncpy(row.ReportedLocation, ptr, STR_ARRAY_SIZE); // defined in struct.h
+        h5::append(pt, row);
+    }
+}
+    </code></pre>
+    <ul style="text-align: left; font-size: .6em"  >
+      <li class="fragment" data-code-focus="1-2">CSV header only library by Ben Strasser, and a type definition for the record</li>
+      <li class="fragment" data-code-focus="3-5">h5cpp includes</li>
+      <li class="fragment" data-code-focus="7,23">translation unit, the program</li>
+      <li class="fragment" data-code-focus="8-11">create HDF5 container, and dataset</li >
+      <li class="fragment" data-code-focus="12-13">decorate it with attributes</li>
+      <li class="fragment" data-code-focus="20,22">do I/O operations within a loop</li>
+    </ul>
+    </section>
+    <section  style="text-align: left;" >
+        <h3>Speaking of Attributes</h3>
+        <p>Here are some examples... notice the visually appealing bracket operators:</p>
+        <pre><code>h5::ds_t ds = h5::write(fd,"some dataset with attributes", ... );
+        ds["att_01"] = 42 ;
+        ds["att_02"] = {1.,3.,4.,5.};
+        ds["att_03"] = {'1','3','4','5'};
+        ds["att_04"] = {"alpha", "beta","gamma","..."};
+        ds["att_05"] = "const char[N]";
+        ds["att_06"] = u8"const char[N]áééé";
+        ds["att_07"] = std::string( "std::string");
+        ds["att_08"] = record; // pod/compound datatype
+        ds["att_09"] = vector; // vector of pod/compound type
+        ds["att_10"] = matrix; // linear algebra object
+        </code></pre>
+        <ul>
+          <li class="fragment" data-code-focus="1">obtain a handle by h5::create | h5::open | h5::write </li>
+          <li class="fragment" data-code-focus="2,9-11">rank N objects, even compound types when h5cpp compiler used</li>
+          <li class="fragment" data-code-focus="3-5">arrays of various element types</li>
+          <li class="fragment" data-code-focus="6-8">mapped to rank 0 variable length character types</li>
+        </ul>
+        </section>

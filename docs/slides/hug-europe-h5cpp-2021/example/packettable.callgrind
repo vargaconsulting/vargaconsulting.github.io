@@ -1,0 +1,108 @@
+events: Hits
+
+fl=(1) /build/glibc-OTsEL5/glibc-2.27/csu/../csu/libc-start.c
+fn=(1) __libc_start_main
+cfl=??
+cfn=(2) main
+calls=8 0
+310 8
+
+fl=(2) /build/glibc-OTsEL5/glibc-2.27/posix/../sysdeps/unix/sysv/linux/pwrite64.c
+fn=(3) __libc_pwrite64
+29 7
+
+fl=(3) /build/glibc-OTsEL5/glibc-2.27/string/../sysdeps/x86_64/multiarch/memmove-vec-unaligned-erms.S
+fn=(4) __memmove_avx_unaligned_erms
+249 1
+
+fl=??
+fn=(5) h5::pt_t::append
+cfl=??
+cfn=(6) h5::impl::pipeline_t::write_chunk
+calls=7 0
+0 7
+
+fl=??
+fn=(5)
+cfl=(3)
+cfn=(4)
+calls=1 249
+0 1
+
+fl=??
+fn=(7) h5::impl::basic_pipeline_t::write_chunk_impl
+cfl=??
+cfn=(8) H5Dwrite_chunk
+calls=7 0
+0 7
+
+fl=??
+fn=(9) H5PB_write
+cfl=??
+cfn=(10) H5F__accum_write
+calls=7 0
+0 7
+
+fl=??
+fn=(11) H5F_block_write
+cfl=??
+cfn=(9)
+calls=7 0
+0 7
+
+fl=??
+fn=(8)
+cfl=??
+cfn=(12) H5D__chunk_direct_write
+calls=7 0
+0 7
+
+fl=??
+fn=(10)
+cfl=??
+cfn=(13) H5FD_write
+calls=7 0
+0 7
+
+fl=??
+fn=(12)
+cfl=??
+cfn=(11)
+calls=7 0
+0 7
+
+fl=??
+fn=(6)
+cfl=??
+cfn=(7)
+calls=7 0
+0 7
+
+fl=??
+fn=(13)
+cfl=(4) H5FDsec2.c
+cfn=(14) H5FD_sec2_write
+calls=7 0
+0 7
+
+fl=??
+fn=(15) h5::append
+cfl=??
+cfn=(5)
+calls=8 0
+0 8
+
+fl=??
+fn=(2)
+cfl=??
+cfn=(15)
+calls=8 0
+0 8
+
+fl=(4)
+fn=(14)
+cfl=(2)
+cfn=(3)
+calls=7 29
+0 7
+

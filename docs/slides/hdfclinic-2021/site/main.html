@@ -1,0 +1,32 @@
+<!-- from root directory: node node_modules/reveal-notes-server -->
+<section data-markdown data-transition="zoom"  data-separator-notes="^Note:" ><textarea data-template>
+#### fixed and variable length strings IO performance 
+#### Examples: [source files on github](https://github.com/steven-varga/HDFGroup-mailinglist/tree/master/non-pod-struct-2021-apr-29)
+##### [h5bench](https://github.com/steven-varga/h5bench) performance measurement templates 
+
+##### Steven Varga, vargaconsulting.ca Toronto, ON, Canada
+</textarea></section>
+
+<section data-markdown data-transition="zoom"  data-separator-notes="^Note:" ><textarea data-template>
+## outline
+1. POD types, standard layout types 
+2. Variable length strings vs fixed length strings
+3. POD example with fixed length strings
+4. referencing string with ID field vs HDF5 index
+5. performance evaluation 
+</textarea></section>
+
+include "h5cpp/pod.html"
+include "h5cpp/type_descriptor.html"
+include "h5cpp/h5bench.html"
+
+<section data-markdown data-transition="zoom"  data-separator-notes="^Note:" ><textarea data-template>
+    ## related projects:
+    - [H5CPP](https://github.com/steven-varga/h5cpp) templates for HDF5 supporting major linear algebra systems and the STL
+    - [H5CPP-compiler](https://github.com/steven-varga/h5cpp-compiler) an LLVM based reflection tool for compiler assisted reflection
+    - [H5BENCH](https://github.com/steven-varga/h5bench) becnchmarking templates for HDF5 CAPI and H5CPP
+    - [H5RND](https://github.com/steven-varga/h5rnd) a prufer sequence based random data generator
+    - [plots](https://github.com/steven-varga/plots) C++ plots with pythonic syntax
+
+    ## Thank you!!!
+</textarea></section>
