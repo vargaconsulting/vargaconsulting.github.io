@@ -18,13 +18,7 @@ nav:
   - NSS: site/nss.md
   - Orderbook: site/orderbook.md
   - UDS: site/uds.md
-  - Presentations:
-    - C++ Tool Fair 2021 String Performance: slides/string-performance/index.html
-    - C++ Toronto 2021: slides/cpp-toronto-2021/index.html
-    - FNAL 2021 Online: slides/fnal-online-2021/index.html
-    - Webinar 2020: slides/hdfgroup-webinar-2020/index.html
-    - HUG Online 2020: slides/hug-online-2020/index.html
-    - C++ Chicago 2018: slides/cpp-chigago-2018/index.html
+  - Presentations: site/talks.md
 
 theme:
   name: material
