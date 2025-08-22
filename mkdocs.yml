@@ -2,22 +2,23 @@ site_name: VARGA CONSULTING
 docs_dir: docs
 nav:
   - Introduction: index.md
-  - IEX2H5: site/iex2h5.md
-  - Radix64: site/radix64.md
-  - TinyCrypto: site/tinycrypto.md
-  - H5CPP header only: site/h5cpp.md
-  - H5CPP compiler: site/h5cpp-compiler.md
-  - Decimal Float C++: site/decimalfloat-cpp.md
-  - Decimal Float Python: site/decimalfloat-python.md
-  - IEX Download: site/iexdownload.md
-  - OpenSSL++: site/openssl.md
-  - BIP: site/bip.md
-  - EIP: site/eip712.md
-  - Generics C++: site/generics.md
-  - KMS: site/kms.md
-  - NSS: site/nss.md
-  - Orderbook: site/orderbook.md
-  - UDS: site/uds.md
+  - Projects:
+    - IEX2H5: site/iex2h5.md
+    - Radix64: site/radix64.md
+    - TinyCrypto: site/tinycrypto.md
+    - H5CPP header only: site/h5cpp.md
+    - H5CPP compiler: site/h5cpp-compiler.md
+    - Decimal Float C++: site/decimalfloat-cpp.md
+    - Decimal Float Python: site/decimalfloat-python.md
+    - IEX Download: site/iexdownload.md
+    - OpenSSL++: site/openssl.md
+    - BIP: site/bip.md
+    - EIP: site/eip712.md
+    - Generics C++: site/generics.md
+    - KMS: site/kms.md
+    - NSS: site/nss.md
+    - Orderbook: site/orderbook.md
+    - UDS: site/uds.md
 
 theme:
   name: material
