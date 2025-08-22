@@ -1,0 +1,23 @@
+<!-- Site built using grunt includes! -->
+
+
+
+<section data-background="#eeffcc" data-background-transition="zoom" >
+<h3>What if I don't quite recall the syntax?</h3>
+<pre><code class="cpp", data-trim>
+h5::write( ..., /* is this the right order: */
+	h5::current_dims{40,50}, h5::offset{5,0}, h5::stride{4,4}, h5::block{3,3} );
+...
+h5::write( ..., /* or may be this? */
+	h5::offset{5,0}, h5::block{3,3}, h5::current_dims{40,50}, h5::stride{4,4} );
+...
+</code></pre>
+
+<p class="fragment" data-code-focus="1-2">usually a function signature is strict</p>
+<p class="fragment" data-code-focus="3-7">but what if we want something flexible? </p>
+<p class="fragment"> with compile time piece wise construction the functions only make the necessary calls...</p>
+<p class="fragment"> and named, type safe arguments may be in arbitrary order</p>
+
+
+</section>
+

@@ -1,0 +1,19 @@
+<!-- Site built using grunt includes! -->
+
+
+
+<h3>Create</h3>
+<section>
+<pre><code class="cpp", data-trim>
+h5::fd_t fd = h5::create(
+	"some filename.h5",
+	H5F_ACC_TRUNC,
+	h5::file_space_page_size{4096} | h5::userblock{512},
+	h5::fclose_degree_weak | h5::fapl_core{2048,1} 
+	);
+</code></pre>
+  <p class="fragment" data-code-focus="3"> flags: H5F_ACC_TRUNC | H5F_ACC_EXCL </p>
+  <p class="fragment" data-code-focus="4"> creation property lists </p>
+  <p class="fragment" data-code-focus="5"> access property lists </p>
+</section>
+

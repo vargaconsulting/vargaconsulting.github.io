@@ -1,0 +1,37 @@
+<!-- vargaconsulting.ca -->
+<!--section>
+<img src="pix/nfa.gif" height="200" style="float:left;" >
+	<h3>Compiler</h3>
+	<p class="fragment">POD to HDF5 Data Description Lanaguage</p>
+	<p class="fragment">Flex + Bison vs LLVM + Clang++ Tooling</p>
+	<p class="fragment">AST from source code</p>
+	<p class="fragment">Topological sort</p>
+	<p class="fragment">Emitting source code</p>
+</section-->
+
+<section>
+<img src="pix/nfa.gif" height="200" style="float:left;" >
+	<h3>Compiler</h3>
+	<section>
+		<h3>what does it do</h3>
+		<ul>
+			<li>LLVM7.0.0 based parser generates the AST of the TU Translation Unit</li>
+			<li>objects marked/painted with the operators are identified,</li>
+
+			<li>topological reordering of dependency graph</li>
+			<li>elimination </li>
+			<li>code generation: HDF5 Data Description Language</li>
+			<li>include the generated header file into your TU translation unit</li>
+			<li>second stage: invoke your favourite compiler: intel, gcc, cray, ibm, pg,  ... </li>
+		</ul>
+	</section>
+</section>
+<section>
+	<h3>Goodies</h3>
+		<ul>
+			<li>H5CPP.CA</li>
+			<li>LIVE DEMO: http://h5cpp.ca/cgi/redirect.py</li>
+			<li>ami-38726547</li>
+		</ul>
+</section>
+

@@ -18,6 +18,8 @@ nav:
   - NSS: site/nss.md
   - Orderbook: site/orderbook.md
   - UDS: site/uds.md
+  - Presentations:
+    - C++ Chicago 2018: slides/cpp-chigago-2018/index.html
 
 theme:
   name: material
