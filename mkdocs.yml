@@ -20,8 +20,7 @@ nav:
     - NSS: site/nss.md
     - Orderbook: site/orderbook.md
     - UDS: site/uds.md
-  - Blog:
-    - blog/index.md
+  - Blog: blog/index.md
 plugins:
   - search
   - blog:
