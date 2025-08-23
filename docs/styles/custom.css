@@ -91,9 +91,25 @@
 .icon {
   color:var(--md-primary-fg-color);
 }
+.example {
+  color: var(--md-primary-fg-color);
+  font-size: 1.2em;    /* replaces `.lg` if you want bigger icons */
+  vertical-align: middle;
+  padding-right: .5em;
+}
+
+html[data-md-color-scheme="slate"] 
+.inverted {
+  color: white;
+}
+
+html[data-md-color-scheme="solarized"] .inverted {
+  color: red;
+}
+
 .space-right {margin-right: 1em;}
 .red { color:red}
-
+.white { color:white}
 
 img[src$="#float-right-10"] {
   float: right;
@@ -165,5 +181,13 @@ img[src$="#float-left-70"] {
   margin: 0 1em 1em 0;
   max-width: 70%;
 }
+/* Remove the default mask-based pseudo-icon */
+.md-typeset details.example > summary::before {
+  content: none !important;
+}
 
-
+.md-typeset .admonition-title,
+.md-typeset details > summary {
+  padding-left: .6rem !important;   /* was 2rem, now tighter */
+  padding-right: .6rem;            /* keep the right padding */
+}
