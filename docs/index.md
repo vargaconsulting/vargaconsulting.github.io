@@ -80,7 +80,7 @@ As an independent researcher and systems architect, I work hands-on with organiz
 * :material-hammer-wrench:{.icon} **Collaborative** — I work closely with clients, often on long-term, high-impact systems.
 * :material-check-all:{.icon} **Transparent** — Every project comes with clear scope, well-structured code, and measurable outcomes.
 
-## :material-handshake-outline:{.icon} Let's Talk :material-hand-pointing-right:{.pulsate} [:material-email-fast:{.lg}][email] [:material-whatsapp:{.lg}][whatsup][:material-twitter:{.lg}][twitter][:material-linkedin:{.lg}][linkedin][:simple-discord:{.lg}][discord]
+## :material-handshake-outline:{.icon} Let's Talk :material-hand-pointing-right:{.pulsate} [:material-email-fast:{.lg}][email][:material-linkedin:{.lg}][linkedin][:material-whatsapp:{.lg}][whatsup][:simple-discord:{.lg}][discord]
 
 [email]: mailto:steven@vargaconsulting.ca
 [whatsup]: https://wa.me/16475611829
