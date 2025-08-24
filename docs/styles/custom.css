@@ -23,7 +23,11 @@
   display: inline-block;
 }
 
-
+@media (max-width: 768px) {
+  .md-header__option .md-social-inline {
+    display: none !important;
+  }
+}
 
 /* Push left/right ends apart, prevent wrap of the right side */
 .md-footer .custom-footer-left  { margin-right: auto; }
