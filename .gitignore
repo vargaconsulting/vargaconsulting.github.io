@@ -10,3 +10,5 @@ build/
 /*.html
 /*.xml
 
+
+docs/blog/index.md
