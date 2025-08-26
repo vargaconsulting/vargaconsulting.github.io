@@ -4,6 +4,7 @@ site_description: Advanced Systems for Trading, Cryptography, and Data Engineeri
 site_author: Steven Varga
 copyright: Steven Varga
 docs_dir: docs
+twitter_handle: "@vargaconsulting"
 nav:
   - Introduction: index.md
   - Presentations: site/talks.md  
