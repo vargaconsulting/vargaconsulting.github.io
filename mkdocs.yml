@@ -75,7 +75,13 @@ extra:
     - material
     - fontawesome/brands
     - fontawesome/solid
-    
+
+  analytics:
+    provider: google
+    property: G-L58Z6SZ3TN
+
+
+
 markdown_extensions:
   - admonition
   - attr_list
