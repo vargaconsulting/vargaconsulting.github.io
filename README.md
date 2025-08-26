@@ -42,3 +42,14 @@ mkdocs build -v                       # generate website locally
 reset && mkdocs serve --dev-addr=127.0.0.1:9000     # start mkdocs
 curl -s http://localhost:9000/rss.xml  # 
 ```
+
+## Test Social Card
+```bash
+Usage: node generate-social-card.mjs <output_dir> <url> <slug>
+Example:
+  node generate-social-card.mjs ../docs/assets/social https://vargaconsulting.github.io/blog from-curve-to-signature
+`);
+
+cd .og-generator
+node generate-all-social-cards.mjs
+```

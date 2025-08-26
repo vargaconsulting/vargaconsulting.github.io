@@ -11,3 +11,5 @@ build/
 /*.xml
 
 site/
+
+.og-generator/node_modules/

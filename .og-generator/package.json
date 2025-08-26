@@ -1,0 +1,16 @@
+{
+  "name": "og-generator",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Social card screenshot generator using Puppeteer",
+  "scripts": {
+    "generate": "node generate-social-card.mjs",
+    "generate:all": "node generate-all-social-cards.mjs"
+  },
+  "dependencies": {
+    "puppeteer": "^24.9.0"
+  },
+  "engines": { "node": ">=18.0.0" },
+  "author": "Steven Varga",
+  "license": "Propriety"
+}
