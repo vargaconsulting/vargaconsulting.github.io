@@ -1,4 +1,8 @@
-site_name: VARGA LABS
+site_name: Varga LABS
+site_url: https://steven-varga.ca
+site_description: Advanced Systems for Trading, Cryptography, and Data Engineering
+site_author: Steven Varga
+copyright: Steven Varga
 docs_dir: docs
 nav:
   - Introduction: index.md
@@ -20,14 +24,28 @@ nav:
     - NSS: site/nss.md
     - Orderbook: site/orderbook.md
     - UDS: site/uds.md
-  - Blog: blog/index.md
+  - Blog: 
+      - Blog: blog/index.md
 plugins:
   - search
   - blog:
       blog_dir: blog
+      blog_toc: true
       categories: true
-      pagination_per_page: 10
+      categories_name: Categories
+      categories_url_format: "{slug}"
+      categories_toc: true
+      archive: true
+      archive_name: Posts
+      archive_date_format: MMMM yyyy
+      archive_url_format: "{date}"
+      archive_toc: true
+      post_url_format: "{slug}"
+      post_url_max_categories: 2      
+      post_readtime: true
+      post_readtime_words_per_minute: 60
 
+  # rss: <- do not use, we have custom script: scripts/rss-build-feed.py
 theme:
   name: material
   custom_dir: docs/overrides
