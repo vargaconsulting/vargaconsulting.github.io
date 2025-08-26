@@ -74,20 +74,12 @@ extra:
       link: https://wa.me/16475611829
     - icon: material/email-fast
       link: mailto:steven@vargaconsulting.ca
-    - icon: simple/reddit
-      link: https://www.reddit.com/user/vargaconsulting/submitted/
-    - icon: simple/substack
-      link: https://substack.com/@vargaconsulting
-    - icon: simple/medium
-      link: https://medium.com/@steven.varga            
     - icon: material/twitter
       link: https://x.com/vargaconsulting
     - icon: material/linkedin
       link: https://www.linkedin.com/in/steven-varga-04224a19/
     - icon: material/github 
       link: https://github.com/vargaconsulting
-    - icon: simple/discord
-      link: https://discord.gg/rZHgg2HpsD
 
   icons:
     - material
