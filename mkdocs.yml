@@ -1,4 +1,5 @@
 site_name: VARGA LABS
+site_url: https://steven-varga.ca/
 docs_dir: docs
 nav:
   - Introduction: index.md
