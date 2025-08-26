@@ -4,7 +4,7 @@ on:
     branches: [release, staging]
 
 permissions:
-  contents: write 
+  contents: write
 
 jobs:
   deploy:
@@ -19,12 +19,16 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Install MkDocs + Material theme
+      - name: Install dependencies
         run: |
           pip install mkdocs mkdocs-material
+          pip install python-frontmatter jinja2 python-dateutil pyyaml
 
       - name: Build documentation
         run: mkdocs build
+
+      - name: Build feeds (RSS + JSON)
+        run: python scripts/rss-build-feed.py
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
