@@ -1,0 +1,35 @@
+steven@saturn:~$ sudo fio --name=nvme_seq_write_real --filename=/home/steven/scratch/fio-write-test.bin
+    --rw=write --bs=1M --size=100G --numjobs=1 --ioengine=psync --direct=1 --group_reporting
+
+nvme_seq_write_real: (g=0): rw=write, bs=(R) 1024KiB-1024KiB, (W) 1024KiB-1024KiB, (T) 1024KiB-1024KiB, ioengine=psync, iodepth=1
+fio-3.28
+Starting 1 process
+nvme_seq_write_real: Laying out IO file (1 file / 102400MiB)
+Jobs: 1 (f=1): [W(1)][100.0%][w=1410MiB/s][w=1410 IOPS][eta 00m:00s]
+nvme_seq_write_real: (groupid=0, jobs=1): err= 0: pid=3048070: Sat Aug 30 18:44:43 2025
+write: IOPS=1989, BW=1990MiB/s (2087MB/s)(100GiB/51460msec); 0 zone resets
+    clat (usec): min=211, max=232270, avg=462.02, stdev=3175.40
+    lat (usec): min=232, max=232302, avg=502.00, stdev=3176.05
+    clat percentiles (usec):
+    |  1.00th=[   217],  5.00th=[   221], 10.00th=[   225], 20.00th=[   227],
+    | 30.00th=[   229], 40.00th=[   233], 50.00th=[   241], 60.00th=[   281],
+    | 70.00th=[   318], 80.00th=[   375], 90.00th=[   529], 95.00th=[   693],
+    | 99.00th=[  1762], 99.50th=[  4883], 99.90th=[ 27132], 99.95th=[ 50070],
+    | 99.99th=[149947]
+bw (  MiB/s): min=  534, max= 3574, per=100.00%, avg=1997.23, stdev=784.43, samples=102
+iops        : min=  534, max= 3574, avg=1997.15, stdev=784.48, samples=102
+lat (usec)   : 250=52.21%, 500=36.83%, 750=6.89%, 1000=1.85%
+lat (msec)   : 2=1.34%, 4=0.31%, 10=0.22%, 20=0.14%, 50=0.17%
+lat (msec)   : 100=0.02%, 250=0.03%
+cpu          : usr=8.02%, sys=23.04%, ctx=102593, majf=0, minf=14
+IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+    submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+    complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+    issued rwts: total=0,102400,0,0 short=0,0,0,0 dropped=0,0,0,0
+    latency   : target=0, window=0, percentile=100.00%, depth=1
+
+Run status group 0 (all jobs):
+WRITE: bw=1990MiB/s (2087MB/s), 1990MiB/s-1990MiB/s (2087MB/s-2087MB/s), io=100GiB (107GB), run=51460-51460msec
+
+Disk stats (read/write):
+nvme0n1: ios=6052/319248, merge=0/35, ticks=4761/121381, in_queue=138161, util=95.95%
