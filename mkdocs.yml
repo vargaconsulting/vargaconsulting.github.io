@@ -51,7 +51,7 @@ theme:
   custom_dir: docs/overrides
   highlightjs: true
   features:
-    #- navigation.instant <- messes up mathjax, keep it disabled!
+    #- navigation.instant #<- messes up mathjax, keep it disabled!
     - search.suggest
     - content.code.copy
     - content.tooltips    
@@ -113,6 +113,15 @@ markdown_extensions:
   - pymdownx.tilde  
   - pymdownx.critic
   - pymdownx.keys
+  - pymdownx.snippets:
+      base_path:
+        - docs/blog/specs
+        - docs/blog/examples
+        - docs/blog/posts
+        - docs/blog/pics
+        - docs/blog/data
+        - docs/blog/scripts
+  
 extra_javascript:
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
   - https://cdn.tailwindcss.com 
