@@ -49,7 +49,6 @@ plugins:
 theme:
   name: material
   custom_dir: docs/overrides
-  highlightjs: true
   features:
     #- navigation.instant #<- messes up mathjax, keep it disabled!
     - search.suggest
@@ -80,10 +79,7 @@ extra:
       link: https://www.linkedin.com/in/steven-varga-04224a19/
     - icon: material/github 
       link: https://github.com/vargaconsulting
-  icons:
-    - material
-    - fontawesome/brands
-    - fontawesome/solid
+
   analytics:
     provider: google
     property: G-L58Z6SZ3TN
@@ -106,7 +102,6 @@ markdown_extensions:
       generic: true
   - pymdownx.details
   - pymdownx.superfences
-  - pymdownx.snippets
   - pymdownx.blocks.caption
   - pymdownx.caret
   - pymdownx.mark
@@ -123,10 +118,10 @@ markdown_extensions:
         - docs/blog/scripts
   
 extra_javascript:
+  - javascripts/mathjax.js
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
   - https://cdn.tailwindcss.com 
   - javascripts/tw-config.js   
-  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
   - https://cdn.jsdelivr.net/npm/asciinema-player@3.0.1/dist/bundle/asciinema-player.js
   - https://unpkg.com/alpinejs@3.14.9/dist/cdn.min.js
   - https://unpkg.com/@popperjs/core@2
