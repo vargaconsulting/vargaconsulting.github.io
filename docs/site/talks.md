@@ -1,9 +1,8 @@
 # Presentations Portfolio
 
-A curated set of talks on HDF5, C++, HPC, and performance engineering.  
-Click a title to open the live Reveal.js deck.  
+### 2025
 
-*⚠️ Some presentations are currently unavailable. See [note](#note).*
+* [**Call the Doctor: IEX2H5 Deep Dive**][400] — featured guest on The HDF Group’s *Call the Doctor* series (August 5, 2025). In conversation with Gerd Heber, explored the architecture and performance of **IEX2H5**, a high-throughput C++ pipeline for converting IEX-TOPS PCAP data into structured HDF5 time-series datasets. Covered RTS/IRTS schema, vectorized ingest, and persistent market snapshots. \[[:material-youtube: Watch on YouTube][400]]
 
 
 ## 2021
@@ -31,8 +30,9 @@ Click a title to open the live Reveal.js deck.
 - [**C++ Chicago 2018**][100] — early H5CPP concepts, type reflection, and persistent containers. [:material-link:][100]
 
 ## Note
-Some presentations marked with a link may no longer be available (files lost, migrated, or out of service). If a link fails with a 404, the deck is currently offline.
+Presentations marked with ⚠️ a link may no longer be available (files lost, migrated, or out of service). 
 
+[400]: https://www.youtube.com/watch?v=VCPYPWRraQQ
 [300]: ../slides/hdfclinic-2021/index.html
 [301]: ../slides/cpp-meeting-toolfair-2021/index.html
 [302]: ../slides/string-performance/index.html
