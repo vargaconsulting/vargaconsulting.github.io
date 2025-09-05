@@ -23,6 +23,9 @@ Click a title to open the live Reveal.js deck.
 - [**HUG Online (USA) 2020**][201] — lessons from production pipelines; formats, compression, access patterns. [:material-link:][201]
 - **C++ Toronto 2020** — performance-first C++ patterns; memory layout, I/O, and latency. :warning:
 
+### 2019
+[**ISC'19 BoF**][101] — presented [H5CPP: The First Non-Intrusive Persistence for Modern C++][105] at the **ISC High Performance Conference in Frankfurt, Germany**. The session covered compile-time reflection, POD introspection, and high-throughput HDF5 serialization pipelines. Also referenced [Ntuple: Tabular Data in HDF5 with C++][102] by Marc Paterno and Chris Green (Fermilab), drawing parallels in design goals and performance. [Shared benchmarking results of HDF5][104] performance on AWS EC2. **Special thanks to The HDF Group for their support.**
+
 ## 2018
 
 - [**C++ Chicago 2018**][100] — early H5CPP concepts, type reflection, and persistent containers. [:material-link:][100]
@@ -41,4 +44,9 @@ Some presentations marked with a link may no longer be available (files lost, mi
 [200]: ../slides/hdfgroup-webinar-2020/index.html
 [201]: ../slides/hug-online-2020/index.html
 [202]: #note
+[105]: ../slides/isc19/index.html#/6
+[104]: ../slides/isc19/index.html#/3/7
+[103]: ../slides/isc19/index.html#/3/6
+[102]: https://bitbucket.org/fnalscdcomputationalscience/hep_hpc/src/master/
+[101]: ../slides/isc19/index.html
 [100]: ../slides/cpp-chigago-2018/index.html
