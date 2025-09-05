@@ -115,9 +115,16 @@ markdown_extensions:
   - pymdownx.keys
 extra_javascript:
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+  - https://cdn.tailwindcss.com 
+  - javascripts/tw-config.js   
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
   - https://cdn.jsdelivr.net/npm/asciinema-player@3.0.1/dist/bundle/asciinema-player.js
-  - javascripts/mathjax.js
+  - https://unpkg.com/alpinejs@3.14.9/dist/cdn.min.js
+  - https://unpkg.com/@popperjs/core@2
+  - https://unpkg.com/tippy.js@6
+
 extra_css:
   - styles/custom.css
   - styles/background.css
   - https://cdn.jsdelivr.net/npm/asciinema-player@3.0.1/dist/bundle/asciinema-player.css
+  - https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css
