@@ -1,4 +1,6 @@
 .md-content {
+  hyphens: auto;
+  overflow-wrap: break-word; /* ensures long words don’t overflow */
   line-height: 1.7;
 }
 
