@@ -54,19 +54,9 @@ html[data-md-page^="blog/"] .md-content p {
   color: var(--md-primary-fg-color);
   text-decoration: none;
 }
-.md-social-inline .md-header__button {
-  padding: 1px;
-}
-.md-social-inline .md-header__button svg {
-  vertical-align: middle;
-  display: inline-block;
-}
 
-@media (max-width: 768px) {
-  .md-header__option .md-social-inline {
-    display: none !important;
-  }
-}
+
+
 
 /* Push left/right ends apart, prevent wrap of the right side */
 .md-footer .custom-footer-left  { margin-right: auto; }
@@ -298,4 +288,5 @@ img[class*="border-"] {
   #symbol-carousel { gap: .35rem; padding-inline: .35rem; }
   .symbol-pill { padding: .3rem .6rem; }
 }
+
 
