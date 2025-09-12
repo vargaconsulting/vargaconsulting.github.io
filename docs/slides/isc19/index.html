@@ -1,0 +1,811 @@
+<!-- h5cpp.org -->
+<!-- h5cpp.org -->
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>ISC19 HDFGroup</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/solarized.css">
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/solarized-dark.css">
+        <link rel="stylesheet" type="text/css" href="plugin/asciinema/asciinema-player.css" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="plugin/reveal.js-fullscreen-code/reveal.js-fullscreen-code.css">
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+		<style>
+		  .reveal .slides section .fragment.current-only {
+			opacity: 1;
+			visibility: visible;
+			display: none;
+		  }
+		  .reveal .slides section .fragment.current-only.current-fragment {
+			display: block;
+		  }
+		  .line { display: block; }
+		  .line.focus { background: #f2df82; color: #657b83; }
+	</style>
+
+	</head>
+	<body>
+
+<div class="reveal"><div class="slides">
+<section data-markdown data-transition="zoom"><textarea data-template>
+# Welcome to ISC'19 BOF!</h1>
+[export to PDF](http://isc19.hdf5.io:80/?print-pdf)
+</textarea></section>
+
+
+<section data-markdown data-transition="zoom"><textarea data-template>
+# outline
+</textarea></section>
+<section data-markdown data-transition="zoom"><textarea data-template>
+1. **Parallel HDF5 performance on AWS EC2**
+	- Performance regression test of parellel HDF5 2003 - 2019
+	- Cloud Scaling of HDF5: what is the limit?
+2. **Big Data, AWS S3 based Data-lakes, [NREL study](https://www.hdfgroup.org/solutions/hdf-kita/hdf-kita-nrel-case-study/)**
+	- what HDFGroup Kita&trade; has for you
+	- how does it work
+	- S3 access through [HDFGroup Kita&trade;](https://www.hdfgroup.org/solutions/hdf-kita/)
+3. **Community involvement: HDF5 for Modern C++**
+	- Current C++ Landscape for HDF5
+		- [h5cpp small caps](https://github.com/ess-dmsc/h5cpp) by Martin Shetty and Eugen Wintersberger
+		- [Ntuple: Tabular Data in HDF5 with C++](https://bitbucket.org/fnalscdcomputationalscience/hep_hpc/src/master/)
+		by Marc Paterno and Chris Green
+4. [H5CPP](h5cpp.org): Compiler Assisted Seamless Persistence for C++
+
+</textarea></section>
+
+
+<section>
+<section data-markdown data-transition="zoom"><textarea data-template>
+# HDF5 Performance Regression:2003 - 2019 
+</textarea></section>
+
+<section style="text-align: left;">
+<h3>Our Expectation:</h3>
+<canvas data-chart="line">
+	<!-- 
+	{ "data": {
+		"labels": ["1997","2003","2009","2012","2015","2018","This Morning... 3am"],
+		"datasets": [
+			{
+				"type":"line",
+				"data":[5854.13,4903.32,4857.86,3799.67,4800.00,3764.99,4204.86],
+				"label":"HDF5 Throughput", "backgroundColor":"#f44"
+			}
+		]
+	}, 
+	"options": { "responsive": true, "scales": { 
+			"xAxes": [{ "stacked": false }]
+				}}}
+	-->
+</canvas>
+</section>
+
+<section data-markdown 
+	data-transition="zoom" data-background="pix/ior-1GB.png"
+	data-background-size="100%">
+# what we got!!
+</section>
+
+
+<section data-markdown data-transition="zoom"><textarea data-template>
+- H5 CLUSTER
+   - OpenMPI 4.1.0 compiled <code> --enable-mpi1-compatibility</code>
+   - OrangeFS 2.9.7 layered on top of ZFS Raid 0
+   - hwloc 2.0.3
+   - pmix v3.1.2
+   - slurm 18-08-7-1
+   - IOR 3.0.1
+
+- AWS EC2 Instance Type: 4xNVME 96core m5d.metal 25Mb/sec ethernet
+- GNU autotools
+- GIT commits of HDF5 from 1997 - 2019
+</textarea></section>
+
+
+
+<section data-markdown data-transition="zoom"><textarea data-template>
+## Obtaining dataset:
+- build database for 1 commit per day for HDF5 of successful builds
+- picked one per week and linked IOR and MACSIO
+   - IOR: 619 success 2003-2019  and 662 failed
+   - MACSIO: 281 success 2015-2019 and 663 failed
+- selecting days with successful IOR builds
+- executed IOR test with block size: 1MB, 10MB, 100MB 1000MB
+</textarea></section>
+
+
+<section style="text-align: left;" >
+	<h3>PHDF5 compiled and linked against IOR from 2003 - 2019</h3>
+	<p>IOR executed with transfer size and block size 1MB</p>
+	<pre>srun --export ALL $INSTALL_DIR/bin/ior -a HDF5   -b 1G -t 1G -C -e</pre>
+	<canvas class="stretch" data-chart="bar" data-chart-src="data/1mb.csv">
+		<!--
+{
+	"options": {
+		"title": {
+			"text": "my title",
+		}
+	},
+}
+-->
+</canvas>
+</section>
+
+<section data-markdown data-transition="zoom"><textarea data-template>
+# How does HDF5 scale on AWS EC2 platform?
+</textarea></section>
+<section style="text-align: left;">
+
+<canvas data-chart="bar" >
+	<!-- 
+	{ "data": {
+		"labels": ["Node 1x100GB","Node 2x200GB","Node 3x300GB","Node 4x400GB","Node 5x500GB","Node 6x600GB","Node 7x700GB"],
+		"datasets": [
+			{
+				"type":"bar",
+				"data":[3054.13,6003.32,9057.86,11799.67,14800.00,17764.99,20194.86],
+				"label":"MPIIO Write", "backgroundColor":"#f44"
+			},
+			{
+				"type":"line",
+				"data":[3125.91,6287.81,9392.53,12116.75,16000.00,18498.42,21369.20],
+				"label":"HDF5 Write", "backgroundColor":"#066"
+			},
+			{
+				"type":"bar",
+				"data":[6141.04,11185.01,13216.87,15523.26,17000.00,21023.92,23966.20],
+				"label":"MPIIO Read", "backgroundColor":"#ff7f50"
+			},
+			{
+				"type":"line",
+				"data":[6167.79,11341.40,13217.04,15592.89,18000,20239.44,23764.56],
+				"label":"HDF5 Read", "backgroundColor":"#8cadae"
+			}
+		]
+	}, 
+	"options": { "responsive": true, "scales": { "xAxes": [{ "stacked": true }] } } }
+	-->
+</canvas>
+<div>
+<h4>Platform: H5CLUSTER v1.0.14</h4>
+<h6>Instance Type: 4xNVME 96core m5d.metal 25Mb/sec ethernet</h6>
+<h6><pre>ior  -a HDF5  -b 10GB -t 1GB ; ior  -a MPIIO -b 10GB -t 1GB</pre></h6>
+<h6>Throughput gain: 3GByte/sec with each node added</h6>
+</div>
+</section>
+
+<section data-markdown data-transition="zoom"><textarea data-template>
+# What are the limits?
+</textarea></section>
+<section data-markdown data-transition="zoom"><textarea data-template>
+## Credits:
+- Elena Pourmal HDFGroup Director of Engineering for the idea of regression testing
+### For their support in the research:
+-   Gerd Heber
+-   Larry Knox
+-   Allen Byrne
+</textarea></section>
+
+</section>
+
+<section>
+<section data-markdown data-transition="zoom"><textarea data-template>
+	# Kita&trade;
+</textarea></section>
+<section data-markdown data-transition="zoom"><textarea data-template>
+### S3 Data Lakes on AWS EC2
+- Pros:
+   - low cost long term reliable storage 
+   - established mature technology
+- Cons: no block level partial access to dataset
+   - increased latency
+   - data transfer cost
+   - awkward
+- Existing solutions for AWS S3 don't quite solve all the problems
+   - [s3fuse](https://github.com/Kledsky/s3fuse), [s3fs](https://github.com/s3fs-fuse/s3fs-fuse), [goofys](https://github.com/kahing/goofys), [s3Proxy](https://github.com/gaul/s3proxy), [s3ql](https://github.com/s3ql/s3ql/), [YAS3FS](https://github.com/danilop/yas3fs) 
+</textarea></section>
+<section data-markdown data-transition="zoom"><textarea data-template>
+### KITA&trade; properties:
+- provides partial IO cross boundary, accelerated chunk access
+- reduced latency through local caching: 5X improvement
+- convenient HDF5&reg; API
+   - same CAPI calls established over decades
+   - multiple writers and multiple readers: scalable clusters
+- minimal changes to existing library
+   - few additional lines of code and linking to HSDS service
+   - account information is passed in ENVIRONMENT
+   - works with: [HDF5&reg; CAPI](https://portal.hdfgroup.org/display/HDF5/HDF5), [h5py](https://www.h5py.org/), [H5CPP](http://h5cpp.org),...
+- on premise deployment for object storage systems:
+   - [OpenIO](https://www.openio.io/) Jean-Francois will be presenting today
+   - [Ceph Object store](https://ceph.com/ceph-storage/object-storage/)
+- support plan for Kita&trade; and [Kita&trade; Lab](https://www.hdfgroup.org/hdfkitalab/hdf-kita-lab-support/) and [Online Tryout](http://hdfgroup.org/hdfkitalab)
+</textarea></section>
+<section data-background-iframe="https://www.hdfgroup.org/solutions/hdf-kita/hdf-kita-architecture/" data-background-interactive>
+	<h2>Live Web page: https://www.hdfgroup.org/solutions/hdf-kita/hdf-kita-architecture/" </h2>
+</section>
+<section data-markdown data-transition="zoom"><textarea data-template>
+	# Kita: Real Life Application for Big Data
+</textarea></section>
+<section data-background-iframe="https://nrel.github.io/hsds-viz/" data-background-interactive>
+	<h2>Live Web page: https://nrel.github.io/hsds-viz/" </h2>
+</section>
+
+<section data-markdown data-transition="zoom" style="textalign:left;" ><textarea data-template>
+### Credits:
+- John Readey
+</textarea></section>
+
+</section>
+
+<section>
+<section data-markdown data-transition="zoom"><textarea data-template>
+# HDF5 Community effort: 
+biweekly C++ special Interest Group
+</textarea></section>
+
+<section data-markdown data-transition="zoom"><textarea data-template>
+# who is involved?
+- The HDFGroup: Elena Pourma, Gerd Heber, The HDFGroup developers...
+- Martin Shetty and Eugen Wintersberger [h5cpp wrapper](https://github.com/ess-dmsc/h5cpp)
+   - deployed at: [ESS](https://europeanspallationsource.se/), [DESY](https://www.desy.de/),
+   [ISIS](https://www.isis.stfc.ac.uk/Pages/home.aspx#), [PSI](https://www.psi.ch/)
+- [Ntuple: Tabular Data in HDF5 with C++](https://bitbucket.org/fnalscdcomputationalscience/hep_hpc) by Chris Green and Marc Paterno
+	- deployed at Fermilab
+- [H5CPP](h5cpp.org) by Steven Varga:
+   - will speak about this projets few slides later
+</textarea></section>
+
+<section data-markdown data-transition="slide-in fade-out"><textarea data-template>
+# What are the benefits?
+- provides choice
+- further pushing boundaries making HDF5 experience better
+</textarea></section>
+
+<section data-markdown data-transition="fade-in slide-out"><textarea data-template>
+# How to participate?
+- check out our projects, or start your own
+- come to our online meet ups
+- provide feedback
+- ...
+</textarea></section>
+
+</section>
+
+<section>
+<!-- vargaconsulting.ca -->
+<section>
+	<h1>H5CPP</h1>
+	<h5>the first non-intrusive persistence </h5> <h1>for modern C++</h4>
+	<p><small>Created by <a href="http://h5cpp.ca">Steven Varga</a> 
+		in co-operation with <a href="https://github.com/gheber">Gerd Heber</a>, HDFGroup</small></p>
+	<p><small><a href="http://chicago.h5cpp.ca">Online version of this presentation:</a> http://chicago.h5cpp.org</small></p> 
+</section>
+
+<section data-markdown data-transition="zoom"  style="text-align: left;"><textarea data-template>
+### WHAT IT DOES (FUNCTION)
+
+- RAII - constructor acquires, destructor releases
+- CRUD-like operators
+- C-API policy: seamless or explicit handle conversion
+- Error handling via structured exceptions
+- Integration of third-party libraries
+- A "real" packet table (arbitrary types)
+- High throughput I/O pipeline (experimental)
+- Automatic generation of non-problem oriented code
+- First non-intrusive persistence for C++ objects
+</textarea></section>
+
+<section data-markdown data-transition="zoom"  style="text-align: left;"><textarea data-template >
+### Support for: The STL, Linear Algebra libraries and Arbitrary deep POD-s
+
+```yacc
+
+T := ([unsigned] ( int8_t | int16_t | int32_t | int64_t )) | ( float | double  )
+S := T | c/c++ struct | std::string
+ref := std::vector<S> 
+    | arma::Row<T> | arma::Col<T> | arma::Mat<T> | arma::Cube<T> 
+    | Eigen::Matrix<T,Dynamic,Dynamic> | Eigen::Matrix<T,Dynamic,1> | Eigen::Matrix<T,1,Dynamic>
+    | Eigen::Array<T,Dynamic,Dynamic>  | Eigen::Array<T,Dynamic,1>  | Eigen::Array<T,1,Dynamic>
+    | blaze::DynamicVector<T,rowVector> |  blaze::DynamicVector<T,colVector>
+    | blaze::DynamicVector<T,blaze::rowVector> |  blaze::DynamicVector<T,blaze::colVector>
+    | blaze::DynamicMatrix<T,blaze::rowMajor>  |  blaze::DynamicMatrix<T,blaze::colMajor>
+    | itpp::Mat<T> | itpp::Vec<T>
+    | blitz::Array<T,1> | blitz::Array<T,2> | blitz::Array<T,3>
+    | dlib::Matrix<T>   | dlib::Vector<T,1> 
+    | ublas::matrix<T>  | ublas::vector<T>
+ptr     := T* 
+accept  := ref | ptr
+```
+</textarea></section>
+
+<section data-markdown data-transition="zoom"  style="text-align: left;"><textarea data-template>
+## H5CPP Compiler: what does it do?
+- LLVM7.0.0 based parser generates the AST of the TU Translation Unit
+- objects marked/painted with the operators are identified,
+- topological reordering of dependency graph
+- elimination
+- code generation: HDF5 Data Description Language
+- include the generated header file into your TU translation unit
+- second stage: invoke your favourite compiler: intel, gcc, cray, ibm, pg,  ...
+</textarea></section>
+
+<section  style="text-align: left;" >
+	<h2>take a header file with POD struct</h2>
+	<pre><code>
+typedef unsigned long long int MyUInt;
+namespace sn {
+	namespace example {
+		struct Record {                   
+			MyUInt               field_01; 
+			char                 field_02;
+			double            field_03[3]; 
+			other::Record field_04[4];
+		};
+	}
+}
+</pre></code>
+<ul>
+  <li class="fragment" data-code-focus="2,6"> 
+  typedefs are fine</li>
+  <li class="fragment" data-code-focus="3-4,10-11"> 
+  nested namespace are OK</li>
+  <li class="fragment" data-code-focus="7">
+  mapped to : <a href="https://support.hdfgroup.org/HDF5/doc1.6/UG/11_Datatypes.html" >H5T_NATIVE_CHAR</a> </li>
+  <li class="fragment" data-code-focus="8">
+  H5Tarray_create(H5T_NATIVE_DOUBLE,1, ... ) </li>
+  <li class="fragment" data-code-focus="9">
+  first `other::Record` is parsed: type_hid_t = ... </li>
+  <li class="fragment" data-code-focus="9">
+  then the generated type is used: H5Tarray_create(type_hid_t, ...)  </li>
+</ul>
+</section>
+
+<!--section  style="text-align: left;" >
+<pre><code>
+</pre></code>
+<ul>
+  <li class="fragment" data-code-focus="2,6">...</li>
+</ul>
+</section-->
+
+<section  style="text-align: left;" >
+	<h3>write your program</h3>
+<pre><p1>write your cpp program as if `generated.h` were already written </p1>
+<code>#include "some_header_file.h"
+#include &lt;h5cpp/core&gt;
+	#include "generated.h"
+#include &lt;h5cpp/io&gt;
+int main(){
+	std::vector&lt;sn::example::Record&gt; stream =
+		...
+	h5::fd_t fd = h5::create("example.h5",H5F_ACC_TRUNC);
+	h5::pt_t pt = h5::create&lt;::example::Record&gt;(
+		fd, "stream of struct",
+		h5::max_dims{H5S_UNLIMITED,7}, h5::chunk{4,7} | h5::gzip{9} );
+	...
+}
+</code></pre>
+<ul>
+  <li class="fragment" data-code-focus="2,4">sandwich the not-yet existing `generated.h` </li>
+  <li class="fragment" data-code-focus="5,13">write the TU translation unit as usual</li>
+  <li class="fragment" data-code-focus="9">
+	  using the POD type with one of the  H5CPP CRUD like operators 
+	  <code>h5::create | h5::write | h5::read | h5::append</code>
+  will trigger the `h5cpp` compiler to generate code
+</ul>
+</section>
+
+
+
+<section data-markdown data-transition="zoom"  style="text-align: left;"><textarea data-template>
+### Invoke ```h5cpp``` compiler on TU translation unit:
+```sh
+h5cpp  packettable.cpp -- $(CXXFLAGS) -I/usr/include/h5cpp-llvm -Dgenerated.h
+```
+POD structures referenced with:
+
+```cpp
+h5::create | h5::write | h5::read | h5::append
+```
+operators are processed in topological order, and the output is...
+</textarea></section>
+
+
+
+<section data-markdown data-transition="zoom"  style="text-align: left;"><script type="text/template">
+
+### A header file with HDF5 Compound Type descriptors:
+```cpp
+#ifndef H5CPP_GUARD_ErRrk
+#define H5CPP_GUARD_ErRrk
+
+namespace h5{
+    //template specialization of sn::example::Record to create HDF5 COMPOUND type
+    template<> hid_t inline register_struct<sn::example::Record>(){
+        hsize_t at_00_[] ={7};            hid_t at_00 = H5Tarray_create(H5T_NATIVE_FLOAT,1,at_00_);
+        hsize_t at_01_[] ={3};            hid_t at_01 = H5Tarray_create(H5T_NATIVE_DOUBLE,1,at_01_);
+
+        hid_t ct_00 = H5Tcreate(H5T_COMPOUND, sizeof (sn::typecheck::Record));
+        H5Tinsert(ct_00, "_char",	HOFFSET(sn::typecheck::Record,_char),H5T_NATIVE_CHAR);
+		...
+		H5Tclose(at_03); H5Tclose(at_04); H5Tclose(at_05); 
+
+        return ct_02;
+    };
+}
+H5CPP_REGISTER_STRUCT(sn::example::Record);
+```
+</script></section>
+<section data-markdown data-transition="zoom"  style="text-align: left;"><textarea data-template>
+### Invoke your favourite CPP compiler on TU translation unit
+
+```sh
+g++  -o packettable.o  $(CXXFLAGS) -c packettable.cpp
+```
+### link against serial or parallel HDF5
+```sh
+g++ packet_table.o -lhdf5 -lz -ldl -lm -o packet_table
+```
+### Done!
+</textarea></section>
+
+
+
+
+
+
+<section data-markdown data-transition="zoom"  style="text-align: left;"><textarea data-template>
+## Basics
+- RAII idiom for descriptors 
+
+```cpp
+h5::fd_t fd = h5::create("example.h5",H5F_ACC_TRUNC);
+```
+- Built-in types, POD structs or arrays of them
+
+```cpp
+arma::fvec vec = arma::randu<fvec>(1024);
+```
+- Templates accept type-safe configuration arguments in any order
+
+```
+h5::write(fd, "path/to/object",  vec,
+	  h5::current_dims{100},  h5::max_dims{H5S_UNLIMITED},
+	  h5::offset{3}, h5::block{2}, h5::stride{2},
+	  h5::chunk{20} | h5::gzip{9} );
+```
+</textarea></section>
+<section data-markdown data-transition="zoom"  style="text-align: left;"><textarea data-template>
+## CAPI hid_t Conversion Policy
+- H5CPP descriptors vs. C-API hid_t handles
+- Seamless conversion (default)
+- You can take control
+
+```cpp
+ 1: // H5CPP_CONVERSION_EXPLICIT
+ 2: // H5CPP_CONVERSION_FROM_CAPI_DISABLED
+ 3: // H5CPP_CONVERSION_TO_CAPI_DISABLED
+ 4: 
+ 5: h5::fd_t fd = h5::create("example.h5",H5F_ACC_TRUNC);
+ 6: hsize_t size {0};
+ 7: 
+ 8: // compiler error if H5CPP_CONVERSION_EXPLICIT is defined
+ 9: H5Fget_filesize(fd, &size);
+10: 
+11: // compiler error if H5CPP_CONVERSION_TO_CAPI_DISABLED is def.
+12: H5Fget_filesize(static_cast<hid_t>(fd), &size);
+```
+</textarea></section>
+<section data-markdown data-transition="zoom"  style="text-align: left;"><textarea data-template>
+## STRUCTURED EXCEPTIONS
+- Hierarchy rooted in h5::error::any
+- C-API error stack can be dumped, unrolled, (un-)muted
+- Supports capture to thread-local storage
+
+```cpp
+ 1: // capture errors centrally with the granularity you desire
+ 2: try {
+ 3:     my_deeply_embedded_io_calls();
+ 4: } catch ( const h5::error::io::dataset::create& e ){
+ 5:     // handle file creation error
+ 6: } catch ( const h5::error::io::dataset::write& e ){
+ 7: } catch ( const h5::error::io::file::create& e ){
+ 8: } catch ( const h5::error::io::file::close& e ){
+ 9: } catch ( const h5::any& e ) {
+10:     std::cerr << e.what() << std::endl;
+11: }
+```
+</textarea></section>
+
+
+
+<section data-markdown data-transition="zoom"  style="text-align: left;"><textarea data-template>
+## A REAL PACKET TABLE
+
+```cpp
+ 1: #include <h5cpp/core>
+ 2: #include "your_data_definition.h"  // <- struct { ... };
+ 3: #include <h5cpp/io>
+ 4: auto fd = h5::create("NYSE high freq dataset.h5");
+ 5: h5::pt_t pt = h5::create<ns::nyse_stock_quote>
+ 6:   (fd
+ 7:    ,"price_quotes/2019-01-24.qte"
+ 8:    ,h5::max_dims{H5S_UNLIMITED}
+ 9:    ,h5::chunk{1024} | h5::gzip{9} );
+10: quote_update_t qu;
+11: bool having_a_good_day{true};
+12: while( having_a_good_day ){
+13:     try{
+14:         recieve_data_from_udp_stream( qu )
+15:         h5::append(pt, qu);
+16:     } catch ( ... ){
+17:       if( cant_fix_connection() )
+18:             having_a_good_day = false;
+19:     }
+20: }
+```
+</textarea></section>
+
+<section data-markdown data-transition="zoom"  style="text-align: left;"><textarea data-template>
+## Comparing C++ interface to python and C:
+
+(using Gerd Heber's example)
+</textarea></section>
+
+<section data-markdown data-transition="zoom"  style="text-align: left;"><textarea data-template>
+## C API: 20 different calls
+```C
+fd = H5Fcreate("weather.hdf5", H5F_ACC_TRUNC,
+               H5P_DEFAULT, H5P_DEFAULT);
+
+// > 20 different API calls:
+//
+// H5Acreate, H5Aclose, H5Awrite,
+// H5Dcreate, H5Dclose, H5Dread, H5Dwrite,
+// H5Pcreate, H5Pclose, H5Pset_create_intermediate_group,
+// H5Pset_layout, H5Pset_chunk, H5Pset_deflate,
+// H5Screate, H5Sclose, H5Screate_simple, H5Sselect_hyperslab
+
+H5Fclose(fd);
+```
+</textarea></section>
+
+
+<section data-markdown data-transition="zoom"  style="text-align: left;"><textarea data-template>
+## [h5py](https://www.h5py.org/) 
+simple clean interface, gain in simplicity at the cost of performance
+
+```python
+1: temperature = np.random.random(1024)
+ 2: wind = np.random.random(2048)
+ 3: f = h5py.File('weather.hdf5')
+ 4: f["/15/temperature"] = temperature
+ 5: f["/15/temperature"].attrs["dt"] = 10.0
+ 6: f["/15/wind"] = wind
+ 7: 
+ 8: dataset[0:10:2]
+ 9: 
+10: big_dataset = f.create_dataset("big",
+11:                                shape=(1024, 1024, 1024, 512),
+12:                                dtype='float32')
+13: big_dataset[344, 678, 23, 36] = 42.0
+14: 
+15: compressed_dataset = f.create_dataset("comp", shape=(1024,),
+16:                                       dtype='int32',
+17:                                       compression='gzip')`
+```
+</textarea></section>
+
+<section data-markdown data-transition="zoom"  style="text-align: left;"><textarea data-template>
+C++ implementation
+clean simple and fast -- thanks to template metaprogramming
+
+```cpp
+ 1: fvec temperature = arma::randu<fvec>(1024);
+ 2: fvec wind = arma::randu<fvec>(2048);
+ 3: auto fd = h5::create("weather.hdf5", H5F_ACC_TRUNC);
+ 4: auto ds = h5::write(fd, "/15/temperature", temperature);
+ 5: ds["dt"] = 10.0f;
+ 6: h5::write(fd, "/15/wind", wind);
+ 7: 
+ 8: h5::read<fvec>(ds, h5::offset{0}, h5::count{5}, h5::stride{2});
+ 9: 
+10: auto big = h5::create<float>(fd,"big"
+11:                              ,h5::current_dims{1024, 1024, 1024, 512}
+12:                              ,h5::chunk{16, 16, 16, 8});
+13: float value {42.0};
+14: h5::write<float>(ds, &value
+15:                  ,h5::offset{344, 678, 23, 36}
+16:                  ,h5::count{1, 1, 1, 1});
+17: 
+18: auto comp = h5::create<int>(fd, "comp"
+19:                             ,h5::current_dims{1024}
+20:                             ,h5::chunk{64} | h5::gzip{4});
+```
+</textarea></section>
+
+<section data-markdown data-transition="zoom"  style="text-align: left;"><textarea data-template>
+## Performance 
+</textarea></section>
+
+<section data-markdown data-transition="zoom"  style="text-align: left;"><textarea data-template>
+## A FAST I/O PIPELINE(experimental):
+
+```cpp
+1: h5::ds_t ds = h5::open(fd,"some_dataset", h5::high_throughput);
+```
+- L0-L3 cache aware blocking
+- possibility for parallel filter chain
+- possibility for direct MPI-IO/ROMIO
+- Measurements below from a Lenovo notebook:
+
+```
+Intel(R) Core(TM) i7-3520M CPU @ 2.90GHz
+8 GB RAM
+INTEL SSDSC2BW180A3L (LF1i) disk (~500 MB/s)
+```
+</textarea></section>
+<section data-markdown data-transition="zoom"  style="text-align: left;"><textarea data-template>
+## Transfer size 2GB blocks:
+|MB/sec       |   write |     read |
+|-------------|---------|----------|
+|h5cpp block  | 265.69  |   518.41 |
+|h5cpp packet | 290.57  |   499.88 |
+| posix IO    | 288.56  |   513.51 |
+</textarea></section>
+<section data-markdown data-transition="zoom"  style="text-align: left;"><textarea data-template>
+## Transfer size 30MB blocks:
+|MB/sec       |   write |     read |
+|-------------|---------|----------|
+|h5cpp block  | 2457.41 |   3251.99 |
+|h5cpp packet | 1636.30  |   3151.15 |
+| posix IO    | 1443.59  |   5325.60 |
+</textarea></section>
+
+<section data-markdown data-transition="zoom"  style="text-align: left;"><textarea data-template>
+## H5CPP for [Parallel HDF5](https://support.hdfgroup.org/HDF5/Tutor/phypecont.html)
+
+```cpp
+...
+int main(int argc, char** argv) {
+    ...
+	MPI_Comm comm  = MPI_COMM_WORLD;
+    MPI_Info info  = MPI_INFO_NULL;
+	MPI_Comm_size(MPI_COMM_WORLD, &size);
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+	arma::mat M(4,5);
+	...
+	ds = h5open( ..., h5::fapl_mpio(plist_id, comm, info));
+
+	h5::write(ds,
+		h5::offset{0,0,rank}, h5::stride{1,1,1}, h5::block{1,1,4},
+		h5::dxpl_mpio(H5FD_MPIO_COLLECTIVE)
+	);
+	MPI_Barrier(MPI_COMM_WORLD);
+	...
+	MPI_Finalize();
+}
+```
+
+
+</textarea></section>
+
+<section data-markdown data-transition="zoom"  style="text-align: left;"><textarea data-template>
+## H5CPP [Kita support](https://bitbucket.hdfgroup.org/users/jhenderson/repos/rest-vol/browse)
+
+```cpp
+#include "hdf5.h"
+#include "rest_vol_public.h"
+
+int main(void){
+    RVinit();
+	...
+    file_id = H5Fopen("my/file.h5");
+	auto fd = h5::create("my/file.h5", H5F_ACC_TRUNC,
+					h5::fapl_rest_vol ); //  must be set
+		.. do your IO thing ...
+
+    RVterm();
+}
+```
+</textarea></section>
+
+
+
+</section>
+
+<section data-background-iframe="http://h5cpp.org" data-background-interactive>
+	<h2>Live Webpage: http://h5cpp.org</h2>
+</section>
+
+
+<section data-markdown data-transition="zoom" ><textarea data-template>
+# Thank You!
+</textarea></section>
+
+
+</div></div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+		<script>
+			Reveal.initialize({ 
+    			width: '1200',
+    			height: '800',
+				margin: 0.1,
+				minScale:  .2,
+				maxScale: 2.5,
+
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				transitionSpeed: 'slow',
+				transition: 'convex', // none/fade/slide/convex/concave/zoom
+				keyboard: true,
+				loop: false,
+				transition: 'concave', // default/cube/page/concave/linear(2d)
+				chart: {
+					defaults: { 
+						global: { 
+							title: { fontColor: "#FFF" }, 
+							legend: {
+								position: "bottom",
+								labels: { fontColor: "#000" },
+							},
+							tooltips: {
+								labels: { fontColor: "#FFF" },
+							},
+						}, 
+						scale: {
+							scaleLabel: { fontColor: "#000" }, 
+							gridLines: { color: "#000", zeroLineColor: "#000" }, 
+							ticks: { min: 0, fontColor: "#000" }, 
+						} 
+					},
+					line: { borderColor: [ "rgba(20,220,220,.8)" , "rgba(220,120,120,.8)", "rgba(20,120,220,.8)" ], "borderDash": [ [5,10], [0,0] ] }, 
+					bar: { backgroundColor: [ "rgba(20,220,220,.8)" , "rgba(220,120,120,.8)", "rgba(20,120,220,.8)" ]}, 
+					pie: { backgroundColor: [ ["rgba(0,0,0,.8)" , "rgba(220,20,20,.8)", "rgba(20,220,20,.8)", "rgba(220,220,20,.8)", "rgba(20,20,220,.8)"] ]},
+					radar: { borderColor: [ "rgba(20,220,220,.8)" , "rgba(220,120,120,.8)", "rgba(20,120,220,.8)" ]}, 
+				},
+				anything: [ {className: "asciicast",
+                           defaults: { theme: 'monokai', fontSize: '15px' },
+                           initialize: (function(container, options) {
+                                     asciinema.player.js.CreatePlayer(container, options.URL, options);
+                            })
+                }],
+				dependencies: [
+					{ src: 'plugin/chart/Chart.min.js' },
+					{ src: 'plugin/chart/csv2chart.js' },
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true },
+          			{ src: 'plugin/highlight/highlight.pack.js' },
+          			{ src: 'node_modules/reveal-code-focus/reveal-code-focus.js',  async:true, callback: function() { RevealCodeFocus(); } },
+				],
+				keyboard: {
+					67: function() { RevealChalkboard.toggleNotesCanvas() },	// toggle notes canvas when 'c' is pressed
+					66: function() { RevealChalkboard.toggleChalkboard() },	// toggle chalkboard when 'b' is pressed
+					46: function() { RevealChalkboard.clear() },	// clear chalkboard when 'DEL' is pressed
+					 8: function() { RevealChalkboard.reset() },	// reset chalkboard data on current slide when 'BACKSPACE' is pressed
+					68: function() { RevealChalkboard.download() },	// downlad recorded chalkboard drawing when 'd' is pressed
+				},
+				});
+		</script>
+	</body>
+</html>
