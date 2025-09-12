@@ -110,3 +110,44 @@ body[data-md-color-scheme="solarized"] .asciicast-player .asciinema-terminal spa
   background: transparent !important;
   color: currentColor !important;
 }
+
+
+/* Base: phones / small screens */
+.asciinema-player .asciinema-terminal {
+    font-size: 4px !important;
+    line-height: 1.25 !important;
+}
+
+/* Tablets (portrait/landscape up to ~1024px) */
+@media (min-width: 600px) and (max-width: 1023px) {
+    .asciinema-player .asciinema-terminal {
+        font-size: 5px !important;
+    }
+}
+
+/* Laptops / normal desktops */
+@media (min-width: 1024px) and (max-width: 1919px) {
+    .asciinema-player .asciinema-terminal {
+        font-size: 6px !important;
+    }
+}
+
+/* Large monitors (1080p → 2K) */
+@media (min-width: 1920px) and (max-width: 2523px) {
+    .asciinema-player .asciinema-terminal {
+        font-size: 9px !important;
+    }
+}
+/* Large monitors (1080p → 2K) */
+@media (min-width: 2524px) and (max-width: 2559px) {
+    .asciinema-player .asciinema-terminal {
+        font-size: 13px !important;
+    }
+}
+
+/* Ultra-wide / 4K+ */
+@media (min-width: 2560px) {
+    .asciinema-player .asciinema-terminal {
+        font-size: 15px !important;
+    }
+}

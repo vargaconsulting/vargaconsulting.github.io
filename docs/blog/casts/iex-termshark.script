@@ -3,7 +3,7 @@
     function waitForAsciinemaPlayer(attempts = 10) {
       if (typeof AsciinemaPlayer !== "undefined") {
         AsciinemaPlayer.create('/blog/casts/iex-termshark.cast', document.getElementById('asciicast-iex-termshark'), {
-          cols: 120, rows: 37, autoPlay: true,  loop: false, speed: 1.3,  idleTimeLimit: .5, controls: false
+          cols: 130, rows: 51, autoPlay: true,  loop: false, speed: 1.3,  idleTimeLimit: .5, controls: false
         });
       } else if (attempts > 0) {
         setTimeout(() => waitForAsciinemaPlayer(attempts - 1), 200);
