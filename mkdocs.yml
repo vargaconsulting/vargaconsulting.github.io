@@ -60,12 +60,12 @@ theme:
     - scheme: solarized
       primary: orange
       toggle:
-        icon: material/lightbulb
+        icon: moon
         name: Switch to dark mode
     - scheme: slate
       primary: orange
       toggle:
-        icon: material/lightbulb-outline
+        icon: sun
         name: Switch to light mode
 extra:
   social:
@@ -129,6 +129,7 @@ extra_javascript:
 
 extra_css:
   - styles/custom.css
+  - styles/socials.css  
   - styles/background.css
   - https://cdn.jsdelivr.net/npm/asciinema-player@3.0.1/dist/bundle/asciinema-player.css
   - https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css
