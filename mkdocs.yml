@@ -119,21 +119,31 @@ markdown_extensions:
         - docs/blog/casts
   
 extra_javascript:
+  # Math / Tailwind
   - javascripts/mathjax.js
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
-  - https://cdn.tailwindcss.com 
-  - javascripts/tw-config.js   
-  - https://cdn.jsdelivr.net/npm/asciinema-player@3.0.1/dist/bundle/asciinema-player.js
+  - https://cdn.tailwindcss.com
+  - javascripts/tw-config.js
+
+  # Terminal player (local build)
+  - javascripts/asciinema-player.min.js
+
+  # UI helpers
   - https://unpkg.com/alpinejs@3.14.9/dist/cdn.min.js
   - https://unpkg.com/@popperjs/core@2
   - https://unpkg.com/tippy.js@6
 
 extra_css:
-  - https://cdn.jsdelivr.net/npm/asciinema-player@3.0.1/dist/bundle/asciinema-player.css
+  # Asciinema player (local build)
+  - styles/asciinema-player.css
+
+  # Animation / theme
   - https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css
+
+  # Custom site styles (order matters: base → overrides)
   - styles/custom.css
   - styles/mobile.css
-  - styles/socials.css  
+  - styles/socials.css
   - styles/background.css
   - styles/blog.css
   - styles/asciinema.css
