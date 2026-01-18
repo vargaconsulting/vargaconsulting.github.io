@@ -20,8 +20,8 @@ venv: $(VENV)/bin/activate
 
 # Start mkdocs dev server (after ensuring venv)
 serve: venv
-	@echo "🚀 Starting mkdocs server at $(BASE_URL)"
-	@. $(ACTIVATE); mkdocs serve --dev-addr=127.0.0.1:9000
+	@echo "Starting mkdocs server at $(BASE_URL)"
+	@. $(ACTIVATE); mkdocs serve --livereload --dev-addr=127.0.0.1:9000
 
 # Build the site once
 build: venv
@@ -29,13 +29,13 @@ build: venv
 
 # Generate social cards (needs Node.js + Puppeteer)
 social:
-	@echo "🖼️  Generating OG social cards..."
+	@echo "Generating OG social cards..."
 	cd .og-generator && npm install --no-fund --no-audit
 	node .og-generator/generate-all-social-cards.mjs $(BLOG_DIR) $(SOCIAL_DIR) $(BASE_URL)
 
 # Force regenerate all social cards
 social-force:
-	@echo "♻️  Forcing full rebuild of OG social cards..."
+	@echo "Forcing full rebuild of OG social cards..."
 	cd .og-generator && npm install --no-fund --no-audit
 	node .og-generator/generate-all-social-cards.mjs $(BLOG_DIR) $(SOCIAL_DIR) $(BASE_URL) --force
 
