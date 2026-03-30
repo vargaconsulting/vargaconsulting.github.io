@@ -28,12 +28,12 @@ The IEX Download project was created to address the challenge of retrieving larg
 Do you want me to also rewrite the **Usage section** in the same "feature-first" style, so it reads more like a product capability page rather than a developer tool manual?
 
 
-## Usage
+> :fontawesome-brands-github:{.icon} **Explore the Project**
+> GitHub: [github.com/vargalabs/iex-download](https://github.com/vargalabs/iex-download)
+> Docs: [vargalabs.github.io/iex-download](https://vargalabs.github.io/iex-download)
 
-```bash
-After running the script, the `download` directory will be populated with
-TOPS or DEEP gzip-compressed datasets, named according to the corresponding
-trading day. For additional details on processing the data, see `iex2h5`.
+[repo]: https://github.com/vargalabs/iex-download
+[docs]: https://vargalabs.github.io/iex-download
 
 The data is provided free of charge by IEX. By accessing or using IEX
 Historical Data, you agree to their Terms of Use. For more information,

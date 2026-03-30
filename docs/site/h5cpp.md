@@ -79,6 +79,6 @@ auto ds = h5::create<my_struct>(fd, "mpi/data", h5::mpiio{mpi_config},
 
 
 > 🔗 **Explore the Project**
-> GitHub: [github.com/steven-varga/h5cpp](https://github.com/steven-varga/h5cpp)
+> GitHub: [github.com/vargalabs/h5cpp](https://github.com/vargalabs/h5cpp)
 > 💬 Featured on [The HDF Group Blog](https://blog.hdfgroup.org/) and presented at ISC’19 & EHUG.
 

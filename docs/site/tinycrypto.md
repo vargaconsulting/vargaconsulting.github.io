@@ -64,6 +64,6 @@ Weierstrass{𝔽₃₁}(6, 9, 37, 1, (0,3))
 ```
 
 > :fontawesome-solid-graduation-cap:{.icon} **Learn More and Contribute**
-> GitHub: [github.com/vargaconsulting/tiny-crypto](https://github.com/vargaconsulting/tiny-crypto)
-> Docs: [vargaconsulting.github.io/tiny-crypto](https://vargaconsulting.github.io/tiny-crypto)
+> GitHub: [github.com/vargalabs/tiny-crypto](https://github.com/vargalabs/tiny-crypto)
+> Docs: [vargalabs.github.io/tiny-crypto](https://vargalabs.github.io/tiny-crypto)
 > License: MIT 
