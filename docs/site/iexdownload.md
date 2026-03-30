@@ -33,8 +33,8 @@ Paired with **IEX2H5**, the Rust downloader + C++ converter form a complete pipe
 :material-vector-arrange-above:{.icon} **download terabytes of PCAPs** → :material-database:{.icon} **convert into compressed HDF5 arrays** → :material-brain:{.icon} **analyze at scale**.
 
 > :fontawesome-brands-github:{.icon} **Explore the Project**
-> GitHub: [github.com/vargaconsulting/iex-download](https://github.com/vargaconsulting/iex-download)
-> Docs: [vargaconsulting.github.io/iex-download](https://vargaconsulting.github.io/iex-download)
+> GitHub: [github.com/vargalabs/iex-download](https://github.com/vargalabs/iex-download)
+> Docs: [vargalabs.github.io/iex-download](https://vargalabs.github.io/iex-download)
 
-[repo]: https://github.com/vargaconsulting/iex-download
-[docs]: https://vargaconsulting.github.io/iex-download
+[repo]: https://github.com/vargalabs/iex-download
+[docs]: https://vargalabs.github.io/iex-download

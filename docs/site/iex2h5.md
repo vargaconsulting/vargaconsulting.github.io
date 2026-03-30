@@ -24,8 +24,8 @@ IEX2H5 enables researchers, quants, and infrastructure teams to store and proces
 
 Whether you want to build a custom factor model, simulate an HFT strategy, or just explore market microstructure—the data’s ready.
 > :fontawesome-brands-internet-explorer:{.icon} **Explore the Project**
-> GitHub: [github.com/vargaconsulting/iex2h5](https://github.com/vargaconsulting/iex2h5)
-> Docs: [vargaconsulting.github.io/iex2h5](https://vargaconsulting.github.io/iex2h5)
+> GitHub: [github.com/vargalabs/iex2h5](https://github.com/vargalabs/iex2h5)
+> Docs: [vargalabs.github.io/iex2h5](https://vargalabs.github.io/iex2h5)
 
-[repo]: https://github.com/vargaconsulting/iex2h5
-[docs]: https://vargaconsulting.github.io/iex2h5
+[repo]: https://github.com/vargalabs/iex2h5
+[docs]: https://vargalabs.github.io/iex2h5

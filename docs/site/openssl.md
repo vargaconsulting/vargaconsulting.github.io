@@ -75,5 +75,5 @@ Perfect addition :material-check-all: Let’s extend the list and flag **StarkNe
 ## Licensing & availability
 
 * **Proprietary, single-header library.**
-* Commercial licensing via **Varga Consulting** (Toronto, Canada).
+* Commercial licensing via **Varga Labs** (Toronto, Canada).
 * Contact: **[info@vargaconsulting.ca](mailto:info@vargaconsulting.ca)**.
