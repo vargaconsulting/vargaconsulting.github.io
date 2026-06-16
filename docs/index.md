@@ -52,9 +52,9 @@ As an independent researcher and systems architect, I work hands-on with organiz
 
 ## :fontawesome-solid-terminal:{.icon} Things I’ve Built
 
-* **[IEX2H5](site/iex2h5.md)** — A blazing-fast tick data archival and analytics system for IEX market data.
+* **[IEX download](site/iexdownload.md)** —  A robust command-line utility, written in pure Rust, for retrieving IEX TOPS, DEEP, and DEEP+ historical datasets.
+* **[IEX2H5](site/iex2h5.md)** — A blazing-fast tick data archival and analytics system for IEX market data. 
 * **[TinyCrypto](site/tinycrypto.md)** — A minimal and clean Julia cryptography library with support for Weierstrass, Montgomery, and Edwards curves.
-* **[IEX download](site/iexdownload.md)** — javascript based download utility for IEX TOPS/DEEPS datasets
 * **[H5CPP](site/h5cpp.md)** — A reflection-powered C++17/23 library for working with HDF5 in scientific computing and trading.
 * **[H5CPP Compiler](site/h5cpp-compiler.md)** — LLVM based code transformation tool for compiler assisted reflection.
 * **[OpenSSL C++](site/openssl.md)** — modern approach to cryptography: fast blockchain signatures with a library you trust

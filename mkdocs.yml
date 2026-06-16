@@ -9,6 +9,7 @@ nav:
   - Introduction: index.md
   - Presentations: site/talks.md  
   - Projects:
+    - IEX Download: site/iexdownload.md
     - IEX2H5: site/iex2h5.md
     - Radix64: site/radix64.md
     - TinyCrypto: site/tinycrypto.md
@@ -16,7 +17,6 @@ nav:
     - H5CPP compiler: site/h5cpp-compiler.md
     - Decimal Float C++: site/decimalfloat-cpp.md
     - Decimal Float Python: site/decimalfloat-python.md
-    - IEX Download: site/iexdownload.md
     - OpenSSL++: site/openssl.md
     - BIP: site/bip.md
     - EIP: site/eip712.md
