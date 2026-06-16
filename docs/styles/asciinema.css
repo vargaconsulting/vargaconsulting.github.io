@@ -1,153 +1,69 @@
-/* === Light mode (default) === */
-body[data-md-color-scheme="default"] .asciicast-player .asciinema-terminal {
-  background: #ffffff !important;
-  color: #2e2e2e !important;
+/* ==========================================================================
+   ASCIINEMA PLAYER (Tailwind Prototype Cleaned)
+   --------------------------------------------------------------------------
+   - Stripped of all stock themes (dracula, monokai, nord, etc.)
+   - No fixed font-size, width, or height
+   - Transparent backgrounds by default
+   - Only functional pieces: player layout, terminal, cursor, overlays, controls
+   ========================================================================== */
+
+/* Wrapper / container */
+
+/* Example: force orange in solarized theme */
+body[data-md-color-scheme="solarized"] 
+  div.ap-control-bar .ap-progressbar .ap-bar .ap-gutter-full {
+  background-color: orange;
 }
-body[data-md-color-scheme="default"] .asciicast-player .asciinema-terminal span {
-  color: #2e2e2e !important;
+div.ap-control-bar .ap-progressbar .ap-bar .ap-gutter {
+  position: absolute;
+  bottom: 14px;   /* instead of top: 15px */
+  height: 7px;
+}
+div.ap-control-bar .ap-progressbar .ap-bar .ap-gutter-empty {
+  background-color: grey;
+  position: absolute;
+  bottom: 14px;   /* instead of top: 15px */
+  height: 7px;
+}
+/* Default (light / solarized): orange */
+div.ap-control-bar .ap-progressbar .ap-bar .ap-gutter-full {
+  background-color: orange;
 }
 
-/* === Dark mode ("slate") === */
-body[data-md-color-scheme="slate"] .asciicast-player .asciinema-terminal {
-  color: #c9d1d9 !important;
-}
-body[data-md-color-scheme="slate"] .asciicast-player .asciinema-terminal span {
-  color: #c9d1d9 !important;
+/* Dark slate theme: lighter orange/yellow for contrast */
+body[data-md-color-scheme="slate"] 
+  div.ap-control-bar .ap-progressbar .ap-bar .ap-gutter-full {
+  background-color: #ffcc66;  /* softer, lighter orange */
 }
 
-/* === Solarized mode (if used) === */
-body[data-md-color-scheme="solarized"] .asciicast-player .asciinema-terminal {
-  color: #00000 !important;
-}
-body[data-md-color-scheme="solarized"] .asciicast-player .asciinema-terminal span {
-  color: #00000 !important;
+body[data-md-color-scheme="solarized"] 
+  div.ap-control-bar .ap-playback-button {
+  background-color: #ffcc66;
+  border-radius: 4px;
 }
 
-.asciinema-terminal {
-    overflow: visible;
-    padding-bottom: 1em;
-}
-
-
-/* Transparent background for the player */
-.asciicast-player .asciinema-terminal {
-  background: transparent !important;
-  color: currentColor !important; /* inherits from parent */
-  box-shadow: none !important;
-  border: none !important;
-}
-
-/* Make player container itself transparent */
-.asciicast-player .asciinema-player {
-  padding-bottom: 0 !important;
-  margin-bottom: 0 !important;
-  background: transparent !important;
-}
-/* Remove extra black padding at bottom */
-.asciicast-player {
-  background: transparent !important;
-}
-/*nuke control bar*/
-/* 🔒 Permanently disable controls */
-.asciicast-player .asciinema-player .control-bar,
-.asciicast-player .asciinema-player .play-button,
-.asciicast-player .asciinema-player .timeline,
-.asciicast-player .asciinema-player .start-prompt {
-  display: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-}
-
-/* Prevent hover overlay from re-enabling anything */
-.asciicast-player .asciinema-player:hover {
-  cursor: default !important;
-}
-
-/* Remove any padding/margin/bars left behind */
-.asciicast-player .asciinema-player {
-  padding: 0 !important;
-  margin: 0 !important;
-  background: transparent !important;
+body[data-md-color-scheme="slate"] 
+  div.ap-control-bar .ap-playback-button {
+  background-color: gray;
+  border-radius: 4px;
 }
 
 
-/* strip of fcolors */
-/* Make ALL asciicast players transparent by default */
-.asciicast-player .asciinema-terminal {
-  background: transparent !important;
-  color: currentColor !important;
-  box-shadow: none !important;
-  border: none !important;
+body[data-md-color-scheme="solarized"] .asciicast-player {
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 6px;
+  border-color: grey;
+  padding-left: .1;
+  padding-right: .1;
+  box-shadow: 0 20px 25px -5px rgba(66, 64, 64, 0.5), 0 8px 10px -6px rgba(233, 160, 2, 0.6);
 }
 
-.asciicast-player .asciinema-player {
-  padding: 0 !important;
-  margin: 0 !important;
-  background: transparent !important;
-}
-
-/* Nuke control bar globally for all players */
-.asciicast-player .asciinema-player .control-bar,
-.asciicast-player .asciinema-player .play-button,
-.asciicast-player .asciinema-player .timeline,
-.asciicast-player .asciinema-player .start-prompt {
-  display: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-}
-
-.asciicast-player .asciinema-player:hover {
-  cursor: default !important;
-}
-
-/* Override specific hardcoded colors on span elements (if any) */
-.asciicast-player .asciinema-terminal span {
-  color: currentColor !important;
-}
-.asciicast-player .asciinema-terminal {
-  background: transparent !important;
-  color: currentColor !important;
-}
-
-
-/* Base: phones / small screens */
-.asciinema-player .asciinema-terminal {
-    font-size: 4px !important;
-    line-height: 1.25 !important;
-}
-
-/* Tablets (portrait/landscape up to ~1024px) */
-@media (min-width: 600px) and (max-width: 1023px) {
-    .asciinema-player .asciinema-terminal {
-        font-size: 5px !important;
-    }
-}
-
-/* Laptops / normal desktops */
-@media (min-width: 1024px) and (max-width: 1919px) {
-    .asciinema-player .asciinema-terminal {
-        font-size: 6px !important;
-    }
-}
-
-/* Large monitors (1080p → 2K) */
-@media (min-width: 1920px) and (max-width: 2523px) {
-    .asciinema-player .asciinema-terminal {
-        font-size: 9px !important;
-    }
-}
-/* Large monitors (1080p → 2K) */
-@media (min-width: 2524px) and (max-width: 2559px) {
-    .asciinema-player .asciinema-terminal {
-        font-size: 13px !important;
-    }
-}
-
-/* Ultra-wide / 4K+ */
-@media (min-width: 2560px) {
-    .asciinema-player .asciinema-terminal {
-        font-size: 15px !important;
-    }
+/* Dark (slate) */
+body[data-md-color-scheme="slate"] .asciicast-player {
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 6px;
+  border-color: #967738;
+  box-shadow: 0 20px 25px -5px rgba(111, 106, 106, 0.9), 0 8px 10px -6px rgba(119, 88, 26, 0.9)
 }
