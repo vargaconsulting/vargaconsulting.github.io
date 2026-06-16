@@ -10,6 +10,7 @@ nav:
   - Presentations: site/talks.md  
   - Projects:
     - IEX Download: site/iexdownload.md
+    - IEX Pipeline: site/iex-pipeline.md
     - IEX2H5: site/iex2h5.md
     - Radix64: site/radix64.md
     - TinyCrypto: site/tinycrypto.md
