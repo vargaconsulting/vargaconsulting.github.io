@@ -31,7 +31,7 @@ pip freeze > requirements.txt
 
 ```bash
 source .venv/bin/activate
-reset && mkdocs serve --dev-addr=127.0.0.1:9000
+reset && mkdocs serve --livereload --dev-addr=127.0.0.1:9000
 python scripts/generate_og_default.py # generate images
 mkdocs build -v                       # generate website locally
 ```
@@ -39,7 +39,7 @@ mkdocs build -v                       # generate website locally
 
 ## Test RSS
 ```bash
-reset && mkdocs serve --dev-addr=127.0.0.1:9000     # start mkdocs
+reset && mkdocs serve --livereload --dev-addr=127.0.0.1:9000     # start mkdocs
 curl -s http://localhost:9000/rss.xml  # 
 ```
 
