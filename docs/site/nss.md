@@ -81,4 +81,4 @@ getent hosts compute-01
 
 If the upstream directory is down or unreachable, you’ll get prompt, well-typed errors rather than hangs.&#x20;
 
-*H5NSS is proprietary software by Varga Consulting.*
+*H5NSS is proprietary software by Varga Labs.*

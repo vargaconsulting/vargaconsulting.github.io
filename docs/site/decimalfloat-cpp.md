@@ -69,5 +69,6 @@ auto circumference = two * pi * 10.0_dec64;
 | `decimal_t<uint64_t>`    | Decimal64  | ±10⁻³⁸³ to ±10³⁸⁴  | 16              |
 | `decimal_t<BID_UINT128>` | Decimal128 | ±10⁻⁶¹⁵⁷ to ±10⁶¹⁶ | 34              |
 
-> License: Custom / Proprietary
-> Contact: [info@vargaconsulting.ca](mailto:info@vargaconsulting.ca)
+> :fontawesome-brands-internet-explorer:{.icon} **Explore the Project**
+> GitHub: [github.com/vargalabs/libdecimal](https://github.com/vargalabs/libdecimal)
+> Docs: [vargalabs.github.io/libdecimal](https://vargalabs.github.io/libdecimal)

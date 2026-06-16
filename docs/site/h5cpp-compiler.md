@@ -71,6 +71,6 @@ h5cpp your_translation_unit.cpp -- -std=c++17 -Imy/include/path
 This emits a file (e.g., `generated.hpp`) containing all required `h5::dt_t<T>` specializations.
 
 > 🔗 **Explore the Project**
-> GitHub: [github.com/steven-varga/h5cpp-compiler](https://github.com/steven-varga/h5cpp-compiler)
+> GitHub: [github.com/vargalabs/h5cpp-compiler](https://github.com/vargalabs/h5cpp-compiler)
 Build once, persist anywhere. Let your structs speak HDF5.
 
