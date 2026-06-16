@@ -3,7 +3,7 @@
     function waitForAsciinemaPlayer(attempts = 10) {
       if (typeof AsciinemaPlayer !== "undefined") {
         AsciinemaPlayer.create('/blog/casts/iex2h5-issue-93-problem.cast', document.getElementById('asciicast-iex2h5-issue-93-problem'), {
-          cols: 110, rows: 20, autoPlay: true,  loop: false, speed: 8.0,  idleTimeLimit: 1, controls: false
+          cols: 120, rows: 20, autoPlay: true,  loop: false, speed: .2,  idleTimeLimit: 1, controls: false
         });
       } else if (attempts > 0) {
         setTimeout(() => waitForAsciinemaPlayer(attempts - 1), 200);
