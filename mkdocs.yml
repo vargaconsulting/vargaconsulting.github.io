@@ -126,6 +126,9 @@ extra_javascript:
   - https://cdn.tailwindcss.com
   - javascripts/tw-config.js
 
+  # handle tabbed details default opening
+  - javascripts/force-details-closed.js
+
   # Terminal player (local build)
   - javascripts/asciinema-player.min.js
 
