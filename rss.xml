@@ -6,8 +6,16 @@
     <atom:link href="https://steven-varga.ca/rss.xml" rel="self" type="application/rss+xml" xmlns:atom="http://www.w3.org/2005/Atom" />
     <description>Advanced Systems for Trading, Cryptography, and Data Engineering</description>
     <language>en-us</language>
-    <lastBuildDate>Sun, 10 May 2026 03:29:31 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 17 Jun 2026 15:19:03 GMT</lastBuildDate>
 
+    
+    <item>
+      <title>Libdecimal for C++ Quants: What are my options?</title>
+      <link>https://steven-varga.ca/blog/libdecimal/</link>
+      <guid isPermaLink="true">https://steven-varga.ca/blog/libdecimal/</guid>
+      <pubDate>Tue, 16 Jun 2026 00:00:00 GMT</pubDate>
+      <description>libdecimal brings exact, IEEE 754-2008 decimal arithmetic to C++20/23 —</description>
+    </item>
     
     <item>
       <title>IEX-DOWNLOAD: Rust, Tick Data, and 13TB of Fun</title>
@@ -106,19 +114,19 @@
     </item>
     
     <item>
-      <title>HDF5 Group Overhead: Measuring the Cost of a Million Groups</title>
-      <link>https://steven-varga.ca/blog/hdf5-group-overhead/</link>
-      <guid isPermaLink="true">https://steven-varga.ca/blog/hdf5-group-overhead/</guid>
-      <pubDate>Thu, 07 Apr 2022 00:00:00 GMT</pubDate>
-      <description>HDF5 group objects come with significant metadata overhead.  </description>
-    </item>
-    
-    <item>
       <title>Automated Pretty Printing for STL-like Containers in H5CPP</title>
       <link>https://steven-varga.ca/blog/automated-stl-printing/</link>
       <guid isPermaLink="true">https://steven-varga.ca/blog/automated-stl-printing/</guid>
       <pubDate>Thu, 07 Apr 2022 00:00:00 GMT</pubDate>
       <description>Debugging with `gdb`, `valgrind`, or custom logging setups can be painful.  </description>
+    </item>
+    
+    <item>
+      <title>HDF5 Group Overhead: Measuring the Cost of a Million Groups</title>
+      <link>https://steven-varga.ca/blog/hdf5-group-overhead/</link>
+      <guid isPermaLink="true">https://steven-varga.ca/blog/hdf5-group-overhead/</guid>
+      <pubDate>Thu, 07 Apr 2022 00:00:00 GMT</pubDate>
+      <description>HDF5 group objects come with significant metadata overhead.  </description>
     </item>
     
     <item>
@@ -159,14 +167,6 @@
       <guid isPermaLink="true">https://steven-varga.ca/blog/hdf5-fixed-vs-variable-benchmark/</guid>
       <pubDate>Thu, 29 Apr 2021 00:00:00 GMT</pubDate>
       <description>Fixed-length storage wins for speed and predictability.  </description>
-    </item>
-    
-    <item>
-      <title>Bridging HPC Structs and HDF5 COMPOUNDs with H5CPP</title>
-      <link>https://steven-varga.ca/blog/pod-to-hdf5-compound/</link>
-      <guid isPermaLink="true">https://steven-varga.ca/blog/pod-to-hdf5-compound/</guid>
-      <pubDate>Sun, 18 Apr 2021 00:00:00 GMT</pubDate>
-      <description>Define your data once as a C++ POD struct.  </description>
     </item>
     
   </channel>

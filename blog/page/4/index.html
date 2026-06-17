@@ -1054,6 +1054,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#h5pset_sizes-crashes-for-16-byte-offsets-in-hdf5-1106" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        H5Pset_sizes() Crashes for 16-byte Offsets in HDF5 1.10.6
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#optimizing-subset-reads-from-contiguous-hdf5-datasets" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1152,17 +1163,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#templatized-mapping-of-hdf5-native-types-in-modern-c" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Templatized Mapping of HDF5 Native Types in Modern C++
-      
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -1218,6 +1218,36 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2026/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    June 2026
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -1913,6 +1943,66 @@
   
   
     <li class="md-nav__item">
+      <a href="../../quantitative-finance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    quantitative-finance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    systems
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
       <a href="../../tools/" class="md-nav__link">
         
   
@@ -1974,6 +2064,17 @@
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#h5pset_sizes-crashes-for-16-byte-offsets-in-hdf5-1106" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        H5Pset_sizes() Crashes for 16-byte Offsets in HDF5 1.10.6
+      
+    </span>
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#optimizing-subset-reads-from-contiguous-hdf5-datasets" class="md-nav__link">
@@ -2074,17 +2175,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#templatized-mapping-of-hdf5-native-types-in-modern-c" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Templatized Mapping of HDF5 Native Types in Modern C++
-      
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -2099,6 +2189,77 @@
       <header class="md-typeset">
         <h1 id="index">Index</h1>
       </header>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2020-02-17 00:00:00+00:00">February 17, 2020</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../../hdf5/" class="md-meta__link">hdf5</a>, 
+              <a href="../../c/" class="md-meta__link">c++</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              4 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="h5pset_sizes-crashes-for-16-byte-offsets-in-hdf5-1106"><a class="toclink" href="../../hdf5-set-sizes-crash/">H5Pset_sizes() Crashes for 16-byte Offsets in HDF5 1.10.6</a></h2>
+<h3 id="problem-h5pset_sizesfcpl_id-offset-length-crashes"><a class="toclink" href="../../hdf5-set-sizes-crash/#problem-h5pset_sizesfcpl_id-offset-length-crashes">problem: H5Pset_sizes(fcpl_id, offset, length) crashes</a></h3>
+<p><strong>HDF5 Version:</strong> 1.10.6</p>
+<p>When either of the values take on value <code>16</code> library crashes, tested against  HDF5 1.10.6, others maybe affected
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>size_t offset[] = {2,4,8,16};
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>size_t length[] = {2,4,8,16};
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>size_t N = 4;
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    for( size_t i=0; i&lt;N; i++) {
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>        for( size_t j=0; j&lt;N; j++ ) {
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>            sprintf(name, &quot;name_%ld_%ld.h5&quot;, offset[i], length[j]);
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>            fcpl_id =  H5Pcreate(H5P_FILE_CREATE);
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>            err = H5Pset_sizes(fcpl_id, offset[i], length[j]);
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>            fd_id = H5Fcreate( name, H5F_ACC_TRUNC, fcpl_id,H5P_DEFAULT );
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>            H5Pclose(fcpl_id);
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>            H5Fclose(fd_id);
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>        }
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>    }
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>}
+</span></code></pre></div></p>
+<h2 id="output-of-make-test"><a class="toclink" href="../../hdf5-set-sizes-crash/#output-of-make-test">output of <code>make test</code></a></h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>cc main.c -lhdf5  -lz -ldl -lm -o set_sizes 
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>./set_sizes
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>free(): invalid pointer
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>Makefile:12: recipe for target &#39;test&#39; failed
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>make: *** [test] Aborted (core dumped)
+</span></code></pre></div>
+<p>Change <code>size_t N=4</code> to  <code>size_t N=3</code> tp reduce test range from <code>{2,4,8,16} X {2,4,8,16}</code> to  <code>{2,4,8} X {2,4,8}</code>
+<em>notice the missing <code>16</code> which is valid input according to documentation.</em></p>
+<h2 id="linking"><a class="toclink" href="../../hdf5-set-sizes-crash/#linking">linking:</a></h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>    linux-vdso.so.1 (0x00007fff929f5000)
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    libhdf5.so.103 =&gt; /usr/local/lib/libhdf5.so.103 (0x00007ff443b55000)
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    libc.so.6 =&gt; /lib/x86_64-linux-gnu/libc.so.6 (0x00007ff443764000)
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    libz.so.1 =&gt; /lib/x86_64-linux-gnu/libz.so.1 (0x00007ff443547000)
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    libdl.so.2 =&gt; /lib/x86_64-linux-gnu/libdl.so.2 (0x00007ff443343000)
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    libm.so.6 =&gt; /lib/x86_64-linux-gnu/libm.so.6 (0x00007ff442fa5000)
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    /lib64/ld-linux-x86-64.so.2 (0x00007ff444332000)
+</span></code></pre></div>
+    
+    
+  </div>
+</article>
       
         <article class="md-post md-post--excerpt">
   <header class="md-post__header">
@@ -3023,138 +3184,6 @@ This keeps performance high, complexity low, and coordination overhead manageabl
   </div>
 </article>
       
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2018-02-06 00:00:00+00:00">February 6, 2018</time></li>
-        
-          <li class="md-meta__item">
-            in
-            
-              <a href="../../hdf5/" class="md-meta__link">hdf5</a>, 
-              <a href="../../c/" class="md-meta__link">c++</a></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              7 min read
-            
-          </li>
-        
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="templatized-mapping-of-hdf5-native-types-in-modern-c"><a class="toclink" href="../../hdf5-templatized-native-type-mapping/">Templatized Mapping of HDF5 Native Types in Modern C++</a></h2>
-<h3 id="the-problem-posted-by-mark-c-miller-feb-5-2018"><a class="toclink" href="../../hdf5-templatized-native-type-mapping/#the-problem-posted-by-mark-c-miller-feb-5-2018">The Problem (Posted by Mark C. Miller, Feb 5, 2018)</a></h3>
-<p>Mark needed a simple way to map <code>std::vector&lt;T&gt;</code> to the correct <code>H5T_NATIVE_*</code> type in a templated dataset writer:</p>
-<div class="language-cpp highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">WriteVecToHDF5</span><span class="p">(</span><span class="n">hid_t</span><span class="w"> </span><span class="n">fid</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">name</span><span class="p">,</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">                           </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">vec</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">d2size</span><span class="p">)</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="p">{</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="n">hsize_t</span><span class="w"> </span><span class="n">dims</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">vec</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">d2size</span><span class="p">,</span><span class="w"> </span><span class="n">d2size</span><span class="p">};</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="n">hid_t</span><span class="w"> </span><span class="n">spid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">H5Screate_simple</span><span class="p">(</span><span class="n">d2size</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">dims</span><span class="p">,</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">);</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="n">hid_t</span><span class="w"> </span><span class="n">dsid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">H5Dcreate</span><span class="p">(</span><span class="n">fid</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">HDF5Type</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">().</span><span class="n">Type</span><span class="p">(),</span><span class="w"> </span><span class="n">spid</span><span class="p">,</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">                           </span><span class="n">H5P_DEFAULT</span><span class="p">,</span><span class="w"> </span><span class="n">H5P_DEFAULT</span><span class="p">,</span><span class="w"> </span><span class="n">H5P_DEFAULT</span><span class="p">);</span>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="n">H5Dwrite</span><span class="p">(</span><span class="n">dsid</span><span class="p">,</span><span class="w"> </span><span class="n">H5T_NATIVE_INT</span><span class="p">,</span><span class="w"> </span><span class="n">H5S_ALL</span><span class="p">,</span><span class="w"> </span><span class="n">H5S_ALL</span><span class="p">,</span><span class="w"> </span><span class="n">H5P_DEFAULT</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">vec</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">    </span><span class="n">H5Dclose</span><span class="p">(</span><span class="n">dsid</span><span class="p">);</span>
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">    </span><span class="n">H5Sclose</span><span class="p">(</span><span class="n">spid</span><span class="p">);</span>
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="p">}</span>
-</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="err">````</span>
-</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>
-</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="n">He</span><span class="w"> </span><span class="n">implemented</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">hierarchy</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="err">`</span><span class="n">HDF5Type</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">()</span><span class="err">`</span><span class="p">,</span><span class="w"> </span><span class="n">specialized</span><span class="w"> </span><span class="n">per</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">corresponding</span><span class="w"> </span><span class="n">native</span><span class="w"> </span><span class="n">constant</span><span class="w"> </span><span class="p">(</span><span class="err">`</span><span class="n">H5T_NATIVE_INT</span><span class="err">`</span><span class="p">,</span><span class="w"> </span><span class="err">`</span><span class="n">H5T_NATIVE_FLOAT</span><span class="err">`</span><span class="p">,</span><span class="w"> </span><span class="n">etc</span><span class="p">.).</span>
-</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>
-</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="n">But</span><span class="p">...</span><span class="w"> </span><span class="n">inheritance</span><span class="p">,</span><span class="w"> </span><span class="n">virtuals</span><span class="p">,</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">boilerplate</span><span class="w"> </span><span class="n">made</span><span class="w"> </span><span class="n">him</span><span class="w"> </span><span class="n">wonder</span><span class="o">:</span><span class="w"> </span><span class="o">*</span><span class="n">Is</span><span class="w"> </span><span class="n">there</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">cleaner</span><span class="w"> </span><span class="n">way</span><span class="o">?*</span>
-</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>
-</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>
-</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="cp">## The H5CPP Way: Keep It Simple and Modern (Steven Varga)</span>
-</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>
-</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="n">Steven</span><span class="w"> </span><span class="n">Varga</span><span class="p">,</span><span class="w"> </span><span class="n">author</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="o">**</span><span class="n">H5CPP</span><span class="o">**</span><span class="p">,</span><span class="w"> </span><span class="n">weighed</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">minimalist</span><span class="w"> </span><span class="n">approach</span><span class="w"> </span><span class="n">inspired</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="n">modern</span><span class="w"> </span><span class="n">C</span><span class="o">++</span><span class="w"> </span><span class="n">design</span><span class="err">—</span><span class="n">ditch</span><span class="w"> </span><span class="k">virtual</span><span class="w"> </span><span class="n">dispatch</span><span class="p">,</span><span class="w"> </span><span class="n">avoid</span><span class="w"> </span><span class="n">inheritance</span><span class="p">,</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">leverage</span><span class="w"> </span><span class="n">function</span><span class="w"> </span><span class="n">overloads</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="k">template</span><span class="w"> </span><span class="n">inference</span><span class="p">.</span>
-</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>
-</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="cp">### ✅ Solution</span>
-</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>
-</span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="err">```</span><span class="n">cpp</span>
-</span><span id="__span-3-27"><a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a><span class="kr">inline</span><span class="w"> </span><span class="n">hid_t</span><span class="w"> </span><span class="n">h5type</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">&amp;</span><span class="p">)</span><span class="w">                </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">H5T_NATIVE_CHAR</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-</span><span id="__span-3-28"><a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a><span class="kr">inline</span><span class="w"> </span><span class="n">hid_t</span><span class="w"> </span><span class="n">h5type</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">signed</span><span class="w"> </span><span class="kt">char</span><span class="o">&amp;</span><span class="p">)</span><span class="w">         </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">H5T_NATIVE_SCHAR</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-</span><span id="__span-3-29"><a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a><span class="kr">inline</span><span class="w"> </span><span class="n">hid_t</span><span class="w"> </span><span class="n">h5type</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="o">&amp;</span><span class="p">)</span><span class="w">       </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">H5T_NATIVE_UCHAR</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-</span><span id="__span-3-30"><a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a><span class="kr">inline</span><span class="w"> </span><span class="n">hid_t</span><span class="w"> </span><span class="n">h5type</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">short</span><span class="o">&amp;</span><span class="p">)</span><span class="w">               </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">H5T_NATIVE_SHORT</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-</span><span id="__span-3-31"><a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a><span class="kr">inline</span><span class="w"> </span><span class="n">hid_t</span><span class="w"> </span><span class="n">h5type</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">short</span><span class="o">&amp;</span><span class="p">)</span><span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">H5T_NATIVE_USHORT</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-</span><span id="__span-3-32"><a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a><span class="kr">inline</span><span class="w"> </span><span class="n">hid_t</span><span class="w"> </span><span class="n">h5type</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="o">&amp;</span><span class="p">)</span><span class="w">                 </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">H5T_NATIVE_INT</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-</span><span id="__span-3-33"><a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a><span class="kr">inline</span><span class="w"> </span><span class="n">hid_t</span><span class="w"> </span><span class="n">h5type</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="o">&amp;</span><span class="p">)</span><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">H5T_NATIVE_UINT</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-</span><span id="__span-3-34"><a id="__codelineno-3-34" name="__codelineno-3-34" href="#__codelineno-3-34"></a><span class="kr">inline</span><span class="w"> </span><span class="n">hid_t</span><span class="w"> </span><span class="n">h5type</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">long</span><span class="o">&amp;</span><span class="p">)</span><span class="w">                </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">H5T_NATIVE_LONG</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-</span><span id="__span-3-35"><a id="__codelineno-3-35" name="__codelineno-3-35" href="#__codelineno-3-35"></a><span class="kr">inline</span><span class="w"> </span><span class="n">hid_t</span><span class="w"> </span><span class="n">h5type</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="o">&amp;</span><span class="p">)</span><span class="w">       </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">H5T_NATIVE_ULONG</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-</span><span id="__span-3-36"><a id="__codelineno-3-36" name="__codelineno-3-36" href="#__codelineno-3-36"></a><span class="kr">inline</span><span class="w"> </span><span class="n">hid_t</span><span class="w"> </span><span class="n">h5type</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="o">&amp;</span><span class="p">)</span><span class="w">           </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">H5T_NATIVE_LLONG</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-</span><span id="__span-3-37"><a id="__codelineno-3-37" name="__codelineno-3-37" href="#__codelineno-3-37"></a><span class="kr">inline</span><span class="w"> </span><span class="n">hid_t</span><span class="w"> </span><span class="n">h5type</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="o">&amp;</span><span class="p">)</span><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">H5T_NATIVE_ULLONG</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-</span><span id="__span-3-38"><a id="__codelineno-3-38" name="__codelineno-3-38" href="#__codelineno-3-38"></a><span class="kr">inline</span><span class="w"> </span><span class="n">hid_t</span><span class="w"> </span><span class="n">h5type</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="o">&amp;</span><span class="p">)</span><span class="w">               </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">H5T_NATIVE_FLOAT</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-</span><span id="__span-3-39"><a id="__codelineno-3-39" name="__codelineno-3-39" href="#__codelineno-3-39"></a><span class="kr">inline</span><span class="w"> </span><span class="n">hid_t</span><span class="w"> </span><span class="n">h5type</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">double</span><span class="o">&amp;</span><span class="p">)</span><span class="w">              </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">H5T_NATIVE_DOUBLE</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-</span><span id="__span-3-40"><a id="__codelineno-3-40" name="__codelineno-3-40" href="#__codelineno-3-40"></a><span class="kr">inline</span><span class="w"> </span><span class="n">hid_t</span><span class="w"> </span><span class="n">h5type</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">double</span><span class="o">&amp;</span><span class="p">)</span><span class="w">         </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">H5T_NATIVE_LDOUBLE</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-</span><span id="__span-3-41"><a id="__codelineno-3-41" name="__codelineno-3-41" href="#__codelineno-3-41"></a>
-</span><span id="__span-3-42"><a id="__codelineno-3-42" name="__codelineno-3-42" href="#__codelineno-3-42"></a><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
-</span><span id="__span-3-43"><a id="__codelineno-3-43" name="__codelineno-3-43" href="#__codelineno-3-43"></a><span class="kr">inline</span><span class="w"> </span><span class="n">hid_t</span><span class="w"> </span><span class="n">h5type</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">h5type</span><span class="p">(</span><span class="n">T</span><span class="p">());</span><span class="w"> </span><span class="p">}</span>
-</span></code></pre></div>
-<h4 id="usage"><a class="toclink" href="../../hdf5-templatized-native-type-mapping/#usage">✅ Usage</a></h4>
-<div class="language-cpp highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">hid_t</span><span class="w"> </span><span class="n">type_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">h5type</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">();</span>
-</span></code></pre></div>
-<p>Or, more directly:</p>
-<div class="language-cpp highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">hid_t</span><span class="w"> </span><span class="n">dsid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">H5Dcreate</span><span class="p">(</span><span class="n">fid</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">h5type</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(),</span><span class="w"> </span><span class="n">spid</span><span class="p">,</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">                       </span><span class="n">H5P_DEFAULT</span><span class="p">,</span><span class="w"> </span><span class="n">H5P_DEFAULT</span><span class="p">,</span><span class="w"> </span><span class="n">H5P_DEFAULT</span><span class="p">);</span>
-</span></code></pre></div>
-<h3 id="benefits-of-this-pattern"><a class="toclink" href="../../hdf5-templatized-native-type-mapping/#benefits-of-this-pattern">Benefits of This Pattern</a></h3>
-<table>
-<thead>
-<tr>
-<th>Feature</th>
-<th>Virtual Class Approach</th>
-<th>Overload-Based Approach</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Compile-time resolution</td>
-<td>❌</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>Easy to extend for new types</td>
-<td>⚠️ (needs specialization)</td>
-<td>✅ (just another overload)</td>
-</tr>
-<tr>
-<td>Runtime dispatch</td>
-<td>✅</td>
-<td>❌</td>
-</tr>
-<tr>
-<td>Readability</td>
-<td>⚠️ verbose</td>
-<td>✅ concise</td>
-</tr>
-<tr>
-<td>Performance (no virtual calls)</td>
-<td>❌</td>
-<td>✅</td>
-</tr>
-</tbody>
-</table>
-<h3 id="conclusion"><a class="toclink" href="../../hdf5-templatized-native-type-mapping/#conclusion">Conclusion</a></h3>
-<p>The overload-based mapping pattern presented by Steven Varga in response to the HDF forum thread reflects a clean, idiomatic modern C++ style:</p>
-<ul>
-<li>Clear separation of logic</li>
-<li>No need for inheritance boilerplate</li>
-<li>Efficient and extensible</li>
-</ul>
-<p>If you're designing a lightweight HDF5 backend—or building C++ infrastructure like <strong>H5CPP</strong>—this pattern is robust and production-ready.</p>
-    
-    
-  </div>
-</article>
-      
       
         
           
@@ -3212,6 +3241,8 @@ This keeps performance high, complexity low, and coordination overhead manageabl
         <script src="https://cdn.tailwindcss.com"></script>
       
         <script src="../../../javascripts/tw-config.js"></script>
+      
+        <script src="../../../javascripts/force-details-closed.js"></script>
       
         <script src="../../../javascripts/asciinema-player.min.js"></script>
       

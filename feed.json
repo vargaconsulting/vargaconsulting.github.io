@@ -6,6 +6,13 @@
   "description": "Advanced Systems for Trading, Cryptography, and Data Engineering",
   "items": [
     {
+      "id": "https://steven-varga.ca/blog/libdecimal/",
+      "url": "https://steven-varga.ca/blog/libdecimal/",
+      "title": "Libdecimal for C++ Quants: What are my options?",
+      "summary": "libdecimal brings exact, IEEE 754-2008 decimal arithmetic to C++20/23 \u2014",
+      "date_published": "2026-06-16T00:00:00"
+    },
+    {
       "id": "https://steven-varga.ca/blog/iex-download-rust/",
       "url": "https://steven-varga.ca/blog/iex-download-rust/",
       "title": "IEX-DOWNLOAD: Rust, Tick Data, and 13TB of Fun",
@@ -90,17 +97,17 @@
       "date_published": "2022-06-29T00:00:00"
     },
     {
-      "id": "https://steven-varga.ca/blog/hdf5-group-overhead/",
-      "url": "https://steven-varga.ca/blog/hdf5-group-overhead/",
-      "title": "HDF5 Group Overhead: Measuring the Cost of a Million Groups",
-      "summary": "HDF5 group objects come with significant metadata overhead.  ",
-      "date_published": "2022-04-07T00:00:00"
-    },
-    {
       "id": "https://steven-varga.ca/blog/automated-stl-printing/",
       "url": "https://steven-varga.ca/blog/automated-stl-printing/",
       "title": "Automated Pretty Printing for STL-like Containers in H5CPP",
       "summary": "Debugging with `gdb`, `valgrind`, or custom logging setups can be painful.  ",
+      "date_published": "2022-04-07T00:00:00"
+    },
+    {
+      "id": "https://steven-varga.ca/blog/hdf5-group-overhead/",
+      "url": "https://steven-varga.ca/blog/hdf5-group-overhead/",
+      "title": "HDF5 Group Overhead: Measuring the Cost of a Million Groups",
+      "summary": "HDF5 group objects come with significant metadata overhead.  ",
       "date_published": "2022-04-07T00:00:00"
     },
     {
@@ -137,13 +144,6 @@
       "title": "Fixed-Length vs. Variable-Length Storage in HDF5",
       "summary": "Fixed-length storage wins for speed and predictability.  ",
       "date_published": "2021-04-29T00:00:00"
-    },
-    {
-      "id": "https://steven-varga.ca/blog/pod-to-hdf5-compound/",
-      "url": "https://steven-varga.ca/blog/pod-to-hdf5-compound/",
-      "title": "Bridging HPC Structs and HDF5 COMPOUNDs with H5CPP",
-      "summary": "Define your data once as a C++ POD struct.  ",
-      "date_published": "2021-04-18T00:00:00"
     }
   ]
 }

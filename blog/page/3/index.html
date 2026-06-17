@@ -1054,6 +1054,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#bridging-hpc-structs-and-hdf5-compounds-with-h5cpp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bridging HPC Structs and HDF5 COMPOUNDs with H5CPP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#independent-dataset-extension-in-parallel-hdf5" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1152,17 +1163,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#h5pset_sizes-crashes-for-16-byte-offsets-in-hdf5-1106" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        H5Pset_sizes() Crashes for 16-byte Offsets in HDF5 1.10.6
-      
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -1218,6 +1218,36 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2026/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    June 2026
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -1913,6 +1943,66 @@
   
   
     <li class="md-nav__item">
+      <a href="../../quantitative-finance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    quantitative-finance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    systems
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
       <a href="../../tools/" class="md-nav__link">
         
   
@@ -1974,6 +2064,17 @@
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#bridging-hpc-structs-and-hdf5-compounds-with-h5cpp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bridging HPC Structs and HDF5 COMPOUNDs with H5CPP
+      
+    </span>
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#independent-dataset-extension-in-parallel-hdf5" class="md-nav__link">
@@ -2074,17 +2175,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#h5pset_sizes-crashes-for-16-byte-offsets-in-hdf5-1106" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        H5Pset_sizes() Crashes for 16-byte Offsets in HDF5 1.10.6
-      
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -2099,6 +2189,124 @@
       <header class="md-typeset">
         <h1 id="index">Index</h1>
       </header>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2021-04-18 00:00:00+00:00">April 18, 2021</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../../hdf5/" class="md-meta__link">hdf5</a>, 
+              <a href="../../c/" class="md-meta__link">c++</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              7 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="bridging-hpc-structs-and-hdf5-compounds-with-h5cpp"><a class="toclink" href="../../pod-to-hdf5-compound/">Bridging HPC Structs and HDF5 COMPOUNDs with H5CPP</a></h2>
+<h3 id="the-problem"><a class="toclink" href="../../pod-to-hdf5-compound/#the-problem">🚀 The Problem</a></h3>
+<p>You’re running simulations or doing scientific computing. You model data like this:</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">struct</span><span class="w"> </span><span class="nc">record_t</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">temp</span><span class="p">;</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">density</span><span class="p">;</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">B</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">V</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">dm</span><span class="p">[</span><span class="mi">20</span><span class="p">];</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">jkq</span><span class="p">[</span><span class="mi">9</span><span class="p">];</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="p">};</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="err">````</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="n">Now</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">want</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">persist</span><span class="w"> </span><span class="n">these</span><span class="w"> </span><span class="n">structs</span><span class="w"> </span><span class="n">into</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">HDF5</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">COMPOUND</span><span class="w"> </span><span class="n">datatype</span><span class="p">.</span><span class="n">With</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">standard</span><span class="w"> </span><span class="n">C</span><span class="w"> </span><span class="n">API</span><span class="o">?</span><span class="w"> </span><span class="n">That</span><span class="w"> </span><span class="n">means</span><span class="w"> </span><span class="mi">20</span><span class="o">+</span><span class="w"> </span><span class="n">lines</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">verbose</span><span class="p">,</span><span class="w"> </span><span class="n">error</span><span class="o">-</span><span class="n">prone</span><span class="w"> </span><span class="n">setup</span><span class="p">.</span><span class="w"> </span><span class="n">With</span><span class="w"> </span><span class="n">H5CPP</span><span class="o">?</span><span class="w"> </span><span class="n">Just</span><span class="w"> </span><span class="n">include</span><span class="w"> </span><span class="err">`</span><span class="k">struct</span><span class="p">.</span><span class="n">h</span><span class="err">`</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">let</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">tools</span><span class="w"> </span><span class="n">handle</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">rest</span><span class="p">.</span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="cp">## 🔧 Step-by-Step with H5CPP</span>
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="cp">### 1. Define Your POD Struct</span>
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>
+</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="err">```</span><span class="n">cpp</span>
+</span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a><span class="k">namespace</span><span class="w"> </span><span class="nn">sn</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-19"><a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">record_t</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-20"><a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">temp</span><span class="p">;</span>
+</span><span id="__span-6-21"><a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">density</span><span class="p">;</span>
+</span><span id="__span-6-22"><a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">B</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+</span><span id="__span-6-23"><a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">V</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+</span><span id="__span-6-24"><a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">dm</span><span class="p">[</span><span class="mi">20</span><span class="p">];</span>
+</span><span id="__span-6-25"><a id="__codelineno-6-25" name="__codelineno-6-25" href="#__codelineno-6-25"></a><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">jkq</span><span class="p">[</span><span class="mi">9</span><span class="p">];</span>
+</span><span id="__span-6-26"><a id="__codelineno-6-26" name="__codelineno-6-26" href="#__codelineno-6-26"></a><span class="w">    </span><span class="p">};</span>
+</span><span id="__span-6-27"><a id="__codelineno-6-27" name="__codelineno-6-27" href="#__codelineno-6-27"></a><span class="p">}</span>
+</span></code></pre></div>
+<h4 id="2-generate-type-descriptors"><a class="toclink" href="../../pod-to-hdf5-compound/#2-generate-type-descriptors">2. Generate Type Descriptors</a></h4>
+<p>Invoke the H5CPP LLVM-based code generator:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>h5cpp<span class="w"> </span>struct.cpp<span class="w"> </span>--<span class="w"> </span>-std<span class="o">=</span>c++17<span class="w"> </span>-I.<span class="w"> </span>-Dgenerated.h
+</span></code></pre></div>
+<p>It will emit a <code>generated.h</code> file that defines a specialization for:</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">h5</span><span class="o">::</span><span class="n">register_struct</span><span class="o">&lt;</span><span class="n">sn</span><span class="o">::</span><span class="n">record_t</span><span class="o">&gt;</span><span class="p">()</span>
+</span></code></pre></div>
+<p>This registers an HDF5 compound type at runtime, automatically.</p>
+<h3 id="example-usage"><a class="toclink" href="../../pod-to-hdf5-compound/#example-usage">🧪 Example Usage</a></h3>
+<p>Here’s how you write/read a compound dataset with zero HDF5 ceremony:</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;struct.h&quot;</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;h5cpp/core&gt;</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;generated.h&quot;</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;h5cpp/io&gt;</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">    </span><span class="n">h5</span><span class="o">::</span><span class="n">fd_t</span><span class="w"> </span><span class="n">fd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">h5</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="s">&quot;test.h5&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">H5F_ACC_TRUNC</span><span class="p">);</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">    </span><span class="c1">// Create dataset with shape (70, 3, 3)</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">    </span><span class="n">h5</span><span class="o">::</span><span class="n">create</span><span class="o">&lt;</span><span class="n">sn</span><span class="o">::</span><span class="n">record_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/Module/g_data&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">h5</span><span class="o">::</span><span class="n">max_dims</span><span class="p">{</span><span class="mi">70</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">});</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="w">    </span><span class="c1">// Read it back</span>
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">records</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">h5</span><span class="o">::</span><span class="n">read</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">sn</span><span class="o">::</span><span class="n">record_t</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/Module/g_data&quot;</span><span class="p">);</span>
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">rec</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">records</span><span class="p">)</span>
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cerr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">rec</span><span class="p">.</span><span class="n">temp</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="p">;</span>
+</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cerr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="what-generatedh-looks-like"><a class="toclink" href="../../pod-to-hdf5-compound/#what-generatedh-looks-like">🔍 What <code>generated.h</code> Looks Like</a></h3>
+<p>The generated descriptor maps your struct fields to HDF5 types:</p>
+<p><div class="language-cpp highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">template</span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">hid_t</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="n">register_struct</span><span class="o">&lt;</span><span class="n">sn</span><span class="o">::</span><span class="n">record_t</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="n">hid_t</span><span class="w"> </span><span class="n">ct</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">H5Tcreate</span><span class="p">(</span><span class="n">H5T_COMPOUND</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">sn</span><span class="o">::</span><span class="n">record_t</span><span class="p">));</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="n">H5Tinsert</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;temp&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">HOFFSET</span><span class="p">(</span><span class="n">sn</span><span class="o">::</span><span class="n">record_t</span><span class="p">,</span><span class="w"> </span><span class="n">temp</span><span class="p">),</span><span class="w"> </span><span class="n">H5T_NATIVE_DOUBLE</span><span class="p">);</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">    </span><span class="n">H5Tinsert</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;density&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">HOFFSET</span><span class="p">(</span><span class="n">sn</span><span class="o">::</span><span class="n">record_t</span><span class="p">,</span><span class="w"> </span><span class="n">density</span><span class="p">),</span><span class="w"> </span><span class="n">H5T_NATIVE_DOUBLE</span><span class="p">);</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">    </span><span class="p">...</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ct</span><span class="p">;</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="p">}</span>
+</span></code></pre></div>
+Nested arrays (like <code>B[3]</code>) are flattened using <code>H5Tarray_create</code>, and all internal <code>hid_t</code> handles are cleaned up.</p>
+<h3 id="thread-safe-and-leak-free"><a class="toclink" href="../../pod-to-hdf5-compound/#thread-safe-and-leak-free">🧵 Thread-safe and Leak-free</a></h3>
+<p>Generated code avoids resource leaks by closing array types after insertion, keeping everything safe and clean:</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">H5Tclose</span><span class="p">(</span><span class="n">at_00</span><span class="p">);</span><span class="w"> </span><span class="n">H5Tclose</span><span class="p">(</span><span class="n">at_01</span><span class="p">);</span><span class="w"> </span><span class="n">H5Tclose</span><span class="p">(</span><span class="n">at_02</span><span class="p">);</span>
+</span></code></pre></div>
+<h3 id="why-this-matters"><a class="toclink" href="../../pod-to-hdf5-compound/#why-this-matters">🧠 Why This Matters</a></h3>
+<p>HDF5 is excellent for structured scientific data. But the C API is boilerplate-heavy and distracts from the real logic. H5CPP eliminates this:</p>
+<ul>
+<li>Describe once, reuse everywhere</li>
+<li>Autogenerate glue code</li>
+<li>Zero-copy semantics, modern C++17 syntax</li>
+<li>Support for nested arrays and multidimensional shapes</li>
+</ul>
+<h3 id="conclusion"><a class="toclink" href="../../pod-to-hdf5-compound/#conclusion">✅ Conclusion</a></h3>
+<p>If you're working with scientific data in C++, H5CPP gives you the power of HDF5 with the simplicity of a header file.
+Skip the boilerplate. Focus on science.</p>
+    
+    
+  </div>
+</article>
       
         <article class="md-post md-post--excerpt">
   <header class="md-post__header">
@@ -3103,77 +3311,6 @@ Documenting that <code>N &lt;= H5O_SHMESG_MAX_NINDEXES</code> can help to preven
   </div>
 </article>
       
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2020-02-17 00:00:00+00:00">February 17, 2020</time></li>
-        
-          <li class="md-meta__item">
-            in
-            
-              <a href="../../hdf5/" class="md-meta__link">hdf5</a>, 
-              <a href="../../c/" class="md-meta__link">c++</a></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              4 min read
-            
-          </li>
-        
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="h5pset_sizes-crashes-for-16-byte-offsets-in-hdf5-1106"><a class="toclink" href="../../hdf5-set-sizes-crash/">H5Pset_sizes() Crashes for 16-byte Offsets in HDF5 1.10.6</a></h2>
-<h3 id="problem-h5pset_sizesfcpl_id-offset-length-crashes"><a class="toclink" href="../../hdf5-set-sizes-crash/#problem-h5pset_sizesfcpl_id-offset-length-crashes">problem: H5Pset_sizes(fcpl_id, offset, length) crashes</a></h3>
-<p><strong>HDF5 Version:</strong> 1.10.6</p>
-<p>When either of the values take on value <code>16</code> library crashes, tested against  HDF5 1.10.6, others maybe affected
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>size_t offset[] = {2,4,8,16};
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>size_t length[] = {2,4,8,16};
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>size_t N = 4;
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    for( size_t i=0; i&lt;N; i++) {
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>        for( size_t j=0; j&lt;N; j++ ) {
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>            sprintf(name, &quot;name_%ld_%ld.h5&quot;, offset[i], length[j]);
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>            fcpl_id =  H5Pcreate(H5P_FILE_CREATE);
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>            err = H5Pset_sizes(fcpl_id, offset[i], length[j]);
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>            fd_id = H5Fcreate( name, H5F_ACC_TRUNC, fcpl_id,H5P_DEFAULT );
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>            H5Pclose(fcpl_id);
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>            H5Fclose(fd_id);
-</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>        }
-</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>    }
-</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>}
-</span></code></pre></div></p>
-<h2 id="output-of-make-test"><a class="toclink" href="../../hdf5-set-sizes-crash/#output-of-make-test">output of <code>make test</code></a></h2>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>cc main.c -lhdf5  -lz -ldl -lm -o set_sizes 
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>./set_sizes
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>free(): invalid pointer
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>Makefile:12: recipe for target &#39;test&#39; failed
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>make: *** [test] Aborted (core dumped)
-</span></code></pre></div>
-<p>Change <code>size_t N=4</code> to  <code>size_t N=3</code> tp reduce test range from <code>{2,4,8,16} X {2,4,8,16}</code> to  <code>{2,4,8} X {2,4,8}</code>
-<em>notice the missing <code>16</code> which is valid input according to documentation.</em></p>
-<h2 id="linking"><a class="toclink" href="../../hdf5-set-sizes-crash/#linking">linking:</a></h2>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>    linux-vdso.so.1 (0x00007fff929f5000)
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    libhdf5.so.103 =&gt; /usr/local/lib/libhdf5.so.103 (0x00007ff443b55000)
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    libc.so.6 =&gt; /lib/x86_64-linux-gnu/libc.so.6 (0x00007ff443764000)
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    libz.so.1 =&gt; /lib/x86_64-linux-gnu/libz.so.1 (0x00007ff443547000)
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    libdl.so.2 =&gt; /lib/x86_64-linux-gnu/libdl.so.2 (0x00007ff443343000)
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    libm.so.6 =&gt; /lib/x86_64-linux-gnu/libm.so.6 (0x00007ff442fa5000)
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    /lib64/ld-linux-x86-64.so.2 (0x00007ff444332000)
-</span></code></pre></div>
-    
-    
-  </div>
-</article>
-      
       
         
           
@@ -3231,6 +3368,8 @@ Documenting that <code>N &lt;= H5O_SHMESG_MAX_NINDEXES</code> can help to preven
         <script src="https://cdn.tailwindcss.com"></script>
       
         <script src="../../../javascripts/tw-config.js"></script>
+      
+        <script src="../../../javascripts/force-details-closed.js"></script>
       
         <script src="../../../javascripts/asciinema-player.min.js"></script>
       

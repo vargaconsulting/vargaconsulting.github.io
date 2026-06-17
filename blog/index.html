@@ -1056,6 +1056,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#libdecimal-for-c-quants-what-are-my-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Libdecimal for C++ Quants: What are my options?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#iex-download-rust-tick-data-and-13tb-of-fun" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1154,17 +1165,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#writing-direct-hdf5-chunks-piece-by-piece-with-h5cpp" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Writing Direct HDF5 Chunks Piece-by-Piece with H5CPP
-      
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -1220,6 +1220,36 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="2026/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    June 2026
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -1915,6 +1945,66 @@
   
   
     <li class="md-nav__item">
+      <a href="quantitative-finance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    quantitative-finance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="systems/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    systems
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
       <a href="tools/" class="md-nav__link">
         
   
@@ -1976,6 +2066,17 @@
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#libdecimal-for-c-quants-what-are-my-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Libdecimal for C++ Quants: What are my options?
+      
+    </span>
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#iex-download-rust-tick-data-and-13tb-of-fun" class="md-nav__link">
@@ -2076,17 +2177,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#writing-direct-hdf5-chunks-piece-by-piece-with-h5cpp" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Writing Direct HDF5 Chunks Piece-by-Piece with H5CPP
-      
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -2101,6 +2191,821 @@
       <header class="md-typeset">
         <h1 id="_1"><a href="https://steven-varga.ca/rss.xml"><img alt="In" src="https://img.shields.io/badge/rss-subscribe-orange" /></a><a href="https://steven-varga.ca/feed.xml"><img alt="dex" src="https://img.shields.io/badge/json-subscribe-orange" /></a></h1>
       </header>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2026-06-16 00:00:00+00:00">June 16, 2026</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="systems/" class="md-meta__link">systems</a>, 
+              <a href="quantitative-finance/" class="md-meta__link">quantitative-finance</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              36 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="libdecimal-for-c-quants-what-are-my-options"><a class="toclink" href="libdecimal/">Libdecimal for C++ Quants: What are my options?</a></h2>
+<p>What every C++ developer knows: 0.1 + 0.2 != 0.3. No surprise there. The interesting question is which decimal format to use, what it costs you, and where Boost.Decimal stands among the options.</p>
+<p>In October 2025, Harold Bott got in touch and asked me to review the dependency-free <a href="https://github.com/boostorg/decimal">Boost.Decimal implementation</a>. Unfortunately, I was not in a good position to help at the time: The Intel LIBBID-based <a href="https://github.com/vargaconsulting/libdecimal"><code>libdecimal</code></a> library I maintained was in terrible shape, and I did not yet have a proper benchmarking or comparison framework ready.
+I felt a bit ashamed about that. I tried to scramble something together so I could respond with useful content, but their release deadline was only a few days away. It felt like a missed opportunity, and I kept thinking about it from time to time — you know, those moments between doom scrolling and being busy in general. This work is my attempt to make up for it.
+<a href="https://github.com/boostorg/decimal">Boost.Decimal</a> is excellent work supports both Intel BID and IBM DPD formats, but this review is not to repeat the internal work of the library contributors, instead focuses on the corners I am familiar with writing exchange connectivities and trading systems. </p>
+<details class="example">
+<summary><span class="twemoji example"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.651 3.277c-.25.002-1.009.057-3.47.226l-9.113.627c-3.044.208-2.743.18-2.888.27-.163.102-.254.274-.308.58-.451 2.177-.812 3.74-1.104 5.007-.015.04-.046.178-.07.306-.038.218-.037.239.012.307.105.144.23.176 1.14.294 4.78.63 8.905 1.164 13.412 1.765.931.124.948.125.99.022.032-.081.091-.36.207-.971.476-2.468 1.03-5.366 1.433-7.42.126-.642.132-.712.069-.82a.5.5 0 0 0-.153-.153c-.04-.024-.007-.042-.157-.04M5.65 11.31c-.161.025-1.416.205-2.79.4-1.373.194-2.554.374-2.624.399-.21.076-.294.285-.194.478.062.12.215.19.7.324.065.018.15.043.19.056 4.54 1.274 9.338 2.68 13.583 3.888.238.071.563.197.77.197.157-.042 1.053-.484 3.082-1.505 1.649-.83 3.022-1.53 3.052-1.555.113-.099.173-.31.113-.402-.012-.018-.173-.055-.357-.082-3.949-.579-8.122-1.19-11.684-1.71-2.014-.29-2.635-.384-2.804-.422a3.3 3.3 0 0 0-.647-.09 2.3 2.3 0 0 0-.39.024m-1.33 3.24h-.016c-.054.011-1.122 2.303-1.122 2.407a.36.36 0 0 0 .168.287c.101.055.165.056.312.005.445-.139.918-.293 1.36-.425 1.316-.395 1.337-.403 1.477-.549.115-.12.328-.562.39-.811a1 1 0 0 1 .057-.154c.02-.035.03-.065.024-.065-.768-.198-1.565-.415-2.292-.614a3 3 0 0 0-.358-.081m13.52 1.843c-.07.04-.271.155-.448.254-.481.291-.937.593-1.446.833-.413.259-.594.315-.801.248a9 9 0 0 0-.786-.204.08.08 0 0 0-.067.05c-.23.643-.507 1.395-.74 2.053-.086.232-.236.767-.234.832s.142.196.25.236a.55.55 0 0 0 .231.027c1.257-.51 2.215-1.15 3.284-1.71.327-.171.447-.29.494-.492q.14-.611.269-1.2c.183-.812.194-.888.148-.961a.04.04 0 0 0-.035-.02c-.054.012-.08.036-.118.054z"/></svg></span> 1. Tools: <a href="https://github.com/martinus/nanobench">Nanobench</a> by Martin Leitner-Ankler a header only for Modern C++</summary>
+<p>The idea is simple: declare the types we care about, push them all through the same meat grinder, then measure the difference. It is not laboratory-perfect benchmarking, but it is close to the question production systems actually ask: given the same messy workload, which implementation behaves better?</p>
+<div class="language-cpp highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">nanobench.cpp</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-0-10">10</a></span>
+<span class="normal"><a href="#__codelineno-0-11">11</a></span>
+<span class="normal"><a href="#__codelineno-0-12">12</a></span>
+<span class="normal"><a href="#__codelineno-0-13">13</a></span>
+<span class="normal"><a href="#__codelineno-0-14">14</a></span>
+<span class="normal"><a href="#__codelineno-0-15">15</a></span>
+<span class="normal"><a href="#__codelineno-0-16">16</a></span>
+<span class="normal"><a href="#__codelineno-0-17">17</a></span>
+<span class="normal"><a href="#__codelineno-0-18">18</a></span>
+<span class="normal"><a href="#__codelineno-0-19">19</a></span>
+<span class="normal"><a href="#__codelineno-0-20">20</a></span>
+<span class="normal"><a href="#__codelineno-0-21">21</a></span>
+<span class="normal"><a href="#__codelineno-0-22">22</a></span>
+<span class="normal"><a href="#__codelineno-0-23">23</a></span>
+<span class="normal"><a href="#__codelineno-0-24">24</a></span>
+<span class="normal"><a href="#__codelineno-0-25">25</a></span>
+<span class="normal"><a href="#__codelineno-0-26">26</a></span>
+<span class="normal"><a href="#__codelineno-0-27">27</a></span>
+<span class="normal"><a href="#__codelineno-0-28">28</a></span>
+<span class="normal"><a href="#__codelineno-0-29">29</a></span>
+<span class="normal"><a href="#__codelineno-0-30">30</a></span>
+<span class="normal"><a href="#__codelineno-0-31">31</a></span>
+<span class="normal"><a href="#__codelineno-0-32">32</a></span>
+<span class="normal"><a href="#__codelineno-0-33">33</a></span>
+<span class="normal"><a href="#__codelineno-0-34">34</a></span>
+<span class="normal"><a href="#__codelineno-0-35">35</a></span>
+<span class="normal"><a href="#__codelineno-0-36">36</a></span>
+<span class="normal"><a href="#__codelineno-0-37">37</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="cp">#define ANKERL_NANOBENCH_IMPLEMENT</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;nanobench.hpp&gt;</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="k">namespace</span><span class="w"> </span><span class="nn">bench</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">import_32_t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">tuple</span><span class="o">&lt;</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="w">        </span><span class="n">traits_t</span><span class="o">&lt;</span><span class="n">boost</span><span class="o">::</span><span class="n">decimal</span><span class="o">::</span><span class="n">decimal32_t</span><span class="o">&gt;</span><span class="p">,</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="w">        </span><span class="n">bench</span><span class="o">::</span><span class="n">ieee754</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="n">bench</span><span class="o">::</span><span class="n">kind_t</span><span class="o">::</span><span class="n">naive</span><span class="o">&gt;</span><span class="p">,</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="w">        </span><span class="n">bench</span><span class="o">::</span><span class="n">ieee754</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="n">bench</span><span class="o">::</span><span class="n">kind_t</span><span class="o">::</span><span class="n">optimised</span><span class="o">&gt;</span><span class="p">,</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="w">        </span><span class="n">traits_t</span><span class="o">&lt;</span><span class="n">math</span><span class="o">::</span><span class="n">decimal_t</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kt">uint32_t</span><span class="o">&gt;&gt;</span><span class="p">,</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="w">        </span><span class="n">traits_t</span><span class="o">&lt;</span><span class="n">math</span><span class="o">::</span><span class="n">scaled</span><span class="o">::</span><span class="n">decimal_t</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kt">uint32_t</span><span class="o">&gt;&gt;</span><span class="p">,</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="w">        </span><span class="n">traits_t</span><span class="o">&lt;</span><span class="n">math</span><span class="o">::</span><span class="n">bcd</span><span class="o">::</span><span class="n">decimal_t</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kt">uint32_t</span><span class="o">&gt;&gt;</span><span class="p">,</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="w">        </span><span class="n">bench</span><span class="o">::</span><span class="n">fixed</span><span class="o">&lt;</span><span class="n">math</span><span class="o">::</span><span class="n">fixed</span><span class="o">::</span><span class="n">decimal_t</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kt">uint32_t</span><span class="p">,</span><span class="w"> </span><span class="mi">-4</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">bench</span><span class="o">::</span><span class="n">kind_t</span><span class="o">::</span><span class="n">naive</span><span class="o">&gt;</span><span class="p">,</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="w">        </span><span class="n">bench</span><span class="o">::</span><span class="n">fixed</span><span class="o">&lt;</span><span class="n">math</span><span class="o">::</span><span class="n">fixed</span><span class="o">::</span><span class="n">decimal_t</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kt">uint32_t</span><span class="p">,</span><span class="w"> </span><span class="mi">-4</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">bench</span><span class="o">::</span><span class="n">kind_t</span><span class="o">::</span><span class="n">optimised</span><span class="o">&gt;</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="w">    </span><span class="o">&gt;</span><span class="p">;</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="p">[...]</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">type_list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">import_32_t</span><span class="p">,</span><span class="w"> </span><span class="n">import_64_t</span><span class="o">&gt;</span><span class="p">;</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="p">[...]</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="w">    </span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">trait_t</span><span class="o">&gt;</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">run_import_case</span><span class="p">(</span><span class="n">ankerl</span><span class="o">::</span><span class="n">nanobench</span><span class="o">::</span><span class="n">Bench</span><span class="o">&amp;</span><span class="w"> </span><span class="n">bench</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="w">        </span><span class="k">using</span><span class="w"> </span><span class="n">significand_t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">trait_t</span><span class="o">::</span><span class="n">significand_t</span><span class="p">;</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">input</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">make_input</span><span class="o">&lt;</span><span class="n">significand_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="w">        </span><span class="n">bench</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">trait_t</span><span class="o">::</span><span class="n">name</span><span class="p">().</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="p">]</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="w">                </span><span class="k">auto</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">trait_t</span><span class="o">::</span><span class="n">make</span><span class="p">(</span><span class="n">input</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">significand</span><span class="p">,</span><span class="w"> </span><span class="n">input</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">exponent</span><span class="p">);</span>
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="w">                </span><span class="n">ankerl</span><span class="o">::</span><span class="n">nanobench</span><span class="o">::</span><span class="n">doNotOptimizeAway</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="w">            </span><span class="p">}</span>
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="w">        </span><span class="p">});</span>
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29"></a>
+</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="w">    </span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">group</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">run_import_group</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string_view</span><span class="w"> </span><span class="n">title</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="w">        </span><span class="n">ankerl</span><span class="o">::</span><span class="n">nanobench</span><span class="o">::</span><span class="n">Bench</span><span class="w"> </span><span class="n">bench</span><span class="p">;</span>
+</span><span id="__span-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="w">        </span><span class="n">bench</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">.</span><span class="n">data</span><span class="p">()).</span><span class="n">relative</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>
+</span><span id="__span-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="w">             </span><span class="p">.</span><span class="n">minEpochIterations</span><span class="p">(</span><span class="mi">50&#39;000</span><span class="p">).</span><span class="n">epochs</span><span class="p">(</span><span class="mi">30</span><span class="p">);</span>
+</span><span id="__span-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="w">        </span><span class="n">static_for</span><span class="o">&lt;</span><span class="n">group</span><span class="o">&gt;</span><span class="p">([</span><span class="o">&amp;</span><span class="p">]</span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">element_t</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-35"><a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="w">            </span><span class="n">run_import_case</span><span class="o">&lt;</span><span class="n">element_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">bench</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">);</span>
+</span><span id="__span-0-36"><a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="w">        </span><span class="p">});</span>
+</span><span id="__span-0-37"><a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="w">    </span><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+<p>Nanobench lived up to its promise: no Google-style complexity, just a small, fast library with cache warmup, useful diagnostics, and even a reminder to pin the process to a CPU to reduce jitter. If only it used <code>snake_case</code> and came with a built-in <code>static_for</code> construct. Nevertheless, I liked the library and happily recommend it!</p>
+<ul>
+<li><strong>How to invoke</strong>
+    <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release<span class="w"> </span>-Dlibdecimal_BUILD_BENCHMARKS<span class="o">=</span>ON
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>bash<span class="w"> </span>bench/run-all.sh<span class="w">           </span><span class="c1"># uses ./build by default</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>bash<span class="w"> </span>bench/run-all.sh<span class="w"> </span>&lt;build-dir&gt;<span class="w">   </span><span class="c1"># or point at a custom build dir</span>
+</span></code></pre></div></li>
+<li><strong>How to Pin the CPU for stable numbers</strong>
+    <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>sudo<span class="w"> </span>cpupower<span class="w"> </span>frequency-set<span class="w"> </span>-g<span class="w"> </span>performance<span class="w">     </span><span class="c1"># disable scaling (needs root)</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>bash<span class="w"> </span>bench/run-all.sh
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>sudo<span class="w"> </span>cpupower<span class="w"> </span>frequency-set<span class="w"> </span>-g<span class="w"> </span>powersave<span class="w">       </span><span class="c1"># restore afterwards</span>
+</span></code></pre></div></li>
+<li><strong>How to Change the measurement baseline</strong>
+    nanobench treats the <strong>first <code>bench.run()</code> call</strong> in each <code>Bench</code> instance as the  100 % reference. To rebaseline on a different type, move its <code>bench.run()</code> block
+    to the top of the group in the corresponding <code>bench/*.cpp</code>, then rerun.  For <code>construct-from-pair.cpp</code>, which iterates a <code>static_for&lt;tuple_t&gt;</code>, the first
+    type in the tuple is the baseline:
+    <div class="language-cpp highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">using</span><span class="w"> </span><span class="n">import_64_t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">tuple</span><span class="o">&lt;</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="n">traits_t</span><span class="o">&lt;</span><span class="n">boost</span><span class="o">::</span><span class="n">decimal</span><span class="o">::</span><span class="n">decimal64_t</span><span class="o">&gt;</span><span class="p">,</span><span class="w">   </span><span class="c1">// &lt;-- baseline (first = 100%)</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="n">bench</span><span class="o">::</span><span class="n">ieee754</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span><span class="w"> </span><span class="n">bench</span><span class="o">::</span><span class="n">kind_t</span><span class="o">::</span><span class="n">naive</span><span class="o">&gt;</span><span class="p">,</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="p">...</span><span class="w"> </span><span class="o">&gt;</span><span class="p">;</span>
+</span></code></pre></div></li>
+</ul>
+</details>
+<details class="example">
+<summary><span class="twemoji example"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m22 17-3 3v-2h-6v-2h6v-2zM9 5a3 3 0 0 1 3 3v3a3 3 0 0 1-3 3 3 3 0 0 1-3-3V8a3 3 0 0 1 3-3m0 2a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1 1 1 0 0 0 1-1V8a1 1 0 0 0-1-1m7-2a3 3 0 0 1 3 3v3a3 3 0 0 1-3 3 3 3 0 0 1-3-3V8a3 3 0 0 1 3-3m0 2a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1 1 1 0 0 0 1-1V8a1 1 0 0 0-1-1M4 12a1 1 0 0 1 1 1 1 1 0 0 1-1 1 1 1 0 0 1-1-1 1 1 0 0 1 1-1"/></svg></span> 2. Decimal Number Representations: What we actually compare here</summary>
+<ul>
+<li>
+<p><strong><a href="https://github.com/boostorg/decimal">Boost.Decimal</a></strong><br />
+This is our baseline: a modern C++ implementation of IEEE 754 / ISO/IEC TR 24733 decimal floating-point types. The library is header-only, dependency-free, and requires C++14. Internally, BID-style decimal floating point is compact, but arithmetic and comparison are more involved than plain integer operations. The value of the library is that it hides this complexity behind a clean and standard-looking C++ interface.</p>
+</li>
+<li>
+<p><strong><a href="https://en.wikipedia.org/wiki/Binary_integer_decimal">BID</a> — libdecimal / Intel BID</strong><br />
+This is also an IEEE 754 decimal floating-point implementation, based on the reworked Intel decimal library and wrapped with a modern C++ interface. Compared with the original Intel distribution, <a href="https://github.com/vargaconsulting/libdecimal">libdecimal</a> adds cross-platform build work, 128-bit support, custom parsing, import/export helpers, and high-performance conversion routines. The storage model is the same broad family as above: decimal floating point using a BID-style representation.</p>
+</li>
+<li>
+<p><strong><a href="https://en.wikipedia.org/wiki/Binary-coded_decimal">BCD</a> — binary-coded decimal</strong><br />
+BCD is the classic representation used in many legacy business systems. The idea is simple: each base-10 digit is stored in four bits, so two decimal digits can be packed into one byte. This is easy to inspect and faithful to decimal notation, but it carries a significant cost on modern binary hardware. The CPU is very good at binary integer arithmetic; BCD makes it put on gloves first.</p>
+</li>
+<li>
+<p><strong>Scaled decimal — coefficient/exponent pair</strong><br />
+The scaled representation stores a decimal as two separate fields: a significand and an exponent. In mathematical form: <span class="arithmatex">\(x = m \cdot 10^e\)</span> This format appears often in internal trading systems and wire protocols, especially when different programming languages need to exchange decimal values without committing to one fixed scale. It is flexible, easy to serialize, and cheap to inspect, but addition and comparison require exponent alignment.</p>
+</li>
+<li>
+<p><strong>Fixed-scale decimal — scaled integer with compile-time exponent</strong><br />
+The fixed representation stores the value as a single integer significand, while the decimal exponent is tracked as a compile-time constant. In mathematical form:<span class="arithmatex">\(x = m \cdot 10^e\)</span> but here <span class="arithmatex">\(e\)</span> belongs to the type, not to the object. This is usually the fastest and simplest decimal representation when the scale is known in advance. It is well suited for fixed-scale financial values, columnar storage, market data, deterministic arithmetic, compact binary layouts, and schema-driven decimal fields. The downside is reduced generality. Fixed-scale decimal is excellent for addition, subtraction, comparison, and storage, but multiplication and division need explicit rescaling and rounding policy. BID-style decimal floating point is more robust for mixed-scale arithmetic and general-purpose decimal work.</p>
+</li>
+</ul>
+</details>
+<details class="example">
+<summary><span class="twemoji example"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m16 11.78 4.24-7.33 1.73 1-5.23 9.05-6.51-3.75L5.46 19H22v2H2V3h2v14.54L9.5 8z"/></svg></span> 3. Results: What certain operations cost you relative to Boost.Decimal</summary>
+<h3 id="construct-from-significand-exponent"><a class="toclink" href="libdecimal/#construct-from-significand-exponent">Construct from (significand, exponent)</a></h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">32-bit</label><label for="__tabbed_1_2">64-bit</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">relative</th>
+<th style="text-align: right;">ns/op</th>
+<th style="text-align: left;">type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;"><strong>100.0 %</strong></td>
+<td style="text-align: right;">3 934</td>
+<td style="text-align: left;"><code>boost decimal32</code> — baseline</td>
+</tr>
+<tr>
+<td style="text-align: right;">76.5 %</td>
+<td style="text-align: right;">5 142</td>
+<td style="text-align: left;"><code>float</code> naive</td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>509 %</strong></td>
+<td style="text-align: right;">772</td>
+<td style="text-align: left;"><code>float</code> optimised</td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>454 %</strong></td>
+<td style="text-align: right;">866</td>
+<td style="text-align: left;"><code>intel bid32</code></td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>326 %</strong></td>
+<td style="text-align: right;">1 208</td>
+<td style="text-align: left;"><code>scaled uint32</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">75.2 %</td>
+<td style="text-align: right;">5 228</td>
+<td style="text-align: left;"><code>bcd uint32</code></td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>480 %</strong></td>
+<td style="text-align: right;">820</td>
+<td style="text-align: left;"><code>fixed32</code> checked</td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>484 %</strong></td>
+<td style="text-align: right;">814</td>
+<td style="text-align: left;"><code>fixed32</code> unchecked</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">relative</th>
+<th style="text-align: right;">ns/op</th>
+<th style="text-align: left;">type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;"><strong>100.0 %</strong></td>
+<td style="text-align: right;">981</td>
+<td style="text-align: left;"><code>boost decimal64</code> — baseline</td>
+</tr>
+<tr>
+<td style="text-align: right;">8.9 %</td>
+<td style="text-align: right;">11 047</td>
+<td style="text-align: left;"><code>double</code> naive</td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>130 %</strong></td>
+<td style="text-align: right;">757</td>
+<td style="text-align: left;"><code>double</code> optimised</td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>106 %</strong></td>
+<td style="text-align: right;">926</td>
+<td style="text-align: left;"><code>intel bid64</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">89.4 %</td>
+<td style="text-align: right;">1 096</td>
+<td style="text-align: left;"><code>scaled uint64</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">13.7 %</td>
+<td style="text-align: right;">7 132</td>
+<td style="text-align: left;"><code>bcd uint64</code></td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>137 %</strong></td>
+<td style="text-align: right;">718</td>
+<td style="text-align: left;"><code>fixed64</code> checked</td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>158 %</strong></td>
+<td style="text-align: right;">621</td>
+<td style="text-align: left;"><code>fixed64</code> unchecked</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Fixed-exponent types dominate at both widths. BCD construction is 7–12× slower than boost.</p>
+<h3 id="decompose-to-significand-exponent"><a class="toclink" href="libdecimal/#decompose-to-significand-exponent">Decompose to (significand, exponent)</a></h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">32-bit</label><label for="__tabbed_2_2">64-bit</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">relative</th>
+<th style="text-align: right;">ns/op</th>
+<th style="text-align: left;">type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;"><strong>100.0 %</strong></td>
+<td style="text-align: right;">61 368</td>
+<td style="text-align: left;"><code>boost decimal32 frexp10</code> — baseline</td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>671 %</strong></td>
+<td style="text-align: right;">9 152</td>
+<td style="text-align: left;"><code>float utils::decompose</code></td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>855 %</strong></td>
+<td style="text-align: right;">7 181</td>
+<td style="text-align: left;"><code>intel bid32 bid::decompose</code></td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>1781 %</strong></td>
+<td style="text-align: right;">3 446</td>
+<td style="text-align: left;"><code>scaled uint32 as_pair</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">relative</th>
+<th style="text-align: right;">ns/op</th>
+<th style="text-align: left;">type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;"><strong>100.0 %</strong></td>
+<td style="text-align: right;">24 250</td>
+<td style="text-align: left;"><code>boost decimal64 frexp10</code> — baseline</td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>265 %</strong></td>
+<td style="text-align: right;">9 147</td>
+<td style="text-align: left;"><code>double utils::decompose</code></td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>361 %</strong></td>
+<td style="text-align: right;">6 727</td>
+<td style="text-align: left;"><code>intel bid64 bid::decompose</code></td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>610 %</strong></td>
+<td style="text-align: right;">3 974</td>
+<td style="text-align: left;"><code>scaled int64 as_pair</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p><code>boost::decimal::frexp10</code> is the most expensive decompose path. <code>scaled::as_pair()</code> is a direct field read — <strong>18× faster</strong> at 32-bit, <strong>6× faster</strong> at 64-bit. Use libdecimal types for any path that must inspect the representation (serialization, wire encoding, logging).</p>
+<h3 id="compare"><a class="toclink" href="libdecimal/#compare">Compare</a></h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Micro (10 000 adjacent pairs)</label><label for="__tabbed_3_2">Sort (1 000 values)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">relative</th>
+<th style="text-align: right;">ns/op</th>
+<th style="text-align: left;">type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;"><strong>100.0 %</strong></td>
+<td style="text-align: right;">60 017</td>
+<td style="text-align: left;"><code>boost decimal64</code> — baseline</td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>385 %</strong></td>
+<td style="text-align: right;">15 611</td>
+<td style="text-align: left;"><code>double</code></td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>119 %</strong></td>
+<td style="text-align: right;">50 563</td>
+<td style="text-align: left;"><code>intel bid64</code></td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>276 %</strong></td>
+<td style="text-align: right;">21 771</td>
+<td style="text-align: left;"><code>fixed64 -4</code></td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>294 %</strong></td>
+<td style="text-align: right;">20 431</td>
+<td style="text-align: left;"><code>scaled int64</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">relative</th>
+<th style="text-align: right;">ns/op</th>
+<th style="text-align: left;">type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;"><strong>100.0 %</strong></td>
+<td style="text-align: right;">56 215</td>
+<td style="text-align: left;"><code>boost decimal64</code> — baseline</td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>1240 %</strong></td>
+<td style="text-align: right;">4 535</td>
+<td style="text-align: left;"><code>double</code></td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>111 %</strong></td>
+<td style="text-align: right;">50 457</td>
+<td style="text-align: left;"><code>intel bid64</code></td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>454 %</strong></td>
+<td style="text-align: right;">12 370</td>
+<td style="text-align: left;"><code>fixed64 -4</code></td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>237 %</strong></td>
+<td style="text-align: right;">23 721</td>
+<td style="text-align: left;"><code>scaled int64</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Boost comparison is the slowest decimal option. <code>fixed64 -4</code> sorts 4.5× faster; boost comparison is nearly identical to intel BID64.</p>
+<h3 id="arithmetic"><a class="toclink" href="libdecimal/#arithmetic">Arithmetic</a></h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Accumulate (10 000 values)</label><label for="__tabbed_4_2">Dot product (256 pairs)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">relative</th>
+<th style="text-align: right;">ns/op</th>
+<th style="text-align: left;">type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;"><strong>100.0 %</strong></td>
+<td style="text-align: right;">190 245</td>
+<td style="text-align: left;"><code>boost decimal64</code> — baseline</td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>2378 %</strong></td>
+<td style="text-align: right;">8 002</td>
+<td style="text-align: left;"><code>double</code></td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>373 %</strong></td>
+<td style="text-align: right;">51 030</td>
+<td style="text-align: left;"><code>intel bid64</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">14.9 %</td>
+<td style="text-align: right;">1 278 906</td>
+<td style="text-align: left;"><code>bcd64</code></td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>1886 %</strong></td>
+<td style="text-align: right;">10 090</td>
+<td style="text-align: left;"><code>fixed64 -4</code></td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>632 %</strong></td>
+<td style="text-align: right;">30 082</td>
+<td style="text-align: left;"><code>scaled int64</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">relative</th>
+<th style="text-align: right;">ns/op</th>
+<th style="text-align: left;">type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;"><strong>100.0 %</strong></td>
+<td style="text-align: right;">5 457</td>
+<td style="text-align: left;"><code>boost decimal64</code> — baseline</td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>3439 %</strong></td>
+<td style="text-align: right;">159</td>
+<td style="text-align: left;"><code>double</code></td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>264 %</strong></td>
+<td style="text-align: right;">2 070</td>
+<td style="text-align: left;"><code>intel bid64</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">4.6 %</td>
+<td style="text-align: right;">118 188</td>
+<td style="text-align: left;"><code>bcd64</code></td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>654 %</strong></td>
+<td style="text-align: right;">834</td>
+<td style="text-align: left;"><code>fixed64 -4</code></td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>530 %</strong></td>
+<td style="text-align: right;">1 030</td>
+<td style="text-align: left;"><code>scaled int64</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Boost arithmetic is the slowest decimal path. <code>fixed64</code> is 19× faster for accumulation. BCD should not be used for arithmetic — it is 7–20× <strong>slower</strong> than boost.</p>
+<h3 id="string-parse-and-format"><a class="toclink" href="libdecimal/#string-parse-and-format">String parse and format</a></h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Parse (1 000 values)</label><label for="__tabbed_5_2">Format (1 000 values)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">relative</th>
+<th style="text-align: right;">ns/op</th>
+<th style="text-align: left;">type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;"><strong>100.0 %</strong></td>
+<td style="text-align: right;">44 106</td>
+<td style="text-align: left;"><code>boost decimal64</code> — baseline</td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>315 %</strong></td>
+<td style="text-align: right;">14 008</td>
+<td style="text-align: left;"><code>intel bid64</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">21.5 %</td>
+<td style="text-align: right;">205 445</td>
+<td style="text-align: left;"><code>bcd64</code> (digit-string + exp)</td>
+</tr>
+<tr>
+<td style="text-align: right;">94.7 %</td>
+<td style="text-align: right;">46 559</td>
+<td style="text-align: left;"><code>stod</code> (double reference)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">relative</th>
+<th style="text-align: right;">ns/op</th>
+<th style="text-align: left;">type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;"><strong>100.0 %</strong></td>
+<td style="text-align: right;">131 586</td>
+<td style="text-align: left;"><code>boost decimal64</code> — baseline</td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>293 %</strong></td>
+<td style="text-align: right;">44 877</td>
+<td style="text-align: left;"><code>intel bid64</code> (<code>std::format</code>)</td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>238 %</strong></td>
+<td style="text-align: right;">55 215</td>
+<td style="text-align: left;"><code>bcd64</code> (<code>.str()</code>)</td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>827 %</strong></td>
+<td style="text-align: right;">15 919</td>
+<td style="text-align: left;"><code>scaled int64</code> (cast to string)</td>
+</tr>
+<tr>
+<td style="text-align: right;">66.3 %</td>
+<td style="text-align: right;">198 355</td>
+<td style="text-align: left;"><code>double</code> (<code>to_string</code>)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Intel BID64 parses 3× faster than boost. For formatting, <code>scaled</code>'s cast-to-string is 8× faster than boost's <code>ostringstream &lt;&lt;</code>.</p>
+<h3 id="fee-calculation-notional-rate"><a class="toclink" href="libdecimal/#fee-calculation-notional-rate">Fee calculation — <code>notional × rate</code></a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">relative</th>
+<th style="text-align: right;">ns/op</th>
+<th style="text-align: left;">type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;"><strong>100.0 %</strong></td>
+<td style="text-align: right;">4 607</td>
+<td style="text-align: left;"><code>boost decimal64</code> — baseline</td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>569 %</strong></td>
+<td style="text-align: right;">810</td>
+<td style="text-align: left;"><code>double</code></td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>124 %</strong></td>
+<td style="text-align: right;">3 730</td>
+<td style="text-align: left;"><code>intel bid64</code></td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>176 %</strong></td>
+<td style="text-align: right;">2 617</td>
+<td style="text-align: left;"><code>fixed64 -4</code></td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>273 %</strong></td>
+<td style="text-align: right;">1 688</td>
+<td style="text-align: left;"><code>scaled int64</code></td>
+</tr>
+</tbody>
+</table>
+<p>Multiply is boost's least-bad category; intel is only 1.24× faster. Scaled is 2.7× faster.</p>
+<h3 id="risk-limit-accumulate-clamp-10-000-values"><a class="toclink" href="libdecimal/#risk-limit-accumulate-clamp-10-000-values">Risk limit — accumulate + clamp (10 000 values)</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">relative</th>
+<th style="text-align: right;">ns/op</th>
+<th style="text-align: left;">type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;"><strong>100.0 %</strong></td>
+<td style="text-align: right;">219 475</td>
+<td style="text-align: left;"><code>boost decimal64</code> — baseline</td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>1370 %</strong></td>
+<td style="text-align: right;">16 017</td>
+<td style="text-align: left;"><code>double</code></td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>279 %</strong></td>
+<td style="text-align: right;">78 644</td>
+<td style="text-align: left;"><code>intel bid64</code></td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>612 %</strong></td>
+<td style="text-align: right;">35 873</td>
+<td style="text-align: left;"><code>fixed64 -4</code></td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>227 %</strong></td>
+<td style="text-align: right;">96 909</td>
+<td style="text-align: left;"><code>scaled int64</code></td>
+</tr>
+</tbody>
+</table>
+<p>Under realistic mixed-op pressure (add + branch + assign per step), boost is still the slowest decimal type.</p>
+<h3 id="environment"><a class="toclink" href="libdecimal/#environment">"Environment"</a></h3>
+<ul>
+<li><strong>CPU:</strong> 11th Gen Intel Core i7-11700K @ 3.60 GHz · <strong>OS:</strong> Linux 5.15 x86_64  </li>
+<li><strong>Build:</strong> <code>-O3 -march=native</code>, C++23  </li>
+<li><strong>Baseline:</strong> <code>boost::decimal</code> = 100 %; numbers <strong>above 100 %</strong> are <strong>faster</strong> than boost.  </li>
+<li>CPU frequency scaling was active (powersave governor + turbo); figures are indicative, not lab-grade.</li>
+</ul>
+</details>
+<p>Speedup relative to <code>boost::decimal</code> (&gt;1× = faster). Intel Core i7-11700K, <code>-O3 -march=native</code>, C++23.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">type</th>
+<th style="text-align: center;">construct</th>
+<th style="text-align: center;">decompose</th>
+<th style="text-align: center;">compare</th>
+<th style="text-align: center;">accumulate</th>
+<th style="text-align: center;">multiply</th>
+<th style="text-align: center;">parse</th>
+<th style="text-align: center;">format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>double</code></td>
+<td style="text-align: center;">1.3×</td>
+<td style="text-align: center;">2.7×</td>
+<td style="text-align: center;">3.9×</td>
+<td style="text-align: center;">23.8×</td>
+<td style="text-align: center;">5.7×</td>
+<td style="text-align: center;">0.95×</td>
+<td style="text-align: center;">0.66×</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>intel bid64</code></td>
+<td style="text-align: center;">1.1×</td>
+<td style="text-align: center;">3.6×</td>
+<td style="text-align: center;">1.2×</td>
+<td style="text-align: center;">3.7×</td>
+<td style="text-align: center;">1.2×</td>
+<td style="text-align: center;"><strong>3.2×</strong></td>
+<td style="text-align: center;">2.9×</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>fixed64 -4</code></td>
+<td style="text-align: center;"><strong>1.6×</strong></td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;"><strong>2.8×</strong></td>
+<td style="text-align: center;"><strong>18.9×</strong></td>
+<td style="text-align: center;">1.8×</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>scaled int64</code></td>
+<td style="text-align: center;">0.9×</td>
+<td style="text-align: center;"><strong>6.1×</strong></td>
+<td style="text-align: center;">2.9×</td>
+<td style="text-align: center;">6.3×</td>
+<td style="text-align: center;"><strong>2.7×</strong></td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;"><strong>8.3×</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>bcd64</code></td>
+<td style="text-align: center;">0.1×</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">0.15×</td>
+<td style="text-align: center;">0.05×</td>
+<td style="text-align: center;">0.2×</td>
+<td style="text-align: center;">2.4×</td>
+</tr>
+</tbody>
+</table>
+<p>From the numbers, Boost.Decimal is on the money, but there is still room for improvement. To be fair, <a href="https://github.com/vargaconsulting/libdecimal">libdecimal</a> by VargaLABS is not a copy-paste distribution of the original Intel library with a thin C++ layer glued on top. Besides the boring gymnastics required to make the Intel code work cleanly across platforms, <a href="https://github.com/vargaconsulting/libdecimal">libdecimal</a> adds a custom parser, import/export support, and display functions, together with the slim and pleasant C++ syntax you may recognize from <a href="https://github.com/vargalabs/h5cpp">H5CPP</a>.</p>
+<p>Returning to Boost.Decimal: it is a good, modern, header-only implementation. If you already use Boost, it will not add significant friction to the pipeline, and it can definitely lower development cost.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">use case</th>
+<th style="text-align: left;">recommended type</th>
+<th style="text-align: left;">reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Arithmetic — PnL, accumulation</td>
+<td style="text-align: left;"><code>fixed64&lt;-4&gt;</code></td>
+<td style="text-align: left;">7–19× faster; compile-time exponent eliminates runtime normalization</td>
+</tr>
+<tr>
+<td style="text-align: left;">Multiply hot path — fees, notional</td>
+<td style="text-align: left;"><code>scaled&lt;int64_t&gt;</code></td>
+<td style="text-align: left;">2.7× faster; avoids forced fixed-scale rescaling on multiply</td>
+</tr>
+<tr>
+<td style="text-align: left;">Compare / sort / rank</td>
+<td style="text-align: left;"><code>fixed64&lt;-4&gt;</code></td>
+<td style="text-align: left;">2.8–4.5× faster</td>
+</tr>
+<tr>
+<td style="text-align: left;">Wire encode</td>
+<td style="text-align: left;"><code>scaled&lt;int64_t&gt;</code></td>
+<td style="text-align: left;">field read, near-free</td>
+</tr>
+<tr>
+<td style="text-align: left;">Wire decode</td>
+<td style="text-align: left;"><code>fixed64&lt;-4&gt;</code></td>
+<td style="text-align: left;">3× faster; avoids per-value exponent normalization</td>
+</tr>
+<tr>
+<td style="text-align: left;">String parse</td>
+<td style="text-align: left;"><code>intel bid64</code></td>
+<td style="text-align: left;">3.2× faster than Boost.Decimal</td>
+</tr>
+<tr>
+<td style="text-align: left;">String format</td>
+<td style="text-align: left;"><code>scaled&lt;int64_t&gt;</code></td>
+<td style="text-align: left;">8.3× faster when coefficient/exponent formatting is sufficient</td>
+</tr>
+<tr>
+<td style="text-align: left;">Inspect internals / serialize</td>
+<td style="text-align: left;"><code>scaled&lt;int64_t&gt;</code></td>
+<td style="text-align: left;">6–18× faster via direct <code>as_pair()</code> access</td>
+</tr>
+<tr>
+<td style="text-align: left;">General purpose / mixed scale</td>
+<td style="text-align: left;"><code>intel bid64</code></td>
+<td style="text-align: left;">competitive across most operations, without a fixed-exponent constraint</td>
+</tr>
+<tr>
+<td style="text-align: left;">Avoid for arithmetic hot paths</td>
+<td style="text-align: left;"><code>bcd64</code></td>
+<td style="text-align: left;">7–20× slower than Boost.Decimal across arithmetic operations</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The takeaway:</strong> decimal floating point is powerful, but it is not something to spread over the whole system like Marmite on toast. Use it where mixed scale, interchange, or standards compatibility matter. For hot arithmetic paths, especially in trading-style workloads, fixed-scale and scaled-integer representations may perform better.</p>
+    
+    
+  </div>
+</article>
       
         <article class="md-post md-post--excerpt">
   <header class="md-post__header">
@@ -4331,99 +5236,6 @@ With <strong>H5CPP</strong>, appending becomes elegant and idiomatic:</p>
   </div>
 </article>
       
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2023-03-20 00:00:00+00:00">March 20, 2023</time></li>
-        
-          <li class="md-meta__item">
-            in
-            
-              <a href="hdf5/" class="md-meta__link">hdf5</a>, 
-              <a href="c/" class="md-meta__link">c++</a></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              7 min read
-            
-          </li>
-        
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="writing-direct-hdf5-chunks-piece-by-piece-with-h5cpp"><a class="toclink" href="h5cpp-direct-chunk-append/">Writing Direct HDF5 Chunks Piece-by-Piece with H5CPP</a></h2>
-<h3 id="the-use-case-op-context"><a class="toclink" href="h5cpp-direct-chunk-append/#the-use-case-op-context">The Use Case (OP Context)</a></h3>
-<p>You’re working in a system that ingests data from multiple queues or streams, and you want to <strong>aggregate and flush them into HDF5 chunks incrementally</strong>. Essentially you need fine control: pack incoming data, apply filters, and write out only full chunks—or directly stream partial ones—without sacrificing alignment or performance.</p>
-<h3 id="my-h5cpp-based-guidance"><a class="toclink" href="h5cpp-direct-chunk-append/#my-h5cpp-based-guidance">My H5CPP-Based Guidance</a></h3>
-<p>See <code>h5cpp::packet_table</code> on GitHub—it's designed for chunked, appendable writes. It features a chunk-packing mechanism and a filter-chain you can adapt for your needs. I even slipped in an alignment bug (huge respect to Bin Dong at Berkeley for spotting it)—you’ll only run into it if your chunks aren’t properly aligned.  </p>
-<p>You should be able to modify <code>h5::append</code> so that it aggregates data from different queues and flushes when chunks are full. For inspiration, check the repository example that demonstrates how to use lock‑free queues and ZeroMQ with both C++ and Fortran.  </p>
-<h3 id="h5cpp-pattern-at-work"><a class="toclink" href="h5cpp-direct-chunk-append/#h5cpp-pattern-at-work">H5CPP Pattern at Work</a></h3>
-<p>Here’s the essence of how you can architect this:</p>
-<ol>
-<li><strong>Use a packet table</strong> (extendable dataset) to buffer incoming records.</li>
-<li><strong>Customize <code>h5::append()</code></strong>:</li>
-<li>Buffer data from various queues</li>
-<li>Apply filters or transformations as needed</li>
-<li>Write when a full chunk forms or at flush points</li>
-<li><strong>Ensure chunk alignment</strong> consistently to avoid edge-case bugs.</li>
-<li><strong>Support multi-threaded or multi-logic producers</strong> via lock-free queues or messaging systems like ZeroMQ.</li>
-<li><strong>Check the example repo</strong> for C++ and Fortran operators integrating queues + chunk flush logic.</li>
-</ol>
-<h3 id="why-this-matters"><a class="toclink" href="h5cpp-direct-chunk-append/#why-this-matters">Why This Matters</a></h3>
-<table>
-<thead>
-<tr>
-<th>Requirement</th>
-<th>H5CPP Approach</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Incremental append (partial/final chunks)</td>
-<td>Override or wrap <code>h5::append()</code></td>
-</tr>
-<tr>
-<td>Safe aggregation from multiple streams</td>
-<td>Use lock-free queues, ZeroMQ patterns</td>
-</tr>
-<tr>
-<td>High throughput + minimal latency</td>
-<td>Chunk packing with filter chain support</td>
-</tr>
-<tr>
-<td>Alignment-sensitive writes</td>
-<td>Align chunks to avoid subtle bugs</td>
-</tr>
-<tr>
-<td>Cross-language producer support (e.g. Fortran)</td>
-<td>Example-driven integration from H5CPP repo</td>
-</tr>
-</tbody>
-</table>
-<h3 id="tldr"><a class="toclink" href="h5cpp-direct-chunk-append/#tldr">TL;DR</a></h3>
-<p>To write HDF5 chunks piece-by-piece in a high-performance, multi-source pipeline:</p>
-<ul>
-<li>Start with the <strong>H5CPP packet-table</strong> abstraction.</li>
-<li>Adapt <strong><code>h5::append()</code></strong> to batch and flush chunks from multiple inputs.</li>
-<li>Keep chunk boundaries aligned—watch out for that subtle alignment bug!</li>
-<li>Leverage lock-free queues or messaging for producer side decoupling.</li>
-<li>Check the H5CPP repo examples for inspiration, even in multi-language setups.</li>
-</ul>
-<p>Let me know if you'd like to walk through a C++ code snippet or a multi-threaded producer example using this pattern.</p>
-<p>— <strong>Steven Varga</strong></p>
-    
-    
-  </div>
-</article>
-      
       
         
           
@@ -4481,6 +5293,8 @@ With <strong>H5CPP</strong>, appending becomes elegant and idiomatic:</p>
         <script src="https://cdn.tailwindcss.com"></script>
       
         <script src="../javascripts/tw-config.js"></script>
+      
+        <script src="../javascripts/force-details-closed.js"></script>
       
         <script src="../javascripts/asciinema-player.min.js"></script>
       
